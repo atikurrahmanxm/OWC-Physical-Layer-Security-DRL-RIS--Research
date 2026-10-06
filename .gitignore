@@ -68,3 +68,9 @@ venv.bak/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Temporary preview and test files
+page_*.png
+test_*.*
+~$*
+
