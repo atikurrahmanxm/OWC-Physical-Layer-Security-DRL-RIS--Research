@@ -1,0 +1,17 @@
+{
+  "scenarios": [
+    "LoS Normal (No RIS)",
+    "LoS Blocked (No RIS)",
+    "LoS Blocked + RIS (Proposed)"
+  ],
+  "secrecy_rate": [
+    5.33103070017342,
+    0.0,
+    3.4722716537111507
+  ],
+  "ber": [
+    1e-10,
+    0.75,
+    1e-10
+  ]
+}
