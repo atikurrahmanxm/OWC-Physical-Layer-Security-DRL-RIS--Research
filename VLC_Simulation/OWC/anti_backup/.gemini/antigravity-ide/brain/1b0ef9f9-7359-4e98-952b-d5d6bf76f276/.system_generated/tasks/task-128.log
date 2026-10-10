@@ -1,0 +1,34 @@
+test_benchmarks_run (test_algorithms.TestVLCAlgorithms.test_benchmarks_run)
+BenchmarkRunner should run all baselines without error. ... ok
+test_drl_fj_training (test_algorithms.TestVLCAlgorithms.test_drl_fj_training)
+DRL-FJ agent with CNN + DND should run for steps > M without error. ... ok
+test_environment_step (test_algorithms.TestVLCAlgorithms.test_environment_step)
+Environment reset and step should return valid shapes and types. ... ok
+test_rl_fj_training (test_algorithms.TestVLCAlgorithms.test_rl_fj_training)
+RL-FJ agent should run for a few steps without error. ... ok
+test_theoretical_bounds (test_bounds.TestVLCBounds.test_theoretical_bounds)
+Corollary 1 theoretical bounds should return positive cs*, low pe*, valid w*. ... ok
+test_zero_forcing_orthogonality (test_bounds.TestVLCBounds.test_zero_forcing_orthogonality)
+w_zf must be in the null-space of h_JB: h_JB^T w_zf == 0. ... ok
+test_all_channel_gains_shapes (test_channel.TestVLCChannel.test_all_channel_gains_shapes)
+Check shapes of all returned channel vectors. ... ok
+test_electrical_gain_scaling (test_channel.TestVLCChannel.test_electrical_gain_scaling)
+Electrical gain h must equal R * eta * G. ... ok
+test_fov_cutoff (test_channel.TestVLCChannel.test_fov_cutoff)
+When angle of incidence exceeds FoV (60 deg), gain must be strictly zero. ... ok
+test_optical_gain_positive (test_channel.TestVLCChannel.test_optical_gain_positive)
+Channel gain between Alice and Bob should be positive and realistic. ... ok
+test_bob_ber_bounds (test_secrecy.TestVLCSecrecy.test_bob_ber_bounds)
+Bob's 4PAM BER must be bounded in [0, 0.75]. ... ok
+test_energy_consumption (test_secrecy.TestVLCSecrecy.test_energy_consumption)
+Energy must be varrho_s * sum |w_i|. ... ok
+test_secrecy_rate_non_negative (test_secrecy.TestVLCSecrecy.test_secrecy_rate_non_negative)
+Secrecy rate must always be non-negative. ... ok
+test_system_utility (test_secrecy.TestVLCSecrecy.test_system_utility)
+Utility must follow u = cs - delta1 * pe - delta2 * E. ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 1.587s
+
+OK
+Running full test suite discover in tests/ ...

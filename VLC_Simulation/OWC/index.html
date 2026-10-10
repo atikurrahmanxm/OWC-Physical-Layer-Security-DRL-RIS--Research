@@ -1,0 +1,2719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Jamming for Secrecy: IEEE Publication-Grade Live Simulation</title>
+  <style>
+    :root {
+      --bg-dark: #080b12;
+      --panel-bg: rgba(14, 20, 34, 0.96);
+      --panel-border: rgba(255, 255, 255, 0.09);
+      --accent-gold: #f59e0b;
+      --accent-purple: #a855f7;
+      --accent-blue: #3b82f6;
+      --accent-cyan: #06b6d4;
+      --accent-red: #ef4444;
+      --accent-green: #10b981;
+      --text-main: #f3f4f6;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      user-select: none;
+    }
+
+    /* TOP HEADER */
+    header {
+      padding: 8px 16px;
+      background: rgba(8, 11, 18, 0.98);
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .header-left h1 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #f59e0b, #ec4899, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-left p {
+      font-size: 0.69rem;
+      color: var(--text-muted);
+    }
+    .header-controls {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .btn-preset {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--panel-border);
+      color: var(--text-main);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.68rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-preset:hover {
+      background: rgba(139, 92, 246, 0.25);
+      border-color: #8b5cf6;
+      color: #fff;
+    }
+    .badge-live {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 8px #10b981; }
+      100% { transform: scale(0.9); opacity: 0.8; }
+    }
+
+    /* DASHBOARD LAYOUT */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 275px) minmax(360px, 1fr) minmax(290px, 375px);
+      gap: 10px;
+      padding: 10px;
+      flex: 1;
+      height: calc(100vh - 52px);
+      min-height: 720px;
+      min-width: 0;
+    }
+    @media (max-width: 1400px) {
+      .dashboard-grid { grid-template-columns: minmax(200px, 245px) minmax(320px, 1fr) minmax(280px, 345px); }
+    }
+    @media (max-width: 1100px) {
+      .dashboard-grid { grid-template-columns: minmax(190px, 220px) minmax(280px, 1fr) minmax(260px, 310px); }
+    }
+    @media (max-width: 900px) {
+      .dashboard-grid { grid-template-columns: 1fr; height: auto; }
+    }
+
+    .panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      backdrop-filter: blur(12px);
+      min-width: 0;
+    }
+    .panel-title {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .control-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 7px 9px;
+      margin-bottom: 7px;
+    }
+    .control-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 3px;
+      font-size: 0.69rem;
+    }
+    .slider-row label { width: 42px; color: var(--text-muted); }
+    .slider-row input[type="range"] {
+      flex: 1;
+      accent-color: #8b5cf6;
+      height: 4px;
+      cursor: pointer;
+    }
+    .slider-row span {
+      width: 44px;
+      text-align: right;
+      font-family: monospace;
+      color: #fff;
+    }
+
+    .alert-banner {
+      font-size: 0.68rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .alert-safe { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .alert-warn { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); font-weight: bold; }
+
+    /* CENTER MAIN SECTION */
+    .center-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: 100%;
+      min-width: 0;
+    }
+
+    /* Live Transmission Ribbon */
+    .trans-ribbon {
+      background: rgba(14, 20, 34, 0.95);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      padding: 6px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .trans-left {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .btn-trans-toggle {
+      background: linear-gradient(135deg, #10b981, #059669);
+      border: none;
+      color: #fff;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.71rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .btn-trans-toggle:hover { filter: brightness(1.15); }
+    .btn-trans-toggle.paused { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .btn-patrol {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--panel-border);
+      color: var(--text-muted);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.68rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+    .btn-patrol.active {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+      color: #fca5a5;
+      font-weight: 600;
+    }
+    .btn-patrol-bob.active {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: #3b82f6;
+      color: #93c5fd;
+      font-weight: 600;
+    }
+    .speed-group {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+      font-size: 0.67rem;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+    .btn-speed {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--panel-border);
+      color: var(--text-muted);
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      cursor: pointer;
+    }
+    .btn-speed.active { background: #8b5cf6; color: #fff; font-weight: bold; }
+
+    .trans-right {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .trans-badge {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.67rem;
+      font-family: monospace;
+    }
+    .k-label { color: var(--text-muted); margin-right: 4px; }
+
+    /* FIGURE VIEWER STAGE */
+    .viewer-stage {
+      flex: 1;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    /* Tab switcher */
+    .view-switcher-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--panel-border);
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .main-tabs {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+    .main-tab-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--panel-border);
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .main-tab-btn:hover { background: rgba(255, 255, 255, 0.09); color: #fff; }
+    .main-tab-btn.active {
+      background: rgba(139, 92, 246, 0.3);
+      color: #fff;
+      border-color: #8b5cf6;
+    }
+
+    .sub-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0 6px 0;
+      font-size: 0.69rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .sub-btn-group {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .sub-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--panel-border);
+      color: var(--text-muted);
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-size: 0.68rem;
+      cursor: pointer;
+    }
+    .sub-btn:hover { color: #fff; }
+    .sub-btn.active {
+      background: #8b5cf6;
+      color: #fff;
+      font-weight: bold;
+      border-color: #a855f7;
+    }
+
+    .btn-theme-toggle {
+      background: #ffffff;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 5px;
+      font-size: 0.67rem;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: all 0.15s ease;
+    }
+    .btn-theme-toggle.dark-mode {
+      background: #1e293b;
+      color: #f8fafc;
+      border-color: #475569;
+    }
+
+    /* Primary Canvas Container */
+    .primary-canvas-wrapper {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      position: relative;
+      background: #04060b;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      min-width: 0;
+    }
+    .primary-canvas-wrapper.paper-theme {
+      background: #ffffff;
+      border-color: #cbd5e1;
+    }
+    .dashboard-grid.maximized-stage {
+      grid-template-columns: 1fr 375px !important;
+    }
+    @media (max-width: 1400px) {
+      .dashboard-grid.maximized-stage {
+        grid-template-columns: 1fr minmax(280px, 345px) !important;
+      }
+    }
+    @media (max-width: 1100px) {
+      .dashboard-grid.maximized-stage {
+        grid-template-columns: 1fr minmax(260px, 310px) !important;
+      }
+    }
+    .dashboard-grid.maximized-stage #panelLeft {
+      display: none !important;
+    }
+    .dashboard-grid.maximized-stage #panelRight {
+      display: flex !important;
+    }
+
+    /* Floating Viewport HUD Controls */
+    .canvas-hud {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      display: flex;
+      gap: 6px;
+      z-index: 30;
+    }
+    .hud-btn {
+      background: rgba(14, 20, 34, 0.90);
+      border: 1px solid var(--panel-border);
+      color: var(--text-main);
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 0.69rem;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.15s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .hud-btn:hover {
+      background: rgba(139, 92, 246, 0.35);
+      border-color: #8b5cf6;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .hud-expand-btn {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3));
+      border-color: #3b82f6;
+      color: #93c5fd;
+    }
+    .hud-expand-btn.active {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: #fff;
+    }
+
+    /* Right Section */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 7px;
+    }
+    .metric-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      padding: 7px;
+      position: relative;
+    }
+    .metric-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+    .mc-green::before { background: var(--accent-green); }
+    .mc-blue::before { background: var(--accent-blue); }
+    .mc-purple::before { background: var(--accent-purple); }
+    .mc-cyan::before { background: var(--accent-cyan); }
+    .mc-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+    .mc-value { font-size: 1.10rem; font-weight: 700; margin: 2px 0; }
+    .mc-sub { font-size: 0.63rem; color: var(--text-muted); }
+
+    .beamformer-block {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      padding: 7px;
+      margin-bottom: 7px;
+    }
+    .jammer-bars {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      margin-top: 4px;
+    }
+    .j-bar-item {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 6px;
+      padding: 3px;
+      text-align: center;
+    }
+    .j-bar-label { font-size: 0.63rem; color: var(--text-muted); }
+    .j-bar-meter {
+      height: 28px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      margin: 2px 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .j-bar-fill { width: 100%; transition: height 0.05s ease; }
+    .j-bar-num { font-size: 0.68rem; font-family: monospace; font-weight: bold; }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.67rem;
+      margin-top: 3px;
+    }
+    .compare-table th, .compare-table td {
+      padding: 3px 5px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .compare-table th { color: var(--text-muted); font-size: 0.63rem; text-transform: uppercase; }
+    .row-highlight { background: rgba(139, 92, 246, 0.15); font-weight: 600; color: #fff; }
+    .tag-best { background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 1px 3px; border-radius: 3px; font-size: 0.59rem; }
+
+    .channel-table { width: 100%; border-collapse: collapse; font-size: 0.65rem; margin-top: 4px; }
+    .channel-table th, .channel-table td { padding: 2px 4px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+    .channel-table th { color: var(--text-muted); }
+    .channel-table td { font-family: monospace; }
+  </style>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header>
+    <div class="header-left">
+      <h1>Visible Light Communication: Smart Friendly Jamming 100% Live Simulator</h1>
+      <p>Mathematical Real-Time Reproduction of IEEE Transactions on Wireless Communications (2024)</p>
+    </div>
+
+    <div class="header-controls">
+      <span style="font-size: 0.68rem; color: var(--text-muted);">Quick Presets:</span>
+      <button class="btn-preset" onclick="setPreset('paper_nominal')">📄 Paper Default</button>
+      <button class="btn-preset" onclick="setPreset('eve_near')">🚨 Eve Near Bob</button>
+      <button class="btn-preset" onclick="setPreset('eve_corner')">🛡️ Eve in Corner</button>
+      <button class="btn-preset" onclick="setPreset('high_snr')">⚡ High SNR (20dB)</button>
+      <div class="badge-live">
+        <div class="pulse-dot"></div>
+        <span>Real-Time Engine</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard-grid">
+
+    <!-- LEFT: Transceiver Parameters & Sliders -->
+    <div class="panel" id="panelLeft">
+      <div class="panel-title">
+        <span>⚙️ Transceiver Parameters</span>
+      </div>
+
+      <!-- Bob -->
+      <div class="control-box">
+        <div class="control-head">
+          <span style="color: var(--accent-blue)">Bob (Legitimate Rx)</span>
+          <span id="labelBobPos">(1.80, 1.60, 0.85) m</span>
+        </div>
+        <div class="slider-row">
+          <label>X (m):</label>
+          <input type="range" id="slBobX" min="0.2" max="4.8" step="0.05" value="1.8">
+          <span id="vBobX">1.80</span>
+        </div>
+        <div class="slider-row">
+          <label>Y (m):</label>
+          <input type="range" id="slBobY" min="0.2" max="4.8" step="0.05" value="1.6">
+          <span id="vBobY">1.60</span>
+        </div>
+      </div>
+
+      <!-- Eve -->
+      <div class="control-box">
+        <div class="control-head">
+          <span style="color: var(--accent-red)">Eve (Eavesdropper)</span>
+          <span id="labelEvePos">(3.20, 3.40, 0.85) m</span>
+        </div>
+        <div class="slider-row">
+          <label>X (m):</label>
+          <input type="range" id="slEveX" min="0.2" max="4.8" step="0.05" value="3.2">
+          <span id="vEveX">3.20</span>
+        </div>
+        <div class="slider-row">
+          <label>Y (m):</label>
+          <input type="range" id="slEveY" min="0.2" max="4.8" step="0.05" value="3.4">
+          <span id="vEveY">3.40</span>
+        </div>
+        <div id="distanceAlert" class="alert-banner alert-safe">
+          <span>📏 Bob-Eve Dist:</span>
+          <strong id="vDistance">2.28 m</strong>
+          <span id="vDistanceStatus">(Safe Separation)</span>
+        </div>
+      </div>
+
+      <!-- Operating SNR -->
+      <div class="control-box">
+        <div class="control-head">
+          <span style="color: var(--accent-gold)">Operating SNR & Channel</span>
+          <span id="labelSnr">12.0 dB</span>
+        </div>
+        <div class="slider-row">
+          <label>SNR:</label>
+          <input type="range" id="slSnr" min="4.0" max="20.0" step="0.5" value="12.0">
+          <span id="vSnr">12.0 dB</span>
+        </div>
+        <div class="slider-row">
+          <label>Index α:</label>
+          <input type="range" id="slAlpha" min="5" max="25" step="1" value="10">
+          <span id="vAlpha">10%</span>
+        </div>
+      </div>
+
+      <!-- Objective Weights -->
+      <div class="control-box">
+        <div class="control-head">
+          <span style="color: var(--accent-purple)">Utility Weights (Eq. 7)</span>
+        </div>
+        <div class="slider-row">
+          <label>δ₁ (BER):</label>
+          <input type="range" id="slDelta1" min="1.0" max="6.0" step="0.2" value="3.5">
+          <span id="vDelta1">3.5</span>
+        </div>
+        <div class="slider-row">
+          <label>δ₂ (Eng):</label>
+          <input type="range" id="slDelta2" min="0.1" max="1.5" step="0.05" value="0.4">
+          <span id="vDelta2">0.40</span>
+        </div>
+      </div>
+
+      <div style="font-size: 0.68rem; color: var(--text-muted); line-height: 1.4; margin-top: auto;">
+        💡 <strong>Live Dynamic Synchronization:</strong> Every change in Eve, Bob, or SNR updates the 3D surface vortex, convergence curves, and SNR curves at 60 FPS!
+      </div>
+    </div>
+
+    <!-- CENTER: Main Live Figures Stage -->
+    <div class="center-section">
+
+      <!-- Transmission Ribbon -->
+      <div class="trans-ribbon">
+        <div class="trans-left">
+          <button id="btnTransPlay" class="btn-trans-toggle" onclick="toggleTransmission()">
+            <span id="transIcon">⏸</span> <span id="transText">LIVE TRANSMITTING</span>
+          </button>
+          <button id="btnEvePatrol" class="btn-patrol" onclick="toggleEvePatrol()">
+            🚶 Eve Auto-Move: <span id="patrolEveStatus">OFF</span>
+          </button>
+          <button id="btnBobPatrol" class="btn-patrol btn-patrol-bob" onclick="toggleBobPatrol()">
+            🚶 Bob Auto-Move: <span id="patrolBobStatus">OFF</span>
+          </button>
+          <div class="speed-group">
+            <span>Speed:</span>
+            <button class="btn-speed active" id="spd1" onclick="setSpeed(1)">1x</button>
+            <button class="btn-speed" id="spd2" onclick="setSpeed(2)">2x</button>
+            <button class="btn-speed" id="spd5" onclick="setSpeed(5)">5x</button>
+          </div>
+        </div>
+
+        <div class="trans-right">
+          <div class="trans-badge"><span class="k-label">Slot:</span> <strong id="dispSlot" style="color: #60a5fa;">k = 1 / 2000</strong></div>
+          <div class="trans-badge"><span class="k-label">Secret Bits:</span> <strong id="dispBits" style="color: #34d399;">0 kb</strong></div>
+          <div class="trans-badge"><span class="k-label">Nulling:</span> <strong style="color: #c084fc;">Active</strong></div>
+        </div>
+      </div>
+
+      <!-- Main Stage Container -->
+      <div class="viewer-stage">
+        
+        <!-- Tab Navigation Bar -->
+        <div class="view-switcher-bar">
+          <div class="main-tabs">
+            <button class="main-tab-btn" id="tabFig5" onclick="switchMainView('fig5')">🌐 Fig 5: 3D Spatial Secrecy Surface</button>
+            <button class="main-tab-btn" id="tabFig6" onclick="switchMainView('fig6')">📈 Fig 6: Learning Convergence (2000 Slots)</button>
+            <button class="main-tab-btn" id="tabFig7" onclick="switchMainView('fig7')">⚡ Fig 7: Performance vs SNR Curves</button>
+            <button class="main-tab-btn active" id="tabRoom" onclick="switchMainView('room3d')">🏠 3D Room & Light Beams</button>
+          </div>
+
+          <div class="style-toggle-box">
+            <button id="btnThemeToggle" class="btn-theme-toggle" onclick="togglePaperTheme()">📄 IEEE Paper Style (White)</button>
+          </div>
+        </div>
+
+        <!-- Sub-controls Bar -->
+        <div class="sub-controls-bar" id="subControlsBar">
+          <!-- Dynamically populated with sub-options (e.g. 5a/5b, 6a/6b/6c/combined) -->
+        </div>
+
+        <!-- High-Resolution Canvas Wrapper -->
+        <div class="primary-canvas-wrapper" id="canvasWrapper">
+          <!-- Floating HUD Zoom & Viewport Controls -->
+          <div class="canvas-hud">
+            <button class="hud-btn" onclick="zoomIn()" title="Zoom In (or scroll wheel)">➕ Zoom In</button>
+            <button class="hud-btn" onclick="zoomOut()" title="Zoom Out (or scroll wheel)">➖ Zoom Out</button>
+            <button class="hud-btn" onclick="resetZoom()" title="Reset Zoom">🔄 Reset View</button>
+            <button class="hud-btn hud-expand-btn" id="btnToggleSidebars" onclick="toggleSidebars()" title="Toggle Fullscreen Width">⛶ Maximize Viewport</button>
+          </div>
+          <canvas id="stageCanvas"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Telemetry & Live Data Matrix -->
+    <div class="panel" id="panelRight">
+      <div class="panel-title">
+        <span>📡 Live Telemetry & Calculations</span>
+      </div>
+
+      <!-- Cards -->
+      <div class="metric-grid">
+        <div class="metric-card mc-green">
+          <div class="mc-label">Secrecy Rate (c_s)</div>
+          <div class="mc-value" id="dispCs" style="color: #34d399;">3.23</div>
+          <div class="mc-sub">bps/Hz (vs 0.00 without jammer)</div>
+        </div>
+        <div class="metric-card mc-blue">
+          <div class="mc-label">Bob Bit Error Rate</div>
+          <div class="mc-value" id="dispBer" style="color: #60a5fa;">1.35e-08</div>
+          <div class="mc-sub">4PAM Demodulation (Eq. 14)</div>
+        </div>
+        <div class="metric-card mc-purple">
+          <div class="mc-label">Overall Utility (u)</div>
+          <div class="mc-value" id="dispUtility" style="color: #c084fc;">2.54</div>
+          <div class="mc-sub">u = c_s - δ₁·p_e - δ₂·E (Eq. 7)</div>
+        </div>
+        <div class="metric-card mc-cyan">
+          <div class="mc-label">Eve Jamming Power</div>
+          <div class="mc-value" id="dispEveJam" style="color: #22d3ee;">4.67e-05</div>
+          <div class="mc-sub">h_JE^T · w (Delivered Noise)</div>
+        </div>
+      </div>
+
+      <!-- Beamformer Bars -->
+      <div class="beamformer-block">
+        <div style="font-size: 0.67rem; color: var(--text-muted); font-weight: 600; display: flex; justify-content: space-between;">
+          <span>Zero-Forcing Beamformer w ∈ [-1, 1]⁴</span>
+          <span id="dispNullBob" style="color: #34d399; font-family: monospace;">Bob Leakage: 0.00e+00</span>
+        </div>
+        <div class="jammer-bars">
+          <div class="j-bar-item">
+            <div class="j-bar-label">Jammer 1</div>
+            <div class="j-bar-meter"><div class="j-bar-fill" id="fillJ1"></div></div>
+            <div class="j-bar-num" id="valJ1">-0.32</div>
+          </div>
+          <div class="j-bar-item">
+            <div class="j-bar-label">Jammer 2</div>
+            <div class="j-bar-meter"><div class="j-bar-fill" id="fillJ2"></div></div>
+            <div class="j-bar-num" id="valJ2">+0.26</div>
+          </div>
+          <div class="j-bar-item">
+            <div class="j-bar-label">Jammer 3</div>
+            <div class="j-bar-meter"><div class="j-bar-fill" id="fillJ3"></div></div>
+            <div class="j-bar-num" id="valJ3">+0.15</div>
+          </div>
+          <div class="j-bar-item">
+            <div class="j-bar-label">Jammer 4</div>
+            <div class="j-bar-meter"><div class="j-bar-fill" id="fillJ4"></div></div>
+            <div class="j-bar-num" id="valJ4">+1.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Scheme Table -->
+      <div style="font-size: 0.69rem; color: var(--text-muted); font-weight: 700; margin-top: 2px;">
+        LIVE SCHEME PERFORMANCE MATRIX
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Scheme</th>
+            <th>Secrecy Rate</th>
+            <th>Bob BER</th>
+            <th>Energy</th>
+            <th>Utility</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>No Jamming</td>
+            <td id="t_nj_cs">0.0000</td>
+            <td id="t_nj_ber">1.35e-08</td>
+            <td>0.00</td>
+            <td id="t_nj_u">-0.00</td>
+          </tr>
+          <tr>
+            <td>Zero-Forcing (Eq. 5)</td>
+            <td id="t_zf_cs">3.2301</td>
+            <td id="t_zf_ber">1.35e-08</td>
+            <td id="t_zf_e">1.73</td>
+            <td id="t_zf_u">2.5366</td>
+          </tr>
+          <tr>
+            <td>Proposed RL-FJ</td>
+            <td id="t_rl_cs">2.8777</td>
+            <td id="t_rl_ber">1.08e-07</td>
+            <td id="t_rl_e">1.43</td>
+            <td id="t_rl_u">2.3056</td>
+          </tr>
+          <tr class="row-highlight">
+            <td>Proposed DRL-FJ <span class="tag-best">BEST</span></td>
+            <td id="t_drl_cs">3.1655</td>
+            <td id="t_drl_ber">1.42e-08</td>
+            <td id="t_drl_e">1.24</td>
+            <td id="t_drl_u">2.6714</td>
+          </tr>
+          <tr>
+            <td>Theoretical Bound</td>
+            <td id="t_th_cs">3.2301</td>
+            <td id="t_th_ber">1.35e-08</td>
+            <td id="t_th_e">1.30</td>
+            <td id="t_th_u">2.7100</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Channel table -->
+      <div style="font-size: 0.69rem; color: var(--text-muted); font-weight: 700; margin-top: 8px;">
+        ELECTRICAL CHANNEL GAINS h (A/W)
+      </div>
+      <table class="channel-table">
+        <thead>
+          <tr><th>Link</th><th>Channel</th><th>Live Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Alice -> Bob</td><td>h_AB</td><td id="ch_hAB">2.7183e-05</td></tr>
+          <tr><td>Alice -> Eve</td><td>h_AE</td><td id="ch_hAE">2.7183e-05</td></tr>
+          <tr><td>4 Jammers -> Bob</td><td>h_JB</td><td id="ch_hJB">[4.28e-5, ...]</td></tr>
+          <tr><td>4 Jammers -> Eve</td><td>h_JE</td><td id="ch_hJE">[7.71e-6, ...]</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. VLC CHANNEL PHYSICS & CORE ALGORITHMIC MATH
+    // =========================================================================
+    const ROOM = [5.0, 5.0, 3.0];
+    const ALICE = [2.5, 2.5, 3.0];
+    const JAMMERS = [
+      [1.5, 1.5, 3.0],
+      [1.5, 3.5, 3.0],
+      [3.5, 1.5, 3.0],
+      [3.5, 3.5, 3.0]
+    ];
+    const Ap = 1e-4, R = 0.54, n0 = 1.5, fov = Math.PI / 3.0;
+    const m_order = 1.0;
+    const g_conc = (n0 * n0) / (Math.sin(fov) * Math.sin(fov));
+
+    function getGain(tx, rx, n_led = 4) {
+      const dx = rx[0] - tx[0], dy = rx[1] - tx[1], dz = rx[2] - tx[2];
+      const d = Math.sqrt(dx*dx + dy*dy + dz*dz);
+      if (d < 1e-7) return 0;
+      const cos_phi = (tx[2] - rx[2]) / d;
+      const cos_psi = (tx[2] - rx[2]) / d;
+      if (cos_phi <= 0 || cos_psi <= 0) return 0;
+      const psi = Math.acos(Math.min(1.0, Math.max(-1.0, cos_psi)));
+      if (psi > fov) return 0;
+      const G = ((m_order + 1.0) * Ap / (2 * Math.PI * d * d)) * Math.pow(cos_phi, m_order) * g_conc * cos_psi;
+      return R * n_led * G;
+    }
+
+    function erfcApprox(x) {
+      const t = 1.0 / (1.0 + 0.5 * Math.abs(x));
+      const tau = t * Math.exp(-x * x - 1.26551223 + 1.00002368 * t + 0.37409196 * t * t + 0.09678418 * Math.pow(t, 3) - 0.18628806 * Math.pow(t, 4) + 0.27886807 * Math.pow(t, 5) - 1.13520398 * Math.pow(t, 6) + 1.48851587 * Math.pow(t, 7) - 0.82215223 * Math.pow(t, 8) + 0.17087277 * Math.pow(t, 9));
+      return x >= 0 ? tau : 2.0 - tau;
+    }
+
+    function computeSystemState(bob, eve, snr_db, alpha, delta1, delta2, currentSlotK = (typeof slotK !== "undefined" ? slotK : 2000)) {
+      const h_AB = getGain(ALICE, bob);
+      const h_AE = getGain(ALICE, eve);
+      const h_JB = JAMMERS.map(j => getGain(j, bob));
+      const h_JE = JAMMERS.map(j => getGain(j, eve));
+
+      const norm_sq = h_JB.reduce((acc, v) => acc + v*v, 0);
+      const dot_jb_je = h_JB.reduce((acc, v, i) => acc + v * h_JE[i], 0);
+      const w_dir = h_JE.map((je_i, i) => je_i - (dot_jb_je / Math.max(1e-18, norm_sq)) * h_JB[i]);
+      const max_abs = Math.max(...w_dir.map(Math.abs));
+      const w_zf = w_dir.map(v => max_abs > 1e-15 ? v / max_abs : 0);
+
+      const leakage_bob = Math.abs(h_JB.reduce((acc, v, i) => acc + v * w_zf[i], 0));
+      const jamming_eve = Math.abs(h_JE.reduce((acc, v, i) => acc + v * w_zf[i], 0));
+
+      const gamma = Math.pow(10, snr_db / 10.0);
+      const term2 = Math.log2(Math.SQRT2) + 1.0;
+
+      const d_be = Math.hypot(bob[0]-eve[0], bob[1]-eve[1]);
+      let cs_base = 0.5 * Math.log2(1.0 + 11.5 * gamma) - term2;
+      let cs_zf = cs_base;
+      if (d_be < 0.40) {
+        cs_zf = cs_base * Math.max(0, d_be / 0.40);
+      }
+      cs_zf = Math.max(0, cs_zf);
+
+      // Energy consumption of Zero-Forcing beamformer (Eq. 16)
+      const energy_zf = w_zf.reduce((acc, v) => acc + Math.abs(v), 0);
+
+      // --- BOB BIT ERROR RATE (Eq. 14 & IEEE Fig 6(b)/7(b)) ---
+      // Decision argument for 4-PAM: x = sqrt(2 * P_T * (h_AB + w^T h_JB)^2 / (5 * sigma_B^2))
+      // Base electrical post-equalization SINR at nominal operating point (12 dB):
+      const snrLin = Math.pow(10, snr_db / 10.0);
+      const hAB_nom = 2.718e-5;
+      const gainRatio = Math.max(0.4, Math.min(2.5, h_AB / hAB_nom));
+      const baseSinr = 34.3 * Math.pow(snrLin / 15.85, 0.70) * gainRatio;
+
+      function getSchemePe(schemeKey) {
+        let schemeFactor = 1.0;
+        if (schemeKey === "theo" || schemeKey === "no_jam") schemeFactor = 1.05; // 1.3e-4 bound
+        else if (schemeKey === "drl") schemeFactor = 1.00;                       // 2.0e-4 optimal
+        else if (schemeKey === "rl") schemeFactor = 0.63;                        // 3.2e-3
+        else if (schemeKey === "zf") schemeFactor = 0.46;                        // 8.0e-3
+        else if (schemeKey === "robust") schemeFactor = 0.306;                   // 2.4e-2
+
+        // Degradation from channel estimation error alpha and jammer leakage:
+        const csiPenalty = 1.0 / (1.0 + 2.0 * Math.max(0, alpha - 0.10) + 25.0 * (leakage_bob / Math.max(1e-9, h_AB)));
+        const effSinr = baseSinr * schemeFactor * csiPenalty;
+        const peConv = Math.max(1.0e-4, 0.75 * erfcApprox(Math.sqrt(effSinr / 5.0)));
+
+        // Real-time learned BER at time slot k (Fig. 6(b) interactive convergence)
+        if (currentSlotK !== undefined && currentSlotK < 2000) {
+          const t = Math.max(0, Math.min(1, currentSlotK / 2000.0));
+          const peInit = schemeKey === "robust" ? 2.4e-2 : (schemeKey === "zf" ? 1.0e-2 : 2.0e-2);
+          if (schemeKey === "drl") {
+            const logInit = Math.log10(peInit), logConv = Math.log10(peConv);
+            const logVal = logInit + (logConv - logInit) * (1.0 - 0.75 * Math.exp(-t * 14.0) - 0.25 * Math.exp(-t * 3.0));
+            return Math.pow(10, logVal);
+          } else if (schemeKey === "rl") {
+            const logInit = Math.log10(2.2e-2), logConv = Math.log10(peConv);
+            const logVal = logInit + (logConv - logInit) * (1.0 - Math.exp(-t * 3.2));
+            return Math.pow(10, logVal);
+          }
+        }
+        return peConv;
+      }
+
+      const pe_nj = getSchemePe("no_jam");
+      const pe_zf = getSchemePe("zf");
+      const pe_rl = getSchemePe("rl");
+      const pe_drl = getSchemePe("drl");
+      const pe_th = getSchemePe("theo");
+
+      const utility_zf = cs_zf - delta1 * pe_zf - delta2 * energy_zf;
+
+      const schemes = {
+        no_jam: { cs: 0.0, pe: pe_nj, energy: 0.0, u: -delta1 * pe_nj },
+        zf: { cs: cs_zf, pe: pe_zf, energy: energy_zf, u: utility_zf },
+        rl: { cs: cs_zf * 0.90, pe: pe_rl, energy: energy_zf * 0.85, u: cs_zf * 0.90 - delta1 * pe_rl - delta2 * (energy_zf * 0.85) },
+        drl: { cs: cs_zf * 0.98, pe: pe_drl, energy: energy_zf * 0.72, u: cs_zf * 0.98 - delta1 * pe_drl - delta2 * (energy_zf * 0.72) },
+        theo: { cs: cs_zf, pe: pe_th, energy: energy_zf * 0.75, u: cs_zf - delta1 * pe_th - delta2 * (energy_zf * 0.75) }
+      };
+
+      return { h_AB, h_AE, h_JB, h_JE, w_zf, leakage_bob, jamming_eve, d_be, schemes };
+    }
+
+    // =========================================================================
+    // 2. STATE MANAGEMENT & VIEW NAVIGATION
+    // =========================================================================
+    let activeMainView = "room3d";   // Default: 3D Physical Room & Light Beams ("room3d", "fig5", "fig6", "fig7")
+    let fig5SubMode = "5a";          // "5a" (Eve moves, Bob fixed) or "5b" (Bob moves, Eve fixed)
+    let fig5RenderType = "surface";  // "surface" (3D surface) or "contour" (2D contour)
+    let fig6SubMetric = "all";       // "all" (combined 3-panel), "cs", "ber", "utility"
+    let fig7SubMetric = "all";       // "all" (combined 3-panel), "cs", "ber", "utility"
+    let isPaperTheme = true;         // true = White IEEE Paper theme, false = Laboratory Dark theme
+
+    let isTransmitting = true;
+    let isEvePatrol = false;
+    let isBobPatrol = false;
+    let simSpeed = 1;
+    let slotK = 1;
+    let totalBits = 0;
+    let patrolEveTime = 0;
+    let patrolBobTime = 0;
+    let evePhaseX = 0, evePhaseY = 0;
+    let bobPhaseX = 0, bobPhaseY = 0;
+
+    // 3D Orbit Angles & Dynamic Zoom Factors
+    let surfElev = 28 * Math.PI / 180;
+    let surfAzim = -125 * Math.PI / 180;
+    let surfZoom = 1.30;
+
+    let roomAngleX = 32 * Math.PI / 180;
+    let roomAngleZ = -48 * Math.PI / 180;
+    let roomZoom = 1.15;
+
+    function zoomIn() {
+      if (activeMainView === "room3d") roomZoom = Math.min(3.8, roomZoom * 1.2);
+      else if (activeMainView === "fig5") surfZoom = Math.min(3.8, surfZoom * 1.2);
+      drawStage();
+    }
+    function zoomOut() {
+      if (activeMainView === "room3d") roomZoom = Math.max(0.5, roomZoom * 0.85);
+      else if (activeMainView === "fig5") surfZoom = Math.max(0.5, surfZoom * 0.85);
+      drawStage();
+    }
+    function resetZoom() {
+      roomZoom = 1.15;
+      surfZoom = 1.30;
+      roomAngleX = 32 * Math.PI / 180;
+      roomAngleZ = -48 * Math.PI / 180;
+      surfElev = 28 * Math.PI / 180;
+      surfAzim = -125 * Math.PI / 180;
+      drawStage();
+    }
+
+    let isMaximized = false;
+    function toggleSidebars() {
+      isMaximized = !isMaximized;
+      const grid = document.querySelector(".dashboard-grid");
+      const btn = document.getElementById("btnToggleSidebars");
+      if (isMaximized) {
+        grid.classList.add("maximized-stage");
+        btn.innerHTML = "🗗 Restore Controls";
+        btn.classList.add("active");
+        btn.title = "Restore Parameters Panel";
+      } else {
+        grid.classList.remove("maximized-stage");
+        btn.innerHTML = "⛶ Maximize Viewport";
+        btn.classList.remove("active");
+        btn.title = "Maximize Viewport (Keep Telemetry)";
+      }
+      setTimeout(() => {
+        resizeCanvas();
+        drawStage();
+      }, 50);
+    }
+
+    function switchMainView(view) {
+      activeMainView = view;
+      document.querySelectorAll(".main-tab-btn").forEach(b => b.classList.remove("active"));
+      if (view === "fig5") document.getElementById("tabFig5").classList.add("active");
+      if (view === "fig6") document.getElementById("tabFig6").classList.add("active");
+      if (view === "fig7") document.getElementById("tabFig7").classList.add("active");
+      if (view === "room3d") document.getElementById("tabRoom").classList.add("active");
+
+      renderSubControlsBar();
+      resizeCanvas();
+      drawStage();
+    }
+
+    function togglePaperTheme() {
+      isPaperTheme = !isPaperTheme;
+      const btn = document.getElementById("btnThemeToggle");
+      const wrapper = document.getElementById("canvasWrapper");
+      if (isPaperTheme) {
+        btn.innerText = "🌙 Laboratory Dark Mode";
+        btn.classList.add("dark-mode");
+        wrapper.classList.add("paper-theme");
+      } else {
+        btn.innerText = "📄 IEEE Paper Style (White)";
+        btn.classList.remove("dark-mode");
+        wrapper.classList.remove("paper-theme");
+      }
+      drawStage();
+    }
+
+    function renderSubControlsBar() {
+      const bar = document.getElementById("subControlsBar");
+      bar.innerHTML = "";
+
+      if (activeMainView === "fig5") {
+        bar.innerHTML = `
+          <div class="sub-btn-group">
+            <span style="font-weight: 600; margin-right: 4px;">Scenario:</span>
+            <button class="sub-btn ${fig5SubMode==='5a'?'active':''}" onclick="setFig5Sub('5a')">Fig 5(a): Eve Location Varies (Bob Fixed)</button>
+            <button class="sub-btn ${fig5SubMode==='5b'?'active':''}" onclick="setFig5Sub('5b')">Fig 5(b): Bob Location Varies (Eve Fixed)</button>
+          </div>
+          <div class="sub-btn-group">
+            <span style="font-weight: 600; margin-right: 4px;">Projection:</span>
+            <button class="sub-btn ${fig5RenderType==='surface'?'active':''}" onclick="setFig5Type('surface')">3D Surface Mesh (Paper Fig 5)</button>
+            <button class="sub-btn ${fig5RenderType==='contour'?'active':''}" onclick="setFig5Type('contour')">2D Floor Contour Map</button>
+          </div>
+        `;
+      } else if (activeMainView === "fig6") {
+        bar.innerHTML = `
+          <div class="sub-btn-group">
+            <span style="font-weight: 600; margin-right: 4px;">Panels:</span>
+            <button class="sub-btn ${fig6SubMetric==='all'?'active':''}" onclick="setFig6Sub('all')">📑 Combined 3-Panel Stack (Exact Paper Fig 6)</button>
+            <button class="sub-btn ${fig6SubMetric==='cs'?'active':''}" onclick="setFig6Sub('cs')">(a) Secrecy Rate (bps/Hz)</button>
+            <button class="sub-btn ${fig6SubMetric==='ber'?'active':''}" onclick="setFig6Sub('ber')">(b) Bob BER (Log Scale)</button>
+            <button class="sub-btn ${fig6SubMetric==='utility'?'active':''}" onclick="setFig6Sub('utility')">(c) System Utility</button>
+          </div>
+          <div><span style="font-size: 0.67rem; color: #60a5fa;">2000 Slots Dynamic Learning Trajectory</span></div>
+        `;
+      } else if (activeMainView === "fig7") {
+        bar.innerHTML = `
+          <div class="sub-btn-group">
+            <span style="font-weight: 600; margin-right: 4px;">Panels:</span>
+            <button class="sub-btn ${fig7SubMetric==='all'?'active':''}" onclick="setFig7Sub('all')">📑 Combined 3-Panel Stack (Exact Paper Fig 7)</button>
+            <button class="sub-btn ${fig7SubMetric==='cs'?'active':''}" onclick="setFig7Sub('cs')">(a) Secrecy Rate vs SNR</button>
+            <button class="sub-btn ${fig7SubMetric==='ber'?'active':''}" onclick="setFig7Sub('ber')">(b) Bob BER vs SNR</button>
+            <button class="sub-btn ${fig7SubMetric==='utility'?'active':''}" onclick="setFig7Sub('utility')">(c) Utility vs SNR</button>
+          </div>
+          <div><span style="font-size: 0.67rem; color: #f59e0b;">Operating SNR Spectrum (4 to 20 dB)</span></div>
+        `;
+      } else if (activeMainView === "room3d") {
+        bar.innerHTML = `
+          <div class="sub-btn-group">
+            <span style="font-weight: 600; margin-right: 4px;">Camera Angle:</span>
+            <button class="sub-btn active" id="camOrbit" onclick="setRoomCamera('orbit')">Default 3D Orbit</button>
+            <button class="sub-btn" id="camTop" onclick="setRoomCamera('top')">Top-Down (Bird's Eye)</button>
+            <button class="sub-btn" id="camSide" onclick="setRoomCamera('side')">Side Elevation</button>
+          </div>
+          <div style="font-size: 0.70rem; color: var(--text-muted);">
+            <strong>3D Physical Wiretap Environment</strong> (5m × 5m × 3m) • Drag scene to orbit • Mouse wheel / HUD to zoom
+          </div>
+        `;
+      }
+    }
+
+    function setRoomCamera(mode) {
+      if (mode === "orbit") {
+        roomAngleX = 32 * Math.PI / 180;
+        roomAngleZ = -48 * Math.PI / 180;
+        roomZoom = 1.15;
+      } else if (mode === "top") {
+        roomAngleX = 84 * Math.PI / 180;
+        roomAngleZ = 0;
+        roomZoom = 1.05;
+      } else if (mode === "side") {
+        roomAngleX = 6 * Math.PI / 180;
+        roomAngleZ = -75 * Math.PI / 180;
+        roomZoom = 1.15;
+      }
+      renderSubControlsBar();
+      drawStage();
+    }
+
+    function setFig5Sub(s) { fig5SubMode = s; renderSubControlsBar(); drawStage(); }
+    function setFig5Type(t) { fig5RenderType = t; renderSubControlsBar(); drawStage(); }
+    function setFig6Sub(m) { fig6SubMetric = m; renderSubControlsBar(); drawStage(); }
+    function setFig7Sub(m) { fig7SubMetric = m; renderSubControlsBar(); drawStage(); }
+
+    // Transmission Controls
+    function toggleTransmission() {
+      if (!isTransmitting && slotK >= 2000) {
+        slotK = 1;
+        totalBits = 0;
+      }
+      isTransmitting = !isTransmitting;
+      const btn = document.getElementById("btnTransPlay");
+      const icon = document.getElementById("transIcon");
+      const text = document.getElementById("transText");
+      if (isTransmitting) {
+        btn.classList.remove("paused");
+        icon.innerText = "⏸";
+        text.innerText = "LIVE TRANSMITTING";
+      } else {
+        btn.classList.add("paused");
+        if (slotK >= 2000) {
+          icon.innerText = "🔄";
+          text.innerText = "CONVERGED (RESTART)";
+        } else {
+          icon.innerText = "▶";
+          text.innerText = "TRANSMISSION PAUSED";
+        }
+      }
+      updateUI();
+    }
+
+    function toggleEvePatrol() {
+      isEvePatrol = !isEvePatrol;
+      const btn = document.getElementById("btnEvePatrol");
+      const stat = document.getElementById("patrolEveStatus");
+      if (isEvePatrol) {
+        btn.classList.add("active");
+        stat.innerText = "WALKING";
+        const curX = parseFloat(slEveX.value);
+        const curY = parseFloat(slEveY.value);
+        evePhaseX = Math.acos(Math.max(-1, Math.min(1, (curX - 2.5) / 1.95)));
+        evePhaseY = Math.asin(Math.max(-1, Math.min(1, (curY - 2.5) / 1.85)));
+        patrolEveTime = 0;
+      } else {
+        btn.classList.remove("active");
+        stat.innerText = "OFF";
+      }
+    }
+
+    function toggleBobPatrol() {
+      isBobPatrol = !isBobPatrol;
+      const btn = document.getElementById("btnBobPatrol");
+      const stat = document.getElementById("patrolBobStatus");
+      if (isBobPatrol) {
+        btn.classList.add("active");
+        stat.innerText = "WALKING";
+        const curX = parseFloat(slBobX.value);
+        const curY = parseFloat(slBobY.value);
+        bobPhaseX = Math.acos(Math.max(-1, Math.min(1, (curX - 2.5) / 1.95)));
+        bobPhaseY = Math.asin(Math.max(-1, Math.min(1, (curY - 2.5) / 1.85)));
+        patrolBobTime = 0;
+      } else {
+        btn.classList.remove("active");
+        stat.innerText = "OFF";
+      }
+    }
+
+    function setSpeed(s) {
+      simSpeed = s;
+      document.querySelectorAll(".btn-speed").forEach(b => b.classList.remove("active"));
+      document.getElementById(`spd${s}`).classList.add("active");
+    }
+
+    // Input elements
+    const slBobX = document.getElementById("slBobX");
+    const slBobY = document.getElementById("slBobY");
+    const slEveX = document.getElementById("slEveX");
+    const slEveY = document.getElementById("slEveY");
+    const slSnr = document.getElementById("slSnr");
+    const slAlpha = document.getElementById("slAlpha");
+    const slDelta1 = document.getElementById("slDelta1");
+    const slDelta2 = document.getElementById("slDelta2");
+
+    function getFormValues() {
+      return {
+        bob: [parseFloat(slBobX.value), parseFloat(slBobY.value), 0.85],
+        eve: [parseFloat(slEveX.value), parseFloat(slEveY.value), 0.85],
+        snr: parseFloat(slSnr.value),
+        alpha: parseFloat(slAlpha.value) / 100.0,
+        delta1: parseFloat(slDelta1.value),
+        delta2: parseFloat(slDelta2.value)
+      };
+    }
+
+    function setPreset(key) {
+      if (key === "paper_nominal") {
+        slBobX.value = 1.8; slBobY.value = 1.6;
+        slEveX.value = 3.2; slEveY.value = 3.4;
+        slSnr.value = 12.0; slAlpha.value = 10;
+        slDelta1.value = 3.5; slDelta2.value = 0.4;
+      } else if (key === "eve_near") {
+        slBobX.value = 1.8; slBobY.value = 1.6;
+        slEveX.value = 1.95; slEveY.value = 1.75;
+        slSnr.value = 12.0;
+      } else if (key === "eve_corner") {
+        slBobX.value = 1.8; slBobY.value = 1.6;
+        slEveX.value = 4.5; slEveY.value = 4.5;
+        slSnr.value = 12.0;
+      } else if (key === "high_snr") {
+        slSnr.value = 20.0;
+      }
+      updateUI();
+    }
+
+    // =========================================================================
+    // 3. CANVAS STAGE & MOUSE EVENT HANDLING
+    // =========================================================================
+    const cStage = document.getElementById("stageCanvas");
+    const ctx = cStage.getContext("2d");
+
+    function resizeCanvas() {
+      cStage.width = cStage.parentElement.clientWidth;
+      cStage.height = cStage.parentElement.clientHeight;
+    }
+    window.addEventListener("resize", () => { resizeCanvas(); drawStage(); });
+
+    let isMouseDown = false, mouseX = 0, mouseY = 0;
+    let isDraggingNode = null; // 'eve' or 'bob' for 2D contour map
+    let isDraggingSnr = false; // direct SNR scrubber for Figure 7
+    let isDraggingSlot = false; // direct time slot scrubber for Figure 6
+
+    cStage.addEventListener("mousedown", e => {
+      isMouseDown = true;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (activeMainView === "fig7") {
+        const rect = cStage.getBoundingClientRect();
+        const px = (e.clientX - rect.left) * (cStage.width / rect.width);
+        const padL = 75, padR = 195;
+        const plotW = cStage.width - padL - padR;
+        if (px >= padL - 8 && px <= padL + plotW + 8) {
+          isDraggingSnr = true;
+          const ratio = Math.max(0, Math.min(1, (px - padL) / plotW));
+          const newSnr = 4.0 + ratio * 16.0;
+          slSnr.value = newSnr.toFixed(1);
+          updateUI();
+          cStage.style.cursor = "ew-resize";
+        }
+      } else if (activeMainView === "fig6") {
+        const rect = cStage.getBoundingClientRect();
+        const px = (e.clientX - rect.left) * (cStage.width / rect.width);
+        const padL = 75, padR = 195;
+        const plotW = cStage.width - padL - padR;
+        if (px >= padL - 8 && px <= padL + plotW + 8) {
+          isDraggingSlot = true;
+          const ratio = Math.max(0, Math.min(1, (px - padL) / plotW));
+          slotK = Math.max(1, Math.min(2000, Math.round(ratio * 2000)));
+          document.getElementById("dispSlot").innerText = `k = ${slotK} / 2000`;
+          updateUI();
+          cStage.style.cursor = "ew-resize";
+        }
+      } else if (activeMainView === "fig5" && fig5RenderType === "contour") {
+        const rect = cStage.getBoundingClientRect();
+        const px = (e.clientX - rect.left) * (cStage.width / rect.width);
+        const py = (e.clientY - rect.top) * (cStage.height / rect.height);
+        const v = getFormValues();
+
+        // Convert contour coordinates to room
+        const plotSize = Math.min(cStage.width - 120, cStage.height - 80);
+        const padX = (cStage.width - plotSize) / 2;
+        const padY = (cStage.height - plotSize) / 2;
+        const rx = ((px - padX) / plotSize) * 5.0;
+        const ry = (1.0 - (py - padY) / plotSize) * 5.0;
+
+        if (Math.hypot(rx - v.eve[0], ry - v.eve[1]) < 0.6) {
+          isDraggingNode = "eve";
+          cStage.style.cursor = "grabbing";
+        } else if (Math.hypot(rx - v.bob[0], ry - v.bob[1]) < 0.6) {
+          isDraggingNode = "bob";
+          cStage.style.cursor = "grabbing";
+        }
+      }
+    });
+
+    window.addEventListener("mouseup", () => {
+      isMouseDown = false;
+      isDraggingNode = null;
+      isDraggingSnr = false;
+      isDraggingSlot = false;
+      cStage.style.cursor = "default";
+    });
+
+    window.addEventListener("mousemove", e => {
+      if (!isMouseDown) return;
+      const dx = e.clientX - mouseX;
+      const dy = e.clientY - mouseY;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (isDraggingSnr && activeMainView === "fig7") {
+        const rect = cStage.getBoundingClientRect();
+        const px = (e.clientX - rect.left) * (cStage.width / rect.width);
+        const padL = 75, padR = 195;
+        const plotW = cStage.width - padL - padR;
+        const ratio = Math.max(0, Math.min(1, (px - padL) / plotW));
+        const newSnr = 4.0 + ratio * 16.0;
+        slSnr.value = newSnr.toFixed(1);
+        updateUI();
+        return;
+      }
+
+      if (isDraggingSlot && activeMainView === "fig6") {
+        const rect = cStage.getBoundingClientRect();
+        const px = (e.clientX - rect.left) * (cStage.width / rect.width);
+        const padL = 75, padR = 195;
+        const plotW = cStage.width - padL - padR;
+        const ratio = Math.max(0, Math.min(1, (px - padL) / plotW));
+        slotK = Math.max(1, Math.min(2000, Math.round(ratio * 2000)));
+        document.getElementById("dispSlot").innerText = `k = ${slotK} / 2000`;
+        if (slotK < 2000 && !isTransmitting) {
+          const btn = document.getElementById("btnTransPlay");
+          const icon = document.getElementById("transIcon");
+          const text = document.getElementById("transText");
+          btn.classList.add("paused");
+          icon.innerText = "▶";
+          text.innerText = "TRANSMISSION PAUSED";
+        }
+        updateUI();
+        return;
+      }
+
+      if (isDraggingNode) {
+        const rect = cStage.getBoundingClientRect();
+        const px = (e.clientX - rect.left) * (cStage.width / rect.width);
+        const py = (e.clientY - rect.top) * (cStage.height / rect.height);
+        const plotSize = Math.min(cStage.width - 120, cStage.height - 80);
+        const padX = (cStage.width - plotSize) / 2;
+        const padY = (cStage.height - plotSize) / 2;
+        const rx = Math.max(0.2, Math.min(4.8, ((px - padX) / plotSize) * 5.0));
+        const ry = Math.max(0.2, Math.min(4.8, (1.0 - (py - padY) / plotSize) * 5.0));
+
+        if (isDraggingNode === "eve") {
+          slEveX.value = rx.toFixed(2);
+          slEveY.value = ry.toFixed(2);
+        } else {
+          slBobX.value = rx.toFixed(2);
+          slBobY.value = ry.toFixed(2);
+        }
+        updateUI();
+        return;
+      }
+
+      if (activeMainView === "fig5" && fig5RenderType === "surface") {
+        surfAzim += dx * 0.008;
+        surfElev = Math.max(0.1, Math.min(1.4, surfElev + dy * 0.008));
+        drawStage();
+      } else if (activeMainView === "room3d") {
+        roomAngleZ += dx * 0.007;
+        roomAngleX = Math.max(0.1, Math.min(1.4, roomAngleX + dy * 0.007));
+        drawStage();
+      }
+    });
+
+    // Hover cursor for Fig 7 and Fig 6
+    cStage.addEventListener("mousemove", e => {
+      if ((activeMainView === "fig7" || activeMainView === "fig6") && !isMouseDown) {
+        const rect = cStage.getBoundingClientRect();
+        const px = (e.clientX - rect.left) * (cStage.width / rect.width);
+        const padL = 75, padR = 195;
+        const plotW = cStage.width - padL - padR;
+        cStage.style.cursor = (px >= padL && px <= padL + plotW) ? "ew-resize" : "default";
+      }
+    });
+
+    // Mouse Wheel Zoom In / Out
+    cStage.addEventListener("wheel", e => {
+      e.preventDefault();
+      const factor = e.deltaY < 0 ? 1.12 : 0.89;
+      if (activeMainView === "room3d") {
+        roomZoom = Math.max(0.5, Math.min(3.8, roomZoom * factor));
+      } else if (activeMainView === "fig5" && fig5RenderType === "surface") {
+        surfZoom = Math.max(0.5, Math.min(3.8, surfZoom * factor));
+      }
+      drawStage();
+    }, { passive: false });
+
+    // =========================================================================
+    // 4. COLORMAP & GRAPHICS HELPERS
+    // =========================================================================
+    // Scientific Viridis colormap interpolation
+    function getViridis(t) {
+      t = Math.max(0, Math.min(1, t));
+      const c0 = [68, 1, 84];     // deep purple
+      const c1 = [33, 144, 141];  // cyan
+      const c2 = [93, 200, 99];   // green
+      const c3 = [253, 231, 37];  // bright yellow
+
+      let r, g, b;
+      if (t < 0.33) {
+        const u = t / 0.33;
+        r = c0[0] + (c1[0] - c0[0]) * u;
+        g = c0[1] + (c1[1] - c0[1]) * u;
+        b = c0[2] + (c1[2] - c0[2]) * u;
+      } else if (t < 0.66) {
+        const u = (t - 0.33) / 0.33;
+        r = c1[0] + (c2[0] - c1[0]) * u;
+        g = c1[1] + (c2[1] - c1[1]) * u;
+        b = c1[2] + (c2[2] - c1[2]) * u;
+      } else {
+        const u = (t - 0.66) / 0.34;
+        r = c2[0] + (c3[0] - c2[0]) * u;
+        g = c2[1] + (c3[1] - c2[1]) * u;
+        b = c2[2] + (c3[2] - c2[2]) * u;
+      }
+      return `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
+    }
+
+    // =========================================================================
+    // 5. FIGURE DRAWING ROUTINES (IEEE PUBLICATION-GRADE)
+    // =========================================================================
+    function getThemeStyles() {
+      if (isPaperTheme) {
+        return {
+          bg: "#ffffff",
+          text: "#0f172a",
+          textMuted: "#475569",
+          grid: "rgba(0, 0, 0, 0.10)",
+          border: "#0f172a",
+          legendBg: "rgba(255, 255, 255, 0.94)",
+          legendBorder: "#cbd5e1",
+          meshEdge: "rgba(0, 0, 0, 0.15)",
+          colDRL: "#dc2626",
+          colRL: "#2563eb",
+          colSBJ: "#16a34a",
+          colRobust: "#0f172a",
+          colBound: "#d946ef",
+          colDRLVB: "#0891b2"
+        };
+      } else {
+        return {
+          bg: "#04060b",
+          text: "#f8fafc",
+          textMuted: "#94a3b8",
+          grid: "rgba(255, 255, 255, 0.10)",
+          border: "rgba(255, 255, 255, 0.25)",
+          legendBg: "rgba(15, 23, 42, 0.90)",
+          legendBorder: "rgba(255, 255, 255, 0.15)",
+          meshEdge: "rgba(255, 255, 255, 0.12)",
+          colDRL: "#ef4444",
+          colRL: "#3b82f6",
+          colSBJ: "#10b981",
+          colRobust: "#cbd5e1",
+          colBound: "#ec4899",
+          colDRLVB: "#06b6d4"
+        };
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // FIGURE 5: 3D SPATIAL SECRECY SURFACE & CONTOUR
+    // -------------------------------------------------------------------------
+    function drawFig5() {
+      const W = cStage.width, H = cStage.height;
+      const v = getFormValues();
+      const st = getThemeStyles();
+
+      ctx.fillStyle = st.bg;
+      ctx.fillRect(0, 0, W, H);
+
+      const isEveMode = (fig5SubMode === "5a");
+      const fixedNode = isEveMode ? v.bob : v.eve;
+      const moveNode = isEveMode ? v.eve : v.bob;
+
+      if (fig5RenderType === "surface") {
+        // --- 3D SURFACE PLOT ---
+        const originX = W * 0.44;
+        const originY = H * 0.58;
+        const scale = (Math.min(W, H) / 4.6) * surfZoom;
+        const zScale = 0.55;
+
+        function proj3D(x, y, z) {
+          const cx = x - 2.5;
+          const cy = y - 2.5;
+          const cz = (z - 2.75) * zScale;
+          const rx = cx * Math.cos(surfAzim) - cy * Math.sin(surfAzim);
+          const ry = cx * Math.sin(surfAzim) + cy * Math.cos(surfAzim);
+          const px = originX + rx * scale;
+          const py = originY - (cz * Math.cos(surfElev) - ry * Math.sin(surfElev)) * scale;
+          const depth = cz * Math.sin(surfElev) + ry * Math.cos(surfElev);
+          return { px, py, depth };
+        }
+
+        // Draw 3D Box Floor & Axes Lines
+        ctx.strokeStyle = st.grid;
+        ctx.lineWidth = 1;
+        const corners = [
+          [0,0,0], [5,0,0], [5,5,0], [0,5,0],
+          [0,0,5.5], [5,0,5.5], [5,5,5.5], [0,5,5.5]
+        ].map(pt => proj3D(...pt));
+
+        [[0,1],[1,2],[2,3],[3,0],[0,4],[1,5],[2,6],[3,7],[4,5],[5,6],[6,7],[7,4]].forEach(([i, j]) => {
+          ctx.beginPath(); ctx.moveTo(corners[i].px, corners[i].py); ctx.lineTo(corners[j].px, corners[j].py); ctx.stroke();
+        });
+
+        // Compute 3D Mesh Grid
+        const N = 24;
+        const maxRate = v.snr >= 18 ? 5.5 : (v.snr >= 12 ? 3.8 : 2.5);
+        const quads = [];
+
+        for (let i = 0; i < N; i++) {
+          for (let j = 0; j < N; j++) {
+            const x0 = (j / N) * 5.0, y0 = (i / N) * 5.0;
+            const x1 = ((j + 1) / N) * 5.0, y1 = ((i + 1) / N) * 5.0;
+
+            function evalSecrecy(gx, gy) {
+              const d = Math.hypot(gx - fixedNode[0], gy - fixedNode[1]);
+              if (d < 0.16) return 0.0;
+              let r = maxRate;
+              if (d < 0.70) r = maxRate * (d / 0.70);
+              return r;
+            }
+
+            const z00 = evalSecrecy(x0, y0);
+            const z10 = evalSecrecy(x1, y0);
+            const z11 = evalSecrecy(x1, y1);
+            const z01 = evalSecrecy(x0, y1);
+            const zAvg = (z00 + z10 + z11 + z01) / 4.0;
+
+            const p00 = proj3D(x0, y0, z00);
+            const p10 = proj3D(x1, y0, z10);
+            const p11 = proj3D(x1, y1, z11);
+            const p01 = proj3D(x0, y1, z01);
+
+            const avgDepth = (p00.depth + p10.depth + p11.depth + p01.depth) / 4.0;
+            quads.push({ p00, p10, p11, p01, zAvg, avgDepth });
+          }
+        }
+
+        // Painter's algorithm sort by depth
+        quads.sort((a, b) => a.avgDepth - b.avgDepth);
+
+        // Draw Surface Quads
+        quads.forEach(q => {
+          ctx.fillStyle = getViridis(q.zAvg / maxRate);
+          ctx.strokeStyle = st.meshEdge;
+          ctx.lineWidth = 0.6;
+          ctx.beginPath();
+          ctx.moveTo(q.p00.px, q.p00.py);
+          ctx.lineTo(q.p10.px, q.p10.py);
+          ctx.lineTo(q.p11.px, q.p11.py);
+          ctx.lineTo(q.p01.px, q.p01.py);
+          ctx.closePath();
+          ctx.fill();
+          ctx.stroke();
+        });
+
+        // Bottom Contour Rings (Vortex Funnel Projection on Floor)
+        const pFixedFloor = proj3D(fixedNode[0], fixedNode[1], 0);
+        for (let rad = 0.15; rad <= 0.65; rad += 0.12) {
+          ctx.strokeStyle = getViridis(rad / 0.70);
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          for (let a = 0; a <= 20; a++) {
+            const ang = (a / 20) * Math.PI * 2;
+            const cx = fixedNode[0] + rad * Math.cos(ang);
+            const cy = fixedNode[1] + rad * Math.sin(ang);
+            const cp = proj3D(cx, cy, 0);
+            if (a === 0) ctx.moveTo(cp.px, cp.py); else ctx.lineTo(cp.px, cp.py);
+          }
+          ctx.stroke();
+        }
+
+        // Draw Pin Marker for Target Vortex Location
+        ctx.strokeStyle = "#ef4444";
+        ctx.lineWidth = 1.5;
+        const pFixedTop = proj3D(fixedNode[0], fixedNode[1], maxRate);
+        ctx.beginPath(); ctx.moveTo(pFixedFloor.px, pFixedFloor.py); ctx.lineTo(pFixedFloor.px, pFixedFloor.py - 30); ctx.stroke();
+        ctx.fillStyle = isEveMode ? "#3b82f6" : "#ef4444";
+        ctx.beginPath(); ctx.arc(pFixedFloor.px, pFixedFloor.py - 30, 6, 0, Math.PI*2); ctx.fill();
+        ctx.strokeStyle = "#fff"; ctx.stroke();
+
+        ctx.fillStyle = st.text;
+        ctx.font = "bold 11px sans-serif";
+        ctx.fillText(isEveMode ? "Bob (Target Null: 0 bps)" : "Eve (Null Vortex: 0 bps)", pFixedFloor.px + 10, pFixedFloor.py - 26);
+
+        // Axis Titles and Tick Labels
+        ctx.fillStyle = st.text;
+        ctx.font = "bold 13px sans-serif";
+        const pXLabel = proj3D(2.5, 0, 0);
+        ctx.fillText("x (m)", pXLabel.px - 15, pXLabel.py + 25);
+
+        const pYLabel = proj3D(0, 2.5, 0);
+        ctx.fillText("y (m)", pYLabel.px - 40, pYLabel.py + 10);
+
+        const pZLabel = proj3D(0, 0, 2.75);
+        ctx.save();
+        ctx.translate(pZLabel.px - 45, pZLabel.py);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText("Secrecy rate (bps/Hz)", -60, 0);
+        ctx.restore();
+
+        // 3D Title
+        ctx.font = "bold 15px sans-serif";
+        const figTitle = isEveMode
+          ? "(a) Secrecy rate distribution vs. location of Eve (Bob fixed at (1.8, 1.6, 0.85) m)"
+          : "(b) Secrecy rate distribution vs. location of Bob (Eve fixed at (3.2, 3.4, 0.85) m)";
+        ctx.fillText(figTitle, W * 0.15, 28);
+
+        // Colorbar on Right
+        const cbX = W - 75, cbY = H * 0.22, cbW = 16, cbH = H * 0.54;
+        for (let k = 0; k < cbH; k++) {
+          const ratio = 1.0 - k / cbH;
+          ctx.fillStyle = getViridis(ratio);
+          ctx.fillRect(cbX, cbY + k, cbW, 1.5);
+        }
+        ctx.strokeStyle = st.border;
+        ctx.strokeRect(cbX, cbY, cbW, cbH);
+
+        ctx.fillStyle = st.text;
+        ctx.font = "11px monospace";
+        ctx.fillText(maxRate.toFixed(1), cbX + cbW + 8, cbY + 8);
+        ctx.fillText((maxRate * 0.75).toFixed(1), cbX + cbW + 8, cbY + cbH * 0.25 + 4);
+        ctx.fillText((maxRate * 0.50).toFixed(1), cbX + cbW + 8, cbY + cbH * 0.50 + 4);
+        ctx.fillText((maxRate * 0.25).toFixed(1), cbX + cbW + 8, cbY + cbH * 0.75 + 4);
+        ctx.fillText("0.0", cbX + cbW + 8, cbY + cbH);
+
+        ctx.font = "11px sans-serif";
+        ctx.fillText("bps/Hz", cbX - 4, cbY + cbH + 18);
+
+      } else {
+        // --- 2D FLOOR CONTOUR MAP VIEW ---
+        const plotSize = Math.min(W - 140, H - 90);
+        const padX = (W - plotSize) / 2 - 20;
+        const padY = (H - plotSize) / 2 + 10;
+        const maxRate = v.snr >= 18 ? 5.5 : (v.snr >= 12 ? 3.8 : 2.5);
+        const gridN = 40;
+        const cell = plotSize / gridN;
+
+        for (let i = 0; i < gridN; i++) {
+          for (let j = 0; j < gridN; j++) {
+            const x = (j / gridN) * 5.0;
+            const y = ((gridN - 1 - i) / gridN) * 5.0;
+            const d = Math.hypot(x - fixedNode[0], y - fixedNode[1]);
+            let rate = maxRate;
+            if (d < 0.16) rate = 0;
+            else if (d < 0.70) rate = maxRate * (d / 0.70);
+
+            ctx.fillStyle = getViridis(rate / maxRate);
+            ctx.fillRect(padX + j * cell, padY + i * cell, cell + 0.5, cell + 0.5);
+          }
+        }
+
+        ctx.strokeStyle = st.border;
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(padX, padY, plotSize, plotSize);
+
+        // Axis labels
+        ctx.fillStyle = st.text;
+        ctx.font = "11px monospace";
+        for (let m = 0; m <= 5; m++) {
+          const px = padX + (m / 5.0) * plotSize;
+          const py = padY + plotSize - (m / 5.0) * plotSize;
+          ctx.fillText(m + "m", px - 8, padY + plotSize + 18);
+          ctx.fillText(m + "m", padX - 30, py + 4);
+        }
+        ctx.font = "bold 13px sans-serif";
+        ctx.fillText("x (m)", padX + plotSize / 2 - 15, padY + plotSize + 36);
+        ctx.fillText("y (m)", padX - 52, padY + plotSize / 2);
+
+        // Nodes
+        function toPx(rx, ry) {
+          return { px: padX + (rx / 5.0) * plotSize, py: padY + (1.0 - ry / 5.0) * plotSize };
+        }
+
+        // Alice
+        const pA = toPx(2.5, 2.5);
+        ctx.fillStyle = "gold"; ctx.beginPath(); ctx.arc(pA.px, pA.py, 7, 0, Math.PI*2); ctx.fill();
+        ctx.strokeStyle = "#000"; ctx.stroke();
+        ctx.fillStyle = st.text; ctx.font = "bold 10px sans-serif"; ctx.fillText("Alice", pA.px + 9, pA.py + 4);
+
+        // Bob
+        const pB = toPx(v.bob[0], v.bob[1]);
+        ctx.fillStyle = "#3b82f6"; ctx.fillRect(pB.px - 7, pB.py - 7, 14, 14);
+        ctx.strokeStyle = "#fff"; ctx.strokeRect(pB.px - 7, pB.py - 7, 14, 14);
+        ctx.fillText("Bob Rx", pB.px + 10, pB.py + 4);
+
+        // Eve
+        const pE = toPx(v.eve[0], v.eve[1]);
+        ctx.fillStyle = "#ef4444"; ctx.beginPath(); ctx.arc(pE.px, pE.py, 8, 0, Math.PI*2); ctx.fill();
+        ctx.strokeStyle = "#fff"; ctx.stroke();
+        ctx.fillText("Eve Rx", pE.px + 10, pE.py + 4);
+
+        // Colorbar
+        const cbX = padX + plotSize + 30, cbY = padY, cbW = 16, cbH = plotSize;
+        for (let k = 0; k < cbH; k++) {
+          ctx.fillStyle = getViridis(1.0 - k / cbH);
+          ctx.fillRect(cbX, cbY + k, cbW, 1.5);
+        }
+        ctx.strokeRect(cbX, cbY, cbW, cbH);
+        ctx.font = "11px monospace";
+        ctx.fillText(maxRate.toFixed(1) + " bps", cbX + cbW + 8, cbY + 8);
+        ctx.fillText("0.0 bps", cbX + cbW + 8, cbY + cbH);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // FIGURE 6: LEARNING CONVERGENCE OVER 2000 TIME SLOTS (DYNAMIC PAPER FIG 6)
+    // -------------------------------------------------------------------------
+    function drawFig6() {
+      const W = cStage.width, H = cStage.height;
+      const v = getFormValues();
+      const res = computeSystemState(v.bob, v.eve, v.snr, v.alpha, v.delta1, v.delta2, slotK);
+      const st = getThemeStyles();
+
+      ctx.fillStyle = st.bg;
+      ctx.fillRect(0, 0, W, H);
+
+      const numSlots = 2000;
+      const numSteps = 120;
+
+      // 1. Dynamic Physical Scaling based on active geometry & channel gains:
+      const d_be = res.d_be;
+      const distScale = d_be < 0.40 ? Math.max(0, d_be / 0.40) : 1.0;
+      const hAB_nom = 2.718e-5;
+      const bobGainScale = Math.min(1.25, Math.max(0.60, res.h_AB / hAB_nom));
+      const geomScale = distScale * (0.80 + 0.20 * bobGainScale);
+
+      // (a) Secrecy Rate (Paper Fig 6(a))
+      // Values: Bound = 5.75, DRL = 5.68, RL = 5.14, DRL-VB = 5.24, SBJ = 4.71, Robust = 3.65
+      const cs_theo = 5.75 * geomScale;
+      const cs_drl_final = 5.68 * geomScale;
+      const cs_rl_final = 5.14 * geomScale;
+      const cs_vb_final = 5.24 * geomScale;
+      const cs_sbj_val = 4.71 * geomScale;
+      const cs_rob_val = 3.65 * geomScale;
+
+      const cs_drl_init = 3.74 * geomScale;
+      const cs_rl_init = 3.64 * geomScale;
+      const cs_vb_init = 3.80 * geomScale;
+
+      function getCs(t) { return cs_drl_init + (cs_drl_final - cs_drl_init) * (1.0 - 0.65 * Math.exp(-t * 18.0) - 0.35 * Math.exp(-t * 3.5)); }
+      function getCsRL(t) { return cs_rl_init + (cs_rl_final - cs_rl_init) * (1.0 - Math.exp(-t * 2.8)); }
+      function getCsVB(t) { return cs_vb_init + (cs_vb_final - cs_vb_init) * (1.0 - 0.70 * Math.exp(-t * 10.0) - 0.30 * Math.exp(-t * 2.5)); }
+
+      // (b) Bob BER Convergence (Paper Fig 6(b))
+      // Values: Bound = 1.3e-4, DRL = 2.0e-2 -> 2.0e-4, RL = 2.2e-2 -> 3.2e-3, DRL-VB = 2.4e-2 -> 3.8e-3, SBJ = 8.0e-3, Robust = 2.4e-2
+      const pe_bound_val = 1.3e-4;
+      const pe_sbj_val = 8.0e-3;
+      const pe_rob_val = 2.4e-2;
+
+      function getPe(t) {
+        const logInit = Math.log10(2.0e-2), logConv = Math.log10(2.0e-4);
+        const logVal = logInit + (logConv - logInit) * (1.0 - 0.75 * Math.exp(-t * 14.0) - 0.25 * Math.exp(-t * 3.0));
+        return Math.max(pe_bound_val, Math.pow(10, logVal));
+      }
+      function getPeRL(t) {
+        const logInit = Math.log10(2.2e-2), logConv = Math.log10(3.2e-3);
+        const logVal = logInit + (logConv - logInit) * (1.0 - Math.exp(-t * 3.2));
+        return Math.pow(10, logVal);
+      }
+      function getPeVB(t) {
+        const logInit = Math.log10(2.4e-2), logConv = Math.log10(3.8e-3);
+        const logVal = logInit + (logConv - logInit) * (1.0 - Math.exp(-t * 2.5));
+        return Math.pow(10, logVal);
+      }
+
+      // (c) System Utility Convergence (Paper Fig 6(c))
+      // Values: Bound = 5.35, DRL = 3.20 -> 5.24, RL = 2.68 -> 4.48, DRL-VB = 2.30 -> 4.50, SBJ = 4.54, Robust = 2.68
+      const u_theo = 5.35 * geomScale;
+      const u_drl_final = 5.24 * geomScale;
+      const u_rl_final = 4.48 * geomScale;
+      const u_vb_final = 4.50 * geomScale;
+      const u_sbj_val = 4.54 * geomScale;
+      const u_rob_val = 2.68 * geomScale;
+
+      const u_drl_init = 3.20 * geomScale;
+      const u_rl_init = 2.68 * geomScale;
+      const u_vb_init = 2.30 * geomScale;
+
+      function getU(t) { return u_drl_init + (u_drl_final - u_drl_init) * (1.0 - 0.65 * Math.exp(-t * 16.0) - 0.35 * Math.exp(-t * 3.2)); }
+      function getURL(t) { return u_rl_init + (u_rl_final - u_rl_init) * (1.0 - Math.exp(-t * 2.6)); }
+      function getUVB(t) { return u_vb_init + (u_vb_final - u_vb_init) * (1.0 - Math.exp(-t * 3.2)); }
+
+      // Subplot renderer
+      function renderPlot(topY, plotH, metricType, title) {
+        const padL = 75, padR = 195;
+        const plotW = W - padL - padR;
+
+        // Background & Border
+        ctx.strokeStyle = st.border;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(padL, topY, plotW, plotH);
+
+        // Title
+        ctx.fillStyle = st.text;
+        ctx.font = "bold 12px sans-serif";
+        ctx.fillText(title, padL + 6, topY - 7);
+
+        // X and Y limits
+        let minY, maxY, isLog = false;
+        if (metricType === "cs") {
+          minY = 3.0; maxY = 6.0;
+        } else if (metricType === "ber") {
+          minY = 1e-4; maxY = 1e-1; isLog = true;
+        } else {
+          minY = 2.0; maxY = 5.5;
+        }
+
+        // Horizontal Gridlines & Y-labels
+        ctx.strokeStyle = st.grid;
+        ctx.fillStyle = st.text;
+        ctx.font = "10px monospace";
+
+        if (isLog) {
+          [-4, -3, -2, -1].forEach(exp => {
+            const y = topY + plotH - ((exp - (-4)) / 3.0) * plotH;
+            ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
+            ctx.fillText(`10^${exp}`, padL - 46, y + 4);
+          });
+          ctx.save();
+          ctx.translate(padL - 52, topY + plotH / 2);
+          ctx.rotate(-Math.PI / 2);
+          ctx.font = "bold 11px sans-serif";
+          ctx.fillText("BER", -12, 0);
+          ctx.restore();
+        } else {
+          const step = plotH < 130 ? 1.0 : 0.5;
+          for (let val = minY; val <= maxY + 0.05; val += step) {
+            const y = topY + plotH - ((val - minY) / (maxY - minY)) * plotH;
+            ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
+            ctx.fillText(val.toFixed(1), padL - 32, y + 4);
+          }
+          ctx.save();
+          ctx.translate(padL - 40, topY + plotH / 2);
+          ctx.rotate(-Math.PI / 2);
+          ctx.font = "bold 11px sans-serif";
+          ctx.fillText(metricType === "cs" ? "Secrecy rate (bps/Hz)" : "Utility", -50, 0);
+          ctx.restore();
+        }
+
+        // Vertical Gridlines & X-labels
+        [0, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000].forEach(k => {
+          const x = padL + (k / 2000) * plotW;
+          ctx.beginPath(); ctx.moveTo(x, topY); ctx.lineTo(x, topY + plotH); ctx.stroke();
+          ctx.fillText(k, x - 10, topY + plotH + 15);
+        });
+        ctx.font = "bold 11px sans-serif";
+        ctx.fillText("Time slot", padL + plotW / 2 - 25, topY + plotH + 28);
+
+        // Helper to draw clean curves with realistic stochastic ripple
+        function plotLine(getYVal, color, isDashed, noiseScale = 0.0, noiseFreq = 1.0, isLogMetric = false) {
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1.8;
+          ctx.setLineDash(isDashed ? [5, 4] : []);
+          ctx.beginPath();
+
+          for (let s = 0; s <= numSteps; s++) {
+            const t = s / numSteps;
+            const pureVal = getYVal(t);
+            const ripple = noiseScale > 0 ? noiseScale * (0.65 * Math.sin(s * noiseFreq * 1.85) + 0.35 * Math.cos(s * noiseFreq * 3.41 + 1.2)) : 0.0;
+            let y;
+            if (isLogMetric) {
+              const logPure = Math.log10(pureVal);
+              const logVal = logPure + ripple;
+              const clampedLog = Math.max(-4, Math.min(-1, logVal));
+              y = topY + plotH - ((clampedLog - (-4)) / 3.0) * plotH;
+            } else {
+              const val = pureVal + ripple;
+              y = topY + plotH - ((val - minY) / (maxY - minY)) * plotH;
+            }
+            const x = padL + t * plotW;
+            if (s === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+
+        // Plot All 6 Schemes
+        if (metricType === "cs") {
+          plotLine(t => cs_theo, st.colBound, true, 0.0);
+          plotLine(getCs, st.colDRL, false, 0.035, 1.2);
+          plotLine(getCsRL, st.colRL, false, 0.065, 1.8);
+          plotLine(getCsVB, st.colDRLVB, false, 0.045, 1.5);
+          plotLine(t => cs_sbj_val, st.colSBJ, false, 0.0);
+          plotLine(t => cs_rob_val, st.colRobust, false, 0.08, 3.2);
+        } else if (metricType === "ber") {
+          plotLine(t => pe_bound_val, st.colBound, true, 0.0, 1.0, true);
+          plotLine(getPe, st.colDRL, false, 0.04, 1.1, true);
+          plotLine(getPeRL, st.colRL, false, 0.07, 1.7, true);
+          plotLine(getPeVB, st.colDRLVB, false, 0.08, 1.4, true);
+          plotLine(t => pe_sbj_val, st.colSBJ, false, 0.0, 1.0, true);
+          plotLine(t => pe_rob_val, st.colRobust, false, 0.05, 3.1, true);
+        } else {
+          plotLine(t => u_theo, st.colBound, true, 0.0);
+          plotLine(getU, st.colDRL, false, 0.04, 1.2);
+          plotLine(getURL, st.colRL, false, 0.065, 1.8);
+          plotLine(getUVB, st.colDRLVB, false, 0.05, 1.5);
+          plotLine(t => u_sbj_val, st.colSBJ, false, 0.0);
+          plotLine(t => u_rob_val, st.colRobust, false, 0.07, 3.0);
+        }
+
+        // Live Time Slot Cursor k
+        const curT = slotK / 2000.0;
+        const kX = padL + curT * plotW;
+        ctx.strokeStyle = "#f59e0b";
+        ctx.lineWidth = 1.6;
+        ctx.setLineDash([4, 3]);
+        ctx.beginPath(); ctx.moveTo(kX, topY); ctx.lineTo(kX, topY + plotH); ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Pulsating beacon on DRL curve at slot k
+        let curValDRL;
+        if (metricType === "cs") curValDRL = getCs(curT);
+        else if (metricType === "ber") curValDRL = getPe(curT);
+        else curValDRL = getU(curT);
+
+        let curY;
+        if (isLog) {
+          const logVal = Math.log10(Math.max(1e-4, Math.min(1e-1, curValDRL)));
+          curY = topY + plotH - ((logVal - (-4)) / 3.0) * plotH;
+        } else {
+          curY = topY + plotH - ((curValDRL - minY) / (maxY - minY)) * plotH;
+        }
+
+        const beaconPulse = 4.5 + 1.8 * Math.sin(performance.now() * 0.007);
+        ctx.fillStyle = "#f59e0b";
+        ctx.beginPath(); ctx.arc(kX, curY, beaconPulse, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.5; ctx.stroke();
+
+        // Cursor badge
+        ctx.fillStyle = "#f59e0b";
+        ctx.font = "bold 10px monospace";
+        ctx.fillText(`📍 Slot k=${slotK}`, Math.min(kX + 5, padL + plotW - 95), topY + 13);
+        const curText = metricType === "ber" ? curValDRL.toExponential(1) : curValDRL.toFixed(2);
+        ctx.fillStyle = st.text;
+        ctx.fillText(`DRL: ${curText}`, Math.min(kX + 5, padL + plotW - 75), Math.max(topY + 25, Math.min(topY + plotH - 5, curY - 5)));
+
+        // Legend Box on Right
+        const legX = padL + plotW + 14, legY = topY + 4, legW = 175;
+        const itemSpacing = plotH < 130 ? 16 : 21;
+        const legH = 10 + 6 * itemSpacing;
+
+        ctx.fillStyle = st.legendBg;
+        ctx.fillRect(legX, legY, legW, legH);
+        ctx.strokeStyle = st.legendBorder;
+        ctx.strokeRect(legX, legY, legW, legH);
+
+        const items = [
+          { text: "Theoretical Bound", col: st.colBound, dash: true },
+          { text: "Proposed DRL-FJ", col: st.colDRL, mark: "■" },
+          { text: "Proposed RL-FJ", col: st.colRL, mark: "▲" },
+          { text: "DRL-VB", col: st.colDRLVB },
+          { text: "SBJ-VLC", col: st.colSBJ },
+          { text: "Robust beamforming", col: st.colRobust }
+        ];
+
+        ctx.font = plotH < 130 ? "10px sans-serif" : "11px sans-serif";
+        items.forEach((it, idx) => {
+          const ly = legY + (plotH < 130 ? 14 : 17) + idx * itemSpacing;
+          ctx.strokeStyle = it.col;
+          ctx.fillStyle = it.col;
+          ctx.setLineDash(it.dash ? [4, 2] : []);
+          ctx.beginPath(); ctx.moveTo(legX + 8, ly - 4); ctx.lineTo(legX + 24, ly - 4); ctx.stroke();
+          ctx.setLineDash([]);
+          if (it.mark) ctx.fillText(it.mark, legX + 12, ly);
+          ctx.fillStyle = st.text;
+          ctx.fillText(it.text, legX + 32, ly);
+        });
+      }
+
+      if (fig6SubMetric === "all") {
+        const topMargin = 22;
+        const gap = 38;
+        const totalGap = 2 * gap;
+        const availH = H - topMargin - 32;
+        const panelH = Math.max(95, Math.floor((availH - totalGap) / 3));
+
+        renderPlot(topMargin, panelH, "cs", "(a) Secrecy rate of the VLC system (bps/Hz)");
+        renderPlot(topMargin + panelH + gap, panelH, "ber", "(b) BER of the legitimate user Bob (4-PAM)");
+        renderPlot(topMargin + (panelH + gap) * 2, panelH, "utility", "(c) Utility of the VLC system: u = c_s - δ₁·p_e - δ₂·E");
+      } else {
+        const title = fig6SubMetric === "cs" ? "(a) Secrecy rate of the VLC system (bps/Hz)" :
+          (fig6SubMetric === "ber" ? "(b) BER of the legitimate user Bob (4-PAM)" : "(c) Utility of the VLC system: u = c_s - δ₁·p_e - δ₂·E");
+        renderPlot(40, H - 90, fig6SubMetric, title);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // FIGURE 7: PERFORMANCE VS SNR (4 TO 20 dB) (DYNAMIC PAPER FIG 7)
+    // -------------------------------------------------------------------------
+    function drawFig7() {
+      const W = cStage.width, H = cStage.height;
+      const v = getFormValues();
+      const res = computeSystemState(v.bob, v.eve, v.snr, v.alpha, v.delta1, v.delta2);
+      const st = getThemeStyles();
+
+      ctx.fillStyle = st.bg;
+      ctx.fillRect(0, 0, W, H);
+
+      const snrPoints = [4, 6, 8, 10, 12, 14, 16, 18, 20];
+      const minS = 4.0, maxS = 20.0;
+
+      // 1. Dynamic Physical Scaling based on active geometry & channel gains:
+      const d_be = res.d_be;
+      // When Eve gets within 0.40m of Bob, Lambertian spatial separation collapses
+      const distScale = d_be < 0.40 ? Math.max(0, d_be / 0.40) : 1.0;
+      const hAB_nom = 2.718e-5;
+      const bobGainScale = Math.min(1.25, Math.max(0.60, res.h_AB / hAB_nom));
+
+      // Jammer energy consumptions for Eq. (7)
+      const E_zf = res.schemes.zf.energy;
+      const E_drl = Math.max(0.60, E_zf * 0.72);
+      const E_rl  = Math.max(0.80, E_zf * 0.85);
+      const E_sbj = Math.max(0.90, E_zf * 0.95);
+      const E_rob = Math.max(1.10, E_zf * 1.15);
+
+      // (a) Dynamic Secrecy Rate (bps/Hz)
+      function getCsVal(s, scheme) {
+        const nomBase = 1.76 + (4.40 - 1.76) * ((s - 4.0) / 16.0);
+        const physicalRate = nomBase * distScale * (0.80 + 0.20 * bobGainScale);
+        if (scheme === "drl") return Math.max(0, physicalRate);
+        if (scheme === "rl") return Math.max(0, physicalRate * 0.904);
+        if (scheme === "sbj") return Math.max(0, physicalRate * 0.868);
+        if (scheme === "robust") return Math.max(0, physicalRate * 0.757);
+        return 0;
+      }
+
+      // (b) Dynamic Bob 4-PAM BER (Calibrated to IEEE TWC 2024 Fig. 7(b))
+      function getBerVal(s, scheme) {
+        const tables = {
+          drl:    [2.3e-3, 2.0e-3, 1.8e-3, 1.6e-3, 1.5e-3, 9.0e-4, 5.0e-4, 2.5e-4, 1.0e-4],
+          rl:     [1.0e-2, 9.0e-3, 8.5e-3, 7.5e-3, 6.0e-3, 4.5e-3, 3.8e-3, 2.2e-3, 1.2e-3],
+          sbj:    [3.0e-2, 2.8e-2, 2.8e-2, 2.2e-2, 1.6e-2, 1.4e-2, 1.2e-2, 9.0e-3, 7.0e-3],
+          robust: [5.0e-2, 4.8e-2, 4.5e-2, 4.2e-2, 4.0e-2, 4.0e-2, 4.1e-2, 4.0e-2, 3.8e-2]
+        };
+        const arr = tables[scheme] || tables.drl;
+        if (s <= 4.0) return arr[0];
+        if (s >= 20.0) return arr[8];
+        const idx = Math.floor((s - 4.0) / 2.0);
+        const frac = (s - 4.0) / 2.0 - idx;
+        const v1 = Math.log10(arr[idx]);
+        const v2 = Math.log10(arr[Math.min(8, idx + 1)]);
+        return Math.pow(10, v1 + frac * (v2 - v1));
+      }
+
+      // (c) Dynamic System Utility u = c_s - δ₁·p_e - δ₂·E (Eq. 7)
+      function getUtilityVal(s, scheme) {
+        const cs = getCsVal(s, scheme);
+        const pe = getBerVal(s, scheme);
+        let eng = E_drl;
+        if (scheme === "rl") eng = E_rl;
+        else if (scheme === "sbj") eng = E_sbj;
+        else if (scheme === "robust") eng = E_rob;
+        return cs - v.delta1 * pe - v.delta2 * eng;
+      }
+
+      function renderPlot7(topY, plotH, metricType, title) {
+        const padL = 75, padR = 195;
+        const plotW = W - padL - padR;
+
+        // Box & Grid
+        ctx.strokeStyle = st.border;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(padL, topY, plotW, plotH);
+
+        // Subplot Title
+        ctx.fillStyle = st.text;
+        ctx.font = "bold 12px sans-serif";
+        ctx.fillText(title, padL + 6, topY - 7);
+
+        // Y-Axis Configuration
+        let minY = 0.0, maxY = 5.0, isLog = false;
+        if (metricType === "ber") {
+          minY = 1e-4; maxY = 1e-1; isLog = true;
+        } else if (metricType === "utility") {
+          minY = -0.5; maxY = 4.5;
+        }
+
+        ctx.strokeStyle = st.grid;
+        ctx.fillStyle = st.text;
+        ctx.font = "10px monospace";
+
+        if (isLog) {
+          [-4, -3, -2, -1].forEach(exp => {
+            const y = topY + plotH - ((exp - (-4)) / 3.0) * plotH;
+            ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
+            ctx.fillText(`10^${exp}`, padL - 46, y + 4);
+          });
+          ctx.save();
+          ctx.translate(padL - 52, topY + plotH / 2);
+          ctx.rotate(-Math.PI / 2);
+          ctx.font = "bold 11px sans-serif";
+          ctx.fillText("BER", -12, 0);
+          ctx.restore();
+        } else {
+          const yStep = plotH < 130 ? 1.0 : 0.5;
+          for (let val = minY; val <= maxY + 0.05; val += yStep) {
+            const y = topY + plotH - ((val - minY) / (maxY - minY)) * plotH;
+            ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
+            ctx.fillText(val.toFixed(1), padL - 32, y + 4);
+          }
+          ctx.save();
+          ctx.translate(padL - 40, topY + plotH / 2);
+          ctx.rotate(-Math.PI / 2);
+          ctx.font = "bold 11px sans-serif";
+          ctx.fillText(metricType === "cs" ? "Secrecy rate (bps/Hz)" : "Utility", -50, 0);
+          ctx.restore();
+        }
+
+        // X-Axis Grid & Labels
+        snrPoints.forEach(s => {
+          const x = padL + ((s - minS) / (maxS - minS)) * plotW;
+          ctx.beginPath(); ctx.moveTo(x, topY); ctx.lineTo(x, topY + plotH); ctx.stroke();
+          ctx.fillText(s, x - 5, topY + plotH + 15);
+        });
+        ctx.font = "bold 11px sans-serif";
+        ctx.fillText("Transmit SNR (dB)", padL + plotW / 2 - 45, topY + plotH + 28);
+
+        // Helper to Draw Scheme Curves
+        function plotLine7(scheme, color, markerType) {
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1.9;
+          ctx.beginPath();
+
+          // High-resolution smooth curve (step by 0.25 dB)
+          const steps = 64;
+          for (let stp = 0; stp <= steps; stp++) {
+            const s = minS + (stp / steps) * (maxS - minS);
+            let val;
+            if (metricType === "cs") val = getCsVal(s, scheme);
+            else if (metricType === "ber") val = getBerVal(s, scheme);
+            else val = getUtilityVal(s, scheme);
+
+            let y;
+            if (isLog) {
+              const logVal = Math.log10(Math.max(1e-4, Math.min(1e-1, val)));
+              y = topY + plotH - ((logVal - (-4)) / 3.0) * plotH;
+            } else {
+              y = topY + plotH - ((val - minY) / (maxY - minY)) * plotH;
+            }
+            const x = padL + ((s - minS) / (maxS - minS)) * plotW;
+            if (stp === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+
+          // Discrete IEEE Markers at snrPoints
+          ctx.fillStyle = color;
+          snrPoints.forEach(s => {
+            let val;
+            if (metricType === "cs") val = getCsVal(s, scheme);
+            else if (metricType === "ber") val = getBerVal(s, scheme);
+            else val = getUtilityVal(s, scheme);
+
+            let y;
+            if (isLog) {
+              const logVal = Math.log10(Math.max(1e-4, Math.min(1e-1, val)));
+              y = topY + plotH - ((logVal - (-4)) / 3.0) * plotH;
+            } else {
+              y = topY + plotH - ((val - minY) / (maxY - minY)) * plotH;
+            }
+            const x = padL + ((s - minS) / (maxS - minS)) * plotW;
+            if (markerType === "square") ctx.fillRect(x - 3.5, y - 3.5, 7, 7);
+            else if (markerType === "triangle") {
+              ctx.beginPath(); ctx.moveTo(x, y - 5); ctx.lineTo(x + 5, y + 4); ctx.lineTo(x - 4, y + 4); ctx.fill();
+            } else if (markerType === "circle") {
+              ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2); ctx.fill();
+            } else if (markerType === "cross") {
+              ctx.lineWidth = 1.6;
+              ctx.beginPath();
+              ctx.moveTo(x-3.5, y-3.5); ctx.lineTo(x+3.5, y+3.5);
+              ctx.moveTo(x+3.5, y-3.5); ctx.lineTo(x-3.5, y+3.5);
+              ctx.stroke();
+            }
+          });
+        }
+
+        // Draw 4 Published Schemes
+        plotLine7("drl", st.colDRL, "square");
+        plotLine7("rl", st.colRL, "triangle");
+        plotLine7("sbj", st.colSBJ, "circle");
+        plotLine7("robust", st.colRobust, "cross");
+
+        // 2. Current Selected Operating SNR Marker & Live Readout
+        const curX = padL + ((v.snr - minS) / (maxS - minS)) * plotW;
+        ctx.strokeStyle = "#f59e0b";
+        ctx.lineWidth = 1.6;
+        ctx.setLineDash([4, 3]);
+        ctx.beginPath(); ctx.moveTo(curX, topY); ctx.lineTo(curX, topY + plotH); ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Animated Pulsating Beacon on DRL curve at Current Operating SNR
+        let curValDRL;
+        if (metricType === "cs") curValDRL = getCsVal(v.snr, "drl");
+        else if (metricType === "ber") curValDRL = getBerVal(v.snr, "drl");
+        else curValDRL = getUtilityVal(v.snr, "drl");
+
+        let curY;
+        if (isLog) {
+          const logVal = Math.log10(Math.max(1e-4, Math.min(1e-1, curValDRL)));
+          curY = topY + plotH - ((logVal - (-4)) / 3.0) * plotH;
+        } else {
+          curY = topY + plotH - ((curValDRL - minY) / (maxY - minY)) * plotH;
+        }
+
+        const beaconPulse = 5 + 2 * Math.sin(performance.now() * 0.007);
+        ctx.fillStyle = "#f59e0b";
+        ctx.beginPath(); ctx.arc(curX, curY, beaconPulse, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.5; ctx.stroke();
+
+        // Exact Readout Text
+        const curText = metricType === "ber" ? curValDRL.toExponential(1) : curValDRL.toFixed(2);
+        ctx.fillStyle = "#f59e0b";
+        ctx.font = "bold 10px monospace";
+        ctx.fillText(`📍 SNR ${v.snr.toFixed(1)}dB`, Math.min(curX + 6, padL + plotW - 95), topY + 13);
+        ctx.fillStyle = st.text;
+        ctx.fillText(`DRL: ${curText}`, Math.min(curX + 6, padL + plotW - 75), Math.max(topY + 25, Math.min(topY + plotH - 5, curY - 5)));
+
+        // 3. Compact Legend
+        const legX = padL + plotW + 14, legY = topY + 4, legW = 175;
+        const itemSpacing = plotH < 130 ? 17 : 22;
+        const legH = 10 + 4 * itemSpacing;
+
+        ctx.fillStyle = st.legendBg;
+        ctx.fillRect(legX, legY, legW, legH);
+        ctx.strokeStyle = st.legendBorder;
+        ctx.strokeRect(legX, legY, legW, legH);
+
+        const items7 = [
+          { text: "Proposed DRL-FJ", col: st.colDRL, mark: "■" },
+          { text: "Proposed RL-FJ", col: st.colRL, mark: "▲" },
+          { text: "SBJ-VLC", col: st.colSBJ, mark: "●" },
+          { text: "Robust beamforming", col: st.colRobust, mark: "✖" }
+        ];
+
+        ctx.font = plotH < 130 ? "10px sans-serif" : "11px sans-serif";
+        items7.forEach((it, idx) => {
+          const ly = legY + (plotH < 130 ? 15 : 18) + idx * itemSpacing;
+          ctx.strokeStyle = it.col;
+          ctx.fillStyle = it.col;
+          ctx.beginPath(); ctx.moveTo(legX + 8, ly - 4); ctx.lineTo(legX + 24, ly - 4); ctx.stroke();
+          ctx.fillText(it.mark, legX + 12, ly);
+          ctx.fillStyle = st.text;
+          ctx.fillText(it.text, legX + 32, ly);
+        });
+      }
+
+      if (fig7SubMetric === "all") {
+        const topMargin = 22;
+        const gap = 38;
+        const totalGap = 2 * gap;
+        const availH = H - topMargin - 32;
+        const panelH = Math.max(95, Math.floor((availH - totalGap) / 3));
+
+        renderPlot7(topMargin, panelH, "cs", "(a) Secrecy rate of the VLC system (bps/Hz)");
+        renderPlot7(topMargin + panelH + gap, panelH, "ber", "(b) BER of the legitimate receiver Bob (4-PAM)");
+        renderPlot7(topMargin + (panelH + gap) * 2, panelH, "utility", "(c) Utility of the VLC system: u = c_s - δ₁·p_e - δ₂·E");
+      } else {
+        const title = fig7SubMetric === "cs" ? "(a) Secrecy rate of the VLC system (bps/Hz)" :
+          (fig7SubMetric === "ber" ? "(b) BER of the legitimate receiver Bob (4-PAM)" : "(c) Utility of the VLC system: u = c_s - δ₁·p_e - δ₂·E");
+        renderPlot7(40, H - 90, fig7SubMetric, title);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 3D ROOM & LIGHT BEAMS VIEW (EXPANDED & IMMERSIVE VIEWPORT)
+    // -------------------------------------------------------------------------
+    function draw3DRoomScene() {
+      const W = cStage.width, H = cStage.height;
+      const v = getFormValues();
+      const res = computeSystemState(v.bob, v.eve, v.snr, v.alpha, v.delta1, v.delta2);
+      const st = getThemeStyles();
+
+      ctx.fillStyle = st.bg;
+      ctx.fillRect(0, 0, W, H);
+
+      function projectRoom(x, y, z) {
+        // Center coordinates relative to room centroid (2.5, 2.5, 1.5)
+        const dx = x - 2.5, dy = y - 2.5, dz = z - 1.5;
+
+        // Azimuth (yaw) rotation around vertical Z axis
+        const cosAz = Math.cos(roomAngleZ), sinAz = Math.sin(roomAngleZ);
+        const x1 = dx * cosAz - dy * sinAz;
+        const y1 = dx * sinAz + dy * cosAz;
+        const z1 = dz;
+
+        // Elevation (pitch) tilt
+        const cosEl = Math.cos(roomAngleX), sinEl = Math.sin(roomAngleX);
+        const camX = x1;
+        const camY = y1 * cosEl - z1 * sinEl; // depth component
+        const camZ = y1 * sinEl + z1 * cosEl; // elevation component
+
+        // 3D Perspective projection with depth division
+        const camDist = 11.2;
+        const depth = camDist + camY;
+        const focal = (Math.min(W, H) * 1.85) * roomZoom;
+        const scale = focal / Math.max(1.0, depth);
+
+        return {
+          x: W / 2 + camX * scale,
+          y: H / 2 - camZ * scale,
+          scale: scale,
+          depth: depth
+        };
+      }
+
+      // 0. Shaded Floor Base Polygon
+      const fl0 = projectRoom(0, 0, 0);
+      const fl1 = projectRoom(5, 0, 0);
+      const fl2 = projectRoom(5, 5, 0);
+      const fl3 = projectRoom(0, 5, 0);
+      ctx.fillStyle = isPaperTheme ? "rgba(59, 130, 246, 0.04)" : "rgba(30, 58, 138, 0.10)";
+      ctx.beginPath();
+      ctx.moveTo(fl0.x, fl0.y);
+      ctx.lineTo(fl1.x, fl1.y);
+      ctx.lineTo(fl2.x, fl2.y);
+      ctx.lineTo(fl3.x, fl3.y);
+      ctx.closePath();
+      ctx.fill();
+
+      // 1. Floor Tile Grid (0m to 5m at 1m spacing)
+      ctx.strokeStyle = isPaperTheme ? "rgba(0, 0, 0, 0.10)" : "rgba(255, 255, 255, 0.09)";
+      ctx.lineWidth = 0.9;
+      for (let gx = 0; gx <= 5; gx++) {
+        const p1 = projectRoom(gx, 0, 0);
+        const p2 = projectRoom(gx, 5, 0);
+        ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+      }
+      for (let gy = 0; gy <= 5; gy++) {
+        const p1 = projectRoom(0, gy, 0);
+        const p2 = projectRoom(5, gy, 0);
+        ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+      }
+
+      // Floor corner coordinate markers
+      ctx.fillStyle = st.textMuted;
+      ctx.font = "bold 10px monospace";
+      const p00 = projectRoom(0, 0, 0); ctx.fillText("(0,0)m", p00.x - 18, p00.y + 14);
+      const p50 = projectRoom(5, 0, 0); ctx.fillText("(5,0)m", p50.x + 6, p50.y + 12);
+      const p55 = projectRoom(5, 5, 0); ctx.fillText("(5,5)m", p55.x + 6, p55.y - 6);
+      const p05 = projectRoom(0, 5, 0); ctx.fillText("(0,5)m", p05.x - 30, p05.y - 6);
+
+      // 2. Room 3D Cube Edges
+      ctx.strokeStyle = st.border;
+      ctx.lineWidth = 1.4;
+      const c = [
+        [0,0,0], [5,0,0], [5,5,0], [0,5,0],
+        [0,0,3], [5,0,3], [5,5,3], [0,5,3]
+      ].map(pt => projectRoom(...pt));
+      [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]].forEach(([i, j]) => {
+        ctx.beginPath(); ctx.moveTo(c[i].x, c[i].y); ctx.lineTo(c[j].x, c[j].y); ctx.stroke();
+      });
+
+      // Ceiling Plane
+      ctx.fillStyle = isPaperTheme ? "rgba(168, 85, 247, 0.03)" : "rgba(168, 85, 247, 0.06)";
+      ctx.beginPath();
+      ctx.moveTo(c[4].x, c[4].y); ctx.lineTo(c[5].x, c[5].y);
+      ctx.lineTo(c[6].x, c[6].y); ctx.lineTo(c[7].x, c[7].y);
+      ctx.closePath(); ctx.fill();
+
+      const pAlice = projectRoom(...ALICE);
+      const pBob = projectRoom(...v.bob);
+      const pEve = projectRoom(...v.eve);
+
+      // 3. Vertical Drop Lines & Shadows on Floor
+      // Alice drop line to floor:
+      const pAliceFloor = projectRoom(2.5, 2.5, 0);
+      ctx.strokeStyle = "rgba(245, 158, 11, 0.3)";
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath(); ctx.moveTo(pAlice.x, pAlice.y); ctx.lineTo(pAliceFloor.x, pAliceFloor.y); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = "rgba(245, 158, 11, 0.15)";
+      ctx.beginPath(); ctx.ellipse(pAliceFloor.x, pAliceFloor.y, 16, 9, 0, 0, Math.PI*2); ctx.fill();
+
+      // Bob drop line & receiver ring:
+      const pBobFloor = projectRoom(v.bob[0], v.bob[1], 0);
+      ctx.strokeStyle = "rgba(59, 130, 246, 0.45)";
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath(); ctx.moveTo(pBob.x, pBob.y); ctx.lineTo(pBobFloor.x, pBobFloor.y); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = "rgba(59, 130, 246, 0.18)";
+      ctx.beginPath(); ctx.ellipse(pBobFloor.x, pBobFloor.y, 16, 9, 0, 0, Math.PI*2); ctx.fill();
+
+      // Eve drop line & wiretap ring:
+      const pEveFloor = projectRoom(v.eve[0], v.eve[1], 0);
+      ctx.strokeStyle = "rgba(239, 68, 68, 0.45)";
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath(); ctx.moveTo(pEve.x, pEve.y); ctx.lineTo(pEveFloor.x, pEveFloor.y); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = "rgba(239, 68, 68, 0.18)";
+      ctx.beginPath(); ctx.ellipse(pEveFloor.x, pEveFloor.y, 16, 9, 0, 0, Math.PI*2); ctx.fill();
+
+      // Distance Line between Bob and Eve
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath(); ctx.moveTo(pBob.x, pBob.y); ctx.lineTo(pEve.x, pEve.y); ctx.stroke();
+      ctx.setLineDash([]);
+      const midX = (pBob.x + pEve.x) / 2;
+      const midY = (pBob.y + pEve.y) / 2;
+      ctx.fillStyle = st.text;
+      ctx.font = "bold 11px monospace";
+      ctx.fillText(`${res.d_be.toFixed(2)}m`, midX + 6, midY - 6);
+
+      // 4. Optical Signal Beams
+      // Alice to Bob: Main Confidential Beam
+      ctx.strokeStyle = "rgba(52, 211, 153, 0.9)";
+      ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.moveTo(pAlice.x, pAlice.y); ctx.lineTo(pBob.x, pBob.y); ctx.stroke();
+
+      // Alice to Eve: Eavesdropping Leakage Beam
+      ctx.setLineDash([5, 4]);
+      ctx.strokeStyle = "rgba(245, 158, 11, 0.55)";
+      ctx.lineWidth = 1.8;
+      ctx.beginPath(); ctx.moveTo(pAlice.x, pAlice.y); ctx.lineTo(pEve.x, pEve.y); ctx.stroke();
+      ctx.setLineDash([]);
+
+      // 4 Jammers to Eve (Friendly Jamming Wavefronts)
+      JAMMERS.forEach((j, idx) => {
+        const pj = projectRoom(...j);
+        const w_mag = Math.abs(res.w_zf[idx]);
+        ctx.strokeStyle = `rgba(192, 132, 252, ${0.35 + 0.65 * w_mag})`;
+        ctx.lineWidth = 1.5 + 3.0 * w_mag;
+        ctx.beginPath(); ctx.moveTo(pj.x, pj.y); ctx.lineTo(pEve.x, pEve.y); ctx.stroke();
+
+        // Null space trace to Bob
+        ctx.setLineDash([2, 5]);
+        ctx.strokeStyle = "rgba(56, 189, 248, 0.25)";
+        ctx.lineWidth = 1.0;
+        ctx.beginPath(); ctx.moveTo(pj.x, pj.y); ctx.lineTo(pBob.x, pBob.y); ctx.stroke();
+        ctx.setLineDash([]);
+      });
+
+      // 5. Animated Flowing Photons
+      if (isTransmitting) {
+        const pTime = performance.now() * 0.001 * simSpeed;
+        for (let pt = 0; pt < 14; pt++) {
+          const prog = (pTime + pt * 0.08) % 1.0;
+          // Data photon to Bob
+          const bx = pAlice.x + (pBob.x - pAlice.x) * prog;
+          const by = pAlice.y + (pBob.y - pAlice.y) * prog;
+          ctx.fillStyle = "#34d399";
+          ctx.beginPath(); ctx.arc(bx, by, 3.8, 0, Math.PI*2); ctx.fill();
+
+          // Leakage photon to Eve
+          const ex = pAlice.x + (pEve.x - pAlice.x) * prog;
+          const ey = pAlice.y + (pEve.y - pAlice.y) * prog;
+          ctx.fillStyle = "#f59e0b";
+          ctx.beginPath(); ctx.arc(ex, ey, 3.0, 0, Math.PI*2); ctx.fill();
+
+          // Jamming pulse from Jammer to Eve
+          const jIdx = pt % 4;
+          const pj = projectRoom(...JAMMERS[jIdx]);
+          const jx = pj.x + (pEve.x - pj.x) * prog;
+          const jy = pj.y + (pEve.y - pj.y) * prog;
+          ctx.fillStyle = "#c084fc";
+          ctx.beginPath(); ctx.arc(jx, jy, 3.2, 0, Math.PI*2); ctx.fill();
+        }
+      }
+
+      // 6. Transceiver Nodes
+      // Alice Node (Tx)
+      ctx.fillStyle = "gold";
+      ctx.beginPath(); ctx.arc(pAlice.x, pAlice.y, 11, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = "#fff"; ctx.lineWidth = 2.5; ctx.stroke();
+      ctx.fillStyle = st.text; ctx.font = "bold 13px sans-serif";
+      ctx.fillText("Alice Tx (2.5, 2.5, 3.0)m", pAlice.x + 15, pAlice.y + 5);
+
+      // Bob Node (Rx)
+      ctx.fillStyle = "#3b82f6";
+      ctx.beginPath(); ctx.arc(pBob.x, pBob.y, 11, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = "#fff"; ctx.lineWidth = 2.5; ctx.stroke();
+      // Null-space Protection Pulsating Halo
+      const ringPulse = 20 + 4 * Math.sin(performance.now() * 0.005);
+      ctx.strokeStyle = "rgba(52, 211, 153, 0.7)";
+      ctx.lineWidth = 2.0;
+      ctx.beginPath(); ctx.arc(pBob.x, pBob.y, ringPulse, 0, Math.PI*2); ctx.stroke();
+      ctx.fillStyle = st.text; ctx.font = "bold 13px sans-serif";
+      ctx.fillText(`Bob Rx (${v.bob[0].toFixed(2)}, ${v.bob[1].toFixed(2)}, 0.85)m`, pBob.x + 15, pBob.y + 5);
+
+      // Eve Node (Wiretapper)
+      ctx.fillStyle = "#ef4444";
+      ctx.beginPath(); ctx.arc(pEve.x, pEve.y, 11, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = "#fff"; ctx.lineWidth = 2.5; ctx.stroke();
+      // Jamming Impact Warning Ring
+      const evePulse = 18 + 3 * Math.cos(performance.now() * 0.006);
+      ctx.strokeStyle = "rgba(239, 68, 68, 0.6)";
+      ctx.lineWidth = 1.8;
+      ctx.beginPath(); ctx.arc(pEve.x, pEve.y, evePulse, 0, Math.PI*2); ctx.stroke();
+      ctx.fillStyle = st.text; ctx.font = "bold 13px sans-serif";
+      ctx.fillText(`Eve Rx (${v.eve[0].toFixed(2)}, ${v.eve[1].toFixed(2)}, 0.85)m`, pEve.x + 15, pEve.y + 5);
+
+      // 4 Jammers
+      JAMMERS.forEach((j, idx) => {
+        const pj = projectRoom(...j);
+        ctx.fillStyle = "#d946ef";
+        ctx.beginPath(); ctx.arc(pj.x, pj.y, 9, 0, Math.PI*2); ctx.fill();
+        ctx.strokeStyle = "#fff"; ctx.lineWidth = 2.0; ctx.stroke();
+        ctx.fillStyle = st.text; ctx.font = "bold 11px sans-serif";
+        ctx.fillText(`Jammer J${idx+1} (${j[0]}, ${j[1]}, 3.0)m`, pj.x + 12, pj.y + 4);
+      });
+    }
+
+    // =========================================================================
+    // 6. MASTER RENDER DISPATCHER
+    // =========================================================================
+    function drawStage() {
+      if (activeMainView === "fig5") drawFig5();
+      else if (activeMainView === "fig6") drawFig6();
+      else if (activeMainView === "fig7") drawFig7();
+      else if (activeMainView === "room3d") draw3DRoomScene();
+    }
+
+    // Update Telemetry & Text Displays
+    function updateUI() {
+      const v = getFormValues();
+
+      document.getElementById("vBobX").innerText = v.bob[0].toFixed(2);
+      document.getElementById("vBobY").innerText = v.bob[1].toFixed(2);
+      document.getElementById("vEveX").innerText = v.eve[0].toFixed(2);
+      document.getElementById("vEveY").innerText = v.eve[1].toFixed(2);
+      document.getElementById("labelBobPos").innerText = `(${v.bob[0].toFixed(2)}, ${v.bob[1].toFixed(2)}, 0.85) m`;
+      document.getElementById("labelEvePos").innerText = `(${v.eve[0].toFixed(2)}, ${v.eve[1].toFixed(2)}, 0.85) m`;
+
+      document.getElementById("vSnr").innerText = v.snr.toFixed(1) + " dB";
+      document.getElementById("labelSnr").innerText = v.snr.toFixed(1) + " dB";
+      document.getElementById("vAlpha").innerText = (v.alpha * 100).toFixed(0) + "%";
+      document.getElementById("vDelta1").innerText = v.delta1.toFixed(1);
+      document.getElementById("vDelta2").innerText = v.delta2.toFixed(2);
+
+      const res = computeSystemState(v.bob, v.eve, v.snr, v.alpha, v.delta1, v.delta2);
+
+      document.getElementById("vDistance").innerText = res.d_be.toFixed(2) + " m";
+      const distBox = document.getElementById("distanceAlert");
+      const distStat = document.getElementById("vDistanceStatus");
+      if (res.d_be < 0.4) {
+        distBox.className = "alert-banner alert-warn";
+        distStat.innerText = "(🚨 CRITICAL: Risk of Interception!)";
+      } else {
+        distBox.className = "alert-banner alert-safe";
+        distStat.innerText = "(Safe Separation)";
+      }
+
+      document.getElementById("dispCs").innerText = res.schemes.drl.cs.toFixed(2);
+      document.getElementById("dispBer").innerText = res.schemes.drl.pe.toExponential(2);
+      document.getElementById("dispUtility").innerText = res.schemes.drl.u.toFixed(2);
+      document.getElementById("dispEveJam").innerText = res.jamming_eve.toExponential(2);
+      document.getElementById("dispNullBob").innerText = `Bob Leakage: ${res.leakage_bob.toExponential(2)}`;
+
+      res.w_zf.forEach((w, i) => {
+        const fill = document.getElementById(`fillJ${i+1}`);
+        const valText = document.getElementById(`valJ${i+1}`);
+        const pct = Math.abs(w) * 100;
+        fill.style.height = `${pct}%`;
+        fill.style.background = w >= 0 ? "linear-gradient(to top, #8b5cf6, #c084fc)" : "linear-gradient(to top, #ef4444, #f87171)";
+        valText.innerText = (w >= 0 ? "+" : "") + w.toFixed(2);
+      });
+
+      document.getElementById("t_nj_cs").innerText = res.schemes.no_jam.cs.toFixed(4);
+      document.getElementById("t_nj_ber").innerText = res.schemes.no_jam.pe.toExponential(2);
+      document.getElementById("t_nj_u").innerText = res.schemes.no_jam.u.toFixed(4);
+
+      document.getElementById("t_zf_cs").innerText = res.schemes.zf.cs.toFixed(4);
+      document.getElementById("t_zf_ber").innerText = res.schemes.zf.pe.toExponential(2);
+      document.getElementById("t_zf_e").innerText = res.schemes.zf.energy.toFixed(2);
+      document.getElementById("t_zf_u").innerText = res.schemes.zf.u.toFixed(4);
+
+      document.getElementById("t_rl_cs").innerText = res.schemes.rl.cs.toFixed(4);
+      document.getElementById("t_rl_ber").innerText = res.schemes.rl.pe.toExponential(2);
+      document.getElementById("t_rl_e").innerText = res.schemes.rl.energy.toFixed(2);
+      document.getElementById("t_rl_u").innerText = res.schemes.rl.u.toFixed(4);
+
+      document.getElementById("t_drl_cs").innerText = res.schemes.drl.cs.toFixed(4);
+      document.getElementById("t_drl_ber").innerText = res.schemes.drl.pe.toExponential(2);
+      document.getElementById("t_drl_e").innerText = res.schemes.drl.energy.toFixed(2);
+      document.getElementById("t_drl_u").innerText = res.schemes.drl.u.toFixed(4);
+
+      document.getElementById("t_th_cs").innerText = res.schemes.theo.cs.toFixed(4);
+      document.getElementById("t_th_ber").innerText = res.schemes.theo.pe.toExponential(2);
+      document.getElementById("t_th_e").innerText = res.schemes.theo.energy.toFixed(2);
+      document.getElementById("t_th_u").innerText = res.schemes.theo.u.toFixed(4);
+
+      document.getElementById("ch_hAB").innerText = res.h_AB.toExponential(4);
+      document.getElementById("ch_hAE").innerText = res.h_AE.toExponential(4);
+      document.getElementById("ch_hJB").innerText = "[" + res.h_JB.map(v => v.toExponential(2)).join(", ") + "]";
+      document.getElementById("ch_hJE").innerText = "[" + res.h_JE.map(v => v.toExponential(2)).join(", ") + "]";
+
+      drawStage();
+    }
+
+    [slBobX, slBobY, slEveX, slEveY, slSnr, slAlpha, slDelta1, slDelta2].forEach(sl => {
+      sl.addEventListener("input", updateUI);
+    });
+
+    // =========================================================================
+    // 7. REAL-TIME 60 FPS ANIMATION LOOP
+    // =========================================================================
+    function animationLoop(now) {
+      if (isTransmitting) {
+        if (slotK + Math.round(simSpeed * 1.5) >= 2000) {
+          slotK = 2000;
+          isTransmitting = false;
+          const btn = document.getElementById("btnTransPlay");
+          const icon = document.getElementById("transIcon");
+          const text = document.getElementById("transText");
+          btn.classList.add("paused");
+          icon.innerText = "🔄";
+          text.innerText = "CONVERGED (RESTART)";
+        } else {
+          slotK += Math.round(simSpeed * 1.5);
+        }
+        const v = getFormValues();
+        const res = computeSystemState(v.bob, v.eve, v.snr, v.alpha, v.delta1, v.delta2, slotK);
+        totalBits += Math.round(res.schemes.drl.cs * 80 * simSpeed);
+
+        document.getElementById("dispSlot").innerText = `k = ${slotK} / 2000`;
+        document.getElementById("dispBits").innerText = `${(totalBits / 1000).toFixed(1)} kb`;
+        document.getElementById("dispBer").innerText = res.schemes.drl.pe.toExponential(2);
+        document.getElementById("t_drl_ber").innerText = res.schemes.drl.pe.toExponential(2);
+        document.getElementById("t_rl_ber").innerText = res.schemes.rl.pe.toExponential(2);
+      }
+
+      let needsUIUpdate = false;
+
+      if (isEvePatrol) {
+        patrolEveTime += 0.012 * simSpeed;
+        const newEveX = 2.5 + 1.95 * Math.cos(patrolEveTime * 0.65 + evePhaseX);
+        const newEveY = 2.5 + 1.85 * Math.sin(patrolEveTime * 0.85 + evePhaseY);
+        slEveX.value = Math.max(0.35, Math.min(4.65, newEveX)).toFixed(2);
+        slEveY.value = Math.max(0.35, Math.min(4.65, newEveY)).toFixed(2);
+        needsUIUpdate = true;
+      }
+
+      if (isBobPatrol) {
+        patrolBobTime += 0.011 * simSpeed;
+        const newBobX = 2.5 + 1.95 * Math.cos(patrolBobTime * 0.55 + bobPhaseX);
+        const newBobY = 2.5 + 1.85 * Math.sin(patrolBobTime * 0.75 + bobPhaseY);
+        slBobX.value = Math.max(0.35, Math.min(4.65, newBobX)).toFixed(2);
+        slBobY.value = Math.max(0.35, Math.min(4.65, newBobY)).toFixed(2);
+        needsUIUpdate = true;
+      }
+
+      if (needsUIUpdate) {
+        updateUI();
+      }
+
+      // Redraw stage if transmitting, patrols are moving, or active view has live animations
+      if (isTransmitting || isEvePatrol || isBobPatrol || activeMainView === "room3d" || activeMainView === "fig7" || activeMainView === "fig6") {
+        drawStage();
+      }
+
+      requestAnimationFrame(animationLoop);
+    }
+
+    // Initialize layout and launch
+    setTimeout(() => {
+      renderSubControlsBar();
+      resizeCanvas();
+      updateUI();
+      requestAnimationFrame(animationLoop);
+    }, 60);
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-10-11T00:24:32.739992",
+  "source_os": "Windows-11-10.0.26300-SP0",
+  "source_user": "codew",
+  "conversation_ids": [
+    "1b0ef9f9-7359-4e98-952b-d5d6bf76f276"
+  ],
+  "total_files": 75,
+  "total_bytes": 46214066,
+  "total_megabytes": 44.07,
+  "instructions": "To restore on another device, clone repo and run: python run.py --restore-chats"
+}
