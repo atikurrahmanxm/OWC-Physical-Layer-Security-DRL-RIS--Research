@@ -11,6 +11,7 @@ Figure 7(c): Utility of the VLC system vs SNR
 import os
 import sys
 import argparse
+from typing import Optional, List
 
 # Ensure project root is in python path
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))

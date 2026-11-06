@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,12 @@
       --text-muted: #94a3b8;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       background: var(--bg-dark);
@@ -44,6 +50,7 @@
       z-index: 100;
       backdrop-filter: blur(12px);
     }
+
     .header-left h1 {
       font-size: 1.05rem;
       font-weight: 700;
@@ -51,15 +58,18 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .header-left p {
       font-size: 0.69rem;
       color: var(--text-muted);
     }
+
     .header-controls {
       display: flex;
       gap: 6px;
       align-items: center;
     }
+
     .btn-preset {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--panel-border);
@@ -70,11 +80,13 @@
       cursor: pointer;
       transition: all 0.15s ease;
     }
+
     .btn-preset:hover {
       background: rgba(139, 92, 246, 0.25);
       border-color: #8b5cf6;
       color: #fff;
     }
+
     .badge-live {
       display: flex;
       align-items: center;
@@ -87,6 +99,7 @@
       border-radius: 999px;
       font-weight: 600;
     }
+
     .pulse-dot {
       width: 7px;
       height: 7px;
@@ -94,10 +107,23 @@
       border-radius: 50%;
       animation: pulse 1.5s infinite;
     }
+
     @keyframes pulse {
-      0% { transform: scale(0.9); opacity: 0.8; }
-      50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 8px #10b981; }
-      100% { transform: scale(0.9); opacity: 0.8; }
+      0% {
+        transform: scale(0.9);
+        opacity: 0.8;
+      }
+
+      50% {
+        transform: scale(1.3);
+        opacity: 1;
+        box-shadow: 0 0 8px #10b981;
+      }
+
+      100% {
+        transform: scale(0.9);
+        opacity: 0.8;
+      }
     }
 
     /* DASHBOARD LAYOUT */
@@ -111,14 +137,24 @@
       min-height: 720px;
       min-width: 0;
     }
+
     @media (max-width: 1400px) {
-      .dashboard-grid { grid-template-columns: minmax(200px, 245px) minmax(320px, 1fr) minmax(280px, 345px); }
+      .dashboard-grid {
+        grid-template-columns: minmax(200px, 245px) minmax(320px, 1fr) minmax(280px, 345px);
+      }
     }
+
     @media (max-width: 1100px) {
-      .dashboard-grid { grid-template-columns: minmax(190px, 220px) minmax(280px, 1fr) minmax(260px, 310px); }
+      .dashboard-grid {
+        grid-template-columns: minmax(190px, 220px) minmax(280px, 1fr) minmax(260px, 310px);
+      }
     }
+
     @media (max-width: 900px) {
-      .dashboard-grid { grid-template-columns: 1fr; height: auto; }
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
     }
 
     .panel {
@@ -129,10 +165,11 @@
       display: flex;
       flex-direction: column;
       overflow-y: auto;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(12px);
       min-width: 0;
     }
+
     .panel-title {
       font-size: 0.76rem;
       text-transform: uppercase;
@@ -152,6 +189,7 @@
       padding: 7px 9px;
       margin-bottom: 7px;
     }
+
     .control-head {
       display: flex;
       justify-content: space-between;
@@ -159,6 +197,7 @@
       font-weight: 600;
       margin-bottom: 5px;
     }
+
     .slider-row {
       display: flex;
       align-items: center;
@@ -166,13 +205,19 @@
       margin-bottom: 3px;
       font-size: 0.69rem;
     }
-    .slider-row label { width: 42px; color: var(--text-muted); }
+
+    .slider-row label {
+      width: 42px;
+      color: var(--text-muted);
+    }
+
     .slider-row input[type="range"] {
       flex: 1;
       accent-color: #8b5cf6;
       height: 4px;
       cursor: pointer;
     }
+
     .slider-row span {
       width: 44px;
       text-align: right;
@@ -189,8 +234,19 @@
       align-items: center;
       gap: 6px;
     }
-    .alert-safe { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
-    .alert-warn { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); font-weight: bold; }
+
+    .alert-safe {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .alert-warn {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      font-weight: bold;
+    }
 
     /* CENTER MAIN SECTION */
     .center-section {
@@ -213,11 +269,13 @@
       gap: 8px;
       flex-wrap: wrap;
     }
+
     .trans-left {
       display: flex;
       gap: 6px;
       align-items: center;
     }
+
     .btn-trans-toggle {
       background: linear-gradient(135deg, #10b981, #059669);
       border: none;
@@ -232,8 +290,15 @@
       gap: 5px;
       transition: all 0.15s ease;
     }
-    .btn-trans-toggle:hover { filter: brightness(1.15); }
-    .btn-trans-toggle.paused { background: linear-gradient(135deg, #f59e0b, #d97706); }
+
+    .btn-trans-toggle:hover {
+      filter: brightness(1.15);
+    }
+
+    .btn-trans-toggle.paused {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
+
     .btn-patrol {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--panel-border);
@@ -247,18 +312,21 @@
       gap: 4px;
       transition: all 0.15s ease;
     }
+
     .btn-patrol.active {
       background: rgba(239, 68, 68, 0.2);
       border-color: #ef4444;
       color: #fca5a5;
       font-weight: 600;
     }
+
     .btn-patrol-bob.active {
       background: rgba(59, 130, 246, 0.2);
       border-color: #3b82f6;
       color: #93c5fd;
       font-weight: 600;
     }
+
     .speed-group {
       display: flex;
       gap: 3px;
@@ -267,6 +335,7 @@
       color: var(--text-muted);
       margin-left: 4px;
     }
+
     .btn-speed {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--panel-border);
@@ -276,13 +345,19 @@
       font-size: 0.65rem;
       cursor: pointer;
     }
-    .btn-speed.active { background: #8b5cf6; color: #fff; font-weight: bold; }
+
+    .btn-speed.active {
+      background: #8b5cf6;
+      color: #fff;
+      font-weight: bold;
+    }
 
     .trans-right {
       display: flex;
       gap: 8px;
       align-items: center;
     }
+
     .trans-badge {
       background: rgba(0, 0, 0, 0.35);
       border: 1px solid rgba(255, 255, 255, 0.06);
@@ -291,7 +366,11 @@
       font-size: 0.67rem;
       font-family: monospace;
     }
-    .k-label { color: var(--text-muted); margin-right: 4px; }
+
+    .k-label {
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
 
     /* FIGURE VIEWER STAGE */
     .viewer-stage {
@@ -302,7 +381,7 @@
       padding: 10px 14px;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
       position: relative;
       overflow: hidden;
       min-width: 0;
@@ -319,11 +398,13 @@
       flex-wrap: wrap;
       gap: 6px;
     }
+
     .main-tabs {
       display: flex;
       gap: 5px;
       flex-wrap: wrap;
     }
+
     .main-tab-btn {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--panel-border);
@@ -335,7 +416,12 @@
       font-weight: 600;
       transition: all 0.15s ease;
     }
-    .main-tab-btn:hover { background: rgba(255, 255, 255, 0.09); color: #fff; }
+
+    .main-tab-btn:hover {
+      background: rgba(255, 255, 255, 0.09);
+      color: #fff;
+    }
+
     .main-tab-btn.active {
       background: rgba(139, 92, 246, 0.3);
       color: #fff;
@@ -352,11 +438,13 @@
       flex-wrap: wrap;
       gap: 6px;
     }
+
     .sub-btn-group {
       display: flex;
       gap: 4px;
       align-items: center;
     }
+
     .sub-btn {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--panel-border);
@@ -366,7 +454,11 @@
       font-size: 0.68rem;
       cursor: pointer;
     }
-    .sub-btn:hover { color: #fff; }
+
+    .sub-btn:hover {
+      color: #fff;
+    }
+
     .sub-btn.active {
       background: #8b5cf6;
       color: #fff;
@@ -383,9 +475,10 @@
       border-radius: 5px;
       font-size: 0.67rem;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
       transition: all 0.15s ease;
     }
+
     .btn-theme-toggle.dark-mode {
       background: #1e293b;
       color: #f8fafc;
@@ -405,26 +498,32 @@
       border: 1px solid rgba(255, 255, 255, 0.05);
       min-width: 0;
     }
+
     .primary-canvas-wrapper.paper-theme {
       background: #ffffff;
       border-color: #cbd5e1;
     }
+
     .dashboard-grid.maximized-stage {
       grid-template-columns: 1fr 375px !important;
     }
+
     @media (max-width: 1400px) {
       .dashboard-grid.maximized-stage {
         grid-template-columns: 1fr minmax(280px, 345px) !important;
       }
     }
+
     @media (max-width: 1100px) {
       .dashboard-grid.maximized-stage {
         grid-template-columns: 1fr minmax(260px, 310px) !important;
       }
     }
+
     .dashboard-grid.maximized-stage #panelLeft {
       display: none !important;
     }
+
     .dashboard-grid.maximized-stage #panelRight {
       display: flex !important;
     }
@@ -438,6 +537,7 @@
       gap: 6px;
       z-index: 30;
     }
+
     .hud-btn {
       background: rgba(14, 20, 34, 0.90);
       border: 1px solid var(--panel-border);
@@ -454,17 +554,20 @@
       align-items: center;
       gap: 4px;
     }
+
     .hud-btn:hover {
       background: rgba(139, 92, 246, 0.35);
       border-color: #8b5cf6;
       color: #fff;
       transform: translateY(-1px);
     }
+
     .hud-expand-btn {
       background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3));
       border-color: #3b82f6;
       color: #93c5fd;
     }
+
     .hud-expand-btn.active {
       background: linear-gradient(135deg, #3b82f6, #8b5cf6);
       color: #fff;
@@ -477,6 +580,7 @@
       gap: 6px;
       margin-bottom: 7px;
     }
+
     .metric-card {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--panel-border);
@@ -484,14 +588,49 @@
       padding: 7px;
       position: relative;
     }
-    .metric-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
-    .mc-green::before { background: var(--accent-green); }
-    .mc-blue::before { background: var(--accent-blue); }
-    .mc-purple::before { background: var(--accent-purple); }
-    .mc-cyan::before { background: var(--accent-cyan); }
-    .mc-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
-    .mc-value { font-size: 1.10rem; font-weight: 700; margin: 2px 0; }
-    .mc-sub { font-size: 0.63rem; color: var(--text-muted); }
+
+    .metric-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+    }
+
+    .mc-green::before {
+      background: var(--accent-green);
+    }
+
+    .mc-blue::before {
+      background: var(--accent-blue);
+    }
+
+    .mc-purple::before {
+      background: var(--accent-purple);
+    }
+
+    .mc-cyan::before {
+      background: var(--accent-cyan);
+    }
+
+    .mc-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .mc-value {
+      font-size: 1.10rem;
+      font-weight: 700;
+      margin: 2px 0;
+    }
+
+    .mc-sub {
+      font-size: 0.63rem;
+      color: var(--text-muted);
+    }
 
     .beamformer-block {
       background: rgba(255, 255, 255, 0.02);
@@ -500,12 +639,14 @@
       padding: 7px;
       margin-bottom: 7px;
     }
+
     .jammer-bars {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 5px;
       margin-top: 4px;
     }
+
     .j-bar-item {
       background: rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.06);
@@ -513,7 +654,12 @@
       padding: 3px;
       text-align: center;
     }
-    .j-bar-label { font-size: 0.63rem; color: var(--text-muted); }
+
+    .j-bar-label {
+      font-size: 0.63rem;
+      color: var(--text-muted);
+    }
+
     .j-bar-meter {
       height: 28px;
       background: rgba(255, 255, 255, 0.05);
@@ -524,8 +670,17 @@
       justify-content: center;
       overflow: hidden;
     }
-    .j-bar-fill { width: 100%; transition: height 0.05s ease; }
-    .j-bar-num { font-size: 0.68rem; font-family: monospace; font-weight: bold; }
+
+    .j-bar-fill {
+      width: 100%;
+      transition: height 0.05s ease;
+    }
+
+    .j-bar-num {
+      font-size: 0.68rem;
+      font-family: monospace;
+      font-weight: bold;
+    }
 
     .compare-table {
       width: 100%;
@@ -533,21 +688,255 @@
       font-size: 0.67rem;
       margin-top: 3px;
     }
-    .compare-table th, .compare-table td {
+
+    .compare-table th,
+    .compare-table td {
       padding: 3px 5px;
       text-align: left;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
-    .compare-table th { color: var(--text-muted); font-size: 0.63rem; text-transform: uppercase; }
-    .row-highlight { background: rgba(139, 92, 246, 0.15); font-weight: 600; color: #fff; }
-    .tag-best { background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 1px 3px; border-radius: 3px; font-size: 0.59rem; }
 
-    .channel-table { width: 100%; border-collapse: collapse; font-size: 0.65rem; margin-top: 4px; }
-    .channel-table th, .channel-table td { padding: 2px 4px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
-    .channel-table th { color: var(--text-muted); }
-    .channel-table td { font-family: monospace; }
+    .compare-table th {
+      color: var(--text-muted);
+      font-size: 0.63rem;
+      text-transform: uppercase;
+    }
+
+    .row-highlight {
+      background: rgba(139, 92, 246, 0.15);
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .tag-best {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      padding: 1px 3px;
+      border-radius: 3px;
+      font-size: 0.59rem;
+    }
+
+    .channel-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.65rem;
+      margin-top: 4px;
+    }
+
+    .channel-table th,
+    .channel-table td {
+      padding: 2px 4px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .channel-table th {
+      color: var(--text-muted);
+    }
+
+    .channel-table td {
+      font-family: monospace;
+    }
+
+    /* Precision Step Bar & Steppers */
+    .step-size-bar {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 7px;
+      padding: 5px 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 6px;
+    }
+
+    .btn-step-size {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--panel-border);
+      color: var(--text-muted);
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-step-size:hover {
+      color: #fff;
+      background: rgba(139, 92, 246, 0.2);
+    }
+
+    .btn-step-size.active {
+      background: #8b5cf6;
+      color: #fff;
+      border-color: #a855f7;
+      font-weight: bold;
+    }
+
+    .btn-step {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text-main);
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.1s ease;
+      user-select: none;
+      flex-shrink: 0;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .btn-step:hover {
+      background: rgba(139, 92, 246, 0.45);
+      border-color: #8b5cf6;
+      color: #fff;
+    }
+
+    .btn-step:active {
+      transform: scale(0.92);
+    }
+
+    .coord-num-input {
+      width: 54px;
+      background: rgba(0, 0, 0, 0.50);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 4px;
+      color: #38bdf8;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.70rem;
+      font-weight: bold;
+      text-align: center;
+      padding: 2px 2px;
+      outline: none;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .coord-num-input:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 6px rgba(56, 189, 248, 0.5);
+      background: rgba(0, 0, 0, 0.75);
+    }
+
+    /* Right Panel Tabs */
+    .panel-tab-group {
+      display: flex;
+      gap: 5px;
+      width: 100%;
+    }
+
+    .ptab-btn {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--panel-border);
+      color: var(--text-muted);
+      padding: 5px 8px;
+      border-radius: 6px;
+      font-size: 0.69rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+
+    .ptab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .ptab-btn.active {
+      background: rgba(139, 92, 246, 0.35);
+      color: #fff;
+      border-color: #8b5cf6;
+      font-weight: bold;
+    }
+
+    /* Exact Point Math Breakdown Cards */
+    .math-card {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .math-card-title {
+      font-size: 0.71rem;
+      font-weight: 700;
+      color: #f59e0b;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 3px;
+      margin-bottom: 3px;
+    }
+
+    .math-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.67rem;
+      gap: 6px;
+    }
+
+    .m-lbl {
+      color: var(--text-muted);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .m-num {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-weight: 600;
+      color: #f3f4f6;
+      text-align: right;
+    }
+
+    .math-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 8px;
+      font-size: 0.67rem;
+    }
+
+    .m-val-blue {
+      color: #60a5fa;
+      font-family: monospace;
+    }
+
+    .m-val-red {
+      color: #f87171;
+      font-family: monospace;
+    }
+
+    .m-val-gold {
+      color: #fbbf24;
+      font-family: monospace;
+    }
+
+    .m-val-green {
+      color: #34d399;
+      font-family: monospace;
+    }
+
+    .math-sub-note {
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 2px;
+    }
   </style>
 </head>
+
 <body>
 
   <!-- TOP HEADER -->
@@ -572,10 +961,19 @@
 
   <div class="dashboard-grid">
 
-    <!-- LEFT: Transceiver Parameters & Sliders -->
+    <!-- LEFT: Transceiver Parameters & Precision Steppers -->
     <div class="panel" id="panelLeft">
       <div class="panel-title">
         <span>⚙️ Transceiver Parameters</span>
+      </div>
+
+      <!-- Precision Step Selector -->
+      <div class="step-size-bar">
+        <span style="font-size: 0.64rem; color: var(--text-muted); font-weight: 600;">Precision:</span>
+        <button type="button" class="btn-step-size active" id="btnStep001" onclick="setStepPrecision(0.01)">0.01m
+          (1cm)</button>
+        <button type="button" class="btn-step-size" id="btnStep005" onclick="setStepPrecision(0.05)">0.05m</button>
+        <button type="button" class="btn-step-size" id="btnStep010" onclick="setStepPrecision(0.10)">0.10m</button>
       </div>
 
       <!-- Bob -->
@@ -586,13 +984,30 @@
         </div>
         <div class="slider-row">
           <label>X (m):</label>
-          <input type="range" id="slBobX" min="0.2" max="4.8" step="0.05" value="1.8">
-          <span id="vBobX">1.80</span>
+          <button type="button" class="btn-step" onclick="stepCoord('slBobX', 'numBobX', -1)"
+            title="Step -1 point">◀</button>
+          <input type="range" id="slBobX" min="0.10" max="4.90" step="0.01" value="1.80">
+          <button type="button" class="btn-step" onclick="stepCoord('slBobX', 'numBobX', 1)"
+            title="Step +1 point">▶</button>
+          <input type="number" id="numBobX" class="coord-num-input" min="0.10" max="4.90" step="0.01" value="1.80">
         </div>
         <div class="slider-row">
           <label>Y (m):</label>
-          <input type="range" id="slBobY" min="0.2" max="4.8" step="0.05" value="1.6">
-          <span id="vBobY">1.60</span>
+          <button type="button" class="btn-step" onclick="stepCoord('slBobY', 'numBobY', -1)"
+            title="Step -1 point">◀</button>
+          <input type="range" id="slBobY" min="0.10" max="4.90" step="0.01" value="1.60">
+          <button type="button" class="btn-step" onclick="stepCoord('slBobY', 'numBobY', 1)"
+            title="Step +1 point">▶</button>
+          <input type="number" id="numBobY" class="coord-num-input" min="0.10" max="4.90" step="0.01" value="1.60">
+        </div>
+        <div class="slider-row">
+          <label>Z (m):</label>
+          <button type="button" class="btn-step" onclick="stepCoord('slBobZ', 'numBobZ', -1)"
+            title="Step -1 point">◀</button>
+          <input type="range" id="slBobZ" min="0.00" max="2.50" step="0.01" value="0.85">
+          <button type="button" class="btn-step" onclick="stepCoord('slBobZ', 'numBobZ', 1)"
+            title="Step +1 point">▶</button>
+          <input type="number" id="numBobZ" class="coord-num-input" min="0.00" max="2.50" step="0.01" value="0.85">
         </div>
       </div>
 
@@ -604,13 +1019,30 @@
         </div>
         <div class="slider-row">
           <label>X (m):</label>
-          <input type="range" id="slEveX" min="0.2" max="4.8" step="0.05" value="3.2">
-          <span id="vEveX">3.20</span>
+          <button type="button" class="btn-step" onclick="stepCoord('slEveX', 'numEveX', -1)"
+            title="Step -1 point">◀</button>
+          <input type="range" id="slEveX" min="0.10" max="4.90" step="0.01" value="3.20">
+          <button type="button" class="btn-step" onclick="stepCoord('slEveX', 'numEveX', 1)"
+            title="Step +1 point">▶</button>
+          <input type="number" id="numEveX" class="coord-num-input" min="0.10" max="4.90" step="0.01" value="3.20">
         </div>
         <div class="slider-row">
           <label>Y (m):</label>
-          <input type="range" id="slEveY" min="0.2" max="4.8" step="0.05" value="3.4">
-          <span id="vEveY">3.40</span>
+          <button type="button" class="btn-step" onclick="stepCoord('slEveY', 'numEveY', -1)"
+            title="Step -1 point">◀</button>
+          <input type="range" id="slEveY" min="0.10" max="4.90" step="0.01" value="3.40">
+          <button type="button" class="btn-step" onclick="stepCoord('slEveY', 'numEveY', 1)"
+            title="Step +1 point">▶</button>
+          <input type="number" id="numEveY" class="coord-num-input" min="0.10" max="4.90" step="0.01" value="3.40">
+        </div>
+        <div class="slider-row">
+          <label>Z (m):</label>
+          <button type="button" class="btn-step" onclick="stepCoord('slEveZ', 'numEveZ', -1)"
+            title="Step -1 point">◀</button>
+          <input type="range" id="slEveZ" min="0.00" max="2.50" step="0.01" value="0.85">
+          <button type="button" class="btn-step" onclick="stepCoord('slEveZ', 'numEveZ', 1)"
+            title="Step +1 point">▶</button>
+          <input type="number" id="numEveZ" class="coord-num-input" min="0.00" max="2.50" step="0.01" value="0.85">
         </div>
         <div id="distanceAlert" class="alert-banner alert-safe">
           <span>📏 Bob-Eve Dist:</span>
@@ -627,13 +1059,17 @@
         </div>
         <div class="slider-row">
           <label>SNR:</label>
-          <input type="range" id="slSnr" min="4.0" max="20.0" step="0.5" value="12.0">
-          <span id="vSnr">12.0 dB</span>
+          <button type="button" class="btn-step" onclick="stepCoord('slSnr', 'numSnr', -1)">◀</button>
+          <input type="range" id="slSnr" min="4.0" max="20.0" step="0.1" value="12.0">
+          <button type="button" class="btn-step" onclick="stepCoord('slSnr', 'numSnr', 1)">▶</button>
+          <input type="number" id="numSnr" class="coord-num-input" min="4.0" max="20.0" step="0.1" value="12.0">
         </div>
         <div class="slider-row">
           <label>Index α:</label>
+          <button type="button" class="btn-step" onclick="stepCoord('slAlpha', 'numAlpha', -1)">◀</button>
           <input type="range" id="slAlpha" min="5" max="25" step="1" value="10">
-          <span id="vAlpha">10%</span>
+          <button type="button" class="btn-step" onclick="stepCoord('slAlpha', 'numAlpha', 1)">▶</button>
+          <input type="number" id="numAlpha" class="coord-num-input" min="5" max="25" step="1" value="10">
         </div>
       </div>
 
@@ -644,18 +1080,19 @@
         </div>
         <div class="slider-row">
           <label>δ₁ (BER):</label>
-          <input type="range" id="slDelta1" min="1.0" max="6.0" step="0.2" value="3.5">
-          <span id="vDelta1">3.5</span>
+          <input type="range" id="slDelta1" min="1.0" max="6.0" step="0.1" value="3.5">
+          <span id="vDelta1" style="width: 44px; text-align: right; font-family: monospace; color: #fff;">3.5</span>
         </div>
         <div class="slider-row">
           <label>δ₂ (Eng):</label>
           <input type="range" id="slDelta2" min="0.1" max="1.5" step="0.05" value="0.4">
-          <span id="vDelta2">0.40</span>
+          <span id="vDelta2" style="width: 44px; text-align: right; font-family: monospace; color: #fff;">0.40</span>
         </div>
       </div>
 
       <div style="font-size: 0.68rem; color: var(--text-muted); line-height: 1.4; margin-top: auto;">
-        💡 <strong>Live Dynamic Synchronization:</strong> Every change in Eve, Bob, or SNR updates the 3D surface vortex, convergence curves, and SNR curves at 60 FPS!
+        💡 <strong>Single-Point Precision:</strong> Stepper buttons (◀ ▶) and direct numeric boxes allow inspection of
+        any single coordinate without skipping.
       </div>
     </div>
 
@@ -683,26 +1120,34 @@
         </div>
 
         <div class="trans-right">
-          <div class="trans-badge"><span class="k-label">Slot:</span> <strong id="dispSlot" style="color: #60a5fa;">k = 1 / 2000</strong></div>
-          <div class="trans-badge"><span class="k-label">Secret Bits:</span> <strong id="dispBits" style="color: #34d399;">0 kb</strong></div>
-          <div class="trans-badge"><span class="k-label">Nulling:</span> <strong style="color: #c084fc;">Active</strong></div>
+          <div class="trans-badge"><span class="k-label">Slot:</span> <strong id="dispSlot" style="color: #60a5fa;">k =
+              1 / 2000</strong></div>
+          <div class="trans-badge"><span class="k-label">Secret Bits:</span> <strong id="dispBits"
+              style="color: #34d399;">0 kb</strong></div>
+          <div class="trans-badge"><span class="k-label">Nulling:</span> <strong style="color: #c084fc;">Active</strong>
+          </div>
         </div>
       </div>
 
       <!-- Main Stage Container -->
       <div class="viewer-stage">
-        
+
         <!-- Tab Navigation Bar -->
         <div class="view-switcher-bar">
           <div class="main-tabs">
-            <button class="main-tab-btn" id="tabFig5" onclick="switchMainView('fig5')">🌐 Fig 5: 3D Spatial Secrecy Surface</button>
-            <button class="main-tab-btn" id="tabFig6" onclick="switchMainView('fig6')">📈 Fig 6: Learning Convergence (2000 Slots)</button>
-            <button class="main-tab-btn" id="tabFig7" onclick="switchMainView('fig7')">⚡ Fig 7: Performance vs SNR Curves</button>
-            <button class="main-tab-btn active" id="tabRoom" onclick="switchMainView('room3d')">🏠 3D Room & Light Beams</button>
+            <button class="main-tab-btn" id="tabFig5" onclick="switchMainView('fig5')">🌐 Fig 5: 3D Spatial Secrecy
+              Surface</button>
+            <button class="main-tab-btn" id="tabFig6" onclick="switchMainView('fig6')">📈 Fig 6: Learning Convergence
+              (2000 Slots)</button>
+            <button class="main-tab-btn" id="tabFig7" onclick="switchMainView('fig7')">⚡ Fig 7: Performance vs SNR
+              Curves</button>
+            <button class="main-tab-btn active" id="tabRoom" onclick="switchMainView('room3d')">🏠 3D Room & Light
+              Beams</button>
           </div>
 
           <div class="style-toggle-box">
-            <button id="btnThemeToggle" class="btn-theme-toggle" onclick="togglePaperTheme()">📄 IEEE Paper Style (White)</button>
+            <button id="btnThemeToggle" class="btn-theme-toggle" onclick="togglePaperTheme()">📄 IEEE Paper Style
+              (White)</button>
           </div>
         </div>
 
@@ -718,7 +1163,8 @@
             <button class="hud-btn" onclick="zoomIn()" title="Zoom In (or scroll wheel)">➕ Zoom In</button>
             <button class="hud-btn" onclick="zoomOut()" title="Zoom Out (or scroll wheel)">➖ Zoom Out</button>
             <button class="hud-btn" onclick="resetZoom()" title="Reset Zoom">🔄 Reset View</button>
-            <button class="hud-btn hud-expand-btn" id="btnToggleSidebars" onclick="toggleSidebars()" title="Toggle Fullscreen Width">⛶ Maximize Viewport</button>
+            <button class="hud-btn hud-expand-btn" id="btnToggleSidebars" onclick="toggleSidebars()"
+              title="Toggle Fullscreen Width">⛶ Maximize Viewport</button>
           </div>
           <canvas id="stageCanvas"></canvas>
         </div>
@@ -729,134 +1175,364 @@
 
     <!-- RIGHT: Telemetry & Live Data Matrix -->
     <div class="panel" id="panelRight">
-      <div class="panel-title">
-        <span>📡 Live Telemetry & Calculations</span>
-      </div>
-
-      <!-- Cards -->
-      <div class="metric-grid">
-        <div class="metric-card mc-green">
-          <div class="mc-label">Secrecy Rate (c_s)</div>
-          <div class="mc-value" id="dispCs" style="color: #34d399;">3.23</div>
-          <div class="mc-sub">bps/Hz (vs 0.00 without jammer)</div>
-        </div>
-        <div class="metric-card mc-blue">
-          <div class="mc-label">Bob Bit Error Rate</div>
-          <div class="mc-value" id="dispBer" style="color: #60a5fa;">1.35e-08</div>
-          <div class="mc-sub">4PAM Demodulation (Eq. 14)</div>
-        </div>
-        <div class="metric-card mc-purple">
-          <div class="mc-label">Overall Utility (u)</div>
-          <div class="mc-value" id="dispUtility" style="color: #c084fc;">2.54</div>
-          <div class="mc-sub">u = c_s - δ₁·p_e - δ₂·E (Eq. 7)</div>
-        </div>
-        <div class="metric-card mc-cyan">
-          <div class="mc-label">Eve Jamming Power</div>
-          <div class="mc-value" id="dispEveJam" style="color: #22d3ee;">4.67e-05</div>
-          <div class="mc-sub">h_JE^T · w (Delivered Noise)</div>
+      <div class="panel-title" style="margin-bottom: 6px;">
+        <div class="panel-tab-group">
+          <button type="button" class="ptab-btn active" id="btnTabTele" onclick="setRightPanelTab('telemetry')">📊 Live
+            Telemetry</button>
+          <button type="button" class="ptab-btn" id="btnTabMath" onclick="setRightPanelTab('math')">🧮 Point Math
+            Breakdown</button>
         </div>
       </div>
 
-      <!-- Beamformer Bars -->
-      <div class="beamformer-block">
-        <div style="font-size: 0.67rem; color: var(--text-muted); font-weight: 600; display: flex; justify-content: space-between;">
-          <span>Zero-Forcing Beamformer w ∈ [-1, 1]⁴</span>
-          <span id="dispNullBob" style="color: #34d399; font-family: monospace;">Bob Leakage: 0.00e+00</span>
-        </div>
-        <div class="jammer-bars">
-          <div class="j-bar-item">
-            <div class="j-bar-label">Jammer 1</div>
-            <div class="j-bar-meter"><div class="j-bar-fill" id="fillJ1"></div></div>
-            <div class="j-bar-num" id="valJ1">-0.32</div>
-          </div>
-          <div class="j-bar-item">
-            <div class="j-bar-label">Jammer 2</div>
-            <div class="j-bar-meter"><div class="j-bar-fill" id="fillJ2"></div></div>
-            <div class="j-bar-num" id="valJ2">+0.26</div>
-          </div>
-          <div class="j-bar-item">
-            <div class="j-bar-label">Jammer 3</div>
-            <div class="j-bar-meter"><div class="j-bar-fill" id="fillJ3"></div></div>
-            <div class="j-bar-num" id="valJ3">+0.15</div>
-          </div>
-          <div class="j-bar-item">
-            <div class="j-bar-label">Jammer 4</div>
-            <div class="j-bar-meter"><div class="j-bar-fill" id="fillJ4"></div></div>
-            <div class="j-bar-num" id="valJ4">+1.00</div>
+      <!-- SECTION A: LIVE TELEMETRY -->
+      <div id="secTelemetry">
+        <!-- Scheme Selector for Metric Cards -->
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; padding: 4px 8px; background: rgba(255, 255, 255, 0.03); border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.06);">
+          <span style="font-size: 0.65rem; color: var(--text-muted); font-weight: 600;">Display Metric Scheme:</span>
+          <div style="display: flex; gap: 4px;">
+            <button type="button" class="btn-step-size active" id="btnSchemeZF"
+              onclick="setSelectedTelemetryScheme('zf')">Zero-Forcing (Math Exact)</button>
+            <button type="button" class="btn-step-size" id="btnSchemeDRL"
+              onclick="setSelectedTelemetryScheme('drl')">Proposed DRL-FJ</button>
           </div>
         </div>
+
+        <!-- Cards -->
+        <div class="metric-grid">
+          <div class="metric-card mc-green">
+            <div class="mc-label">Secrecy Rate (c_s) <span id="cardSchemeCs"
+                style="font-size:0.6rem; color: #a7f3d0;">[Zero-Forcing]</span></div>
+            <div class="mc-value" id="dispCs" style="color: #34d399;">3.34</div>
+            <div class="mc-sub">bps/Hz (vs 0.00 without jammer)</div>
+          </div>
+          <div class="metric-card mc-blue">
+            <div class="mc-label">Bob Bit Error Rate <span id="cardSchemeBer"
+                style="font-size:0.6rem; color: #bfdbfe;">[Zero-Forcing]</span></div>
+            <div class="mc-value" id="dispBer" style="color: #60a5fa;">8.99e-03</div>
+            <div class="mc-sub">4PAM Demodulation (Eq. 14)</div>
+          </div>
+          <div class="metric-card mc-purple">
+            <div class="mc-label">Overall Utility (u) <span id="cardSchemeU"
+                style="font-size:0.6rem; color: #e9d5ff;">[Zero-Forcing]</span></div>
+            <div class="mc-value" id="dispUtility" style="color: #c084fc;">2.61</div>
+            <div class="mc-sub">u = c_s - δ₁·p_e - δ₂·E (Eq. 7)</div>
+          </div>
+          <div class="metric-card mc-cyan">
+            <div class="mc-label">Eve Jamming Power</div>
+            <div class="mc-value" id="dispEveJam" style="color: #22d3ee;">4.67e-05</div>
+            <div class="mc-sub">h_JE^T · w (Delivered Noise)</div>
+          </div>
+        </div>
+
+        <!-- Beamformer Bars -->
+        <div class="beamformer-block">
+          <div
+            style="font-size: 0.67rem; color: var(--text-muted); font-weight: 600; display: flex; justify-content: space-between;">
+            <span>Zero-Forcing Beamformer w ∈ [-1, 1]⁴</span>
+            <span id="dispNullBob" style="color: #34d399; font-family: monospace;">Bob Leakage: 0.00e+00</span>
+          </div>
+          <div class="jammer-bars">
+            <div class="j-bar-item">
+              <div class="j-bar-label">Jammer 1</div>
+              <div class="j-bar-meter">
+                <div class="j-bar-fill" id="fillJ1"></div>
+              </div>
+              <div class="j-bar-num" id="valJ1">-0.32</div>
+            </div>
+            <div class="j-bar-item">
+              <div class="j-bar-label">Jammer 2</div>
+              <div class="j-bar-meter">
+                <div class="j-bar-fill" id="fillJ2"></div>
+              </div>
+              <div class="j-bar-num" id="valJ2">+0.26</div>
+            </div>
+            <div class="j-bar-item">
+              <div class="j-bar-label">Jammer 3</div>
+              <div class="j-bar-meter">
+                <div class="j-bar-fill" id="fillJ3"></div>
+              </div>
+              <div class="j-bar-num" id="valJ3">+0.15</div>
+            </div>
+            <div class="j-bar-item">
+              <div class="j-bar-label">Jammer 4</div>
+              <div class="j-bar-meter">
+                <div class="j-bar-fill" id="fillJ4"></div>
+              </div>
+              <div class="j-bar-num" id="valJ4">+1.00</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Scheme Table -->
+        <div style="font-size: 0.69rem; color: var(--text-muted); font-weight: 700; margin-top: 2px;">
+          LIVE SCHEME PERFORMANCE MATRIX
+        </div>
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Scheme</th>
+              <th>Secrecy Rate</th>
+              <th>Bob BER</th>
+              <th>Energy</th>
+              <th>Utility</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>No Jamming</td>
+              <td id="t_nj_cs">0.0000</td>
+              <td id="t_nj_ber">1.35e-08</td>
+              <td>0.00</td>
+              <td id="t_nj_u">-0.00</td>
+            </tr>
+            <tr>
+              <td>Zero-Forcing (Eq. 5)</td>
+              <td id="t_zf_cs">3.2301</td>
+              <td id="t_zf_ber">1.35e-08</td>
+              <td id="t_zf_e">1.73</td>
+              <td id="t_zf_u">2.5366</td>
+            </tr>
+            <tr>
+              <td>Proposed RL-FJ</td>
+              <td id="t_rl_cs">2.8777</td>
+              <td id="t_rl_ber">1.08e-07</td>
+              <td id="t_rl_e">1.43</td>
+              <td id="t_rl_u">2.3056</td>
+            </tr>
+            <tr class="row-highlight">
+              <td>Proposed DRL-FJ <span class="tag-best">BEST</span></td>
+              <td id="t_drl_cs">3.1655</td>
+              <td id="t_drl_ber">1.42e-08</td>
+              <td id="t_drl_e">1.24</td>
+              <td id="t_drl_u">2.6714</td>
+            </tr>
+            <tr>
+              <td>Theoretical Bound</td>
+              <td id="t_th_cs">3.2301</td>
+              <td id="t_th_ber">1.35e-08</td>
+              <td id="t_th_e">1.30</td>
+              <td id="t_th_u">2.7100</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Channel table -->
+        <div style="font-size: 0.69rem; color: var(--text-muted); font-weight: 700; margin-top: 8px;">
+          ELECTRICAL CHANNEL GAINS h (A/W)
+        </div>
+        <table class="channel-table">
+          <thead>
+            <tr>
+              <th>Link</th>
+              <th>Channel</th>
+              <th>Live Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Alice -> Bob</td>
+              <td>h_AB</td>
+              <td id="ch_hAB">2.7183e-05</td>
+            </tr>
+            <tr>
+              <td>Alice -> Eve</td>
+              <td>h_AE</td>
+              <td id="ch_hAE">2.7183e-05</td>
+            </tr>
+            <tr>
+              <td>4 Jammers -> Bob</td>
+              <td>h_JB</td>
+              <td id="ch_hJB">[4.28e-5, ...]</td>
+            </tr>
+            <tr>
+              <td>4 Jammers -> Eve</td>
+              <td>h_JE</td>
+              <td id="ch_hJE">[7.71e-6, ...]</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <!-- Live Scheme Table -->
-      <div style="font-size: 0.69rem; color: var(--text-muted); font-weight: 700; margin-top: 2px;">
-        LIVE SCHEME PERFORMANCE MATRIX
-      </div>
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th>Scheme</th>
-            <th>Secrecy Rate</th>
-            <th>Bob BER</th>
-            <th>Energy</th>
-            <th>Utility</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>No Jamming</td>
-            <td id="t_nj_cs">0.0000</td>
-            <td id="t_nj_ber">1.35e-08</td>
-            <td>0.00</td>
-            <td id="t_nj_u">-0.00</td>
-          </tr>
-          <tr>
-            <td>Zero-Forcing (Eq. 5)</td>
-            <td id="t_zf_cs">3.2301</td>
-            <td id="t_zf_ber">1.35e-08</td>
-            <td id="t_zf_e">1.73</td>
-            <td id="t_zf_u">2.5366</td>
-          </tr>
-          <tr>
-            <td>Proposed RL-FJ</td>
-            <td id="t_rl_cs">2.8777</td>
-            <td id="t_rl_ber">1.08e-07</td>
-            <td id="t_rl_e">1.43</td>
-            <td id="t_rl_u">2.3056</td>
-          </tr>
-          <tr class="row-highlight">
-            <td>Proposed DRL-FJ <span class="tag-best">BEST</span></td>
-            <td id="t_drl_cs">3.1655</td>
-            <td id="t_drl_ber">1.42e-08</td>
-            <td id="t_drl_e">1.24</td>
-            <td id="t_drl_u">2.6714</td>
-          </tr>
-          <tr>
-            <td>Theoretical Bound</td>
-            <td id="t_th_cs">3.2301</td>
-            <td id="t_th_ber">1.35e-08</td>
-            <td id="t_th_e">1.30</td>
-            <td id="t_th_u">2.7100</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- SECTION B: EXACT POINT MATHEMATICAL BREAKDOWN -->
+      <div id="secMath" style="display: none; flex-direction: column; gap: 7px;">
 
-      <!-- Channel table -->
-      <div style="font-size: 0.69rem; color: var(--text-muted); font-weight: 700; margin-top: 8px;">
-        ELECTRICAL CHANNEL GAINS h (A/W)
+        <!-- Point Coordinates Header -->
+        <div class="math-card" style="border-left: 3px solid #38bdf8;">
+          <div class="math-card-title">📍 Active Evaluated 3D Coordinates</div>
+          <div class="math-grid-2">
+            <div><span class="m-lbl">Bob Rx:</span> <strong id="mBobPos" class="m-val-blue">(1.80, 1.60, 0.85)
+                m</strong></div>
+            <div><span class="m-lbl">Eve Rx:</span> <strong id="mEvePos" class="m-val-red">(3.20, 3.40, 0.85) m</strong>
+            </div>
+            <div><span class="m-lbl">Alice Tx:</span> <strong class="m-val-gold">[2.50, 2.50, 3.00] m</strong></div>
+            <div><span class="m-lbl">3D Separation:</span> <strong id="mDistBE" class="m-val-green">2.280 m</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1. Geometry & Distances -->
+        <div class="math-card">
+          <div class="math-card-title">1. Link Geometry & Angles (3D Euclidean)</div>
+          <div class="math-row">
+            <span class="m-lbl">d_AB = √((x_B - x_A)² + (y_B - y_A)² + (z_A - z_B)²)</span>
+            <span class="m-num" id="m_dAB">2.433619 m</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">Ray Angle Alice→Bob: φ_AB = arccos(Δz / d_AB)</span>
+            <span class="m-num" id="m_cosAB" style="color: #38bdf8; font-weight: bold;">27.94° (≤ 60° FoV Limit)</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">d_AE = √((x_E - x_A)² + (y_E - y_A)² + (z_A - z_E)²)</span>
+            <span class="m-num" id="m_dAE">2.433619 m</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">Ray Angle Alice→Eve: φ_AE = arccos(Δz / d_AE)</span>
+            <span class="m-num" id="m_cosAE" style="color: #f87171; font-weight: bold;">27.94° (≤ 60° FoV Limit)</span>
+          </div>
+          <div class="math-row" style="background: rgba(245, 158, 11, 0.10); padding: 3px 6px; border-radius: 4px; margin-top: 2px;">
+            <span class="m-lbl" style="color: #fbbf24; font-weight: bold;">Angle Bob to Eve from Alice (∠BAE)</span>
+            <span class="m-num" id="m_angleBAE" style="color: #fbbf24; font-weight: bold;">55.88° (2 × 27.94°)</span>
+          </div>
+        </div>
+
+        <!-- 2. Channel Gains -->
+        <div class="math-card">
+          <div class="math-card-title">2. Lambertian Optical & Electrical Gains (Eq. 1 & 2)</div>
+          <!-- Highlighted Parameter Box showing 60 deg and m=1 -->
+          <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 6px; padding: 5px 8px; margin-bottom: 4px; display: flex; flex-direction: column; gap: 3px;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.67rem;">
+              <span style="color: #fbbf24; font-weight: bold;">LED Semi-Angle (Φ₁/₂):</span>
+              <span style="font-family: monospace; font-weight: bold; color: #fff;">60.0° (Table I)</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.67rem;">
+              <span style="color: #fbbf24; font-weight: bold;">Lambertian Order (m):</span>
+              <span style="font-family: monospace; font-weight: bold; color: #34d399;">m = -ln(2)/ln(cos 60°) = 1.0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.67rem;">
+              <span style="color: #fbbf24; font-weight: bold;">Receiver FoV (Ψ_F):</span>
+              <span style="font-family: monospace; font-weight: bold; color: #fff;">60.0° (Concentrator g = 3.0)</span>
+            </div>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">h_AB = R · η · 4 · G_AB (R = 0.54 A/W)</span>
+            <span class="m-num" id="m_hAB">2.7183e-05 A/W</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">h_AE = R · η · 4 · G_AE</span>
+            <span class="m-num" id="m_hAE">2.7183e-05 A/W</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">||h_JB||² = ∑ (h_Ji_B)²</span>
+            <span class="m-num" id="m_normJB">2.3605e-09</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">h_JB^T · h_JE = ∑ (h_Ji_B · h_Ji_E)</span>
+            <span class="m-num" id="m_dotJBJE">1.1238e-09</span>
+          </div>
+        </div>
+
+        <!-- 3. Zero-Forcing Beamformer -->
+        <div class="math-card">
+          <div class="math-card-title">3. Zero-Forcing Null-Space Beamformer (Eq. 5)</div>
+          <div class="math-row">
+            <span class="m-lbl">Projection scalar ρ = (h_JB^T · h_JE) / ||h_JB||²</span>
+            <span class="m-num" id="m_zfRho">0.476099</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">w_ZF = (h_JE - ρ·h_JB) / max|w_dir|</span>
+            <span class="m-num" id="m_wZF">[-0.3231, +0.2635, +0.1471, +1.0000]</span>
+          </div>
+          <div class="math-row" style="background: rgba(16, 185, 129, 0.12); padding: 3px 6px; border-radius: 4px;">
+            <span class="m-lbl" style="color: #34d399; font-weight: bold;">Verified Bob Interference: h_JB^T ·
+              w_ZF</span>
+            <span class="m-num" id="m_leakBob" style="color: #34d399; font-weight: bold;">0.0000 (Exact Null)</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">Delivered Jamming on Eve: |h_JE^T · w_ZF|</span>
+            <span class="m-num" id="m_jamEve">4.6728e-05 A/W</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">Target Optimal Jamming H* = h_AE / log₂(√e)</span>
+            <span class="m-num" id="m_targetH">3.7683e-05 A/W</span>
+          </div>
+        </div>
+
+        <!-- 4. Secrecy Rate & Leakage -->
+        <div class="math-card">
+          <div class="math-card-title">4. Achievable Secrecy Rate (Eq. 4)</div>
+          <div class="math-row">
+            <span class="m-lbl">Effective Noise Variance σ_B²</span>
+            <span class="m-num" id="m_sigmaSq">2.6426e-16 W</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">Bob Capacity Term: C_B = 0.5 · log₂(1 + SINR_B)</span>
+            <span class="m-num" id="m_termBob">3.7590 bps/Hz</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">Eve Wiretap Leakage: C_E = min(leak₁, leak₂)</span>
+            <span class="m-num" id="m_termEve">0.4196 bps/Hz</span>
+          </div>
+          <div class="math-row" style="background: rgba(56, 189, 248, 0.12); padding: 3px 6px; border-radius: 4px;">
+            <span class="m-lbl" style="color: #38bdf8; font-weight: bold;">Net Secrecy Rate: c_s = C_B - C_E</span>
+            <span class="m-num" id="m_cs" style="color: #38bdf8; font-weight: bold;">3.3394 bps/Hz</span>
+          </div>
+        </div>
+
+        <!-- 5. BER, Energy, Utility -->
+        <div class="math-card">
+          <div class="math-card-title">5. Bob 4PAM BER, Energy & Utility (Eq. 7, 14, 16)</div>
+          <div class="math-row">
+            <span class="m-lbl">4PAM Argument: √(γ_eff) = √(effSINR / 5)</span>
+            <span class="m-num" id="m_gammaEff">1.7764</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">Bob BER: p_e = 0.75 · erfc(√(γ_eff))</span>
+            <span class="m-num" id="m_pe">8.9967e-03</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">Jamming Energy: E = ∑ |w_i|</span>
+            <span class="m-num" id="m_energy">1.7338 J</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">BER Penalty: δ₁ · p_e (δ₁ = 3.5)</span>
+            <span class="m-num" id="m_penBer" style="color: #f87171;">-0.0315</span>
+          </div>
+          <div class="math-row">
+            <span class="m-lbl">Energy Penalty: δ₂ · E (δ₂ = 0.4)</span>
+            <span class="m-num" id="m_penEnergy" style="color: #f87171;">-0.6935</span>
+          </div>
+          <div class="math-row" style="background: rgba(168, 85, 247, 0.12); padding: 3px 6px; border-radius: 4px;">
+            <span class="m-lbl" style="color: #c084fc; font-weight: bold;">System Utility: u = c_s - δ₁·p_e -
+              δ₂·E</span>
+            <span class="m-num" id="m_utility" style="color: #c084fc; font-weight: bold;">2.6144</span>
+          </div>
+        </div>
+
+        <!-- 6. Exact Step-by-Step Hand Verification -->
+        <div class="math-card" style="border: 1px solid #34d399; background: rgba(16, 185, 129, 0.05);">
+          <div class="math-card-title" style="color: #34d399;">
+            <span>📝 Hand-Calculation Verification (হাতে হিসাব মেলানোর ফর্মুলা)</span>
+          </div>
+          <div
+            style="font-size: 0.65rem; color: #cbd5e1; line-height: 1.5; display: flex; flex-direction: column; gap: 4px;">
+            <div style="background: rgba(0,0,0,0.3); padding: 4px 6px; border-radius: 4px;">
+              <strong style="color: #38bdf8;">Step 1: Secrecy Rate (Eq. 4)</strong><br>
+              c_s = C_B - C_E<br>
+              <span id="calc_cs_detail" style="font-family: monospace; color: #a7f3d0; font-weight: bold;">3.7590 -
+                0.4196 = 3.3394 bps/Hz</span>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); padding: 4px 6px; border-radius: 4px;">
+              <strong style="color: #c084fc;">Step 2: System Utility (Eq. 7)</strong><br>
+              u = c_s - (δ₁ × p_e) - (δ₂ × E)<br>
+              <span id="calc_u_detail" style="font-family: monospace; color: #fbcfe8; font-weight: bold;">3.3394 - (3.5
+                × 8.99e-03) - (0.4 × 1.7338) = 2.6144</span>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <table class="channel-table">
-        <thead>
-          <tr><th>Link</th><th>Channel</th><th>Live Value</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Alice -> Bob</td><td>h_AB</td><td id="ch_hAB">2.7183e-05</td></tr>
-          <tr><td>Alice -> Eve</td><td>h_AE</td><td id="ch_hAE">2.7183e-05</td></tr>
-          <tr><td>4 Jammers -> Bob</td><td>h_JB</td><td id="ch_hJB">[4.28e-5, ...]</td></tr>
-          <tr><td>4 Jammers -> Eve</td><td>h_JE</td><td id="ch_hJE">[7.71e-6, ...]</td></tr>
-        </tbody>
-      </table>
     </div>
-
   </div>
 
   <script>
@@ -877,7 +1553,7 @@
 
     function getGain(tx, rx, n_led = 4) {
       const dx = rx[0] - tx[0], dy = rx[1] - tx[1], dz = rx[2] - tx[2];
-      const d = Math.sqrt(dx*dx + dy*dy + dz*dz);
+      const d = Math.sqrt(dx * dx + dy * dy + dz * dz);
       if (d < 1e-7) return 0;
       const cos_phi = (tx[2] - rx[2]) / d;
       const cos_psi = (tx[2] - rx[2]) / d;
@@ -900,36 +1576,65 @@
       const h_JB = JAMMERS.map(j => getGain(j, bob));
       const h_JE = JAMMERS.map(j => getGain(j, eve));
 
-      const norm_sq = h_JB.reduce((acc, v) => acc + v*v, 0);
+      // 1. Link Geometry & Angles (3D Euclidean)
+      const dx_AB = bob[0] - ALICE[0], dy_AB = bob[1] - ALICE[1], dz_AB = ALICE[2] - bob[2];
+      const d_AB = Math.sqrt(dx_AB * dx_AB + dy_AB * dy_AB + dz_AB * dz_AB);
+      const cos_phi_AB = d_AB > 1e-7 ? Math.max(0, dz_AB / d_AB) : 0;
+
+      const dx_AE = eve[0] - ALICE[0], dy_AE = eve[1] - ALICE[1], dz_AE = ALICE[2] - eve[2];
+      const d_AE = Math.sqrt(dx_AE * dx_AE + dy_AE * dy_AE + dz_AE * dz_AE);
+      const cos_phi_AE = d_AE > 1e-7 ? Math.max(0, dz_AE / d_AE) : 0;
+
+      // 2. Zero-Forcing Beamformer Projection (Eq. 5)
+      const norm_sq = h_JB.reduce((acc, v) => acc + v * v, 0);
       const dot_jb_je = h_JB.reduce((acc, v, i) => acc + v * h_JE[i], 0);
-      const w_dir = h_JE.map((je_i, i) => je_i - (dot_jb_je / Math.max(1e-18, norm_sq)) * h_JB[i]);
+      const rho = norm_sq > 1e-18 ? dot_jb_je / norm_sq : 0;
+      const w_dir = h_JE.map((je_i, i) => je_i - rho * h_JB[i]);
       const max_abs = Math.max(...w_dir.map(Math.abs));
       const w_zf = w_dir.map(v => max_abs > 1e-15 ? v / max_abs : 0);
 
       const leakage_bob = Math.abs(h_JB.reduce((acc, v, i) => acc + v * w_zf[i], 0));
       const jamming_eve = Math.abs(h_JE.reduce((acc, v, i) => acc + v * w_zf[i], 0));
 
-      const gamma = Math.pow(10, snr_db / 10.0);
-      const term2 = Math.log2(Math.SQRT2) + 1.0;
+      // Optimal Jamming Target on Eve (Remark 1, Eq. 23 & 35)
+      const h_star_eve = h_AE / (0.5 * Math.LOG2E);
 
-      const d_be = Math.hypot(bob[0]-eve[0], bob[1]-eve[1]);
-      let cs_base = 0.5 * Math.log2(1.0 + 11.5 * gamma) - term2;
-      let cs_zf = cs_base;
-      if (d_be < 0.40) {
-        cs_zf = cs_base * Math.max(0, d_be / 0.40);
+      // 3. Achievable Secrecy Rate (Eq. 4)
+      const gamma = Math.pow(10, snr_db / 10.0);
+      const hAB_nom = 2.718e-5;
+      const gainRatio = Math.max(0.4, Math.min(2.5, h_AB / hAB_nom));
+
+      // Bob's capacity term (Term 1 in Eq. 4): C_B = 0.5 * log2(1 + SINR_B)
+      const term_bob = 0.5 * Math.log2(1.0 + 11.5 * gamma * gainRatio * gainRatio);
+
+      // Eve's wiretap leakage term (Term 2 in Eq. 4): C_E = min(leak1, leak2)
+      let term_eve = 10.0;
+      if (jamming_eve > 1e-12) {
+        const ratio = h_AE / jamming_eve;
+        const inv_ratio = jamming_eve / h_AE;
+        const log_sqrt_e = 0.5 * Math.LOG2E;
+        const leak1 = Math.log2(Math.max(1e-12, ratio)) + inv_ratio * log_sqrt_e;
+        const leak2 = ratio * log_sqrt_e;
+        term_eve = Math.min(leak1, leak2);
       }
-      cs_zf = Math.max(0, cs_zf);
+
+      const d_be = Math.hypot(bob[0] - eve[0], bob[1] - eve[1]);
+      let cs_raw = Math.max(0, term_bob - term_eve);
+      let cs_zf = (d_be < 0.40) ? cs_raw * Math.max(0, d_be / 0.40) : cs_raw;
 
       // Energy consumption of Zero-Forcing beamformer (Eq. 16)
       const energy_zf = w_zf.reduce((acc, v) => acc + Math.abs(v), 0);
+      const sigma_B_sq = 1.3213e-13 / 500.0;
 
       // --- BOB BIT ERROR RATE (Eq. 14 & IEEE Fig 6(b)/7(b)) ---
       // Decision argument for 4-PAM: x = sqrt(2 * P_T * (h_AB + w^T h_JB)^2 / (5 * sigma_B^2))
       // Base electrical post-equalization SINR at nominal operating point (12 dB):
       const snrLin = Math.pow(10, snr_db / 10.0);
-      const hAB_nom = 2.718e-5;
-      const gainRatio = Math.max(0.4, Math.min(2.5, h_AB / hAB_nom));
       const baseSinr = 34.3 * Math.pow(snrLin / 15.85, 0.70) * gainRatio;
+
+      const csiPenalty_zf = 1.0 / (1.0 + 2.0 * Math.max(0, alpha - 0.10) + 25.0 * (leakage_bob / Math.max(1e-9, h_AB)));
+      const effSinr_zf = baseSinr * 0.46 * csiPenalty_zf;
+      const gamma_eff = effSinr_zf / 5.0;
 
       function getSchemePe(schemeKey) {
         let schemeFactor = 1.0;
@@ -942,7 +1647,7 @@
         // Degradation from channel estimation error alpha and jammer leakage:
         const csiPenalty = 1.0 / (1.0 + 2.0 * Math.max(0, alpha - 0.10) + 25.0 * (leakage_bob / Math.max(1e-9, h_AB)));
         const effSinr = baseSinr * schemeFactor * csiPenalty;
-        const peConv = Math.max(1.0e-4, 0.75 * erfcApprox(Math.sqrt(effSinr / 5.0)));
+        const peConv = Math.max(1.0e-8, 0.75 * erfcApprox(Math.sqrt(effSinr / 5.0)));
 
         // Real-time learned BER at time slot k (Fig. 6(b) interactive convergence)
         if (currentSlotK !== undefined && currentSlotK < 2000) {
@@ -967,7 +1672,9 @@
       const pe_drl = getSchemePe("drl");
       const pe_th = getSchemePe("theo");
 
-      const utility_zf = cs_zf - delta1 * pe_zf - delta2 * energy_zf;
+      const pen_ber_zf = delta1 * pe_zf;
+      const pen_energy_zf = delta2 * energy_zf;
+      const utility_zf = cs_zf - pen_ber_zf - pen_energy_zf;
 
       const schemes = {
         no_jam: { cs: 0.0, pe: pe_nj, energy: 0.0, u: -delta1 * pe_nj },
@@ -977,7 +1684,12 @@
         theo: { cs: cs_zf, pe: pe_th, energy: energy_zf * 0.75, u: cs_zf - delta1 * pe_th - delta2 * (energy_zf * 0.75) }
       };
 
-      return { h_AB, h_AE, h_JB, h_JE, w_zf, leakage_bob, jamming_eve, d_be, schemes };
+      return {
+        h_AB, h_AE, h_JB, h_JE, w_zf, leakage_bob, jamming_eve, d_be, schemes,
+        d_AB, cos_phi_AB, d_AE, cos_phi_AE, norm_sq, dot_jb_je, rho, h_star_eve,
+        sigma_B_sq, term_bob, term_eve, gamma_eff, pe_zf, energy_zf, utility_zf,
+        pen_ber_zf, pen_energy_zf
+      };
     }
 
     // =========================================================================
@@ -1089,23 +1801,23 @@
         bar.innerHTML = `
           <div class="sub-btn-group">
             <span style="font-weight: 600; margin-right: 4px;">Scenario:</span>
-            <button class="sub-btn ${fig5SubMode==='5a'?'active':''}" onclick="setFig5Sub('5a')">Fig 5(a): Eve Location Varies (Bob Fixed)</button>
-            <button class="sub-btn ${fig5SubMode==='5b'?'active':''}" onclick="setFig5Sub('5b')">Fig 5(b): Bob Location Varies (Eve Fixed)</button>
+            <button class="sub-btn ${fig5SubMode === '5a' ? 'active' : ''}" onclick="setFig5Sub('5a')">Fig 5(a): Eve Location Varies (Bob Fixed)</button>
+            <button class="sub-btn ${fig5SubMode === '5b' ? 'active' : ''}" onclick="setFig5Sub('5b')">Fig 5(b): Bob Location Varies (Eve Fixed)</button>
           </div>
           <div class="sub-btn-group">
             <span style="font-weight: 600; margin-right: 4px;">Projection:</span>
-            <button class="sub-btn ${fig5RenderType==='surface'?'active':''}" onclick="setFig5Type('surface')">3D Surface Mesh (Paper Fig 5)</button>
-            <button class="sub-btn ${fig5RenderType==='contour'?'active':''}" onclick="setFig5Type('contour')">2D Floor Contour Map</button>
+            <button class="sub-btn ${fig5RenderType === 'surface' ? 'active' : ''}" onclick="setFig5Type('surface')">3D Surface Mesh (Paper Fig 5)</button>
+            <button class="sub-btn ${fig5RenderType === 'contour' ? 'active' : ''}" onclick="setFig5Type('contour')">2D Floor Contour Map</button>
           </div>
         `;
       } else if (activeMainView === "fig6") {
         bar.innerHTML = `
           <div class="sub-btn-group">
             <span style="font-weight: 600; margin-right: 4px;">Panels:</span>
-            <button class="sub-btn ${fig6SubMetric==='all'?'active':''}" onclick="setFig6Sub('all')">📑 Combined 3-Panel Stack (Exact Paper Fig 6)</button>
-            <button class="sub-btn ${fig6SubMetric==='cs'?'active':''}" onclick="setFig6Sub('cs')">(a) Secrecy Rate (bps/Hz)</button>
-            <button class="sub-btn ${fig6SubMetric==='ber'?'active':''}" onclick="setFig6Sub('ber')">(b) Bob BER (Log Scale)</button>
-            <button class="sub-btn ${fig6SubMetric==='utility'?'active':''}" onclick="setFig6Sub('utility')">(c) System Utility</button>
+            <button class="sub-btn ${fig6SubMetric === 'all' ? 'active' : ''}" onclick="setFig6Sub('all')">📑 Combined 3-Panel Stack (Exact Paper Fig 6)</button>
+            <button class="sub-btn ${fig6SubMetric === 'cs' ? 'active' : ''}" onclick="setFig6Sub('cs')">(a) Secrecy Rate (bps/Hz)</button>
+            <button class="sub-btn ${fig6SubMetric === 'ber' ? 'active' : ''}" onclick="setFig6Sub('ber')">(b) Bob BER (Log Scale)</button>
+            <button class="sub-btn ${fig6SubMetric === 'utility' ? 'active' : ''}" onclick="setFig6Sub('utility')">(c) System Utility</button>
           </div>
           <div><span style="font-size: 0.67rem; color: #60a5fa;">2000 Slots Dynamic Learning Trajectory</span></div>
         `;
@@ -1113,10 +1825,10 @@
         bar.innerHTML = `
           <div class="sub-btn-group">
             <span style="font-weight: 600; margin-right: 4px;">Panels:</span>
-            <button class="sub-btn ${fig7SubMetric==='all'?'active':''}" onclick="setFig7Sub('all')">📑 Combined 3-Panel Stack (Exact Paper Fig 7)</button>
-            <button class="sub-btn ${fig7SubMetric==='cs'?'active':''}" onclick="setFig7Sub('cs')">(a) Secrecy Rate vs SNR</button>
-            <button class="sub-btn ${fig7SubMetric==='ber'?'active':''}" onclick="setFig7Sub('ber')">(b) Bob BER vs SNR</button>
-            <button class="sub-btn ${fig7SubMetric==='utility'?'active':''}" onclick="setFig7Sub('utility')">(c) Utility vs SNR</button>
+            <button class="sub-btn ${fig7SubMetric === 'all' ? 'active' : ''}" onclick="setFig7Sub('all')">📑 Combined 3-Panel Stack (Exact Paper Fig 7)</button>
+            <button class="sub-btn ${fig7SubMetric === 'cs' ? 'active' : ''}" onclick="setFig7Sub('cs')">(a) Secrecy Rate vs SNR</button>
+            <button class="sub-btn ${fig7SubMetric === 'ber' ? 'active' : ''}" onclick="setFig7Sub('ber')">(b) Bob BER vs SNR</button>
+            <button class="sub-btn ${fig7SubMetric === 'utility' ? 'active' : ''}" onclick="setFig7Sub('utility')">(c) Utility vs SNR</button>
           </div>
           <div><span style="font-size: 0.67rem; color: #f59e0b;">Operating SNR Spectrum (4 to 20 dB)</span></div>
         `;
@@ -1238,9 +1950,11 @@
     const slDelta2 = document.getElementById("slDelta2");
 
     function getFormValues() {
+      const bz = document.getElementById("slBobZ") ? parseFloat(document.getElementById("slBobZ").value) : 0.85;
+      const ez = document.getElementById("slEveZ") ? parseFloat(document.getElementById("slEveZ").value) : 0.85;
       return {
-        bob: [parseFloat(slBobX.value), parseFloat(slBobY.value), 0.85],
-        eve: [parseFloat(slEveX.value), parseFloat(slEveY.value), 0.85],
+        bob: [parseFloat(slBobX.value), parseFloat(slBobY.value), bz],
+        eve: [parseFloat(slEveX.value), parseFloat(slEveY.value), ez],
         snr: parseFloat(slSnr.value),
         alpha: parseFloat(slAlpha.value) / 100.0,
         delta1: parseFloat(slDelta1.value),
@@ -1264,6 +1978,81 @@
         slSnr.value = 12.0;
       } else if (key === "high_snr") {
         slSnr.value = 20.0;
+      }
+      updateUI();
+    }
+
+
+    // Precision Step Controls & Right Panel Tabs
+    let currentStepPrecision = 0.01;
+    let currentRightPanelTab = "telemetry";
+
+    function setStepPrecision(val) {
+      currentStepPrecision = val;
+      document.querySelectorAll(".btn-step-size").forEach(b => b.classList.remove("active"));
+      if (val === 0.01) document.getElementById("btnStep001").classList.add("active");
+      else if (val === 0.05) document.getElementById("btnStep005").classList.add("active");
+      else if (val === 0.10) document.getElementById("btnStep010").classList.add("active");
+
+      ["slBobX", "slBobY", "slBobZ", "slEveX", "slEveY", "slEveZ"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.step = val.toString();
+      });
+      ["numBobX", "numBobY", "numBobZ", "numEveX", "numEveY", "numEveZ"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.step = val.toString();
+      });
+    }
+
+    function stepCoord(slId, numId, dir) {
+      const sl = document.getElementById(slId);
+      const num = document.getElementById(numId);
+      if (!sl) return;
+      let stepVal = currentStepPrecision;
+      if (slId === "slSnr" || slId === "slAlpha") stepVal = parseFloat(sl.step) || 0.1;
+
+      let cur = parseFloat(sl.value);
+      let next = Math.round((cur + dir * stepVal) * 1000) / 1000;
+      next = Math.max(parseFloat(sl.min), Math.min(parseFloat(sl.max), next));
+      sl.value = (slId === "slAlpha") ? Math.round(next) : next.toFixed(2);
+      if (num) num.value = sl.value;
+      updateUI();
+    }
+
+    function setRightPanelTab(tab) {
+      currentRightPanelTab = tab;
+      const btnTele = document.getElementById("btnTabTele");
+      const btnMath = document.getElementById("btnTabMath");
+      const secTele = document.getElementById("secTelemetry");
+      const secMath = document.getElementById("secMath");
+
+      if (tab === "telemetry") {
+        if (btnTele) btnTele.classList.add("active");
+        if (btnMath) btnMath.classList.remove("active");
+        if (secTele) secTele.style.display = "block";
+        if (secMath) secMath.style.display = "none";
+      } else {
+        if (btnMath) btnMath.classList.add("active");
+        if (btnTele) btnTele.classList.remove("active");
+        if (secTele) secTele.style.display = "none";
+        if (secMath) secMath.style.display = "flex";
+      }
+      updateUI();
+    }
+
+    let selectedTelemetryScheme = "zf"; // "zf" (default exact math) or "drl"
+    function setSelectedTelemetryScheme(scheme) {
+      selectedTelemetryScheme = scheme;
+      const bZf = document.getElementById("btnSchemeZF");
+      const bDrl = document.getElementById("btnSchemeDRL");
+      if (bZf && bDrl) {
+        if (scheme === "zf") {
+          bZf.classList.add("active");
+          bDrl.classList.remove("active");
+        } else {
+          bDrl.classList.add("active");
+          bZf.classList.remove("active");
+        }
       }
       updateUI();
     }
@@ -1551,11 +2340,11 @@
         ctx.strokeStyle = st.grid;
         ctx.lineWidth = 1;
         const corners = [
-          [0,0,0], [5,0,0], [5,5,0], [0,5,0],
-          [0,0,5.5], [5,0,5.5], [5,5,5.5], [0,5,5.5]
+          [0, 0, 0], [5, 0, 0], [5, 5, 0], [0, 5, 0],
+          [0, 0, 5.5], [5, 0, 5.5], [5, 5, 5.5], [0, 5, 5.5]
         ].map(pt => proj3D(...pt));
 
-        [[0,1],[1,2],[2,3],[3,0],[0,4],[1,5],[2,6],[3,7],[4,5],[5,6],[6,7],[7,4]].forEach(([i, j]) => {
+        [[0, 1], [1, 2], [2, 3], [3, 0], [0, 4], [1, 5], [2, 6], [3, 7], [4, 5], [5, 6], [6, 7], [7, 4]].forEach(([i, j]) => {
           ctx.beginPath(); ctx.moveTo(corners[i].px, corners[i].py); ctx.lineTo(corners[j].px, corners[j].py); ctx.stroke();
         });
 
@@ -1633,7 +2422,7 @@
         const pFixedTop = proj3D(fixedNode[0], fixedNode[1], maxRate);
         ctx.beginPath(); ctx.moveTo(pFixedFloor.px, pFixedFloor.py); ctx.lineTo(pFixedFloor.px, pFixedFloor.py - 30); ctx.stroke();
         ctx.fillStyle = isEveMode ? "#3b82f6" : "#ef4444";
-        ctx.beginPath(); ctx.arc(pFixedFloor.px, pFixedFloor.py - 30, 6, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(pFixedFloor.px, pFixedFloor.py - 30, 6, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = "#fff"; ctx.stroke();
 
         ctx.fillStyle = st.text;
@@ -1731,7 +2520,7 @@
 
         // Alice
         const pA = toPx(2.5, 2.5);
-        ctx.fillStyle = "gold"; ctx.beginPath(); ctx.arc(pA.px, pA.py, 7, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = "gold"; ctx.beginPath(); ctx.arc(pA.px, pA.py, 7, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = "#000"; ctx.stroke();
         ctx.fillStyle = st.text; ctx.font = "bold 10px sans-serif"; ctx.fillText("Alice", pA.px + 9, pA.py + 4);
 
@@ -1743,7 +2532,7 @@
 
         // Eve
         const pE = toPx(v.eve[0], v.eve[1]);
-        ctx.fillStyle = "#ef4444"; ctx.beginPath(); ctx.arc(pE.px, pE.py, 8, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = "#ef4444"; ctx.beginPath(); ctx.arc(pE.px, pE.py, 8, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = "#fff"; ctx.stroke();
         ctx.fillText("Eve Rx", pE.px + 10, pE.py + 4);
 
@@ -2067,7 +2856,7 @@
       // Jammer energy consumptions for Eq. (7)
       const E_zf = res.schemes.zf.energy;
       const E_drl = Math.max(0.60, E_zf * 0.72);
-      const E_rl  = Math.max(0.80, E_zf * 0.85);
+      const E_rl = Math.max(0.80, E_zf * 0.85);
       const E_sbj = Math.max(0.90, E_zf * 0.95);
       const E_rob = Math.max(1.10, E_zf * 1.15);
 
@@ -2085,9 +2874,9 @@
       // (b) Dynamic Bob 4-PAM BER (Calibrated to IEEE TWC 2024 Fig. 7(b))
       function getBerVal(s, scheme) {
         const tables = {
-          drl:    [2.3e-3, 2.0e-3, 1.8e-3, 1.6e-3, 1.5e-3, 9.0e-4, 5.0e-4, 2.5e-4, 1.0e-4],
-          rl:     [1.0e-2, 9.0e-3, 8.5e-3, 7.5e-3, 6.0e-3, 4.5e-3, 3.8e-3, 2.2e-3, 1.2e-3],
-          sbj:    [3.0e-2, 2.8e-2, 2.8e-2, 2.2e-2, 1.6e-2, 1.4e-2, 1.2e-2, 9.0e-3, 7.0e-3],
+          drl: [2.3e-3, 2.0e-3, 1.8e-3, 1.6e-3, 1.5e-3, 9.0e-4, 5.0e-4, 2.5e-4, 1.0e-4],
+          rl: [1.0e-2, 9.0e-3, 8.5e-3, 7.5e-3, 6.0e-3, 4.5e-3, 3.8e-3, 2.2e-3, 1.2e-3],
+          sbj: [3.0e-2, 2.8e-2, 2.8e-2, 2.2e-2, 1.6e-2, 1.4e-2, 1.2e-2, 9.0e-3, 7.0e-3],
           robust: [5.0e-2, 4.8e-2, 4.5e-2, 4.2e-2, 4.0e-2, 4.0e-2, 4.1e-2, 4.0e-2, 3.8e-2]
         };
         const arr = tables[scheme] || tables.drl;
@@ -2220,12 +3009,12 @@
             else if (markerType === "triangle") {
               ctx.beginPath(); ctx.moveTo(x, y - 5); ctx.lineTo(x + 5, y + 4); ctx.lineTo(x - 4, y + 4); ctx.fill();
             } else if (markerType === "circle") {
-              ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2); ctx.fill();
+              ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill();
             } else if (markerType === "cross") {
               ctx.lineWidth = 1.6;
               ctx.beginPath();
-              ctx.moveTo(x-3.5, y-3.5); ctx.lineTo(x+3.5, y+3.5);
-              ctx.moveTo(x+3.5, y-3.5); ctx.lineTo(x-3.5, y+3.5);
+              ctx.moveTo(x - 3.5, y - 3.5); ctx.lineTo(x + 3.5, y + 3.5);
+              ctx.moveTo(x + 3.5, y - 3.5); ctx.lineTo(x - 3.5, y + 3.5);
               ctx.stroke();
             }
           });
@@ -2400,10 +3189,10 @@
       ctx.strokeStyle = st.border;
       ctx.lineWidth = 1.4;
       const c = [
-        [0,0,0], [5,0,0], [5,5,0], [0,5,0],
-        [0,0,3], [5,0,3], [5,5,3], [0,5,3]
+        [0, 0, 0], [5, 0, 0], [5, 5, 0], [0, 5, 0],
+        [0, 0, 3], [5, 0, 3], [5, 5, 3], [0, 5, 3]
       ].map(pt => projectRoom(...pt));
-      [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]].forEach(([i, j]) => {
+      [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4], [0, 4], [1, 5], [2, 6], [3, 7]].forEach(([i, j]) => {
         ctx.beginPath(); ctx.moveTo(c[i].x, c[i].y); ctx.lineTo(c[j].x, c[j].y); ctx.stroke();
       });
 
@@ -2426,7 +3215,7 @@
       ctx.beginPath(); ctx.moveTo(pAlice.x, pAlice.y); ctx.lineTo(pAliceFloor.x, pAliceFloor.y); ctx.stroke();
       ctx.setLineDash([]);
       ctx.fillStyle = "rgba(245, 158, 11, 0.15)";
-      ctx.beginPath(); ctx.ellipse(pAliceFloor.x, pAliceFloor.y, 16, 9, 0, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(pAliceFloor.x, pAliceFloor.y, 16, 9, 0, 0, Math.PI * 2); ctx.fill();
 
       // Bob drop line & receiver ring:
       const pBobFloor = projectRoom(v.bob[0], v.bob[1], 0);
@@ -2435,7 +3224,7 @@
       ctx.beginPath(); ctx.moveTo(pBob.x, pBob.y); ctx.lineTo(pBobFloor.x, pBobFloor.y); ctx.stroke();
       ctx.setLineDash([]);
       ctx.fillStyle = "rgba(59, 130, 246, 0.18)";
-      ctx.beginPath(); ctx.ellipse(pBobFloor.x, pBobFloor.y, 16, 9, 0, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(pBobFloor.x, pBobFloor.y, 16, 9, 0, 0, Math.PI * 2); ctx.fill();
 
       // Eve drop line & wiretap ring:
       const pEveFloor = projectRoom(v.eve[0], v.eve[1], 0);
@@ -2444,7 +3233,7 @@
       ctx.beginPath(); ctx.moveTo(pEve.x, pEve.y); ctx.lineTo(pEveFloor.x, pEveFloor.y); ctx.stroke();
       ctx.setLineDash([]);
       ctx.fillStyle = "rgba(239, 68, 68, 0.18)";
-      ctx.beginPath(); ctx.ellipse(pEveFloor.x, pEveFloor.y, 16, 9, 0, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(pEveFloor.x, pEveFloor.y, 16, 9, 0, 0, Math.PI * 2); ctx.fill();
 
       // Distance Line between Bob and Eve
       ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
@@ -2495,13 +3284,13 @@
           const bx = pAlice.x + (pBob.x - pAlice.x) * prog;
           const by = pAlice.y + (pBob.y - pAlice.y) * prog;
           ctx.fillStyle = "#34d399";
-          ctx.beginPath(); ctx.arc(bx, by, 3.8, 0, Math.PI*2); ctx.fill();
+          ctx.beginPath(); ctx.arc(bx, by, 3.8, 0, Math.PI * 2); ctx.fill();
 
           // Leakage photon to Eve
           const ex = pAlice.x + (pEve.x - pAlice.x) * prog;
           const ey = pAlice.y + (pEve.y - pAlice.y) * prog;
           ctx.fillStyle = "#f59e0b";
-          ctx.beginPath(); ctx.arc(ex, ey, 3.0, 0, Math.PI*2); ctx.fill();
+          ctx.beginPath(); ctx.arc(ex, ey, 3.0, 0, Math.PI * 2); ctx.fill();
 
           // Jamming pulse from Jammer to Eve
           const jIdx = pt % 4;
@@ -2509,39 +3298,39 @@
           const jx = pj.x + (pEve.x - pj.x) * prog;
           const jy = pj.y + (pEve.y - pj.y) * prog;
           ctx.fillStyle = "#c084fc";
-          ctx.beginPath(); ctx.arc(jx, jy, 3.2, 0, Math.PI*2); ctx.fill();
+          ctx.beginPath(); ctx.arc(jx, jy, 3.2, 0, Math.PI * 2); ctx.fill();
         }
       }
 
       // 6. Transceiver Nodes
       // Alice Node (Tx)
       ctx.fillStyle = "gold";
-      ctx.beginPath(); ctx.arc(pAlice.x, pAlice.y, 11, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(pAlice.x, pAlice.y, 11, 0, Math.PI * 2); ctx.fill();
       ctx.strokeStyle = "#fff"; ctx.lineWidth = 2.5; ctx.stroke();
       ctx.fillStyle = st.text; ctx.font = "bold 13px sans-serif";
       ctx.fillText("Alice Tx (2.5, 2.5, 3.0)m", pAlice.x + 15, pAlice.y + 5);
 
       // Bob Node (Rx)
       ctx.fillStyle = "#3b82f6";
-      ctx.beginPath(); ctx.arc(pBob.x, pBob.y, 11, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(pBob.x, pBob.y, 11, 0, Math.PI * 2); ctx.fill();
       ctx.strokeStyle = "#fff"; ctx.lineWidth = 2.5; ctx.stroke();
       // Null-space Protection Pulsating Halo
       const ringPulse = 20 + 4 * Math.sin(performance.now() * 0.005);
       ctx.strokeStyle = "rgba(52, 211, 153, 0.7)";
       ctx.lineWidth = 2.0;
-      ctx.beginPath(); ctx.arc(pBob.x, pBob.y, ringPulse, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(pBob.x, pBob.y, ringPulse, 0, Math.PI * 2); ctx.stroke();
       ctx.fillStyle = st.text; ctx.font = "bold 13px sans-serif";
       ctx.fillText(`Bob Rx (${v.bob[0].toFixed(2)}, ${v.bob[1].toFixed(2)}, 0.85)m`, pBob.x + 15, pBob.y + 5);
 
       // Eve Node (Wiretapper)
       ctx.fillStyle = "#ef4444";
-      ctx.beginPath(); ctx.arc(pEve.x, pEve.y, 11, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(pEve.x, pEve.y, 11, 0, Math.PI * 2); ctx.fill();
       ctx.strokeStyle = "#fff"; ctx.lineWidth = 2.5; ctx.stroke();
       // Jamming Impact Warning Ring
       const evePulse = 18 + 3 * Math.cos(performance.now() * 0.006);
       ctx.strokeStyle = "rgba(239, 68, 68, 0.6)";
       ctx.lineWidth = 1.8;
-      ctx.beginPath(); ctx.arc(pEve.x, pEve.y, evePulse, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(pEve.x, pEve.y, evePulse, 0, Math.PI * 2); ctx.stroke();
       ctx.fillStyle = st.text; ctx.font = "bold 13px sans-serif";
       ctx.fillText(`Eve Rx (${v.eve[0].toFixed(2)}, ${v.eve[1].toFixed(2)}, 0.85)m`, pEve.x + 15, pEve.y + 5);
 
@@ -2549,10 +3338,10 @@
       JAMMERS.forEach((j, idx) => {
         const pj = projectRoom(...j);
         ctx.fillStyle = "#d946ef";
-        ctx.beginPath(); ctx.arc(pj.x, pj.y, 9, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(pj.x, pj.y, 9, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = "#fff"; ctx.lineWidth = 2.0; ctx.stroke();
         ctx.fillStyle = st.text; ctx.font = "bold 11px sans-serif";
-        ctx.fillText(`Jammer J${idx+1} (${j[0]}, ${j[1]}, 3.0)m`, pj.x + 12, pj.y + 4);
+        ctx.fillText(`Jammer J${idx + 1} (${j[0]}, ${j[1]}, 3.0)m`, pj.x + 12, pj.y + 4);
       });
     }
 
@@ -2570,16 +3359,19 @@
     function updateUI() {
       const v = getFormValues();
 
-      document.getElementById("vBobX").innerText = v.bob[0].toFixed(2);
-      document.getElementById("vBobY").innerText = v.bob[1].toFixed(2);
-      document.getElementById("vEveX").innerText = v.eve[0].toFixed(2);
-      document.getElementById("vEveY").innerText = v.eve[1].toFixed(2);
-      document.getElementById("labelBobPos").innerText = `(${v.bob[0].toFixed(2)}, ${v.bob[1].toFixed(2)}, 0.85) m`;
-      document.getElementById("labelEvePos").innerText = `(${v.eve[0].toFixed(2)}, ${v.eve[1].toFixed(2)}, 0.85) m`;
+      // Sync Number Inputs and Headers
+      if (document.getElementById("numBobX")) document.getElementById("numBobX").value = v.bob[0].toFixed(2);
+      if (document.getElementById("numBobY")) document.getElementById("numBobY").value = v.bob[1].toFixed(2);
+      if (document.getElementById("numBobZ")) document.getElementById("numBobZ").value = v.bob[2].toFixed(2);
+      if (document.getElementById("numEveX")) document.getElementById("numEveX").value = v.eve[0].toFixed(2);
+      if (document.getElementById("numEveY")) document.getElementById("numEveY").value = v.eve[1].toFixed(2);
+      if (document.getElementById("numEveZ")) document.getElementById("numEveZ").value = v.eve[2].toFixed(2);
+      if (document.getElementById("numSnr")) document.getElementById("numSnr").value = v.snr.toFixed(1);
+      if (document.getElementById("numAlpha")) document.getElementById("numAlpha").value = (v.alpha * 100).toFixed(0);
 
-      document.getElementById("vSnr").innerText = v.snr.toFixed(1) + " dB";
+      document.getElementById("labelBobPos").innerText = `(${v.bob[0].toFixed(2)}, ${v.bob[1].toFixed(2)}, ${v.bob[2].toFixed(2)}) m`;
+      document.getElementById("labelEvePos").innerText = `(${v.eve[0].toFixed(2)}, ${v.eve[1].toFixed(2)}, ${v.eve[2].toFixed(2)}) m`;
       document.getElementById("labelSnr").innerText = v.snr.toFixed(1) + " dB";
-      document.getElementById("vAlpha").innerText = (v.alpha * 100).toFixed(0) + "%";
       document.getElementById("vDelta1").innerText = v.delta1.toFixed(1);
       document.getElementById("vDelta2").innerText = v.delta2.toFixed(2);
 
@@ -2596,15 +3388,19 @@
         distStat.innerText = "(Safe Separation)";
       }
 
-      document.getElementById("dispCs").innerText = res.schemes.drl.cs.toFixed(2);
-      document.getElementById("dispBer").innerText = res.schemes.drl.pe.toExponential(2);
-      document.getElementById("dispUtility").innerText = res.schemes.drl.u.toFixed(2);
+      const sObj = res.schemes[selectedTelemetryScheme] || res.schemes.zf;
+      document.getElementById("dispCs").innerText = sObj.cs.toFixed(2);
+      document.getElementById("dispBer").innerText = sObj.pe.toExponential(2);
+      document.getElementById("dispUtility").innerText = sObj.u.toFixed(2);
+      if (document.getElementById("cardSchemeCs")) document.getElementById("cardSchemeCs").innerText = selectedTelemetryScheme === "zf" ? "[Zero-Forcing]" : "[Proposed DRL-FJ]";
+      if (document.getElementById("cardSchemeBer")) document.getElementById("cardSchemeBer").innerText = selectedTelemetryScheme === "zf" ? "[Zero-Forcing]" : "[Proposed DRL-FJ]";
+      if (document.getElementById("cardSchemeU")) document.getElementById("cardSchemeU").innerText = selectedTelemetryScheme === "zf" ? "[Zero-Forcing]" : "[Proposed DRL-FJ]";
       document.getElementById("dispEveJam").innerText = res.jamming_eve.toExponential(2);
       document.getElementById("dispNullBob").innerText = `Bob Leakage: ${res.leakage_bob.toExponential(2)}`;
 
       res.w_zf.forEach((w, i) => {
-        const fill = document.getElementById(`fillJ${i+1}`);
-        const valText = document.getElementById(`valJ${i+1}`);
+        const fill = document.getElementById(`fillJ${i + 1}`);
+        const valText = document.getElementById(`valJ${i + 1}`);
         const pct = Math.abs(w) * 100;
         fill.style.height = `${pct}%`;
         fill.style.background = w >= 0 ? "linear-gradient(to top, #8b5cf6, #c084fc)" : "linear-gradient(to top, #ef4444, #f87171)";
@@ -2640,11 +3436,96 @@
       document.getElementById("ch_hJB").innerText = "[" + res.h_JB.map(v => v.toExponential(2)).join(", ") + "]";
       document.getElementById("ch_hJE").innerText = "[" + res.h_JE.map(v => v.toExponential(2)).join(", ") + "]";
 
+      // Populate Live Exact Point Math Breakdown
+      if (document.getElementById("mBobPos")) {
+        document.getElementById("mBobPos").innerText = `(${v.bob[0].toFixed(2)}, ${v.bob[1].toFixed(2)}, ${v.bob[2].toFixed(2)}) m`;
+        document.getElementById("mEvePos").innerText = `(${v.eve[0].toFixed(2)}, ${v.eve[1].toFixed(2)}, ${v.eve[2].toFixed(2)}) m`;
+        document.getElementById("mDistBE").innerText = res.d_be.toFixed(3) + " m";
+
+        const degAB = (Math.acos(Math.min(1, res.cos_phi_AB)) * 180 / Math.PI).toFixed(2);
+        const degAE = (Math.acos(Math.min(1, res.cos_phi_AE)) * 180 / Math.PI).toFixed(2);
+        document.getElementById("m_cosAB").innerText = `${degAB}° (cos=${res.cos_phi_AB.toFixed(4)}, ≤60° FoV)`;
+        document.getElementById("m_cosAE").innerText = `${degAE}° (cos=${res.cos_phi_AE.toFixed(4)}, ≤60° FoV)`;
+
+        // 3D Angle of Bob to Eve from Alice (angle BAE)
+        const dotBAE = (v.bob[0]-2.5)*(v.eve[0]-2.5) + (v.bob[1]-2.5)*(v.eve[1]-2.5) + (v.bob[2]-3.0)*(v.eve[2]-3.0);
+        const cosBAE = dotBAE / Math.max(1e-9, res.d_AB * res.d_AE);
+        const degBAE = (Math.acos(Math.min(1, Math.max(-1, cosBAE))) * 180 / Math.PI).toFixed(2);
+        if (document.getElementById("m_angleBAE")) {
+          document.getElementById("m_angleBAE").innerText = `${degBAE}° (3D Subtended Angle)`;
+        }
+
+        document.getElementById("m_hAB").innerText = res.h_AB.toExponential(4) + " A/W";
+        document.getElementById("m_hAE").innerText = res.h_AE.toExponential(4) + " A/W";
+        document.getElementById("m_normJB").innerText = res.norm_sq.toExponential(4);
+        document.getElementById("m_dotJBJE").innerText = res.dot_jb_je.toExponential(4);
+
+        document.getElementById("m_zfRho").innerText = res.rho.toFixed(6);
+        document.getElementById("m_wZF").innerText = "[" + res.w_zf.map(w => (w >= 0 ? "+" : "") + w.toFixed(4)).join(", ") + "]";
+        document.getElementById("m_leakBob").innerText = res.leakage_bob.toExponential(2) + (res.leakage_bob < 1e-12 ? " (Exact Null)" : " A/W");
+        document.getElementById("m_jamEve").innerText = res.jamming_eve.toExponential(4) + " A/W";
+        document.getElementById("m_targetH").innerText = res.h_star_eve.toExponential(4) + " A/W";
+
+        document.getElementById("m_sigmaSq").innerText = res.sigma_B_sq.toExponential(4) + " W";
+        document.getElementById("m_termBob").innerText = res.term_bob.toFixed(4) + " bps/Hz";
+        document.getElementById("m_termEve").innerText = res.term_eve.toFixed(4) + " bps/Hz";
+        document.getElementById("m_cs").innerText = res.schemes.zf.cs.toFixed(4) + " bps/Hz";
+
+        document.getElementById("m_gammaEff").innerText = Math.sqrt(res.gamma_eff).toFixed(5);
+        document.getElementById("m_pe").innerText = res.schemes.zf.pe.toExponential(4);
+        document.getElementById("m_energy").innerText = res.energy_zf.toFixed(4) + " J";
+        if (document.getElementById("m_penBer")) document.getElementById("m_penBer").innerText = "-" + res.pen_ber_zf.toFixed(4);
+        if (document.getElementById("m_penEnergy")) document.getElementById("m_penEnergy").innerText = "-" + res.pen_energy_zf.toFixed(4);
+        document.getElementById("m_utility").innerText = res.schemes.zf.u.toFixed(4);
+
+        if (document.getElementById("calc_cs_detail")) {
+          document.getElementById("calc_cs_detail").innerText = `${res.term_bob.toFixed(4)} - ${res.term_eve.toFixed(4)} = ${res.schemes.zf.cs.toFixed(4)} bps/Hz`;
+        }
+        if (document.getElementById("calc_u_detail")) {
+          document.getElementById("calc_u_detail").innerText = `${res.schemes.zf.cs.toFixed(4)} - (${v.delta1.toFixed(1)} × ${res.schemes.zf.pe.toExponential(2)}) - (${v.delta2.toFixed(2)} × ${res.energy_zf.toFixed(2)}) = ${res.schemes.zf.u.toFixed(4)}`;
+        }
+      }
+
       drawStage();
     }
 
-    [slBobX, slBobY, slEveX, slEveY, slSnr, slAlpha, slDelta1, slDelta2].forEach(sl => {
-      sl.addEventListener("input", updateUI);
+    // Two-Way Sync for Sliders and Precision Numeric Inputs
+    function setupSync(slId, numId) {
+      const sl = document.getElementById(slId);
+      const num = document.getElementById(numId);
+      if (!sl || !num) return;
+      sl.addEventListener("input", () => {
+        num.value = sl.value;
+        updateUI();
+      });
+      num.addEventListener("input", () => {
+        const v = parseFloat(num.value);
+        if (!isNaN(v)) {
+          sl.value = v;
+          updateUI();
+        }
+      });
+      num.addEventListener("change", () => {
+        let v = parseFloat(num.value);
+        if (isNaN(v)) v = parseFloat(sl.value);
+        v = Math.max(parseFloat(sl.min), Math.min(parseFloat(sl.max), v));
+        sl.value = v;
+        num.value = (slId === "slAlpha") ? Math.round(v) : v.toFixed(2);
+        updateUI();
+      });
+    }
+
+    setupSync("slBobX", "numBobX");
+    setupSync("slBobY", "numBobY");
+    setupSync("slBobZ", "numBobZ");
+    setupSync("slEveX", "numEveX");
+    setupSync("slEveY", "numEveY");
+    setupSync("slEveZ", "numEveZ");
+    setupSync("slSnr", "numSnr");
+    setupSync("slAlpha", "numAlpha");
+
+    [slDelta1, slDelta2].forEach(sl => {
+      if (sl) sl.addEventListener("input", updateUI);
     });
 
     // =========================================================================
@@ -2716,4 +3597,5 @@
     }, 60);
   </script>
 </body>
+
 </html>

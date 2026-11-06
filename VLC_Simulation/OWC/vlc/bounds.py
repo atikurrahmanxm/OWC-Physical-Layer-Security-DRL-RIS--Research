@@ -93,7 +93,7 @@ def compute_theoretical_bounds(
 
     # Theoretical BER of Bob (Equation 22)
     gamma_bob = (2.0 * P_T * (h_AB ** 2)) / (5.0 * sigma_B_sq)
-    pe_star = float(0.75 * erfc(np.sqrt(max(0.0, gamma_bob))))
+    pe_star = float(np.clip(0.75 * erfc(np.sqrt(max(0.0, gamma_bob))), 1e-8, 0.75))
 
     # Optimal ZF beamformer direction
     w_star = compute_zero_forcing_beamformer(h_JB, h_JE)
