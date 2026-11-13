@@ -97,6 +97,7 @@ class VLCChannel:
         bob_pos: Optional[np.ndarray] = None,
         eve_pos: Optional[np.ndarray] = None,
         nonstationary_noise_std: float = 0.0,
+        rng=None,
     ) -> Tuple[float, float, np.ndarray, np.ndarray]:
         """
         Computes all channel gains for the network:
@@ -126,9 +127,10 @@ class VLCChannel:
         h_JE = np.array(h_JE_list, dtype=np.float64)
 
         if nonstationary_noise_std > 0.0:
-            h_AB *= max(0.1, 1.0 + np.random.normal(0, nonstationary_noise_std))
-            h_AE *= max(0.1, 1.0 + np.random.normal(0, nonstationary_noise_std))
-            h_JB *= np.maximum(0.1, 1.0 + np.random.normal(0, nonstationary_noise_std, size=h_JB.shape))
-            h_JE *= np.maximum(0.1, 1.0 + np.random.normal(0, nonstationary_noise_std, size=h_JE.shape))
+            generator = rng if rng is not None else np.random.default_rng()
+            h_AB *= max(0.1, 1.0 + generator.normal(0, nonstationary_noise_std))
+            h_AE *= max(0.1, 1.0 + generator.normal(0, nonstationary_noise_std))
+            h_JB *= np.maximum(0.1, 1.0 + generator.normal(0, nonstationary_noise_std, size=h_JB.shape))
+            h_JE *= np.maximum(0.1, 1.0 + generator.normal(0, nonstationary_noise_std, size=h_JE.shape))
 
         return h_AB, h_AE, h_JB, h_JE

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "command(python -B -m unittest discover -s tests)",
+      "command(python -u -B main.py --mode ris)",
+      "command(node paper_audit/check_browser_match.js)",
+      "command(python -B paper_audit/check_paper_match.py --equations-only)",
+      "command(git diff --check)",
+      "command(git status --short)"
+    ]
+  }
+}

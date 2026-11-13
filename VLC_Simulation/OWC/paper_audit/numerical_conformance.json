@@ -1,0 +1,452 @@
+{
+  "numerical_targets_passed": false,
+  "status": "fail",
+  "scope": "Quoted Figure 6 checkpoints and all plotted RL/DRL Figure 7 vertices",
+  "tolerance_source": "Explicit local acceptance thresholds, not author-provided tolerances",
+  "checkpoints": {
+    "DRL_rate_slot_1400": {
+      "paper": 5.68,
+      "computed": 1.5555204966984952,
+      "passed": false,
+      "absolute_error": 4.1244795033015045,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    "DRL_BER_slot_1200": {
+      "paper": 0.0002,
+      "computed": 4.424136096087513e-25,
+      "passed": false,
+      "absolute_error": 0.0002,
+      "tolerance": {
+        "multiplicative_factor": 1.25
+      }
+    }
+  },
+  "figure7": [
+    {
+      "snr_db": 4.0,
+      "metric": "secrecy_rate",
+      "agent": "rl",
+      "paper": 1.4375006802721089,
+      "computed": 0.013431321293372125,
+      "passed": false,
+      "absolute_error": 1.4240693589787368,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 8.0,
+      "metric": "secrecy_rate",
+      "agent": "rl",
+      "paper": 2.1874965986394557,
+      "computed": 0.18708811016891666,
+      "passed": false,
+      "absolute_error": 2.000408488470539,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 12.0,
+      "metric": "secrecy_rate",
+      "agent": "rl",
+      "paper": 2.742,
+      "computed": 0.426820105237247,
+      "passed": false,
+      "absolute_error": 2.315179894762753,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 16.0,
+      "metric": "secrecy_rate",
+      "agent": "rl",
+      "paper": 3.3410068027210884,
+      "computed": 0.46112526015503685,
+      "passed": false,
+      "absolute_error": 2.8798815425660518,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 20.0,
+      "metric": "secrecy_rate",
+      "agent": "rl",
+      "paper": 4.063496598639455,
+      "computed": 0.5733421355123606,
+      "passed": false,
+      "absolute_error": 3.4901544631270944,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 4.0,
+      "metric": "secrecy_rate",
+      "agent": "drl",
+      "paper": 1.7459986394557823,
+      "computed": 0.005322190903627416,
+      "passed": false,
+      "absolute_error": 1.7406764485521549,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 8.0,
+      "metric": "secrecy_rate",
+      "agent": "drl",
+      "paper": 2.3750068027210887,
+      "computed": 0.9993269231076981,
+      "passed": false,
+      "absolute_error": 1.3756798796133904,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 12.0,
+      "metric": "secrecy_rate",
+      "agent": "drl",
+      "paper": 3.0152108843537415,
+      "computed": 1.5990875642899527,
+      "passed": false,
+      "absolute_error": 1.4161233200637888,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 16.0,
+      "metric": "secrecy_rate",
+      "agent": "drl",
+      "paper": 3.7189931972789116,
+      "computed": 2.196024180878454,
+      "passed": false,
+      "absolute_error": 1.5229690164004577,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 20.0,
+      "metric": "secrecy_rate",
+      "agent": "drl",
+      "paper": 4.375006802721089,
+      "computed": 2.799994501237914,
+      "passed": false,
+      "absolute_error": 1.5750123014831745,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 4.0,
+      "metric": "ber",
+      "agent": "rl",
+      "paper": 0.009500051235451073,
+      "computed": 0.015980633189335916,
+      "passed": false,
+      "absolute_error": 0.0064805819538848435,
+      "tolerance": {
+        "multiplicative_factor": 1.25
+      }
+    },
+    {
+      "snr_db": 8.0,
+      "metric": "ber",
+      "agent": "rl",
+      "paper": 0.00850007466369691,
+      "computed": 0.00971663430641102,
+      "passed": true,
+      "absolute_error": 0.00121655964271411,
+      "tolerance": {
+        "multiplicative_factor": 1.25
+      }
+    },
+    {
+      "snr_db": 12.0,
+      "metric": "ber",
+      "agent": "rl",
+      "paper": 0.005399889088071412,
+      "computed": 0.003972925696700379,
+      "passed": false,
+      "absolute_error": 0.0014269633913710326,
+      "tolerance": {
+        "multiplicative_factor": 1.25
+      }
+    },
+    {
+      "snr_db": 16.0,
+      "metric": "ber",
+      "agent": "rl",
+      "paper": 0.0033000380731098215,
+      "computed": 0.0017289320671469946,
+      "passed": false,
+      "absolute_error": 0.0015711060059628269,
+      "tolerance": {
+        "multiplicative_factor": 1.25
+      }
+    },
+    {
+      "snr_db": 20.0,
+      "metric": "ber",
+      "agent": "rl",
+      "paper": 0.00118000373491251,
+      "computed": 0.00039097288191592734,
+      "passed": false,
+      "absolute_error": 0.0007890308529965827,
+      "tolerance": {
+        "multiplicative_factor": 1.25
+      }
+    },
+    {
+      "snr_db": 4.0,
+      "metric": "ber",
+      "agent": "drl",
+      "paper": 0.0022999899986508956,
+      "computed": 0.00369878962887708,
+      "passed": false,
+      "absolute_error": 0.0013987996302261842,
+      "tolerance": {
+        "multiplicative_factor": 1.25
+      }
+    },
+    {
+      "snr_db": 8.0,
+      "metric": "ber",
+      "agent": "drl",
+      "paper": 0.0018700292366913692,
+      "computed": 0.00042461441248965606,
+      "passed": false,
+      "absolute_error": 0.0014454148242017133,
+      "tolerance": {
+        "multiplicative_factor": 1.25
+      }
+    },
+    {
+      "snr_db": 12.0,
+      "metric": "ber",
+      "agent": "drl",
+      "paper": 0.0014000195839743517,
+      "computed": 0.00018057393104320212,
+      "passed": false,
+      "absolute_error": 0.0012194456529311497,
+      "tolerance": {
+        "multiplicative_factor": 1.25
+      }
+    },
+    {
+      "snr_db": 16.0,
+      "metric": "ber",
+      "agent": "drl",
+      "paper": 0.000600008543598375,
+      "computed": 9.77795944409866e-05,
+      "passed": false,
+      "absolute_error": 0.0005022289491573885,
+      "tolerance": {
+        "multiplicative_factor": 1.25
+      }
+    },
+    {
+      "snr_db": 20.0,
+      "metric": "ber",
+      "agent": "drl",
+      "paper": 0.0001,
+      "computed": 2.8004951194567008e-05,
+      "passed": false,
+      "absolute_error": 7.199504880543299e-05,
+      "tolerance": {
+        "multiplicative_factor": 1.25
+      }
+    },
+    {
+      "snr_db": 4.0,
+      "metric": "utility",
+      "agent": "rl",
+      "paper": 0.7512011661807578,
+      "computed": -1.0637008948693036,
+      "passed": false,
+      "absolute_error": 1.8149020610500615,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 8.0,
+      "metric": "utility",
+      "agent": "rl",
+      "paper": 1.371002915451895,
+      "computed": -0.9011201099035219,
+      "passed": false,
+      "absolute_error": 2.272123025355417,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 12.0,
+      "metric": "utility",
+      "agent": "rl",
+      "paper": 2.0368104956268223,
+      "computed": -0.5767851347012045,
+      "passed": false,
+      "absolute_error": 2.6135956303280268,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 16.0,
+      "metric": "utility",
+      "agent": "rl",
+      "paper": 2.575201166180758,
+      "computed": -0.5620260020799777,
+      "passed": false,
+      "absolute_error": 3.1372271682607353,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 20.0,
+      "metric": "utility",
+      "agent": "rl",
+      "paper": 3.3770145772594753,
+      "computed": -0.42892626957434526,
+      "passed": false,
+      "absolute_error": 3.8059408468338205,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 4.0,
+      "metric": "utility",
+      "agent": "drl",
+      "paper": 1.250198250728863,
+      "computed": -0.3300235727974423,
+      "passed": false,
+      "absolute_error": 1.5802218235263052,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 8.0,
+      "metric": "utility",
+      "agent": "drl",
+      "paper": 1.9258892128279883,
+      "computed": -0.006259227336015869,
+      "passed": false,
+      "absolute_error": 1.932148440164004,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 12.0,
+      "metric": "utility",
+      "agent": "drl",
+      "paper": 2.539708454810495,
+      "computed": 0.5979555555313016,
+      "passed": false,
+      "absolute_error": 1.9417528992791935,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 16.0,
+      "metric": "utility",
+      "agent": "drl",
+      "paper": 3.23999416909621,
+      "computed": 1.1951819522979106,
+      "passed": false,
+      "absolute_error": 2.0448122167982996,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    },
+    {
+      "snr_db": 20.0,
+      "metric": "utility",
+      "agent": "drl",
+      "paper": 3.9125014577259476,
+      "computed": 1.799396483908733,
+      "passed": false,
+      "absolute_error": 2.1131049738172143,
+      "tolerance": {
+        "absolute": 0.05
+      }
+    }
+  ],
+  "passed_comparisons": 1,
+  "total_comparisons": 32,
+  "reproduction_verified": false,
+  "certification_note": "Numerical agreement alone cannot validate unknown author settings or custom baselines.",
+  "noise_compatibility": {
+    "rate_target": 5.68,
+    "ber_target": 0.0002,
+    "nominal_noise": 1.3212956341865711e-13,
+    "nominal_rate_ceiling": 1.9086544954886058,
+    "rate_target_feasible_at_nominal_noise": false,
+    "zero_forcing_noise_for_ber_target": 4.447463155992868e-11,
+    "zero_forcing_ber_recomputed": 0.00019999999999999977,
+    "grid_actions_supporting_rate_target_at_some_noise": 2,
+    "scope": "Current config and fixed channel/action grid; not a claim that the paper is universally inconsistent",
+    "printed_signal_scales": {
+      "secrecy_alpha_squared_bias_squared": 0.010000000000000002,
+      "BER_P_T": 1.0
+    },
+    "closest_single_action_noise_requirements": {
+      "action": [
+        0.5,
+        -1.0,
+        0.0,
+        -1.0
+      ],
+      "noise_for_rate_target": 2.1735757105178237e-16,
+      "noise_for_ber_target": 4.415874696972885e-11,
+      "noise_gap_db": 53.07841969294713,
+      "rate_recomputed": 5.679999999999999,
+      "ber_at_rate_target": 0.0
+    }
+  },
+  "figure7_physical_feasibility": [
+    {
+      "snr_db": 4.0,
+      "paper_secrecy_rate": 1.7459986394557823,
+      "current_bob_capacity_ceiling": 0.9061230956503127,
+      "target_within_capacity_ceiling": false
+    },
+    {
+      "snr_db": 8.0,
+      "paper_secrecy_rate": 2.3750068027210887,
+      "current_bob_capacity_ceiling": 1.4348936095851428,
+      "target_within_capacity_ceiling": false
+    },
+    {
+      "snr_db": 12.0,
+      "paper_secrecy_rate": 3.0152108843537415,
+      "current_bob_capacity_ceiling": 2.0372926174527133,
+      "target_within_capacity_ceiling": false
+    },
+    {
+      "snr_db": 16.0,
+      "paper_secrecy_rate": 3.7189931972789116,
+      "current_bob_capacity_ceiling": 2.6754380771243014,
+      "target_within_capacity_ceiling": false
+    },
+    {
+      "snr_db": 20.0,
+      "paper_secrecy_rate": 4.375006802721089,
+      "current_bob_capacity_ceiling": 3.3291057413758973,
+      "target_within_capacity_ceiling": false
+    }
+  ]
+}

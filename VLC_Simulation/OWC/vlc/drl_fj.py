@@ -7,6 +7,7 @@ Equations: (10), (11), (12), (13), and hyperparameter vector F = [20, 40, 3, 2, 
 
 from typing import Dict, List, Tuple, Any, Optional
 import collections
+import copy
 import numpy as np
 import torch
 import torch.nn as nn
@@ -64,44 +65,48 @@ class FeatureCNN(nn.Module):
 class DNDMemory:
     """
     Differentiable Neural Dictionary (DND) for a single action w: Dw = (Kw, Vw).
-    Implements Equations (10), (11), (12) for Gaussian-kernel Q-value estimation.
+    Implements Equations (10), (11), (12) for Gaussian-kernel Q-value estimation:
+      Ker(h_hat, h_j) = exp(-0.5 * ||h_hat - h_j||_2^2)
+      omega_j = Ker(h_hat, h_j) / sum_p Ker(h_hat, h_p)
+      Q(s, w) = sum_j omega_j * v_j
     """
 
-    def __init__(self, max_capacity: int = 500, match_threshold: float = 0.05):
+    def __init__(self, max_capacity: Optional[int] = None, match_threshold: float = 0.0):
         self.max_capacity = max_capacity
         self.match_threshold = match_threshold
         self.keys: List[np.ndarray] = []  # List of length-n2 arrays
         self.values: List[float] = []     # List of scalar Q-values
+        self._k_cache: Optional[np.ndarray] = None
+        self._v_cache: Optional[np.ndarray] = None
+        self.revision = 0
 
     def __len__(self) -> int:
         return len(self.keys)
 
+    def _get_arrays(self) -> Tuple[np.ndarray, np.ndarray]:
+        if self._k_cache is None or len(self._k_cache) != len(self.keys):
+            self._k_cache = np.asarray(self.keys, dtype=np.float64)
+            self._v_cache = np.asarray(self.values, dtype=np.float64)
+        return self._k_cache, self._v_cache
+
     def query(self, query_key: np.ndarray) -> float:
         """
-        Estimates Q(s, w) = sum_{j=1}^zeta omega_j * v_j via Equations (10) and (11).
+        Estimates Q(s, w) = sum_{j=1}^zeta omega_j * v_j via Equations (10)-(12).
         """
         if len(self.keys) == 0:
             return 0.0
 
-        K = np.array(self.keys, dtype=np.float64)  # shape (zeta, n2)
-        V = np.array(self.values, dtype=np.float64)  # shape (zeta,)
-
-        # Vector distance ||h_hat - h_j||^2
+        K, V = self._get_arrays()
         diff = K - query_key
         dists_sq = np.sum(diff ** 2, axis=1)
 
-        # Scale by feature dimension for numerical stability of Gaussian kernel
-        scale = 1.0 / max(1.0, float(query_key.shape[0]))
-        scaled_dists = dists_sq * scale
-
-        # Softmax over kernel distances Ker(h_hat, h_j) = exp(-0.5 * dist)
-        min_d = np.min(scaled_dists)
-        logits = -0.5 * (scaled_dists - min_d)
+        # Log-sum-exp shift for numerical stability; algebraically identical under normalization Eq. (10)
+        min_d = float(np.min(dists_sq))
+        logits = -0.5 * (dists_sq - min_d)
         exp_logits = np.exp(logits)
-        weights = exp_logits / (np.sum(exp_logits) + 1e-12)
+        weights = exp_logits / np.sum(exp_logits)
 
-        q_val = float(np.dot(weights, V))
-        return q_val
+        return float(np.dot(weights, V))
 
     def query_torch(self, query_key: torch.Tensor) -> torch.Tensor:
         """
@@ -110,42 +115,45 @@ class DNDMemory:
         if len(self.keys) == 0:
             return torch.tensor(0.0, device=query_key.device, requires_grad=True)
 
-        K = torch.tensor(np.array(self.keys, dtype=np.float32), device=query_key.device)
-        V = torch.tensor(np.array(self.values, dtype=np.float32), device=query_key.device)
+        K_np, V_np = self._get_arrays()
+        K = torch.as_tensor(K_np, dtype=torch.float32, device=query_key.device)
+        V = torch.as_tensor(V_np, dtype=torch.float32, device=query_key.device)
 
         diff = K - query_key
         dists_sq = torch.sum(diff ** 2, dim=-1)
-        scale = 1.0 / float(query_key.shape[-1])
-        scaled_dists = dists_sq * scale
 
-        min_d = torch.min(scaled_dists)
-        logits = -0.5 * (scaled_dists - min_d)
+        min_d = torch.min(dists_sq)
+        logits = -0.5 * (dists_sq - min_d)
         weights = torch.softmax(logits, dim=0)
 
-        q_val = torch.dot(weights, V)
-        return q_val
+        return torch.dot(weights, V)
 
     def append_or_update(self, key: np.ndarray, q_value: float, learning_rate: float = 0.5):
         """
-        Appends (h_hat, Q) or updates existing entry (Algorithm 2 line 18).
+        Appends (h_hat, Q) or updates an existing key entry (Algorithm 2 line 18).
         """
         if len(self.keys) > 0:
-            K = np.array(self.keys, dtype=np.float64)
-            diff = K - key
-            dists = np.sqrt(np.sum(diff ** 2, axis=1))
+            K, _ = self._get_arrays()
+            dists = np.linalg.norm(K - key, axis=1)
             min_idx = int(np.argmin(dists))
-            if dists[min_idx] < self.match_threshold:
-                # Update existing entry
-                self.values[min_idx] = (1.0 - learning_rate) * self.values[min_idx] + learning_rate * q_value
+            if dists[min_idx] <= self.match_threshold:
+                # q_value already contains Eq. (9)'s learning-rate update.
+                # Section IV replaces this entry; do not smooth it a second time.
+                self.values[min_idx] = float(q_value)
+                self._k_cache = None
+                self._v_cache = None
+                self.revision += 1
                 return
 
-        # Append new entry
-        if len(self.keys) >= self.max_capacity:
+        if self.max_capacity is not None and len(self.keys) >= self.max_capacity:
             self.keys.pop(0)
             self.values.pop(0)
 
         self.keys.append(key.copy())
-        self.values.append(q_value)
+        self.values.append(float(q_value))
+        self._k_cache = None
+        self._v_cache = None
+        self.revision += 1
 
 
 class DRLFJAgent:
@@ -157,18 +165,30 @@ class DRLFJAgent:
         self.env = env
         self.config = config if config is not None else env.config
         self.num_actions = env.num_actions
+        # RIS extends each history action with a configuration coordinate.
+        # Baseline environments still use exactly the original four weights.
+        self.action_width = int(env.action_space.shape[1])
+        required = self.config.sliding_window_m * (4 + self.action_width) + 4
+        if self.config.cnn_m0**2 < required:
+            raise ValueError("CNN input cannot hold the complete action history; use the RIS environment's adapted config")
+        self.rng = np.random.default_rng(self.config.seed)
+        self.action_history = []
 
-        # PyTorch CNN module
-        self.cnn = FeatureCNN(self.config)
-        self.optimizer = optim.Adam(self.cnn.parameters(), lr=1e-3)
+        # PyTorch CNN module theta^(k) and previous-iteration snapshot theta^(k-1) (Eq. 13)
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(self.config.seed)
+            self.cnn = FeatureCNN(self.config)
+        self.prev_cnn = copy.deepcopy(self.cnn)
+        self.prev_cnn.eval()
+        self.optimizer = optim.SGD(self.cnn.parameters(), lr=self.config.cnn_learning_rate)
 
         # DND memories for each action w in W
         self.dnd_dict: Dict[int, DNDMemory] = {
-            a: DNDMemory(max_capacity=500) for a in range(self.num_actions)
+            a: DNDMemory(match_threshold=self.config.dnd_match_threshold) for a in range(self.num_actions)
         }
 
         # Experience replay buffer B
-        self.replay_buffer = collections.deque(maxlen=2000)
+        self.replay_buffer = collections.deque()
 
         # State-action history for sliding window M
         self.m = self.config.sliding_window_m  # M = 11
@@ -176,6 +196,8 @@ class DRLFJAgent:
         self.history_actions: List[np.ndarray] = []
 
         self.epsilon = self.config.epsilon_start
+        self._packed_signature = None
+        self._packed_memory = None
 
     def _assemble_state_action_sequence(self, current_state: np.ndarray) -> np.ndarray:
         """
@@ -191,7 +213,7 @@ class DRLFJAgent:
             seq.extend(self.history_actions[i])
 
         # Fill with initial state/action if history is shorter than M
-        target_len = self.m * (4 + self.config.num_jammers)  # 11 * 8 = 88
+        target_len = self.m * (4 + self.action_width)
         if len(seq) < target_len:
             padding = [0.0] * (target_len - len(seq))
             seq = padding + seq
@@ -201,6 +223,8 @@ class DRLFJAgent:
 
         # Pad to 100 entries to reshape into 10 x 10 matrix
         m0_sq = self.config.cnn_m0 * self.config.cnn_m0  # 100
+        if len(seq) > m0_sq:
+            raise ValueError("CNN input cannot contain the complete state-action sequence")
         if len(seq) < m0_sq:
             seq.extend([0.0] * (m0_sq - len(seq)))
 
@@ -224,53 +248,71 @@ class DRLFJAgent:
         """
         Queries all DND memories to get Q(s, w) for all w in W (Algorithm 2 lines 14-16).
         """
-        q_values = np.zeros(self.num_actions, dtype=np.float64)
-        for a in range(self.num_actions):
-            q_values[a] = self.dnd_dict[a].query(key)
-        return q_values
+        # Same per-action Gaussian normalization as Eqs. (10)-(12), evaluated
+        # together. This avoids hundreds of Python dictionary queries per TD
+        # target without transferring values between different actions.
+        active = [(a, d) for a, d in self.dnd_dict.items() if len(d)]
+        if not active:
+            return np.zeros(self.num_actions, dtype=np.float64)
+        signature = tuple((a, d.revision) for a, d in active)
+        if signature != self._packed_signature:
+            arrays = [d._get_arrays() for _, d in active]
+            K = np.concatenate([k for k, _ in arrays])
+            V = np.concatenate([v for _, v in arrays])
+            groups = np.concatenate([np.full(len(d), a, dtype=int) for a, d in active])
+            self._packed_memory = K, V, groups
+            self._packed_signature = signature
+        K, V, groups = self._packed_memory
+        logits = -.5 * np.sum((K - key)**2, axis=1)
+        maxima = np.full(self.num_actions, -np.inf)
+        np.maximum.at(maxima, groups, logits)
+        weights = np.exp(logits - maxima[groups])
+        numerator = np.bincount(groups, weights=weights*V, minlength=self.num_actions)
+        denominator = np.bincount(groups, weights=weights, minlength=self.num_actions)
+        return np.divide(numerator, denominator, out=np.zeros_like(numerator), where=denominator > 0)
 
     def select_action(self, q_values: np.ndarray) -> int:
         """
         Selects jamming beamformer via epsilon-greedy policy (Equation 8).
         """
         best_a = int(np.argmax(q_values))
-        if np.random.rand() > self.epsilon:
+        if self.rng.random() > self.epsilon:
             return best_a
         else:
             other_actions = [a for a in range(self.num_actions) if a != best_a]
             if len(other_actions) == 0:
                 return best_a
-            return int(np.random.choice(other_actions))
+            return int(self.rng.choice(other_actions))
 
     def update_cnn_step(self):
         """
-        Updates CNN weights via SGD / Adam on mini-batch T from experience pool B (Equation 13).
+        Updates CNN weights via SGD on mini-batch T from experience pool B (Equation 13):
+        theta^(k) = arg min_theta E_T[(u - Q(phi, w; theta^(k)) + beta * max_w' Q(phi', w'; theta^(k-1)))^2]
         """
         if len(self.replay_buffer) < self.config.minibatch_size:
             return
 
         # Randomly choose T experiences from B
-        batch_indices = np.random.choice(len(self.replay_buffer), size=self.config.minibatch_size, replace=False)
+        batch_indices = self.rng.choice(len(self.replay_buffer), size=self.config.minibatch_size, replace=False)
         batch = [self.replay_buffer[i] for i in batch_indices]
 
         self.cnn.train()
+        self.prev_cnn.eval()
+
+        # Batch CNN passes across mini-batch T for theta^(k) and theta^(k-1)
+        phi_batch = torch.from_numpy(np.concatenate([b[0] for b in batch], axis=0))
+        next_phi_batch = torch.from_numpy(np.concatenate([b[3] for b in batch], axis=0))
+
+        h_hat_batch = self.cnn(phi_batch)
+        with torch.no_grad():
+            next_h_hat_batch = self.prev_cnn(next_phi_batch).cpu().numpy()
+
         total_loss = torch.tensor(0.0)
-
-        for phi, action_idx, reward, next_phi in batch:
-            phi_t = torch.tensor(phi, dtype=torch.float32)
-            next_phi_t = torch.tensor(next_phi, dtype=torch.float32)
-
-            # Query current Q(phi, w; theta)
-            h_hat = self.cnn(phi_t).squeeze(0)
+        for i, (_, action_idx, reward, _) in enumerate(batch):
+            h_hat = h_hat_batch[i]
             q_pred = self.dnd_dict[action_idx].query_torch(h_hat)
-
-            # Target Q-value: u + beta * max_w' Q(phi', w')
-            with torch.no_grad():
-                next_h_hat = self.cnn(next_phi_t).squeeze(0).numpy()
-                next_q_vals = self.estimate_all_q_values(next_h_hat)
-                max_next_q = float(np.max(next_q_vals))
-                target_q = torch.tensor(reward + self.config.discount_factor * max_next_q, dtype=torch.float32)
-
+            next_q_vals = self.estimate_all_q_values(next_h_hat_batch[i])
+            max_next_q = float(np.max(next_q_vals))
             loss = (reward - q_pred + self.config.discount_factor * max_next_q) ** 2
             total_loss = total_loss + loss
 
@@ -278,6 +320,9 @@ class DRLFJAgent:
         self.optimizer.zero_grad()
         loss_avg.backward()
         self.optimizer.step()
+
+        # Sync theta^(k-1) snapshot for the subsequent time slot
+        self.prev_cnn.load_state_dict(self.cnn.state_dict())
 
     def train(self, num_slots: int = 2000) -> Dict[str, List[float]]:
         """
@@ -291,57 +336,63 @@ class DRLFJAgent:
             "utility": [],
         }
 
+        if num_slots < 1:
+            raise ValueError("num_slots must be positive")
+        self.action_history = []
         self.history_states.clear()
         self.history_actions.clear()
         self.replay_buffer.clear()
 
         state = self.env.reset()
-        prev_phi: Optional[np.ndarray] = None
-        prev_action_idx: Optional[int] = None
-        prev_utility: Optional[float] = None
 
         for k in range(1, num_slots + 1):
-            if k <= self.m:
-                # Initial random actions during sliding window initialization
-                action_idx = int(np.random.randint(self.num_actions))
-                phi = self._assemble_state_action_sequence(state)
-            else:
-                # Assemble state-action sequence phi^(k)
-                phi = self._assemble_state_action_sequence(state)
+            phi = self._assemble_state_action_sequence(state)
 
-                # Feed phi into CNN to get look-up key h_hat
+            if k <= self.m:
+                # Initial random actions during sliding window initialization (Alg. 2 line 8-9)
+                action_idx = int(self.rng.integers(self.num_actions))
+                look_key = self.get_lookup_key(phi)
+                q_est = 0.0
+            else:
+                # Feed phi^(k) into CNN to obtain look-up key h_hat (Alg. 2 line 12-13)
                 look_key = self.get_lookup_key(phi)
 
-                # Estimate Q-function for all actions via DND (Equation 12)
+                # Estimate Q-function for all actions via DND (Eq. 10-12, Alg. 2 line 14-16)
                 q_values = self.estimate_all_q_values(look_key)
 
-                # Select action w^(k) via epsilon-greedy (Equation 8)
+                # Select action w^(k) via epsilon-greedy (Eq. 8, Alg. 2 line 17)
                 action_idx = self.select_action(q_values)
+                q_est = float(q_values[action_idx])
 
-                # Append / update entry in DND Dw (Algorithm 2 line 18)
-                best_q = float(q_values[action_idx])
-                self.dnd_dict[action_idx].append_or_update(
-                    look_key, best_q, learning_rate=self.config.learning_rate
-                )
-
-            # Perform friendly jamming using selected action
+            # Perform friendly jamming using selected action w^(k) (Alg. 2 line 20)
             next_state, utility, info = self.env.step(action_idx)
             w_vec = self.env.action_space[action_idx]
+            self.action_history.append(w_vec.tolist())
 
-            # Record history
+            # Record history and construct next state-action sequence phi^(k+1)
             self.history_states.append(state.copy())
             self.history_actions.append(w_vec.copy())
+            next_phi = self._assemble_state_action_sequence(next_state)
 
-            # Experience replay storage (Algorithm 2 lines 25-30)
-            if prev_phi is not None and prev_action_idx is not None and prev_utility is not None:
-                experience = (prev_phi, prev_action_idx, prev_utility, phi)
-                self.replay_buffer.append(experience)
-                if k > self.m:
-                    self.update_cnn_step()
+            # Compute updated Q(s^(k), w^(k)) via Bellman Eq. (9) and store in DND Dw^(k) (Alg. 2 line 18)
+            with torch.no_grad():
+                self.prev_cnn.eval()
+                next_h_hat = self.prev_cnn(torch.from_numpy(next_phi)).squeeze(0).cpu().numpy()
+            max_next_q = float(np.max(self.estimate_all_q_values(next_h_hat)))
+            q_updated = (1.0 - self.config.learning_rate) * q_est + self.config.learning_rate * (
+                utility + self.config.discount_factor * max_next_q
+            )
+            self.dnd_dict[action_idx].append_or_update(
+                look_key, q_updated, learning_rate=self.config.learning_rate
+            )
 
-            prev_phi = phi
-            prev_action_idx = action_idx
-            prev_utility = utility
+            # Append jamming experience {phi^(k), w^(k), u^(k), phi^(k+1)} to B (Alg. 2 line 25)
+            self.replay_buffer.append((phi, action_idx, utility, next_phi))
+
+            # Sample mini-batch T and update CNN weights theta via SGD (Alg. 2 line 26-30, Eq. 13)
+            if k > self.m:
+                self.update_cnn_step()
+
             state = next_state
 
             # Decay exploration rate

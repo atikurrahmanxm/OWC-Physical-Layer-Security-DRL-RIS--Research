@@ -1,5 +1,7 @@
 """
 Physical Layer Security Metrics for Visible Light Communication.
+model=physical dispatches rate and BER to one current-domain 4-PAM channel;
+the default paper mode retains the printed equations below.
 Implements:
 - Achievable Secrecy Rate (Equation 4)
 - Bit Error Rate (BER) of Bob with 4PAM (Equation 14)
@@ -36,10 +38,18 @@ def compute_secrecy_rate(
     alpha = config.modulation_index
     I_D = config.id_bias
 
-    # Effective noise variance at Bob
+    # Effective noise variance at Bob (Table I: sigma_B^2 = -98.79 dBm)
     if sigma_B_sq is None:
-        # Scale noise to effective SNR range for the room scenario
-        sigma_B_sq = config.noise_power_watts / config.snr_scale
+        sigma_B_sq = config.noise_variance
+
+    if config.model == "physical":
+        from .physical import secrecy_rate
+        return secrecy_rate(h_AB,h_AE,h_JB,h_JE,w,config,sigma_B_sq)
+
+    if not np.isfinite(sigma_B_sq) or sigma_B_sq <= 0:
+        raise ValueError("Noise variance must be finite and positive")
+    if h_AB < 0 or h_AE < 0:
+        raise ValueError("Optical channel gains must be nonnegative")
 
     # Jamming terms on Bob and Eve
     w = np.asarray(w, dtype=np.float64)
@@ -57,14 +67,15 @@ def compute_secrecy_rate(
     # Eve's Wiretapping term (Term 2 in Eq. 4)
     log_sqrt_e = np.log2(np.sqrt(np.e))  # ~ 0.7213475
 
-    eps = 1e-12
-    if jamming_on_eve < eps:
-        # Without jamming on Eve, secrecy rate is zero / minimal against competent Eve
-        term_eve = 10.0
+    if h_AE == 0.0:
+        return float(term_bob)  # No information link to Eve.
+    if jamming_on_eve == 0.0:
+        # Without jamming on Eve, leakage term diverges and secrecy rate is 0
+        return 0.0
     else:
         ratio = h_AE / jamming_on_eve
         inv_ratio = jamming_on_eve / h_AE
-        leak_1 = np.log2(max(eps, ratio)) + inv_ratio * log_sqrt_e
+        leak_1 = (np.log2(h_AE) - np.log2(jamming_on_eve)) + inv_ratio * log_sqrt_e
         leak_2 = ratio * log_sqrt_e
         term_eve = min(leak_1, leak_2)
 
@@ -83,26 +94,30 @@ def compute_bob_ber(
     Computes the Bit Error Rate (BER) of legitimate user Bob using 4PAM modulation
     according to Equation (14):
 
-    p_e = 0.75 * erfc( sqrt( [2 * P_T * (w^T h_JB + h_AB)^2] / [5 * sigma_B^2] ) )
+    p_e = 0.75 * erfc( sqrt( [2 * P_T * (w^T h_JB + h_AB)(h_AB + h_JB^T w)] / [5 * sigma_B^2] ) )
     """
     if config is None:
         config = VLCConfig()
 
     if sigma_B_sq is None:
-        sigma_B_sq = config.noise_power_watts / config.snr_scale
+        sigma_B_sq = config.noise_variance
+
+    if config.model == "physical":
+        from .physical import pam_bit_error_rate
+        amplitude=config.modulation_index*config.id_bias
+        return pam_bit_error_rate(abs(h_AB)*amplitude,abs(float(np.dot(h_JB,w)))*amplitude,sigma_B_sq)
 
     P_T = config.led_avg_power
+    if not np.isfinite(sigma_B_sq) or sigma_B_sq <= 0:
+        raise ValueError("Noise variance must be finite and positive")
     w = np.asarray(w, dtype=np.float64)
     jamming_on_bob = float(np.dot(h_JB, w))
 
     effective_channel = h_AB + jamming_on_bob
-    if effective_channel <= 0.0:
-        # Destructive interference completely degrades reception
-        return 0.75
-
+    # Eq. (14) squares the effective channel, including negative values.
     gamma = (2.0 * P_T * (effective_channel ** 2)) / (5.0 * sigma_B_sq)
     ber = 0.75 * erfc(np.sqrt(max(0.0, gamma)))
-    return float(np.clip(ber, 1e-8, 0.75))
+    return float(min(0.75, max(0.0, ber)))
 
 
 def compute_energy_consumption(
@@ -110,14 +125,20 @@ def compute_energy_consumption(
     config: Optional[VLCConfig] = None,
 ) -> float:
     """
-    Computes the energy consumption of the friendly jammers according to Equation (16):
-    E = varrho_s * sum_{i=1}^{N_J} |w_i|
+    Paper mode: nonnegative amplitude cost E = varrho_s * sum_i |w_i|.
+    Physical mode: sum_i w_i^2 * A^2/3 * R_driver * slot_duration, joules.
+    This is an explicit physical interpretation of the ambiguous Eq. (16).
+    energy_model='paper_signed' selects the literal printed sum_i w_i,
+    which can be negative and reward zero-secrecy actions.
     """
     if config is None:
         config = VLCConfig()
 
     w = np.asarray(w, dtype=np.float64)
-    energy = config.unit_jamming_cost * np.sum(np.abs(w))
+    if config.model == "physical":
+        return float((config.modulation_index*config.id_bias)**2/3 * np.sum(w**2)
+                     * config.jammer_resistance_ohm*config.slot_duration_s)
+    energy = config.unit_jamming_cost * np.sum(np.abs(w) if config.energy_model == "l1" else w)
     return float(energy)
 
 

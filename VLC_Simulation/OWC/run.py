@@ -355,12 +355,8 @@ def launch_desktop():
 
 def launch_web_gui():
     """Opens interactive 3D Web Visualizer in browser."""
-    import webbrowser
-    html_path = ROOT_DIR / "index.html"
-    if not html_path.exists():
-        html_path = ROOT_DIR / "visualizer.html"
-    print(f"[*] Opening 3D Web Visualizer: {html_path.resolve()}")
-    webbrowser.open(f"file:///{html_path.resolve()}")
+    from app_server import serve
+    serve(open_browser=True)
 
 
 def run_unit_tests():
@@ -381,7 +377,7 @@ def run_all_simulations(slots: int = 2000, grid_res: int = 25, save_dir: str = "
     run_all(save_dir=save_dir, slots=slots, grid_res=grid_res)
 
 
-def run_evaluation(bob, eve, snr: float = 12.0, delta1: float = 3.5, delta2: float = 0.4):
+def run_evaluation(bob, eve, snr: float = None, delta1: float = 3.5, delta2: float = 0.4):
     """Evaluates custom Bob/Eve coordinates and SNR."""
     from main import evaluate_custom_scenario
     evaluate_custom_scenario(
@@ -428,7 +424,7 @@ def interactive_menu():
         elif choice == "3":
             run_unit_tests()
         elif choice == "4":
-            run_evaluation([1.8, 1.6, 0.85], [3.2, 3.4, 0.85], snr=12.0)
+            run_evaluation([1.8, 1.6, 0.85], [3.2, 3.4, 0.85], snr=None)
         elif choice == "5":
             run_all_simulations()
         elif choice == "6":
@@ -466,15 +462,16 @@ def main():
     )
 
     # Core Execution Modes
-    parser.add_argument("--mode", type=str, choices=["app", "gui", "test", "eval", "fig", "train", "all", "backup", "restore", "list"],
+    parser.add_argument("--mode", type=str, choices=["app", "gui", "test", "eval", "fig", "train", "all", "ris", "backup", "restore", "list"],
                         help="Execution mode:\n"
                              "  app:      Launch Desktop App\n"
                              "  gui:      Open 3D Web Visualizer in Browser\n"
-                             "  test:     Run all 21 unit tests\n"
+                             "  test:     Run the regression suite\n"
                              "  eval:     Evaluate custom scenario\n"
                              "  fig:      Generate paper figures\n"
                              "  train:    Train RL or DRL agent\n"
                              "  all:      Run all simulations & generate figures\n"
+                             "  ris:      Matched optical RIS + FJ + DRL study\n"
                              "  backup:   Backup chats & brain to anti_backup/.gemini\n"
                              "  restore:  Restore chats & brain from anti_backup/.gemini\n"
                              "  list:     List active and backed-up conversations")
@@ -496,52 +493,81 @@ def main():
     # Custom Simulation Parameters
     parser.add_argument("--bob", nargs=3, type=float, default=[1.8, 1.6, 0.85], metavar=("X", "Y", "Z"), help="Bob coordinates (m)")
     parser.add_argument("--eve", nargs=3, type=float, default=[3.2, 3.4, 0.85], metavar=("X", "Y", "Z"), help="Eve coordinates (m)")
-    parser.add_argument("--snr", type=float, default=12.0, help="Operating SNR in dB [default: 12.0]")
+    parser.add_argument("--snr", type=float, default=None, help="Omit for Table I noise")
     parser.add_argument("--delta1", type=float, default=3.5, help="Utility weight delta1 for BER [default: 3.5]")
     parser.add_argument("--delta2", type=float, default=0.4, help="Utility weight delta2 for Energy [default: 0.4]")
     parser.add_argument("--fig", type=str, choices=["5", "6", "7", "all"], default="all", help="Figure to generate: 5, 6, 7, all")
     parser.add_argument("--slots", type=int, default=2000, help="Time slots for Fig. 6 [default: 2000]")
     parser.add_argument("--grid_res", type=int, default=25, help="Grid resolution for Fig. 5 [default: 25]")
-    parser.add_argument("--save_dir", type=str, default="output_figures", help="Directory to save figures")
+    parser.add_argument("--save_dir", type=str, default=None, help="Directory to save figures; physical runs use a separate subdirectory")
 
+    parser.add_argument("--algo", choices=["rl", "drl"], default="drl")
+    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--energy-model", choices=["paper_signed", "l1", "electrical"], default=None)
+    parser.add_argument("--snr-definition", choices=["electrical", "eq4", "pam", "modulated"], default=None)
+    parser.add_argument("--model",choices=["paper","physical"],default="paper")
+    parser.add_argument("--receiver-resistance",type=float,default=1.)
+    parser.add_argument("--jammer-resistance",type=float,default=1.)
+    parser.add_argument("--slot-duration",type=float,default=1.)
+    parser.add_argument("--noise-dbm",type=float,default=-98.79)
+    parser.add_argument("--eta",type=float,default=1.)
+    parser.add_argument("--results", default=None)
+    parser.add_argument('--seeds',type=int,nargs='+',default=None)
+    parser.add_argument('--ris-scenarios',nargs='+',choices=['nominal','near_bob','colocated','all'],default=['nominal'])
+    parser.add_argument('--ris-energy-sensitivity',action='store_true')
+    parser.add_argument('--ris-reflectivity',type=float,default=.85)
+    parser.add_argument('--ris-center',type=float,nargs=3,default=[2.5,.25,2.6])
+    parser.add_argument('--ris-width',type=float,default=1.)
+    parser.add_argument('--ris-height',type=float,default=.5)
+    parser.add_argument('--ris-rows',type=int,default=2)
+    parser.add_argument('--ris-cols',type=int,default=3)
+    parser.add_argument('--qos-ber-max',type=float,default=None)
+    parser.add_argument('--qos-penalty',type=float,default=0.)
+    parser.add_argument('--secrecy-target',type=float,default=.1)
     args = parser.parse_args()
 
     # Determine action
     b_dir = Path(args.backup_dir)
 
-    if args.backup_chats or args.mode == "backup":
-        backup_chats(conv_id=args.conv_id, backup_root=b_dir, backup_all=args.backup_all)
+    simulation_mode = args.mode if args.mode in ["eval","fig","train","all","test","gui","app","ris"] else None
+    for flag, mode in [(args.app,"app"),(args.gui,"gui"),(args.test,"test"),(args.all,"all")]:
+        if flag:
+            simulation_mode = mode
+    if args.mode is None and "--fig" in sys.argv:
+        simulation_mode = "fig"
+    if simulation_mode:
+        from main import main as core_main
+        forwarded = ["--mode",simulation_mode,"--algo",args.algo,"--seed",str(args.seed),
+                     "--model",args.model,"--receiver-resistance",str(args.receiver_resistance),
+                     "--jammer-resistance",str(args.jammer_resistance),"--slot-duration",str(args.slot_duration),
+                     "--noise-dbm",str(args.noise_dbm),"--eta",str(args.eta),
+                     "--slots",str(args.slots),"--fig",args.fig,"--grid_res",str(args.grid_res),
+                     "--delta1",str(args.delta1),"--delta2",str(args.delta2),
+                     "--bob",*[str(x) for x in args.bob],"--eve",*[str(x) for x in args.eve]]
+        if args.snr is not None:
+            forwarded += ["--snr",str(args.snr)]
+        for flag,value in [("--energy-model",args.energy_model),("--snr-definition",args.snr_definition),("--save_dir",args.save_dir)]:
+            if value is not None:
+                forwarded += [flag,value]
+        if args.results:
+            forwarded += ["--results",args.results]
+        if simulation_mode=='ris':
+            forwarded += ['--ris-scenarios',*args.ris_scenarios,'--ris-reflectivity',str(args.ris_reflectivity),
+                          '--ris-center',*[str(x) for x in args.ris_center],
+                          '--ris-width',str(args.ris_width),'--ris-height',str(args.ris_height),
+                          '--ris-rows',str(args.ris_rows),'--ris-cols',str(args.ris_cols),
+                          '--qos-penalty',str(args.qos_penalty),'--secrecy-target',str(args.secrecy_target)]
+            if args.seeds:forwarded += ['--seeds',*[str(x) for x in args.seeds]]
+            if args.ris_energy_sensitivity:forwarded += ['--ris-energy-sensitivity']
+            if args.qos_ber_max is not None:forwarded += ['--qos-ber-max',str(args.qos_ber_max)]
+        core_main(forwarded)
+    elif args.backup_chats or args.backup_all or args.mode == "backup":
+        backup_chats(conv_id=args.conv_id,backup_root=b_dir,backup_all=args.backup_all)
     elif args.restore_chats or args.mode == "restore":
         restore_chats(backup_root=b_dir)
     elif args.list_chats or args.mode == "list":
         list_chats(backup_root=b_dir)
-    elif args.app or args.mode == "app":
-        launch_desktop()
-    elif args.gui or args.mode == "gui":
-        launch_web_gui()
-    elif args.test or args.mode == "test":
-        run_unit_tests()
-    elif args.all or args.mode == "all":
-        run_all_simulations(slots=args.slots, grid_res=args.grid_res, save_dir=args.save_dir)
-    elif args.mode == "eval":
-        run_evaluation(args.bob, args.eve, snr=args.snr, delta1=args.delta1, delta2=args.delta2)
-    elif args.mode == "fig":
-        if args.fig == "all":
-            run_all_simulations(slots=args.slots, grid_res=args.grid_res, save_dir=args.save_dir)
-        elif args.fig == "5":
-            from simulations.sim_fig5_spatial import simulate_fig5
-            simulate_fig5(grid_res=args.grid_res, save_dir=args.save_dir)
-        elif args.fig == "6":
-            from simulations.sim_fig6_convergence import simulate_fig6
-            simulate_fig6(num_slots=args.slots, save_dir=args.save_dir)
-        elif args.fig == "7":
-            from simulations.sim_fig7_snr import simulate_fig7
-            simulate_fig7(save_dir=args.save_dir)
-    elif args.mode == "train":
-        from main import main as main_py_main
-        main_py_main()
     else:
-        # If no arguments provided, launch interactive menu
         interactive_menu()
 
 

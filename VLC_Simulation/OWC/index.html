@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Jamming for Secrecy: IEEE Publication-Grade Live Simulation</title>
+  <title>VLC friendly jamming: Python simulation</title>
   <style>
     :root {
       --bg-dark: #080b12;
@@ -859,6 +859,9 @@
       font-weight: bold;
     }
 
+    .control-box > label {display:block;font-size:.69rem;margin-bottom:4px;}
+    .control-box select, #simulationSeed {max-width:100%;background:#111827;color:#f3f4f6;border:1px solid #475569;border-radius:4px;font-size:.68rem;padding:3px;}
+    .slider-row label[style] span {width:auto;flex:1;}
     /* Exact Point Math Breakdown Cards */
     .math-card {
       background: rgba(255, 255, 255, 0.025);
@@ -942,8 +945,8 @@
   <!-- TOP HEADER -->
   <header>
     <div class="header-left">
-      <h1>Visible Light Communication: Smart Friendly Jamming 100% Live Simulator</h1>
-      <p>Mathematical Real-Time Reproduction of IEEE Transactions on Wireless Communications (2024)</p>
+      <h1>Visible Light Communication: Smart Friendly Jamming Paper-Based Simulator</h1>
+      <p>Python Algorithms 1 and 2 - Explicit model assumptions - Published curves unverified</p>
     </div>
 
     <div class="header-controls">
@@ -1055,24 +1058,37 @@
       <div class="control-box">
         <div class="control-head">
           <span style="color: var(--accent-gold)">Operating SNR & Channel</span>
-          <span id="labelSnr">12.0 dB</span>
+          <span id="labelSnr">37.5 dB (Table I)</span>
+        </div>
+        <div class="slider-row" style="margin-bottom: 4px;">
+          <label style="width: 100%; display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: #34d399; cursor: pointer;">
+            <input type="checkbox" id="chkTable1Noise" checked onchange="updateUI()">
+            <span>Table I Noise σ_B² = -98.79 dBm</span>
+          </label>
         </div>
         <div class="slider-row">
           <label>SNR:</label>
           <button type="button" class="btn-step" onclick="stepCoord('slSnr', 'numSnr', -1)">◀</button>
-          <input type="range" id="slSnr" min="4.0" max="20.0" step="0.1" value="12.0">
+          <input type="range" id="slSnr" min="4.0" max="45.0" step="0.1" value="12.0">
           <button type="button" class="btn-step" onclick="stepCoord('slSnr', 'numSnr', 1)">▶</button>
-          <input type="number" id="numSnr" class="coord-num-input" min="4.0" max="20.0" step="0.1" value="12.0">
+          <input type="number" id="numSnr" class="coord-num-input" min="4.0" max="45.0" step="0.1" value="12.0">
         </div>
         <div class="slider-row">
           <label>Index α:</label>
           <button type="button" class="btn-step" onclick="stepCoord('slAlpha', 'numAlpha', -1)">◀</button>
-          <input type="range" id="slAlpha" min="5" max="25" step="1" value="10">
+          <input type="range" id="slAlpha" min="5" max="50" step="1" value="10">
           <button type="button" class="btn-step" onclick="stepCoord('slAlpha', 'numAlpha', 1)">▶</button>
-          <input type="number" id="numAlpha" class="coord-num-input" min="5" max="25" step="1" value="10">
+          <input type="number" id="numAlpha" class="coord-num-input" min="5" max="50" step="1" value="10">
         </div>
       </div>
 
+      <div class="control-box">
+        <div class="control-head">Model conventions</div>
+        <label>Energy <select id="energyModel" onchange="updateUI()"><option value="l1">Nonnegative absolute sum</option><option value="paper_signed">Printed Eq. 16: signed sum</option></select></label><br>
+        <label>SNR <select id="snrDefinition" onchange="updateUI()"><option value="eq4">Eq. 4 Bob SINR</option><option value="electrical">Electrical P_T h^2 / noise</option><option value="pam">Eq. 14 PAM argument</option></select></label><br>
+        <label>Seed <input id="simulationSeed" type="number" value="42" min="0" max="4294967295" onchange="updateUI()" style="width:90px"></label>
+        <div class="math-sub-note">Defaults interpret energy as a nonnegative cost and SNR as Eq. 4 Bob SINR. The author's conventions remain unverified.</div>
+      </div>
       <!-- Objective Weights -->
       <div class="control-box">
         <div class="control-head">
@@ -1129,6 +1145,13 @@
         </div>
       </div>
 
+      <div class="control-box" style="font-size:.75rem">
+        <a class="btn-preset" href="/ris" style="display:inline-block;text-decoration:none">RIS + FJ + DRL research workspace</a>
+        <button id="trainAgents" class="btn-preset" onclick="trainPython(false)">Train Python agents - 2000 slots</button>
+        <button id="trainSweep" class="btn-preset" onclick="trainPython(true)">Train SNR sweep</button>
+        <button class="btn-preset" onclick="downloadExperiment()">Download raw run</button>
+        <div id="trainingStatus">ZF physics is live. Train to display actual Python learning results. Published-curve reproduction is unverified.</div>
+      </div>
       <!-- Main Stage Container -->
       <div class="viewer-stage">
 
@@ -1203,19 +1226,19 @@
           <div class="metric-card mc-green">
             <div class="mc-label">Secrecy Rate (c_s) <span id="cardSchemeCs"
                 style="font-size:0.6rem; color: #a7f3d0;">[Zero-Forcing]</span></div>
-            <div class="mc-value" id="dispCs" style="color: #34d399;">3.34</div>
+            <div class="mc-value" id="dispCs" style="color: #34d399;">?</div>
             <div class="mc-sub">bps/Hz (vs 0.00 without jammer)</div>
           </div>
           <div class="metric-card mc-blue">
             <div class="mc-label">Bob Bit Error Rate <span id="cardSchemeBer"
                 style="font-size:0.6rem; color: #bfdbfe;">[Zero-Forcing]</span></div>
-            <div class="mc-value" id="dispBer" style="color: #60a5fa;">8.99e-03</div>
+            <div class="mc-value" id="dispBer" style="color: #60a5fa;">?</div>
             <div class="mc-sub">4PAM Demodulation (Eq. 14)</div>
           </div>
           <div class="metric-card mc-purple">
             <div class="mc-label">Overall Utility (u) <span id="cardSchemeU"
                 style="font-size:0.6rem; color: #e9d5ff;">[Zero-Forcing]</span></div>
-            <div class="mc-value" id="dispUtility" style="color: #c084fc;">2.61</div>
+            <div class="mc-value" id="dispUtility" style="color: #c084fc;">?</div>
             <div class="mc-sub">u = c_s - δ₁·p_e - δ₂·E (Eq. 7)</div>
           </div>
           <div class="metric-card mc-cyan">
@@ -1266,7 +1289,7 @@
 
         <!-- Live Scheme Table -->
         <div style="font-size: 0.69rem; color: var(--text-muted); font-weight: 700; margin-top: 2px;">
-          LIVE SCHEME PERFORMANCE MATRIX
+          SCHEME METRICS ? EMA50 FOR LEARNING AGENTS
         </div>
         <table class="compare-table">
           <thead>
@@ -1281,38 +1304,38 @@
           <tbody>
             <tr>
               <td>No Jamming</td>
-              <td id="t_nj_cs">0.0000</td>
-              <td id="t_nj_ber">1.35e-08</td>
+              <td id="t_nj_cs">?</td>
+              <td id="t_nj_ber">?</td>
               <td>0.00</td>
-              <td id="t_nj_u">-0.00</td>
+              <td id="t_nj_u">?</td>
             </tr>
             <tr>
               <td>Zero-Forcing (Eq. 5)</td>
-              <td id="t_zf_cs">3.2301</td>
-              <td id="t_zf_ber">1.35e-08</td>
-              <td id="t_zf_e">1.73</td>
-              <td id="t_zf_u">2.5366</td>
+              <td id="t_zf_cs">?</td>
+              <td id="t_zf_ber">?</td>
+              <td id="t_zf_e">?</td>
+              <td id="t_zf_u">?</td>
             </tr>
             <tr>
               <td>Proposed RL-FJ</td>
-              <td id="t_rl_cs">2.8777</td>
-              <td id="t_rl_ber">1.08e-07</td>
-              <td id="t_rl_e">1.43</td>
-              <td id="t_rl_u">2.3056</td>
+              <td id="t_rl_cs">?</td>
+              <td id="t_rl_ber">?</td>
+              <td id="t_rl_e">?</td>
+              <td id="t_rl_u">?</td>
             </tr>
             <tr class="row-highlight">
-              <td>Proposed DRL-FJ <span class="tag-best">BEST</span></td>
-              <td id="t_drl_cs">3.1655</td>
-              <td id="t_drl_ber">1.42e-08</td>
-              <td id="t_drl_e">1.24</td>
-              <td id="t_drl_u">2.6714</td>
+              <td>Proposed DRL-FJ </td>
+              <td id="t_drl_cs">?</td>
+              <td id="t_drl_ber">?</td>
+              <td id="t_drl_e">?</td>
+              <td id="t_drl_u">?</td>
             </tr>
             <tr>
-              <td>Theoretical Bound</td>
-              <td id="t_th_cs">3.2301</td>
-              <td id="t_th_ber">1.35e-08</td>
-              <td id="t_th_e">1.30</td>
-              <td id="t_th_u">2.7100</td>
+              <td>Global independent bounds</td>
+              <td id="t_th_cs">?</td>
+              <td id="t_th_ber">?</td>
+              <td id="t_th_e">?</td>
+              <td id="t_th_u">?</td>
             </tr>
           </tbody>
         </table>
@@ -1483,15 +1506,15 @@
         <div class="math-card">
           <div class="math-card-title">5. Bob 4PAM BER, Energy & Utility (Eq. 7, 14, 16)</div>
           <div class="math-row">
-            <span class="m-lbl">4PAM Argument: √(γ_eff) = √(effSINR / 5)</span>
-            <span class="m-num" id="m_gammaEff">1.7764</span>
+            <span class="m-lbl">4PAM Arg √(2P_T(h_AB+wᵀh_JB)² / 5σ_B²)</span>
+            <span class="m-num" id="m_gammaEff">47.296</span>
           </div>
           <div class="math-row">
             <span class="m-lbl">Bob BER: p_e = 0.75 · erfc(√(γ_eff))</span>
             <span class="m-num" id="m_pe">8.9967e-03</span>
           </div>
           <div class="math-row">
-            <span class="m-lbl">Jamming Energy: E = ∑ |w_i|</span>
+            <span class="m-lbl" id="m_energyLabel">Jamming cost: E = ∑ |w_i|</span>
             <span class="m-num" id="m_energy">1.7338 J</span>
           </div>
           <div class="math-row">
@@ -1547,8 +1570,9 @@
       [3.5, 1.5, 3.0],
       [3.5, 3.5, 3.0]
     ];
-    const Ap = 1e-4, R = 0.54, n0 = 1.5, fov = Math.PI / 3.0;
-    const m_order = 1.0;
+    const Ap = 1e-4, R = 0.54, ETA = 1.0, I_D = 1.0, P_T = 1.0, n0 = 1.5, fov = Math.PI / 3.0;
+    const SIGMA_TABLE1 = Math.pow(10.0, (-98.79 - 30.0) / 10.0); // 1.3212956e-13 W (Table I)
+    const m_order = -Math.log(2.0) / Math.log(Math.cos(Math.PI / 3.0)); // 1.0 for 60 deg
     const g_conc = (n0 * n0) / (Math.sin(fov) * Math.sin(fov));
 
     function getGain(tx, rx, n_led = 4) {
@@ -1561,7 +1585,7 @@
       const psi = Math.acos(Math.min(1.0, Math.max(-1.0, cos_psi)));
       if (psi > fov) return 0;
       const G = ((m_order + 1.0) * Ap / (2 * Math.PI * d * d)) * Math.pow(cos_phi, m_order) * g_conc * cos_psi;
-      return R * n_led * G;
+      return R * ETA * n_led * G;
     }
 
     function erfcApprox(x) {
@@ -1570,7 +1594,188 @@
       return x >= 0 ? tau : 2.0 - tau;
     }
 
-    function computeSystemState(bob, eve, snr_db, alpha, delta1, delta2, currentSlotK = (typeof slotK !== "undefined" ? slotK : 2000)) {
+    // Discrete quantized action space W (Lx = 2 -> {-1, -0.5, 0, 0.5, 1}^4 = 625 actions)
+    const ACTION_SPACE_LX2 = (() => {
+      const grid = [-1.0, -0.5, 0.0, 0.5, 1.0];
+      const list = [];
+      for (const a of grid) for (const b of grid) for (const c of grid) for (const d of grid) list.push([a, b, c, d]);
+      return list;
+    })();
+
+    // Enumerate vertices of the four-dimensional box intersected by Bob's null plane.
+    // This solves the same constrained linear objective as the Python LP (Eq. 5).
+    function evalZFBeamformer(h_JB, h_JE) {
+      if (h_JB.every(v => v === 0)) return h_JE.map(Math.sign);
+      let best = [0,0,0,0], bestH = 0;
+      for (let free = 0; free < 4; free++) {
+        if (h_JB[free] === 0) continue;
+        const fixed = [0,1,2,3].filter(i => i !== free);
+        for (let mask = 0; mask < 8; mask++) {
+          const w = [0,0,0,0];
+          fixed.forEach((j,k) => w[j] = (mask & (1 << k)) ? 1 : -1);
+          w[free] = -fixed.reduce((v,j) => v + h_JB[j]*w[j],0)/h_JB[free];
+          if (Math.abs(w[free]) > 1 + 1e-12) continue;
+          w[free] = Math.max(-1,Math.min(1,w[free]));
+          const H = h_JE.reduce((v,x,j) => v+x*w[j],0);
+          if (H > bestH) { bestH = H; best = w; }
+        }
+      }
+      if (bestH <= 32*Number.EPSILON*h_JE.reduce((v,x)=>v+Math.abs(x),0)) return [0,0,0,0];
+      return best;
+    }
+
+    function energyModel() {
+      return typeof document !== 'undefined' && document.getElementById('energyModel') ? document.getElementById('energyModel').value : 'l1';
+    }
+    function snrDefinition() {
+      return typeof document !== 'undefined' && document.getElementById('snrDefinition') ? document.getElementById('snrDefinition').value : 'eq4';
+    }
+    function selectedSeed() {
+      return typeof document !== 'undefined' && document.getElementById('simulationSeed') ? Number(document.getElementById('simulationSeed').value) : 42;
+    }
+    function noiseFromSnr(h,db,alpha) {
+      const signal = snrDefinition() === 'eq4' ? 2*h*h*alpha*alpha*I_D*I_D/(Math.PI*Math.E) : snrDefinition() === 'pam' ? 2*P_T*h*h/5 : P_T*h*h;
+      return signal / Math.pow(10,db/10);
+    }
+
+    // Equation (4): Exact Achievable Secrecy Rate
+    function evalSecrecyRateExact(h_AB, h_AE, h_JB, h_JE, w, alpha, sigma_B_sq) {
+      const jam_bob = h_JB[0]*w[0] + h_JB[1]*w[1] + h_JB[2]*w[2] + h_JB[3]*w[3];
+      const jam_eve = Math.abs(h_JE[0]*w[0] + h_JE[1]*w[1] + h_JE[2]*w[2] + h_JE[3]*w[3]);
+      const sigNum = 2.0 * h_AB * h_AB * alpha * alpha * I_D * I_D;
+      const jamVarBob = 2.0 * jam_bob * jam_bob * alpha * alpha * I_D * I_D;
+      const den = Math.PI * Math.E * (sigma_B_sq + jamVarBob);
+      const term_bob = 0.5 * Math.log2(1.0 + Math.max(0.0, sigNum / Math.max(1e-30, den)));
+
+      if (h_AE === 0) return {cs:term_bob,term_bob,term_eve:0,jam_bob,jam_eve};
+      if (jam_eve === 0) {
+        return { cs: 0.0, term_bob, term_eve: Infinity, jam_bob, jam_eve };
+      }
+      const log_sqrt_e = Math.log2(Math.sqrt(Math.E));
+      const ratio = h_AE / jam_eve;
+      const inv_ratio = jam_eve / h_AE;
+      const leak1 = (Math.log2(h_AE) - Math.log2(jam_eve)) + inv_ratio * log_sqrt_e;
+      const leak2 = ratio * log_sqrt_e;
+      const term_eve = Math.min(leak1, leak2);
+      const cs = Math.max(0.0, term_bob - term_eve);
+      return { cs, term_bob, term_eve, jam_bob, jam_eve };
+    }
+
+    // Equation (14): Exact 4-PAM BER
+    function evalBobBerExact(h_AB, h_JB, w, sigma_B_sq) {
+      const jam_bob = h_JB[0]*w[0] + h_JB[1]*w[1] + h_JB[2]*w[2] + h_JB[3]*w[3];
+      const eff = h_AB + jam_bob;
+      const gamma_4pam = (2.0 * P_T * eff * eff) / (5.0 * Math.max(1e-30, sigma_B_sq));
+      const pe = 0.75 * erfcApprox(Math.sqrt(Math.max(0.0, gamma_4pam)));
+      return Math.min(0.75, Math.max(0.0, pe));
+    }
+
+    // Equation (16): Energy Consumption
+    function evalEnergyExact(w) {
+      return w.reduce((v,x)=>v+(energyModel() === "l1" ? Math.abs(x) : x),0);
+    }
+
+    // Independent global bounds. The PDF's conditional Eq. (21) is not used as a ceiling.
+    function evalTheoreticalBoundsExact(h_AB,h_AE,h_JB,h_JE,alpha,delta1,delta2,sigma_B_sq) {
+      const cs_star = .5*Math.log2(1+2*h_AB*h_AB*alpha*alpha*I_D*I_D/(Math.PI*Math.E*sigma_B_sq));
+      const effMax = Math.abs(h_AB)+h_JB.reduce((v,x)=>v+Math.abs(x),0);
+      const pe_star = .75*erfcApprox(Math.sqrt(2*P_T*effMax*effMax/(5*sigma_B_sq)));
+      const energy_star = energyModel() === 'paper_signed' ? -4 : 0;
+      return {cs_star,pe_star,energy_star,u_star:cs_star-delta1*pe_star-delta2*energy_star,w_star:evalZFBeamformer(h_JB,h_JE)};
+    }
+
+    function emaSmooth(arr, win = 40) {
+      const out = new Array(arr.length);
+      const a = 2.0 / (win + 1.0);
+      out[0] = arr[0];
+      for (let i = 1; i < arr.length; i++) out[i] = a * arr[i] + (1.0 - a) * out[i - 1];
+      return out;
+    }
+
+    // Learning results are supplied exclusively by Python Algorithms 1 and 2.
+    const _simCache = new Map();
+    const _rawRecords = new Map();
+    let trainingBusy = false;
+    function simulationKey(bob,eve,sigma,alpha,d1,d2,slots=2000) {
+      return JSON.stringify([bob,eve,sigma,alpha,d1,d2,slots,energyModel(),snrDefinition(),selectedSeed()]);
+    }
+    function runLearningSimCached(bob,eve,sigma,alpha,d1,d2,numSlots=2000) {
+      const key = simulationKey(bob,eve,sigma,alpha,d1,d2,numSlots);
+      if (_simCache.has(key)) return _simCache.get(key);
+      const empty = ()=>({cs:Array(numSlots).fill(NaN),pe:Array(numSlots).fill(NaN),e:Array(numSlots).fill(NaN),u:Array(numSlots).fill(NaN)});
+      const ab=getGain(ALICE,bob),ae=getGain(ALICE,eve),jb=JAMMERS.map(j=>getGain(j,bob)),je=JAMMERS.map(j=>getGain(j,eve));
+      const missing = {pending:true,theo:evalTheoreticalBoundsExact(ab,ae,jb,je,alpha,d1,d2,sigma),
+                       rl:empty(),drl:empty(),vb:empty(),rawRL:empty(),rawDRL:empty(),rawVB:empty(),
+                       sbj:{cs:NaN,pe:NaN,e:NaN,u:NaN},rob:{cs:NaN,pe:NaN,e:NaN,u:NaN}};
+      _simCache.set(key,missing);
+      if (_simCache.size > 64) { const oldest=_simCache.keys().next().value; _simCache.delete(oldest); _rawRecords.delete(oldest); }
+      return missing;
+    }
+    function attachPythonResult(record) {
+      const raw = h=>({cs:h.secrecy_rate,pe:h.ber,e:h.energy,u:h.utility});
+      const smooth = h=>Object.fromEntries(Object.entries(raw(h)).map(([k,a])=>[k,emaSmooth(a,50)]));
+      const constant = h=>({cs:h.secrecy_rate[0],pe:h.ber[0],e:h.energy[0],u:h.utility[0]});
+      const h=record.histories,t=h.global_bounds;
+      return {pending:false,metadata:record.metadata,rawRL:raw(h.rl),rawDRL:raw(h.drl),rawVB:raw(h.custom_restricted),
+              rl:smooth(h.rl),drl:smooth(h.drl),vb:smooth(h.custom_restricted),
+              sbj:constant(h.custom_scaled_zf),rob:constant(h.custom_regularized),
+              theo:{cs_star:t.secrecy_rate[0],pe_star:t.ber[0],energy_star:t.energy[0],u_star:t.utility[0]}};
+    }
+    async function requestPythonRun(v,sigma) {
+      const key=simulationKey(v.bob,v.eve,sigma,v.alpha,v.delta1,v.delta2);
+      if (_rawRecords.has(key)) return;
+      const response=await fetch('/api/experiment',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({bob:v.bob,eve:v.eve,sigma,alpha:v.alpha,delta1:v.delta1,delta2:v.delta2,
+                             seed:selectedSeed(),slots:2000,energy_model:energyModel(),snr_definition:snrDefinition()})});
+      const submitted=await response.json();
+      if(!response.ok) throw Error(submitted.error || 'Could not start training');
+      while(true) {
+        await new Promise(resolve=>setTimeout(resolve,750));
+        const statusResponse=await fetch('/api/jobs/'+submitted.job_id);
+        const job=await statusResponse.json();
+        if(!statusResponse.ok || job.status==='error') throw Error(job.error || 'Training failed');
+        if(job.status==='complete') {
+          _simCache.set(key,attachPythonResult(job.result)); _rawRecords.set(key,job.result); updateUI(); return;
+        }
+      }
+    }
+    async function trainPython(sweep=false) {
+      if(trainingBusy) return;
+      const status=document.getElementById('trainingStatus');
+      if(location.protocol==='file:') {status.textContent='Start python run.py --gui to use the Python agents.';return;}
+      trainingBusy=true;
+      isEvePatrol=false;isBobPatrol=false;
+      document.getElementById('patrolEveStatus').innerText='OFF';document.getElementById('patrolBobStatus').innerText='OFF';
+      document.getElementById('btnEvePatrol').classList.remove('active');document.getElementById('btnBobPatrol').classList.remove('active');
+      document.querySelectorAll('#panelLeft input, #panelLeft select, .header-controls button, #btnBobPatrol, #btnEvePatrol').forEach(el=>el.disabled=true);
+      document.getElementById('trainAgents').disabled=true;
+      document.getElementById('trainSweep').disabled=true;
+      try {
+        const v=getFormValues();
+        if(sweep) {
+          for(const db of [4,6,8,10,12,14,16,18,20]) {
+            status.textContent='Training real Python agents: '+db+' dB (2000 slots each)?';
+            await requestPythonRun(v,noiseFromSnr(getGain(ALICE,v.bob),db,v.alpha));
+          }
+        } else {
+          status.textContent='Training Python Q-learning and CNN + DND (2000 slots each)?';
+          const res=computeSystemState(v.bob,v.eve,v.snr,v.alpha,v.delta1,v.delta2,slotK,v.useTable1Noise);
+          await requestPythonRun(v,res.sigma_B_sq);
+        }
+        status.textContent='Training complete. Raw data include seed, actions and assumptions; published curves remain unverified.';
+        slotK=1;totalBits=0;updateUI();
+      } catch(error) {status.textContent=error.message+' ? use python run.py --gui.';}
+      finally {trainingBusy=false;document.getElementById('trainAgents').disabled=false;document.getElementById('trainSweep').disabled=false;document.querySelectorAll('#panelLeft input, #panelLeft select, .header-controls button, #btnBobPatrol, #btnEvePatrol').forEach(el=>el.disabled=false);}
+    }
+    function downloadExperiment() {
+      const v=getFormValues();const r=computeSystemState(v.bob,v.eve,v.snr,v.alpha,v.delta1,v.delta2,slotK,v.useTable1Noise);
+      const record=_rawRecords.get(simulationKey(v.bob,v.eve,r.sigma_B_sq,v.alpha,v.delta1,v.delta2));
+      if(!record) {document.getElementById('trainingStatus').textContent='Train this scenario before downloading its results.';return;}
+      const link=document.createElement('a');const url=URL.createObjectURL(new Blob([JSON.stringify(record,null,2)],{type:'application/json'}));
+      link.href=url;link.download='vlc_experiment.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }
+
+    function computeSystemState(bob, eve, snr_db, alpha, delta1, delta2, currentSlotK = (typeof slotK !== "undefined" ? slotK : 2000), useTable1Noise = (typeof document !== "undefined" && document.getElementById("chkTable1Noise") ? document.getElementById("chkTable1Noise").checked : true)) {
       const h_AB = getGain(ALICE, bob);
       const h_AE = getGain(ALICE, eve);
       const h_JB = JAMMERS.map(j => getGain(j, bob));
@@ -1585,110 +1790,54 @@
       const d_AE = Math.sqrt(dx_AE * dx_AE + dy_AE * dy_AE + dz_AE * dz_AE);
       const cos_phi_AE = d_AE > 1e-7 ? Math.max(0, dz_AE / d_AE) : 0;
 
-      // 2. Zero-Forcing Beamformer Projection (Eq. 5)
+      // 2. Noise Variance: Strict Table I (-98.79 dBm) OR selected operating SNR
+      const gamma = Math.pow(10, snr_db / 10.0);
+      const sigma_B_sq = useTable1Noise ? SIGMA_TABLE1 : noiseFromSnr(h_AB,snr_db,alpha);
+
+      // 3. Zero-Forcing Beamformer Projection (Eq. 5)
       const norm_sq = h_JB.reduce((acc, v) => acc + v * v, 0);
       const dot_jb_je = h_JB.reduce((acc, v, i) => acc + v * h_JE[i], 0);
       const rho = norm_sq > 1e-18 ? dot_jb_je / norm_sq : 0;
-      const w_dir = h_JE.map((je_i, i) => je_i - rho * h_JB[i]);
-      const max_abs = Math.max(...w_dir.map(Math.abs));
-      const w_zf = w_dir.map(v => max_abs > 1e-15 ? v / max_abs : 0);
-
+      const w_zf = evalZFBeamformer(h_JB, h_JE);
       const leakage_bob = Math.abs(h_JB.reduce((acc, v, i) => acc + v * w_zf[i], 0));
       const jamming_eve = Math.abs(h_JE.reduce((acc, v, i) => acc + v * w_zf[i], 0));
+      const h_star_eve = h_AE / Math.log2(Math.sqrt(Math.E));
 
-      // Optimal Jamming Target on Eve (Remark 1, Eq. 23 & 35)
-      const h_star_eve = h_AE / (0.5 * Math.LOG2E);
-
-      // 3. Achievable Secrecy Rate (Eq. 4)
-      const gamma = Math.pow(10, snr_db / 10.0);
-      const hAB_nom = 2.718e-5;
-      const gainRatio = Math.max(0.4, Math.min(2.5, h_AB / hAB_nom));
-
-      // Bob's capacity term (Term 1 in Eq. 4): C_B = 0.5 * log2(1 + SINR_B)
-      const term_bob = 0.5 * Math.log2(1.0 + 11.5 * gamma * gainRatio * gainRatio);
-
-      // Eve's wiretap leakage term (Term 2 in Eq. 4): C_E = min(leak1, leak2)
-      let term_eve = 10.0;
-      if (jamming_eve > 1e-12) {
-        const ratio = h_AE / jamming_eve;
-        const inv_ratio = jamming_eve / h_AE;
-        const log_sqrt_e = 0.5 * Math.LOG2E;
-        const leak1 = Math.log2(Math.max(1e-12, ratio)) + inv_ratio * log_sqrt_e;
-        const leak2 = ratio * log_sqrt_e;
-        term_eve = Math.min(leak1, leak2);
-      }
-
-      const d_be = Math.hypot(bob[0] - eve[0], bob[1] - eve[1]);
-      let cs_raw = Math.max(0, term_bob - term_eve);
-      let cs_zf = (d_be < 0.40) ? cs_raw * Math.max(0, d_be / 0.40) : cs_raw;
-
-      // Energy consumption of Zero-Forcing beamformer (Eq. 16)
-      const energy_zf = w_zf.reduce((acc, v) => acc + Math.abs(v), 0);
-      const sigma_B_sq = 1.3213e-13 / 500.0;
-
-      // --- BOB BIT ERROR RATE (Eq. 14 & IEEE Fig 6(b)/7(b)) ---
-      // Decision argument for 4-PAM: x = sqrt(2 * P_T * (h_AB + w^T h_JB)^2 / (5 * sigma_B^2))
-      // Base electrical post-equalization SINR at nominal operating point (12 dB):
-      const snrLin = Math.pow(10, snr_db / 10.0);
-      const baseSinr = 34.3 * Math.pow(snrLin / 15.85, 0.70) * gainRatio;
-
-      const csiPenalty_zf = 1.0 / (1.0 + 2.0 * Math.max(0, alpha - 0.10) + 25.0 * (leakage_bob / Math.max(1e-9, h_AB)));
-      const effSinr_zf = baseSinr * 0.46 * csiPenalty_zf;
-      const gamma_eff = effSinr_zf / 5.0;
-
-      function getSchemePe(schemeKey) {
-        let schemeFactor = 1.0;
-        if (schemeKey === "theo" || schemeKey === "no_jam") schemeFactor = 1.05; // 1.3e-4 bound
-        else if (schemeKey === "drl") schemeFactor = 1.00;                       // 2.0e-4 optimal
-        else if (schemeKey === "rl") schemeFactor = 0.63;                        // 3.2e-3
-        else if (schemeKey === "zf") schemeFactor = 0.46;                        // 8.0e-3
-        else if (schemeKey === "robust") schemeFactor = 0.306;                   // 2.4e-2
-
-        // Degradation from channel estimation error alpha and jammer leakage:
-        const csiPenalty = 1.0 / (1.0 + 2.0 * Math.max(0, alpha - 0.10) + 25.0 * (leakage_bob / Math.max(1e-9, h_AB)));
-        const effSinr = baseSinr * schemeFactor * csiPenalty;
-        const peConv = Math.max(1.0e-8, 0.75 * erfcApprox(Math.sqrt(effSinr / 5.0)));
-
-        // Real-time learned BER at time slot k (Fig. 6(b) interactive convergence)
-        if (currentSlotK !== undefined && currentSlotK < 2000) {
-          const t = Math.max(0, Math.min(1, currentSlotK / 2000.0));
-          const peInit = schemeKey === "robust" ? 2.4e-2 : (schemeKey === "zf" ? 1.0e-2 : 2.0e-2);
-          if (schemeKey === "drl") {
-            const logInit = Math.log10(peInit), logConv = Math.log10(peConv);
-            const logVal = logInit + (logConv - logInit) * (1.0 - 0.75 * Math.exp(-t * 14.0) - 0.25 * Math.exp(-t * 3.0));
-            return Math.pow(10, logVal);
-          } else if (schemeKey === "rl") {
-            const logInit = Math.log10(2.2e-2), logConv = Math.log10(peConv);
-            const logVal = logInit + (logConv - logInit) * (1.0 - Math.exp(-t * 3.2));
-            return Math.pow(10, logVal);
-          }
-        }
-        return peConv;
-      }
-
-      const pe_nj = getSchemePe("no_jam");
-      const pe_zf = getSchemePe("zf");
-      const pe_rl = getSchemePe("rl");
-      const pe_drl = getSchemePe("drl");
-      const pe_th = getSchemePe("theo");
-
+      // 4. Exact Eq. (4), (7), (14), (16) for ZF and No-Jamming
+      const res_zf = evalSecrecyRateExact(h_AB, h_AE, h_JB, h_JE, w_zf, alpha, sigma_B_sq);
+      const cs_zf = res_zf.cs;
+      const term_bob = res_zf.term_bob;
+      const term_eve = res_zf.term_eve;
+      const pe_zf = evalBobBerExact(h_AB, h_JB, w_zf, sigma_B_sq);
+      const energy_zf = evalEnergyExact(w_zf);
       const pen_ber_zf = delta1 * pe_zf;
       const pen_energy_zf = delta2 * energy_zf;
       const utility_zf = cs_zf - pen_ber_zf - pen_energy_zf;
+      const gamma_eff = (2.0 * P_T * Math.pow(h_AB + res_zf.jam_bob, 2)) / (5.0 * Math.max(1e-30, sigma_B_sq));
+
+      const w_zero = [0, 0, 0, 0];
+      const pe_nj = evalBobBerExact(h_AB, h_JB, w_zero, sigma_B_sq);
+      const d_be = Math.hypot(bob[0] - eve[0], bob[1] - eve[1], bob[2] - eve[2]);
+
+      // 5. Real RL-FJ, DRL-FJ, and Corollary 1 Bound evaluated at currentSlotK
+      const sim = runLearningSimCached(bob, eve, sigma_B_sq, alpha, delta1, delta2, 2000);
+      const idx = Math.max(0, Math.min(1999, Math.round(currentSlotK) - 1));
 
       const schemes = {
         no_jam: { cs: 0.0, pe: pe_nj, energy: 0.0, u: -delta1 * pe_nj },
         zf: { cs: cs_zf, pe: pe_zf, energy: energy_zf, u: utility_zf },
-        rl: { cs: cs_zf * 0.90, pe: pe_rl, energy: energy_zf * 0.85, u: cs_zf * 0.90 - delta1 * pe_rl - delta2 * (energy_zf * 0.85) },
-        drl: { cs: cs_zf * 0.98, pe: pe_drl, energy: energy_zf * 0.72, u: cs_zf * 0.98 - delta1 * pe_drl - delta2 * (energy_zf * 0.72) },
-        theo: { cs: cs_zf, pe: pe_th, energy: energy_zf * 0.75, u: cs_zf - delta1 * pe_th - delta2 * (energy_zf * 0.75) }
+        rl: { cs: sim.rl.cs[idx], pe: sim.rl.pe[idx], energy: sim.rl.e[idx], u: sim.rl.u[idx] },
+        drl: { cs: sim.drl.cs[idx], pe: sim.drl.pe[idx], energy: sim.drl.e[idx], u: sim.drl.u[idx] },
+        theo: { cs: sim.theo.cs_star, pe: sim.theo.pe_star, energy: sim.theo.energy_star, u: sim.theo.u_star }
       };
+
+      const eff_snr_db = 10.0 * Math.log10(noiseFromSnr(h_AB,0,alpha) / Math.max(1e-30, sigma_B_sq));
 
       return {
         h_AB, h_AE, h_JB, h_JE, w_zf, leakage_bob, jamming_eve, d_be, schemes,
         d_AB, cos_phi_AB, d_AE, cos_phi_AE, norm_sq, dot_jb_je, rho, h_star_eve,
-        sigma_B_sq, term_bob, term_eve, gamma_eff, pe_zf, energy_zf, utility_zf,
-        pen_ber_zf, pen_energy_zf
+        sigma_B_sq, eff_snr_db, term_bob, term_eve, gamma_eff, pe_zf, energy_zf, utility_zf,
+        pen_ber_zf, pen_energy_zf, sim
       };
     }
 
@@ -1814,7 +1963,7 @@
         bar.innerHTML = `
           <div class="sub-btn-group">
             <span style="font-weight: 600; margin-right: 4px;">Panels:</span>
-            <button class="sub-btn ${fig6SubMetric === 'all' ? 'active' : ''}" onclick="setFig6Sub('all')">📑 Combined 3-Panel Stack (Exact Paper Fig 6)</button>
+            <button class="sub-btn ${fig6SubMetric === 'all' ? 'active' : ''}" onclick="setFig6Sub('all')">📑 Combined 3-Panel Stack (Computed Fig 6)</button>
             <button class="sub-btn ${fig6SubMetric === 'cs' ? 'active' : ''}" onclick="setFig6Sub('cs')">(a) Secrecy Rate (bps/Hz)</button>
             <button class="sub-btn ${fig6SubMetric === 'ber' ? 'active' : ''}" onclick="setFig6Sub('ber')">(b) Bob BER (Log Scale)</button>
             <button class="sub-btn ${fig6SubMetric === 'utility' ? 'active' : ''}" onclick="setFig6Sub('utility')">(c) System Utility</button>
@@ -1825,7 +1974,7 @@
         bar.innerHTML = `
           <div class="sub-btn-group">
             <span style="font-weight: 600; margin-right: 4px;">Panels:</span>
-            <button class="sub-btn ${fig7SubMetric === 'all' ? 'active' : ''}" onclick="setFig7Sub('all')">📑 Combined 3-Panel Stack (Exact Paper Fig 7)</button>
+            <button class="sub-btn ${fig7SubMetric === 'all' ? 'active' : ''}" onclick="setFig7Sub('all')">📑 Combined 3-Panel Stack (Computed Fig 7)</button>
             <button class="sub-btn ${fig7SubMetric === 'cs' ? 'active' : ''}" onclick="setFig7Sub('cs')">(a) Secrecy Rate vs SNR</button>
             <button class="sub-btn ${fig7SubMetric === 'ber' ? 'active' : ''}" onclick="setFig7Sub('ber')">(b) Bob BER vs SNR</button>
             <button class="sub-btn ${fig7SubMetric === 'utility' ? 'active' : ''}" onclick="setFig7Sub('utility')">(c) Utility vs SNR</button>
@@ -1952,10 +2101,12 @@
     function getFormValues() {
       const bz = document.getElementById("slBobZ") ? parseFloat(document.getElementById("slBobZ").value) : 0.85;
       const ez = document.getElementById("slEveZ") ? parseFloat(document.getElementById("slEveZ").value) : 0.85;
+      const chkT1 = document.getElementById("chkTable1Noise");
       return {
         bob: [parseFloat(slBobX.value), parseFloat(slBobY.value), bz],
         eve: [parseFloat(slEveX.value), parseFloat(slEveY.value), ez],
         snr: parseFloat(slSnr.value),
+        useTable1Noise: chkT1 ? chkT1.checked : true,
         alpha: parseFloat(slAlpha.value) / 100.0,
         delta1: parseFloat(slDelta1.value),
         delta2: parseFloat(slDelta2.value)
@@ -1968,6 +2119,8 @@
         slEveX.value = 3.2; slEveY.value = 3.4;
         slSnr.value = 12.0; slAlpha.value = 10;
         slDelta1.value = 3.5; slDelta2.value = 0.4;
+        const chkTable1 = document.getElementById("chkTable1Noise");
+        if (chkTable1) chkTable1.checked = true;
       } else if (key === "eve_near") {
         slBobX.value = 1.8; slBobY.value = 1.6;
         slEveX.value = 1.95; slEveY.value = 1.75;
@@ -1977,6 +2130,7 @@
         slEveX.value = 4.5; slEveY.value = 4.5;
         slSnr.value = 12.0;
       } else if (key === "high_snr") {
+        document.getElementById("chkTable1Noise").checked=false;
         slSnr.value = 20.0;
       }
       updateUI();
@@ -2011,6 +2165,7 @@
       let stepVal = currentStepPrecision;
       if (slId === "slSnr" || slId === "slAlpha") stepVal = parseFloat(sl.step) || 0.1;
 
+      if(slId === "slSnr") document.getElementById("chkTable1Noise").checked=false;
       let cur = parseFloat(sl.value);
       let next = Math.round((cur + dir * stepVal) * 1000) / 1000;
       next = Math.max(parseFloat(sl.min), Math.min(parseFloat(sl.max), next));
@@ -2112,9 +2267,9 @@
         const v = getFormValues();
 
         // Convert contour coordinates to room
-        const plotSize = Math.min(cStage.width - 120, cStage.height - 80);
-        const padX = (cStage.width - plotSize) / 2;
-        const padY = (cStage.height - plotSize) / 2;
+        const plotSize = Math.min(cStage.width - 140, cStage.height - 90);
+        const padX = (cStage.width - plotSize) / 2 - 20;
+        const padY = (cStage.height - plotSize) / 2 + 10;
         const rx = ((px - padX) / plotSize) * 5.0;
         const ry = (1.0 - (py - padY) / plotSize) * 5.0;
 
@@ -2179,9 +2334,9 @@
         const rect = cStage.getBoundingClientRect();
         const px = (e.clientX - rect.left) * (cStage.width / rect.width);
         const py = (e.clientY - rect.top) * (cStage.height / rect.height);
-        const plotSize = Math.min(cStage.width - 120, cStage.height - 80);
-        const padX = (cStage.width - plotSize) / 2;
-        const padY = (cStage.height - plotSize) / 2;
+        const plotSize = Math.min(cStage.width - 140, cStage.height - 90);
+        const padX = (cStage.width - plotSize) / 2 - 20;
+        const padY = (cStage.height - plotSize) / 2 + 10;
         const rx = Math.max(0.2, Math.min(4.8, ((px - padX) / plotSize) * 5.0));
         const ry = Math.max(0.2, Math.min(4.8, (1.0 - (py - padY) / plotSize) * 5.0));
 
@@ -2316,18 +2471,49 @@
       const isEveMode = (fig5SubMode === "5a");
       const fixedNode = isEveMode ? v.bob : v.eve;
       const moveNode = isEveMode ? v.eve : v.bob;
+      const baseState = computeSystemState(v.bob, v.eve, v.snr, v.alpha, v.delta1, v.delta2, slotK, v.useTable1Noise);
+      const sigmaSq = baseState.sigma_B_sq;
+
+      // Exact Eq. (1) + Eq. (4) + Eq. (5) spatial evaluation (no empirical clipping or cutoff hacks)
+      function evalSpatialSecrecyExact(gx, gy) {
+        const curBob = isEveMode ? v.bob : [gx, gy, v.bob[2]];
+        const curEve = isEveMode ? [gx, gy, v.eve[2]] : v.eve;
+        const hAB = getGain(ALICE, curBob);
+        const hAE = getGain(ALICE, curEve);
+        const hJB = JAMMERS.map(j => getGain(j, curBob));
+        const hJE = JAMMERS.map(j => getGain(j, curEve));
+        const wZF = evalZFBeamformer(hJB, hJE);
+        return evalSecrecyRateExact(hAB, hAE, hJB, hJE, wZF, v.alpha, sigmaSq).cs;
+      }
 
       if (fig5RenderType === "surface") {
         // --- 3D SURFACE PLOT ---
         const originX = W * 0.44;
         const originY = H * 0.58;
         const scale = (Math.min(W, H) / 4.6) * surfZoom;
-        const zScale = 0.55;
+
+        // Compute 3D Mesh Grid first to auto-scale Z axis cleanly
+        const N = 24;
+        const zGrid = [];
+        let maxRate = 0.5;
+        for (let i = 0; i <= N; i++) {
+          const row = [];
+          const gy = 0.1 + (i / N) * 4.8;
+          for (let j = 0; j <= N; j++) {
+            const gx = 0.1 + (j / N) * 4.8;
+            const z = evalSpatialSecrecyExact(gx, gy);
+            row.push(z);
+            if (z > maxRate) maxRate = z;
+          }
+          zGrid.push(row);
+        }
+        maxRate = Math.max(0.5, Math.ceil(maxRate * 10) / 10);
+        const zScale = 2.6 / maxRate;
 
         function proj3D(x, y, z) {
           const cx = x - 2.5;
           const cy = y - 2.5;
-          const cz = (z - 2.75) * zScale;
+          const cz = (z - maxRate * 0.5) * zScale;
           const rx = cx * Math.cos(surfAzim) - cy * Math.sin(surfAzim);
           const ry = cx * Math.sin(surfAzim) + cy * Math.cos(surfAzim);
           const px = originX + rx * scale;
@@ -2341,42 +2527,21 @@
         ctx.lineWidth = 1;
         const corners = [
           [0, 0, 0], [5, 0, 0], [5, 5, 0], [0, 5, 0],
-          [0, 0, 5.5], [5, 0, 5.5], [5, 5, 5.5], [0, 5, 5.5]
+          [0, 0, maxRate], [5, 0, maxRate], [5, 5, maxRate], [0, 5, maxRate]
         ].map(pt => proj3D(...pt));
 
         [[0, 1], [1, 2], [2, 3], [3, 0], [0, 4], [1, 5], [2, 6], [3, 7], [4, 5], [5, 6], [6, 7], [7, 4]].forEach(([i, j]) => {
           ctx.beginPath(); ctx.moveTo(corners[i].px, corners[i].py); ctx.lineTo(corners[j].px, corners[j].py); ctx.stroke();
         });
 
-        // Compute 3D Mesh Grid
-        const N = 24;
-        const maxRate = v.snr >= 18 ? 5.5 : (v.snr >= 12 ? 3.8 : 2.5);
         const quads = [];
-
         for (let i = 0; i < N; i++) {
           for (let j = 0; j < N; j++) {
-            const x0 = (j / N) * 5.0, y0 = (i / N) * 5.0;
-            const x1 = ((j + 1) / N) * 5.0, y1 = ((i + 1) / N) * 5.0;
-
-            function evalSecrecy(gx, gy) {
-              const d = Math.hypot(gx - fixedNode[0], gy - fixedNode[1]);
-              if (d < 0.16) return 0.0;
-              let r = maxRate;
-              if (d < 0.70) r = maxRate * (d / 0.70);
-              return r;
-            }
-
-            const z00 = evalSecrecy(x0, y0);
-            const z10 = evalSecrecy(x1, y0);
-            const z11 = evalSecrecy(x1, y1);
-            const z01 = evalSecrecy(x0, y1);
+            const x0 = 0.1 + (j / N) * 4.8, y0 = 0.1 + (i / N) * 4.8;
+            const x1 = 0.1 + ((j + 1) / N) * 4.8, y1 = 0.1 + ((i + 1) / N) * 4.8;
+            const z00 = zGrid[i][j], z10 = zGrid[i][j + 1], z11 = zGrid[i + 1][j + 1], z01 = zGrid[i + 1][j];
             const zAvg = (z00 + z10 + z11 + z01) / 4.0;
-
-            const p00 = proj3D(x0, y0, z00);
-            const p10 = proj3D(x1, y0, z10);
-            const p11 = proj3D(x1, y1, z11);
-            const p01 = proj3D(x0, y1, z01);
-
+            const p00 = proj3D(x0, y0, z00), p10 = proj3D(x1, y0, z10), p11 = proj3D(x1, y1, z11), p01 = proj3D(x0, y1, z01);
             const avgDepth = (p00.depth + p10.depth + p11.depth + p01.depth) / 4.0;
             quads.push({ p00, p10, p11, p01, zAvg, avgDepth });
           }
@@ -2478,19 +2643,25 @@
         const plotSize = Math.min(W - 140, H - 90);
         const padX = (W - plotSize) / 2 - 20;
         const padY = (H - plotSize) / 2 + 10;
-        const maxRate = v.snr >= 18 ? 5.5 : (v.snr >= 12 ? 3.8 : 2.5);
-        const gridN = 40;
+        const gridN = 32;
         const cell = plotSize / gridN;
+        const rates = [];
+        let maxRate = 0.5;
+
+        for (let i = 0; i < gridN; i++) {
+          const y = 0.1 + ((gridN - 1 - i) / (gridN - 1)) * 4.8;
+          for (let j = 0; j < gridN; j++) {
+            const x = 0.1 + (j / (gridN - 1)) * 4.8;
+            const rate = evalSpatialSecrecyExact(x, y);
+            rates.push(rate);
+            if (rate > maxRate) maxRate = rate;
+          }
+        }
+        maxRate = Math.max(0.5, Math.ceil(maxRate * 10) / 10);
 
         for (let i = 0; i < gridN; i++) {
           for (let j = 0; j < gridN; j++) {
-            const x = (j / gridN) * 5.0;
-            const y = ((gridN - 1 - i) / gridN) * 5.0;
-            const d = Math.hypot(x - fixedNode[0], y - fixedNode[1]);
-            let rate = maxRate;
-            if (d < 0.16) rate = 0;
-            else if (d < 0.70) rate = maxRate * (d / 0.70);
-
+            const rate = rates[i * gridN + j];
             ctx.fillStyle = getViridis(rate / maxRate);
             ctx.fillRect(padX + j * cell, padY + i * cell, cell + 0.5, cell + 0.5);
           }
@@ -2555,77 +2726,29 @@
     function drawFig6() {
       const W = cStage.width, H = cStage.height;
       const v = getFormValues();
-      const res = computeSystemState(v.bob, v.eve, v.snr, v.alpha, v.delta1, v.delta2, slotK);
+      const res = computeSystemState(v.bob, v.eve, v.snr, v.alpha, v.delta1, v.delta2, slotK, v.useTable1Noise);
       const st = getThemeStyles();
+      const sim = res.sim;
+      if(sim.pending) {
+        ctx.fillStyle=st.bg;ctx.fillRect(0,0,W,H);ctx.fillStyle=st.text;ctx.font='15px sans-serif';
+        ctx.fillText('Train the Python agents to view measured learning curves.',35,H/2);return;
+      }
 
       ctx.fillStyle = st.bg;
       ctx.fillRect(0, 0, W, H);
 
-      const numSlots = 2000;
-      const numSteps = 120;
+      const numSlots = sim.drl.cs.length; // 2000
 
-      // 1. Dynamic Physical Scaling based on active geometry & channel gains:
-      const d_be = res.d_be;
-      const distScale = d_be < 0.40 ? Math.max(0, d_be / 0.40) : 1.0;
-      const hAB_nom = 2.718e-5;
-      const bobGainScale = Math.min(1.25, Math.max(0.60, res.h_AB / hAB_nom));
-      const geomScale = distScale * (0.80 + 0.20 * bobGainScale);
+      // Precompute dynamic Y bounds from real simulation outputs
+      const allCs = [sim.theo.cs_star, sim.sbj.cs, sim.rob.cs, ...sim.drl.cs, ...sim.rl.cs, ...sim.vb.cs];
+      const csMin = Math.max(0.0, Math.floor(Math.min(...allCs) * 4) / 4 - 0.1);
+      const csMax = Math.max(csMin + 0.5, Math.ceil(Math.max(...allCs) * 4) / 4 + 0.15);
 
-      // (a) Secrecy Rate (Paper Fig 6(a))
-      // Values: Bound = 5.75, DRL = 5.68, RL = 5.14, DRL-VB = 5.24, SBJ = 4.71, Robust = 3.65
-      const cs_theo = 5.75 * geomScale;
-      const cs_drl_final = 5.68 * geomScale;
-      const cs_rl_final = 5.14 * geomScale;
-      const cs_vb_final = 5.24 * geomScale;
-      const cs_sbj_val = 4.71 * geomScale;
-      const cs_rob_val = 3.65 * geomScale;
+      const allU = [sim.theo.u_star, sim.sbj.u, sim.rob.u, ...sim.drl.u, ...sim.rl.u, ...sim.vb.u];
+      const uMin = Math.floor(Math.min(...allU) * 4) / 4 - 0.25;
+      const uMax = Math.max(uMin + 0.5, Math.ceil(Math.max(...allU) * 4) / 4 + 0.25);
 
-      const cs_drl_init = 3.74 * geomScale;
-      const cs_rl_init = 3.64 * geomScale;
-      const cs_vb_init = 3.80 * geomScale;
-
-      function getCs(t) { return cs_drl_init + (cs_drl_final - cs_drl_init) * (1.0 - 0.65 * Math.exp(-t * 18.0) - 0.35 * Math.exp(-t * 3.5)); }
-      function getCsRL(t) { return cs_rl_init + (cs_rl_final - cs_rl_init) * (1.0 - Math.exp(-t * 2.8)); }
-      function getCsVB(t) { return cs_vb_init + (cs_vb_final - cs_vb_init) * (1.0 - 0.70 * Math.exp(-t * 10.0) - 0.30 * Math.exp(-t * 2.5)); }
-
-      // (b) Bob BER Convergence (Paper Fig 6(b))
-      // Values: Bound = 1.3e-4, DRL = 2.0e-2 -> 2.0e-4, RL = 2.2e-2 -> 3.2e-3, DRL-VB = 2.4e-2 -> 3.8e-3, SBJ = 8.0e-3, Robust = 2.4e-2
-      const pe_bound_val = 1.3e-4;
-      const pe_sbj_val = 8.0e-3;
-      const pe_rob_val = 2.4e-2;
-
-      function getPe(t) {
-        const logInit = Math.log10(2.0e-2), logConv = Math.log10(2.0e-4);
-        const logVal = logInit + (logConv - logInit) * (1.0 - 0.75 * Math.exp(-t * 14.0) - 0.25 * Math.exp(-t * 3.0));
-        return Math.max(pe_bound_val, Math.pow(10, logVal));
-      }
-      function getPeRL(t) {
-        const logInit = Math.log10(2.2e-2), logConv = Math.log10(3.2e-3);
-        const logVal = logInit + (logConv - logInit) * (1.0 - Math.exp(-t * 3.2));
-        return Math.pow(10, logVal);
-      }
-      function getPeVB(t) {
-        const logInit = Math.log10(2.4e-2), logConv = Math.log10(3.8e-3);
-        const logVal = logInit + (logConv - logInit) * (1.0 - Math.exp(-t * 2.5));
-        return Math.pow(10, logVal);
-      }
-
-      // (c) System Utility Convergence (Paper Fig 6(c))
-      // Values: Bound = 5.35, DRL = 3.20 -> 5.24, RL = 2.68 -> 4.48, DRL-VB = 2.30 -> 4.50, SBJ = 4.54, Robust = 2.68
-      const u_theo = 5.35 * geomScale;
-      const u_drl_final = 5.24 * geomScale;
-      const u_rl_final = 4.48 * geomScale;
-      const u_vb_final = 4.50 * geomScale;
-      const u_sbj_val = 4.54 * geomScale;
-      const u_rob_val = 2.68 * geomScale;
-
-      const u_drl_init = 3.20 * geomScale;
-      const u_rl_init = 2.68 * geomScale;
-      const u_vb_init = 2.30 * geomScale;
-
-      function getU(t) { return u_drl_init + (u_drl_final - u_drl_init) * (1.0 - 0.65 * Math.exp(-t * 16.0) - 0.35 * Math.exp(-t * 3.2)); }
-      function getURL(t) { return u_rl_init + (u_rl_final - u_rl_init) * (1.0 - Math.exp(-t * 2.6)); }
-      function getUVB(t) { return u_vb_init + (u_vb_final - u_vb_init) * (1.0 - Math.exp(-t * 3.2)); }
+      const logExpMin = -8, logExpMax = 0;
 
       // Subplot renderer
       function renderPlot(topY, plotH, metricType, title) {
@@ -2642,15 +2765,9 @@
         ctx.font = "bold 12px sans-serif";
         ctx.fillText(title, padL + 6, topY - 7);
 
-        // X and Y limits
-        let minY, maxY, isLog = false;
-        if (metricType === "cs") {
-          minY = 3.0; maxY = 6.0;
-        } else if (metricType === "ber") {
-          minY = 1e-4; maxY = 1e-1; isLog = true;
-        } else {
-          minY = 2.0; maxY = 5.5;
-        }
+        const isLog = metricType === "ber";
+        const minY = metricType === "cs" ? csMin : uMin;
+        const maxY = metricType === "cs" ? csMax : uMax;
 
         // Horizontal Gridlines & Y-labels
         ctx.strokeStyle = st.grid;
@@ -2658,11 +2775,11 @@
         ctx.font = "10px monospace";
 
         if (isLog) {
-          [-4, -3, -2, -1].forEach(exp => {
-            const y = topY + plotH - ((exp - (-4)) / 3.0) * plotH;
+          for (let exp = logExpMin; exp <= logExpMax; exp += 2) {
+            const y = topY + plotH - ((exp - logExpMin) / (logExpMax - logExpMin)) * plotH;
             ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
             ctx.fillText(`10^${exp}`, padL - 46, y + 4);
-          });
+          }
           ctx.save();
           ctx.translate(padL - 52, topY + plotH / 2);
           ctx.rotate(-Math.PI / 2);
@@ -2670,14 +2787,15 @@
           ctx.fillText("BER", -12, 0);
           ctx.restore();
         } else {
-          const step = plotH < 130 ? 1.0 : 0.5;
-          for (let val = minY; val <= maxY + 0.05; val += step) {
+          const span = maxY - minY;
+          const step = span > 4 ? 1.0 : (span > 1.8 ? 0.5 : 0.25);
+          for (let val = Math.ceil(minY / step) * step; val <= maxY + 1e-6; val += step) {
             const y = topY + plotH - ((val - minY) / (maxY - minY)) * plotH;
             ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
-            ctx.fillText(val.toFixed(1), padL - 32, y + 4);
+            ctx.fillText(val.toFixed(2), padL - 42, y + 4);
           }
           ctx.save();
-          ctx.translate(padL - 40, topY + plotH / 2);
+          ctx.translate(padL - 48, topY + plotH / 2);
           ctx.rotate(-Math.PI / 2);
           ctx.font = "bold 11px sans-serif";
           ctx.fillText(metricType === "cs" ? "Secrecy rate (bps/Hz)" : "Utility", -50, 0);
@@ -2693,60 +2811,57 @@
         ctx.font = "bold 11px sans-serif";
         ctx.fillText("Time slot", padL + plotW / 2 - 25, topY + plotH + 28);
 
-        // Helper to draw clean curves with realistic stochastic ripple
-        function plotLine(getYVal, color, isDashed, noiseScale = 0.0, noiseFreq = 1.0, isLogMetric = false) {
+        function valToY(val) {
+          if (isLog) {
+            const logVal = Math.log10(Math.max(Math.pow(10, logExpMin), Math.min(Math.pow(10, logExpMax), val)));
+            return topY + plotH - ((logVal - logExpMin) / (logExpMax - logExpMin)) * plotH;
+          }
+          return topY + plotH - ((val - minY) / (maxY - minY)) * plotH;
+        }
+
+        function plotSeries(arrOrConst, color, isDashed) {
           ctx.strokeStyle = color;
           ctx.lineWidth = 1.8;
           ctx.setLineDash(isDashed ? [5, 4] : []);
           ctx.beginPath();
-
-          for (let s = 0; s <= numSteps; s++) {
-            const t = s / numSteps;
-            const pureVal = getYVal(t);
-            const ripple = noiseScale > 0 ? noiseScale * (0.65 * Math.sin(s * noiseFreq * 1.85) + 0.35 * Math.cos(s * noiseFreq * 3.41 + 1.2)) : 0.0;
-            let y;
-            if (isLogMetric) {
-              const logPure = Math.log10(pureVal);
-              const logVal = logPure + ripple;
-              const clampedLog = Math.max(-4, Math.min(-1, logVal));
-              y = topY + plotH - ((clampedLog - (-4)) / 3.0) * plotH;
-            } else {
-              const val = pureVal + ripple;
-              y = topY + plotH - ((val - minY) / (maxY - minY)) * plotH;
-            }
-            const x = padL + t * plotW;
-            if (s === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          const stride = 8;
+          for (let k = 0; k < numSlots; k += stride) {
+            const v = Array.isArray(arrOrConst) ? arrOrConst[k] : arrOrConst;
+            const x = padL + (k / (numSlots - 1)) * plotW;
+            const y = valToY(v);
+            if (k === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
           }
+          ctx.lineTo(padL + plotW, valToY(Array.isArray(arrOrConst) ? arrOrConst[numSlots - 1] : arrOrConst));
           ctx.stroke();
           ctx.setLineDash([]);
         }
 
-        // Plot All 6 Schemes
         if (metricType === "cs") {
-          plotLine(t => cs_theo, st.colBound, true, 0.0);
-          plotLine(getCs, st.colDRL, false, 0.035, 1.2);
-          plotLine(getCsRL, st.colRL, false, 0.065, 1.8);
-          plotLine(getCsVB, st.colDRLVB, false, 0.045, 1.5);
-          plotLine(t => cs_sbj_val, st.colSBJ, false, 0.0);
-          plotLine(t => cs_rob_val, st.colRobust, false, 0.08, 3.2);
+          plotSeries(sim.theo.cs_star, st.colBound, true);
+          plotSeries(sim.drl.cs, st.colDRL, false);
+          plotSeries(sim.rl.cs, st.colRL, false);
+          plotSeries(sim.vb.cs, st.colDRLVB, false);
+          plotSeries(sim.sbj.cs, st.colSBJ, false);
+          plotSeries(sim.rob.cs, st.colRobust, false);
         } else if (metricType === "ber") {
-          plotLine(t => pe_bound_val, st.colBound, true, 0.0, 1.0, true);
-          plotLine(getPe, st.colDRL, false, 0.04, 1.1, true);
-          plotLine(getPeRL, st.colRL, false, 0.07, 1.7, true);
-          plotLine(getPeVB, st.colDRLVB, false, 0.08, 1.4, true);
-          plotLine(t => pe_sbj_val, st.colSBJ, false, 0.0, 1.0, true);
-          plotLine(t => pe_rob_val, st.colRobust, false, 0.05, 3.1, true);
+          plotSeries(sim.theo.pe_star, st.colBound, true);
+          plotSeries(sim.drl.pe, st.colDRL, false);
+          plotSeries(sim.rl.pe, st.colRL, false);
+          plotSeries(sim.vb.pe, st.colDRLVB, false);
+          plotSeries(sim.sbj.pe, st.colSBJ, false);
+          plotSeries(sim.rob.pe, st.colRobust, false);
         } else {
-          plotLine(t => u_theo, st.colBound, true, 0.0);
-          plotLine(getU, st.colDRL, false, 0.04, 1.2);
-          plotLine(getURL, st.colRL, false, 0.065, 1.8);
-          plotLine(getUVB, st.colDRLVB, false, 0.05, 1.5);
-          plotLine(t => u_sbj_val, st.colSBJ, false, 0.0);
-          plotLine(t => u_rob_val, st.colRobust, false, 0.07, 3.0);
+          plotSeries(sim.theo.u_star, st.colBound, true);
+          plotSeries(sim.drl.u, st.colDRL, false);
+          plotSeries(sim.rl.u, st.colRL, false);
+          plotSeries(sim.vb.u, st.colDRLVB, false);
+          plotSeries(sim.sbj.u, st.colSBJ, false);
+          plotSeries(sim.rob.u, st.colRobust, false);
         }
 
         // Live Time Slot Cursor k
-        const curT = slotK / 2000.0;
+        const slotIdx = Math.max(0, Math.min(numSlots - 1, Math.round(slotK) - 1));
+        const curT = slotIdx / (numSlots - 1);
         const kX = padL + curT * plotW;
         ctx.strokeStyle = "#f59e0b";
         ctx.lineWidth = 1.6;
@@ -2754,26 +2869,17 @@
         ctx.beginPath(); ctx.moveTo(kX, topY); ctx.lineTo(kX, topY + plotH); ctx.stroke();
         ctx.setLineDash([]);
 
-        // Pulsating beacon on DRL curve at slot k
         let curValDRL;
-        if (metricType === "cs") curValDRL = getCs(curT);
-        else if (metricType === "ber") curValDRL = getPe(curT);
-        else curValDRL = getU(curT);
+        if (metricType === "cs") curValDRL = sim.drl.cs[slotIdx];
+        else if (metricType === "ber") curValDRL = sim.drl.pe[slotIdx];
+        else curValDRL = sim.drl.u[slotIdx];
 
-        let curY;
-        if (isLog) {
-          const logVal = Math.log10(Math.max(1e-4, Math.min(1e-1, curValDRL)));
-          curY = topY + plotH - ((logVal - (-4)) / 3.0) * plotH;
-        } else {
-          curY = topY + plotH - ((curValDRL - minY) / (maxY - minY)) * plotH;
-        }
-
+        const curY = valToY(curValDRL);
         const beaconPulse = 4.5 + 1.8 * Math.sin(performance.now() * 0.007);
         ctx.fillStyle = "#f59e0b";
         ctx.beginPath(); ctx.arc(kX, curY, beaconPulse, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.5; ctx.stroke();
 
-        // Cursor badge
         ctx.fillStyle = "#f59e0b";
         ctx.font = "bold 10px monospace";
         ctx.fillText(`📍 Slot k=${slotK}`, Math.min(kX + 5, padL + plotW - 95), topY + 13);
@@ -2792,12 +2898,12 @@
         ctx.strokeRect(legX, legY, legW, legH);
 
         const items = [
-          { text: "Theoretical Bound", col: st.colBound, dash: true },
+          { text: "Global independent bounds", col: st.colBound, dash: true },
           { text: "Proposed DRL-FJ", col: st.colDRL, mark: "■" },
           { text: "Proposed RL-FJ", col: st.colRL, mark: "▲" },
-          { text: "DRL-VB", col: st.colDRLVB },
-          { text: "SBJ-VLC", col: st.colSBJ },
-          { text: "Robust beamforming", col: st.colRobust }
+          { text: "Restricted search (custom)", col: st.colDRLVB },
+          { text: "Scaled ZF (custom)", col: st.colSBJ },
+          { text: "Regularized BF (custom)", col: st.colRobust }
         ];
 
         ctx.font = plotH < 130 ? "10px sans-serif" : "11px sans-serif";
@@ -2837,7 +2943,7 @@
     function drawFig7() {
       const W = cStage.width, H = cStage.height;
       const v = getFormValues();
-      const res = computeSystemState(v.bob, v.eve, v.snr, v.alpha, v.delta1, v.delta2);
+      const res = computeSystemState(v.bob, v.eve, v.snr, v.alpha, v.delta1, v.delta2, slotK, v.useTable1Noise);
       const st = getThemeStyles();
 
       ctx.fillStyle = st.bg;
@@ -2845,60 +2951,50 @@
 
       const snrPoints = [4, 6, 8, 10, 12, 14, 16, 18, 20];
       const minS = 4.0, maxS = 20.0;
+      const h_AB = res.h_AB;
 
-      // 1. Dynamic Physical Scaling based on active geometry & channel gains:
-      const d_be = res.d_be;
-      // When Eve gets within 0.40m of Bob, Lambertian spatial separation collapses
-      const distScale = d_be < 0.40 ? Math.max(0, d_be / 0.40) : 1.0;
-      const hAB_nom = 2.718e-5;
-      const bobGainScale = Math.min(1.25, Math.max(0.60, res.h_AB / hAB_nom));
-
-      // Jammer energy consumptions for Eq. (7)
-      const E_zf = res.schemes.zf.energy;
-      const E_drl = Math.max(0.60, E_zf * 0.72);
-      const E_rl = Math.max(0.80, E_zf * 0.85);
-      const E_sbj = Math.max(0.90, E_zf * 0.95);
-      const E_rob = Math.max(1.10, E_zf * 1.15);
-
-      // (a) Dynamic Secrecy Rate (bps/Hz)
-      function getCsVal(s, scheme) {
-        const nomBase = 1.76 + (4.40 - 1.76) * ((s - 4.0) / 16.0);
-        const physicalRate = nomBase * distScale * (0.80 + 0.20 * bobGainScale);
-        if (scheme === "drl") return Math.max(0, physicalRate);
-        if (scheme === "rl") return Math.max(0, physicalRate * 0.904);
-        if (scheme === "sbj") return Math.max(0, physicalRate * 0.868);
-        if (scheme === "robust") return Math.max(0, physicalRate * 0.757);
-        return 0;
+      function meanArr(arr) {
+        let s = 0;
+        for (let i = 0; i < arr.length; i++) s += arr[i];
+        return s / arr.length;
       }
 
-      // (b) Dynamic Bob 4-PAM BER (Calibrated to IEEE TWC 2024 Fig. 7(b))
-      function getBerVal(s, scheme) {
-        const tables = {
-          drl: [2.3e-3, 2.0e-3, 1.8e-3, 1.6e-3, 1.5e-3, 9.0e-4, 5.0e-4, 2.5e-4, 1.0e-4],
-          rl: [1.0e-2, 9.0e-3, 8.5e-3, 7.5e-3, 6.0e-3, 4.5e-3, 3.8e-3, 2.2e-3, 1.2e-3],
-          sbj: [3.0e-2, 2.8e-2, 2.8e-2, 2.2e-2, 1.6e-2, 1.4e-2, 1.2e-2, 9.0e-3, 7.0e-3],
-          robust: [5.0e-2, 4.8e-2, 4.5e-2, 4.2e-2, 4.0e-2, 4.0e-2, 4.1e-2, 4.0e-2, 3.8e-2]
+      // Evaluate exact 2000-slot average metrics at each SNR point via Table I equations
+      const snrData = {};
+      snrPoints.forEach(s => {
+        const snrLin = Math.pow(10.0, s / 10.0);
+        const sigSq = noiseFromSnr(h_AB,s,v.alpha);
+        const simS = runLearningSimCached(v.bob, v.eve, sigSq, v.alpha, v.delta1, v.delta2, 2000);
+        snrData[s] = {
+          drl: { cs: meanArr(simS.rawDRL.cs), ber: meanArr(simS.rawDRL.pe), utility: meanArr(simS.rawDRL.u) },
+          rl: { cs: meanArr(simS.rawRL.cs), ber: meanArr(simS.rawRL.pe), utility: meanArr(simS.rawRL.u) },
+          sbj: { cs: simS.sbj.cs, ber: simS.sbj.pe, utility: simS.sbj.u },
+          robust: { cs: simS.rob.cs, ber: simS.rob.pe, utility: simS.rob.u }
         };
-        const arr = tables[scheme] || tables.drl;
-        if (s <= 4.0) return arr[0];
-        if (s >= 20.0) return arr[8];
-        const idx = Math.floor((s - 4.0) / 2.0);
-        const frac = (s - 4.0) / 2.0 - idx;
-        const v1 = Math.log10(arr[idx]);
-        const v2 = Math.log10(arr[Math.min(8, idx + 1)]);
-        return Math.pow(10, v1 + frac * (v2 - v1));
+      });
+
+      if(snrPoints.some(s=>!Number.isFinite(snrData[s].drl.cs))) {
+        ctx.fillStyle=st.text;ctx.font='15px sans-serif';
+        ctx.fillText('Use ?Train SNR sweep? to calculate all nine points in Python.',25,H/2);return;
+      }
+      function evalAtSnr(s, scheme, metric) {
+        const clamped = Math.max(minS, Math.min(maxS, s));
+        const idx = Math.min(7, Math.floor((clamped - 4.0) / 2.0));
+        const frac = (clamped - (4.0 + idx * 2.0)) / 2.0;
+        const s0 = snrPoints[idx], s1 = snrPoints[idx + 1];
+        return snrData[s0][scheme][metric] * (1.0 - frac) + snrData[s1][scheme][metric] * frac;
       }
 
-      // (c) Dynamic System Utility u = c_s - δ₁·p_e - δ₂·E (Eq. 7)
-      function getUtilityVal(s, scheme) {
-        const cs = getCsVal(s, scheme);
-        const pe = getBerVal(s, scheme);
-        let eng = E_drl;
-        if (scheme === "rl") eng = E_rl;
-        else if (scheme === "sbj") eng = E_sbj;
-        else if (scheme === "robust") eng = E_rob;
-        return cs - v.delta1 * pe - v.delta2 * eng;
-      }
+      const allCs = [], allU = [];
+      snrPoints.forEach(s => ["drl", "rl", "sbj", "robust"].forEach(sc => {
+        allCs.push(snrData[s][sc].cs);
+        allU.push(snrData[s][sc].utility);
+      }));
+      const csMin = Math.max(0.0, Math.floor(Math.min(...allCs) * 4) / 4);
+      const csMax = Math.max(csMin + 0.5, Math.ceil(Math.max(...allCs) * 4) / 4 + 0.15);
+      const uMin = Math.floor(Math.min(...allU) * 4) / 4 - 0.25;
+      const uMax = Math.max(uMin + 0.5, Math.ceil(Math.max(...allU) * 4) / 4 + 0.25);
+      const logExpMin = -8, logExpMax = 0;
 
       function renderPlot7(topY, plotH, metricType, title) {
         const padL = 75, padR = 195;
@@ -2915,23 +3011,20 @@
         ctx.fillText(title, padL + 6, topY - 7);
 
         // Y-Axis Configuration
-        let minY = 0.0, maxY = 5.0, isLog = false;
-        if (metricType === "ber") {
-          minY = 1e-4; maxY = 1e-1; isLog = true;
-        } else if (metricType === "utility") {
-          minY = -0.5; maxY = 4.5;
-        }
+        const isLog = metricType === "ber";
+        const minY = metricType === "cs" ? csMin : uMin;
+        const maxY = metricType === "cs" ? csMax : uMax;
 
         ctx.strokeStyle = st.grid;
         ctx.fillStyle = st.text;
         ctx.font = "10px monospace";
 
         if (isLog) {
-          [-4, -3, -2, -1].forEach(exp => {
-            const y = topY + plotH - ((exp - (-4)) / 3.0) * plotH;
+          for (let exp = logExpMin; exp <= logExpMax; exp += 2) {
+            const y = topY + plotH - ((exp - logExpMin) / (logExpMax - logExpMin)) * plotH;
             ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
             ctx.fillText(`10^${exp}`, padL - 46, y + 4);
-          });
+          }
           ctx.save();
           ctx.translate(padL - 52, topY + plotH / 2);
           ctx.rotate(-Math.PI / 2);
@@ -2939,14 +3032,15 @@
           ctx.fillText("BER", -12, 0);
           ctx.restore();
         } else {
-          const yStep = plotH < 130 ? 1.0 : 0.5;
-          for (let val = minY; val <= maxY + 0.05; val += yStep) {
+          const span = maxY - minY;
+          const yStep = span > 4 ? 1.0 : (span > 1.8 ? 0.5 : 0.25);
+          for (let val = Math.ceil(minY / yStep) * yStep; val <= maxY + 1e-6; val += yStep) {
             const y = topY + plotH - ((val - minY) / (maxY - minY)) * plotH;
             ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
-            ctx.fillText(val.toFixed(1), padL - 32, y + 4);
+            ctx.fillText(val.toFixed(2), padL - 42, y + 4);
           }
           ctx.save();
-          ctx.translate(padL - 40, topY + plotH / 2);
+          ctx.translate(padL - 48, topY + plotH / 2);
           ctx.rotate(-Math.PI / 2);
           ctx.font = "bold 11px sans-serif";
           ctx.fillText(metricType === "cs" ? "Secrecy rate (bps/Hz)" : "Utility", -50, 0);
@@ -2960,51 +3054,34 @@
           ctx.fillText(s, x - 5, topY + plotH + 15);
         });
         ctx.font = "bold 11px sans-serif";
-        ctx.fillText("Transmit SNR (dB)", padL + plotW / 2 - 45, topY + plotH + 28);
+        ctx.fillText("SNR (dB)", padL + plotW / 2 - 25, topY + plotH + 28);
+
+        function valToY(val) {
+          if (isLog) {
+            const logVal = Math.log10(Math.max(Math.pow(10, logExpMin), Math.min(Math.pow(10, logExpMax), val)));
+            return topY + plotH - ((logVal - logExpMin) / (logExpMax - logExpMin)) * plotH;
+          }
+          return topY + plotH - ((val - minY) / (maxY - minY)) * plotH;
+        }
 
         // Helper to Draw Scheme Curves
         function plotLine7(scheme, color, markerType) {
           ctx.strokeStyle = color;
           ctx.lineWidth = 1.9;
           ctx.beginPath();
-
-          // High-resolution smooth curve (step by 0.25 dB)
-          const steps = 64;
-          for (let stp = 0; stp <= steps; stp++) {
-            const s = minS + (stp / steps) * (maxS - minS);
-            let val;
-            if (metricType === "cs") val = getCsVal(s, scheme);
-            else if (metricType === "ber") val = getBerVal(s, scheme);
-            else val = getUtilityVal(s, scheme);
-
-            let y;
-            if (isLog) {
-              const logVal = Math.log10(Math.max(1e-4, Math.min(1e-1, val)));
-              y = topY + plotH - ((logVal - (-4)) / 3.0) * plotH;
-            } else {
-              y = topY + plotH - ((val - minY) / (maxY - minY)) * plotH;
-            }
+          snrPoints.forEach((s, idx) => {
+            const val = snrData[s][scheme][metricType];
             const x = padL + ((s - minS) / (maxS - minS)) * plotW;
-            if (stp === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-          }
+            const y = valToY(val);
+            if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          });
           ctx.stroke();
 
-          // Discrete IEEE Markers at snrPoints
           ctx.fillStyle = color;
           snrPoints.forEach(s => {
-            let val;
-            if (metricType === "cs") val = getCsVal(s, scheme);
-            else if (metricType === "ber") val = getBerVal(s, scheme);
-            else val = getUtilityVal(s, scheme);
-
-            let y;
-            if (isLog) {
-              const logVal = Math.log10(Math.max(1e-4, Math.min(1e-1, val)));
-              y = topY + plotH - ((logVal - (-4)) / 3.0) * plotH;
-            } else {
-              y = topY + plotH - ((val - minY) / (maxY - minY)) * plotH;
-            }
+            const val = snrData[s][scheme][metricType];
             const x = padL + ((s - minS) / (maxS - minS)) * plotW;
+            const y = valToY(val);
             if (markerType === "square") ctx.fillRect(x - 3.5, y - 3.5, 7, 7);
             else if (markerType === "triangle") {
               ctx.beginPath(); ctx.moveTo(x, y - 5); ctx.lineTo(x + 5, y + 4); ctx.lineTo(x - 4, y + 4); ctx.fill();
@@ -3026,38 +3103,27 @@
         plotLine7("sbj", st.colSBJ, "circle");
         plotLine7("robust", st.colRobust, "cross");
 
-        // 2. Current Selected Operating SNR Marker & Live Readout
-        const curX = padL + ((v.snr - minS) / (maxS - minS)) * plotW;
+        // 2. Current Selected Operating SNR Marker (clamped to Fig. 7 range [4, 20] dB)
+        const activeSnr = v.useTable1Noise ? Math.max(minS,Math.min(maxS, res.eff_snr_db)) : Math.max(minS, Math.min(maxS, v.snr));
+        const curX = padL + ((activeSnr - minS) / (maxS - minS)) * plotW;
         ctx.strokeStyle = "#f59e0b";
         ctx.lineWidth = 1.6;
         ctx.setLineDash([4, 3]);
         ctx.beginPath(); ctx.moveTo(curX, topY); ctx.lineTo(curX, topY + plotH); ctx.stroke();
         ctx.setLineDash([]);
 
-        // Animated Pulsating Beacon on DRL curve at Current Operating SNR
-        let curValDRL;
-        if (metricType === "cs") curValDRL = getCsVal(v.snr, "drl");
-        else if (metricType === "ber") curValDRL = getBerVal(v.snr, "drl");
-        else curValDRL = getUtilityVal(v.snr, "drl");
-
-        let curY;
-        if (isLog) {
-          const logVal = Math.log10(Math.max(1e-4, Math.min(1e-1, curValDRL)));
-          curY = topY + plotH - ((logVal - (-4)) / 3.0) * plotH;
-        } else {
-          curY = topY + plotH - ((curValDRL - minY) / (maxY - minY)) * plotH;
-        }
+        const curValDRL = evalAtSnr(activeSnr, "drl", metricType);
+        const curY = valToY(curValDRL);
 
         const beaconPulse = 5 + 2 * Math.sin(performance.now() * 0.007);
         ctx.fillStyle = "#f59e0b";
         ctx.beginPath(); ctx.arc(curX, curY, beaconPulse, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.5; ctx.stroke();
 
-        // Exact Readout Text
         const curText = metricType === "ber" ? curValDRL.toExponential(1) : curValDRL.toFixed(2);
         ctx.fillStyle = "#f59e0b";
         ctx.font = "bold 10px monospace";
-        ctx.fillText(`📍 SNR ${v.snr.toFixed(1)}dB`, Math.min(curX + 6, padL + plotW - 95), topY + 13);
+        ctx.fillText(`📍 SNR ${activeSnr.toFixed(1)}dB`, Math.min(curX + 6, padL + plotW - 95), topY + 13);
         ctx.fillStyle = st.text;
         ctx.fillText(`DRL: ${curText}`, Math.min(curX + 6, padL + plotW - 75), Math.max(topY + 25, Math.min(topY + plotH - 5, curY - 5)));
 
@@ -3074,8 +3140,8 @@
         const items7 = [
           { text: "Proposed DRL-FJ", col: st.colDRL, mark: "■" },
           { text: "Proposed RL-FJ", col: st.colRL, mark: "▲" },
-          { text: "SBJ-VLC", col: st.colSBJ, mark: "●" },
-          { text: "Robust beamforming", col: st.colRobust, mark: "✖" }
+          { text: "Scaled ZF (custom)", col: st.colSBJ, mark: "●" },
+          { text: "Regularized BF (custom)", col: st.colRobust, mark: "✖" }
         ];
 
         ctx.font = plotH < 130 ? "10px sans-serif" : "11px sans-serif";
@@ -3320,7 +3386,7 @@
       ctx.lineWidth = 2.0;
       ctx.beginPath(); ctx.arc(pBob.x, pBob.y, ringPulse, 0, Math.PI * 2); ctx.stroke();
       ctx.fillStyle = st.text; ctx.font = "bold 13px sans-serif";
-      ctx.fillText(`Bob Rx (${v.bob[0].toFixed(2)}, ${v.bob[1].toFixed(2)}, 0.85)m`, pBob.x + 15, pBob.y + 5);
+      ctx.fillText(`Bob Rx (${v.bob[0].toFixed(2)}, ${v.bob[1].toFixed(2)}, ${v.bob[2].toFixed(2)})m`, pBob.x + 15, pBob.y + 5);
 
       // Eve Node (Wiretapper)
       ctx.fillStyle = "#ef4444";
@@ -3332,7 +3398,7 @@
       ctx.lineWidth = 1.8;
       ctx.beginPath(); ctx.arc(pEve.x, pEve.y, evePulse, 0, Math.PI * 2); ctx.stroke();
       ctx.fillStyle = st.text; ctx.font = "bold 13px sans-serif";
-      ctx.fillText(`Eve Rx (${v.eve[0].toFixed(2)}, ${v.eve[1].toFixed(2)}, 0.85)m`, pEve.x + 15, pEve.y + 5);
+      ctx.fillText(`Eve Rx (${v.eve[0].toFixed(2)}, ${v.eve[1].toFixed(2)}, ${v.eve[2].toFixed(2)})m`, pEve.x + 15, pEve.y + 5);
 
       // 4 Jammers
       JAMMERS.forEach((j, idx) => {
@@ -3371,11 +3437,11 @@
 
       document.getElementById("labelBobPos").innerText = `(${v.bob[0].toFixed(2)}, ${v.bob[1].toFixed(2)}, ${v.bob[2].toFixed(2)}) m`;
       document.getElementById("labelEvePos").innerText = `(${v.eve[0].toFixed(2)}, ${v.eve[1].toFixed(2)}, ${v.eve[2].toFixed(2)}) m`;
-      document.getElementById("labelSnr").innerText = v.snr.toFixed(1) + " dB";
       document.getElementById("vDelta1").innerText = v.delta1.toFixed(1);
       document.getElementById("vDelta2").innerText = v.delta2.toFixed(2);
 
-      const res = computeSystemState(v.bob, v.eve, v.snr, v.alpha, v.delta1, v.delta2);
+      const res = computeSystemState(v.bob, v.eve, v.snr, v.alpha, v.delta1, v.delta2, slotK, v.useTable1Noise);
+      document.getElementById("labelSnr").innerText = `${res.eff_snr_db.toFixed(1)} dB${v.useTable1Noise ? " (Table I)" : ""}`;
 
       document.getElementById("vDistance").innerText = res.d_be.toFixed(2) + " m";
       const distBox = document.getElementById("distanceAlert");
@@ -3466,26 +3532,41 @@
         document.getElementById("m_jamEve").innerText = res.jamming_eve.toExponential(4) + " A/W";
         document.getElementById("m_targetH").innerText = res.h_star_eve.toExponential(4) + " A/W";
 
+        const termEveLabel = Number.isFinite(res.term_eve) ? `${res.term_eve.toFixed(4)} bps/Hz` : "Inf (w_JE = 0)";
+        const termEveShort = Number.isFinite(res.term_eve) ? res.term_eve.toFixed(4) : "Inf";
+
         document.getElementById("m_sigmaSq").innerText = res.sigma_B_sq.toExponential(4) + " W";
         document.getElementById("m_termBob").innerText = res.term_bob.toFixed(4) + " bps/Hz";
-        document.getElementById("m_termEve").innerText = res.term_eve.toFixed(4) + " bps/Hz";
+        document.getElementById("m_termEve").innerText = termEveLabel;
         document.getElementById("m_cs").innerText = res.schemes.zf.cs.toFixed(4) + " bps/Hz";
 
         document.getElementById("m_gammaEff").innerText = Math.sqrt(res.gamma_eff).toFixed(5);
         document.getElementById("m_pe").innerText = res.schemes.zf.pe.toExponential(4);
-        document.getElementById("m_energy").innerText = res.energy_zf.toFixed(4) + " J";
+        document.getElementById("m_energy").innerText = res.energy_zf.toFixed(4) + " (normalized)";
+        document.getElementById("m_energyLabel").innerText = energyModel() === 'l1' ? 'Jamming cost: E = sum |w_i|' : 'Printed Eq. 16: E = sum w_i (signed)';
         if (document.getElementById("m_penBer")) document.getElementById("m_penBer").innerText = "-" + res.pen_ber_zf.toFixed(4);
         if (document.getElementById("m_penEnergy")) document.getElementById("m_penEnergy").innerText = "-" + res.pen_energy_zf.toFixed(4);
         document.getElementById("m_utility").innerText = res.schemes.zf.u.toFixed(4);
 
         if (document.getElementById("calc_cs_detail")) {
-          document.getElementById("calc_cs_detail").innerText = `${res.term_bob.toFixed(4)} - ${res.term_eve.toFixed(4)} = ${res.schemes.zf.cs.toFixed(4)} bps/Hz`;
+          document.getElementById("calc_cs_detail").innerText = `${res.term_bob.toFixed(4)} - ${termEveShort} -> ${res.schemes.zf.cs.toFixed(4)} bps/Hz`;
         }
         if (document.getElementById("calc_u_detail")) {
           document.getElementById("calc_u_detail").innerText = `${res.schemes.zf.cs.toFixed(4)} - (${v.delta1.toFixed(1)} × ${res.schemes.zf.pe.toExponential(2)}) - (${v.delta2.toFixed(2)} × ${res.energy_zf.toFixed(2)}) = ${res.schemes.zf.u.toFixed(4)}`;
         }
       }
 
+      for(const prefix of ['rl','drl']) {
+        for(const metric of ['cs','ber','e','u']) {
+          const el=document.getElementById(`t_${prefix}_${metric}`);
+          if(el && res.sim.pending) el.innerText='Awaiting training';
+        }
+      }
+      if(selectedTelemetryScheme==='drl' && res.sim.pending) {
+        for(const id of ['dispCs','dispBer','dispUtility']) document.getElementById(id).innerText='Awaiting training';
+      }
+      if(document.getElementById('m_dAB')) document.getElementById('m_dAB').innerText=res.d_AB.toFixed(6)+' m';
+      if(document.getElementById('m_dAE')) document.getElementById('m_dAE').innerText=res.d_AE.toFixed(6)+' m';
       drawStage();
     }
 
@@ -3494,13 +3575,21 @@
       const sl = document.getElementById(slId);
       const num = document.getElementById(numId);
       if (!sl || !num) return;
+      const disableTable1OnSnrEdit = () => {
+        if (slId === "slSnr") {
+          const chk = document.getElementById("chkTable1Noise");
+          if (chk) chk.checked = false;
+        }
+      };
       sl.addEventListener("input", () => {
+        disableTable1OnSnrEdit();
         num.value = sl.value;
         updateUI();
       });
       num.addEventListener("input", () => {
         const v = parseFloat(num.value);
         if (!isNaN(v)) {
+          disableTable1OnSnrEdit();
           sl.value = v;
           updateUI();
         }
@@ -3509,8 +3598,9 @@
         let v = parseFloat(num.value);
         if (isNaN(v)) v = parseFloat(sl.value);
         v = Math.max(parseFloat(sl.min), Math.min(parseFloat(sl.max), v));
+        disableTable1OnSnrEdit();
         sl.value = v;
-        num.value = (slId === "slAlpha") ? Math.round(v) : v.toFixed(2);
+        num.value = (slId === "slAlpha") ? Math.round(v) : (slId === "slSnr" ? v.toFixed(1) : v.toFixed(2));
         updateUI();
       });
     }
@@ -3532,28 +3622,17 @@
     // 7. REAL-TIME 60 FPS ANIMATION LOOP
     // =========================================================================
     function animationLoop(now) {
-      if (isTransmitting) {
-        if (slotK + Math.round(simSpeed * 1.5) >= 2000) {
-          slotK = 2000;
-          isTransmitting = false;
-          const btn = document.getElementById("btnTransPlay");
-          const icon = document.getElementById("transIcon");
-          const text = document.getElementById("transText");
-          btn.classList.add("paused");
-          icon.innerText = "🔄";
-          text.innerText = "CONVERGED (RESTART)";
-        } else {
-          slotK += Math.round(simSpeed * 1.5);
+      if(isTransmitting) {
+        const v=getFormValues();
+        const r=computeSystemState(v.bob,v.eve,v.snr,v.alpha,v.delta1,v.delta2,slotK,v.useTable1Noise);
+        if(!r.sim.pending) {
+          slotK=Math.min(2000,slotK+Math.round(simSpeed*1.5));
+          totalBits+=Math.round(r.schemes.drl.cs*80*simSpeed);
+          if(slotK>=2000) {isTransmitting=false;document.getElementById('transText').innerText='COMPLETE (RESTART)';}
+          document.getElementById('dispSlot').innerText=`k = ${slotK} / 2000`;
+          document.getElementById('dispBits').innerText=(totalBits/1000).toFixed(1)+' kb (illustrative)';
+          updateUI();
         }
-        const v = getFormValues();
-        const res = computeSystemState(v.bob, v.eve, v.snr, v.alpha, v.delta1, v.delta2, slotK);
-        totalBits += Math.round(res.schemes.drl.cs * 80 * simSpeed);
-
-        document.getElementById("dispSlot").innerText = `k = ${slotK} / 2000`;
-        document.getElementById("dispBits").innerText = `${(totalBits / 1000).toFixed(1)} kb`;
-        document.getElementById("dispBer").innerText = res.schemes.drl.pe.toExponential(2);
-        document.getElementById("t_drl_ber").innerText = res.schemes.drl.pe.toExponential(2);
-        document.getElementById("t_rl_ber").innerText = res.schemes.rl.pe.toExponential(2);
       }
 
       let needsUIUpdate = false;

@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Optical RIS + Friendly Jamming | VLC Research</title>
+  <style>
+    :root{font-family:Inter,Segoe UI,Arial,sans-serif;color:#18263a;background:#f2f5f9;font-size:15px;line-height:1.5}
+    *{box-sizing:border-box}body{margin:0}header{background:#10233e;color:white;padding:28px max(24px,calc((100vw - 1280px)/2))}header p{margin:8px 0 0;color:#b8cbdf}header a{color:#b8dcff}h1{font-size:1.8rem;line-height:1.2;margin:8px 0}h2{font-size:1.1rem;margin:0 0 16px}h3{font-size:1rem;margin:10px 0}
+    main{max-width:1328px;margin:0 auto;padding:24px}section,.card{background:#fff;border:1px solid #dae2ec;border-radius:12px;padding:22px;margin-bottom:20px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.grid>.card{margin:0}.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:end}.field{display:flex;flex-direction:column;gap:5px;min-width:80px;flex:1}.field span{font-size:.85rem;color:#52637a}input,select,button{font:inherit;border:1px solid #b9c8d9;border-radius:7px;padding:9px 10px;background:white;color:#18263a;max-width:100%}input[type=number]{width:100%}input[type=checkbox]{width:auto}button{cursor:pointer;font-weight:600;background:#1763b4;color:#fff;border-color:#1763b4}button.secondary{background:#fff;color:#174a7c}button:disabled,input:disabled,select:disabled{opacity:.55;cursor:not-allowed}.note{font-size:.87rem;color:#5d6c7e;margin:10px 0 0}.status{padding:12px 16px;border-left:4px solid #277ac7;background:#eaf3ff;margin:16px 0;border-radius:4px}.status.error{background:#fff0ef;border-color:#c44135;color:#7c241b}.tag{display:inline-block;background:#e6edf6;color:#254567;padding:3px 8px;border-radius:5px;font-size:.78rem}.weights{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.weights input{min-width:0}table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:right;border-bottom:1px solid #e3eaf2;padding:10px 8px;font-variant-numeric:tabular-nums}th:first-child,td:first-child{text-align:left}th{color:#607088;font-weight:600}pre{background:#f4f7fb;border-radius:7px;padding:14px;overflow:auto;font-size:.8rem;max-height:360px}summary{cursor:pointer;color:#245788;font-weight:600}.plots{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.plot{min-width:0}.plot canvas{width:100%;height:280px;display:block}.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.84rem;margin-bottom:16px}.legend i{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:5px}.table-scroll{overflow:auto}.train-controls{margin:18px 0}.seed{min-width:140px}.footer{font-size:.85rem;color:#6b7789;margin:18px 0}.group{max-width:350px;margin-bottom:12px}
+    @media(max-width:1000px){.plots{grid-template-columns:1fr}.plot canvas{height:300px}}@media(max-width:720px){main{padding:14px}.grid{grid-template-columns:1fr}header{padding:22px 18px}.card,section{padding:16px}.weights{grid-template-columns:repeat(2,1fr)}h1{font-size:1.45rem}}
+  </style>
+</head>
+<body>
+<header>
+  <a href="/">← Paper-equation dashboard</a>
+  <h1>Optical RIS + Friendly Jamming + VLC + DRL</h1>
+  <p>Joint control of jammer weights and a finite optical mirror configuration codebook.</p>
+</header>
+<main>
+  <div class="status" id="status" role="status">Connecting to the Python optical channel model…</div>
+  <div class="grid">
+    <div class="card">
+      <h2>Receiver geometry</h2>
+      <span class="tag">Known positions in simulation</span>
+      <h3>Bob · legitimate receiver (m)</h3>
+      <div class="controls">
+        <label class="field"><span>x</span><input id="bx" class="scenario" type="number" min="0" max="5" step="0.05" value="1.8"></label>
+        <label class="field"><span>y</span><input id="by" class="scenario" type="number" min="0" max="5" step="0.05" value="1.6"></label>
+        <label class="field"><span>z</span><input id="bz" class="scenario" type="number" min="0" max="2.5" step="0.05" value="0.85"></label>
+      </div>
+      <h3>Eve · passive eavesdropper (m)</h3>
+      <div class="controls">
+        <label class="field"><span>x</span><input id="ex" class="scenario" type="number" min="0" max="5" step="0.05" value="3.2"></label>
+        <label class="field"><span>y</span><input id="ey" class="scenario" type="number" min="0" max="5" step="0.05" value="3.4"></label>
+        <label class="field"><span>z</span><input id="ez" class="scenario" type="number" min="0" max="2.5" step="0.05" value="0.85"></label>
+      </div>
+      <p class="note">Eve does not transmit interference in this model. No automatic Eve detector, body blockage or mobility trace is assumed.</p>
+    </div>
+    <div class="card">
+      <h2>Instantaneous channel controls</h2>
+      <label class="field"><span>Optical mirror configuration</span><select id="risIndex" class="manual"><option value="1">Loading mirror codebook…</option></select></label>
+      <div class="weights">
+        <label class="field"><span>FJ weight 1</span><input id="w0" class="manual" type="number" min="-1" max="1" step="0.5" value="-0.5"></label>
+        <label class="field"><span>FJ weight 2</span><input id="w1" class="manual" type="number" min="-1" max="1" step="0.5" value="1"></label>
+        <label class="field"><span>FJ weight 3</span><input id="w2" class="manual" type="number" min="-1" max="1" step="0.5" value="0"></label>
+        <label class="field"><span>FJ weight 4</span><input id="w3" class="manual" type="number" min="-1" max="1" step="0.5" value="1"></label>
+      </div>
+      <p class="note">One shared surface configuration affects Alice and every jammer path. The Python service calculates the reflected gains.</p>
+    </div>
+  </div>
+  <section style="margin-top:20px">
+    <div class="controls">
+      <label class="field"><span>Paper energy interpretation</span><select id="energy" class="scenario"><option value="paper_signed">Printed Eq. 16: signed sum</option><option value="l1">Sensitivity study: nonnegative L1 cost</option></select></label>
+      <label class="field"><span>Paper noise parameter</span><input id="sigma" class="scenario" type="number" step="any" min="1e-30" placeholder="Table I default (leave blank)"></label>
+      <button id="refresh" type="button" class="secondary">Recalculate channel</button>
+    </div>
+    <p class="note">Signed energy can credit negative weights. L1 changes the printed objective. Both no-RIS and RIS schemes use the same selected interpretation and noise; this page does not certify the paper's published curves.</p>
+  </section>
+  <section>
+    <h2>Instantaneous comparison · identical jammer weights</h2>
+    <p class="note" id="metricNote">Waiting for actual Python calculations. These are single-action metrics, not learned performance.</p>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Metric</th><th>RIS disabled</th><th>Selected RIS configuration</th></tr></thead>
+      <tbody id="metrics"><tr><td colspan="3">No channel data loaded.</td></tr></tbody>
+    </table></div>
+    <details style="margin-top:18px"><summary>Optical channel assumptions and RIS configuration</summary><pre id="risDetails">Waiting for the backend model.</pre></details>
+  </section>
+  <section>
+    <h2>Train and compare actual CNN + DND agents</h2>
+    <div class="controls train-controls">
+      <label class="field"><span>Slots per scheme per seed</span><select id="slots"><option value="24">24 · smoke preview</option><option value="200">200 · short experiment</option><option value="2000" selected>2,000 · full experiment</option></select></label>
+      <label class="field seed"><span>Independent seeds, comma-separated</span><input id="seeds" value="42" placeholder="42, 43, 44"></label>
+      <button id="train" type="button">Train matched schemes</button>
+      <button id="download" type="button" class="secondary" disabled>Download raw study</button>
+    </div>
+    <p class="note">Runs three agents: no RIS, fixed RIS and jointly controlled RIS/FJ. Training-time means include warmup and exploration. A single seed has no statistical confidence interval. The fixed-RIS comparator uses configuration 1; the manual configuration above does not prescribe the learned actions.</p>
+    <p class="note" id="resultStatus">No training results available. Curves are displayed only after the Python experiment finishes.</p>
+    <label class="field group" id="groupWrap" hidden><span>Result scenario / energy interpretation</span><select id="resultGroup"></select></label>
+    <div class="legend"><span><i style="background:#2767b2"></i>No RIS</span><span><i style="background:#2a8a64"></i>Fixed RIS</span><span><i style="background:#d0443c"></i>Joint RIS + FJ</span></div>
+    <div class="plots">
+      <div class="plot"><h3>Secrecy rate (bps/Hz)</h3><canvas id="ratePlot"></canvas></div>
+      <div class="plot"><h3>Bob BER</h3><canvas id="berPlot"></canvas></div>
+      <div class="plot"><h3>Policy reward</h3><canvas id="utilityPlot"></canvas></div>
+    </div>
+    <div class="table-scroll"><table><thead><tr><th>Scheme</th><th>Seeds</th><th>Mean secrecy</th><th>Mean BER</th><th>Mean reward</th></tr></thead><tbody id="resultTable"><tr><td colspan="5">No learned observations yet.</td></tr></tbody></table></div>
+    <p class="note">Plots use EMA50 of actual training observations; raw JSON retains every slot, joint action, mirror index, effective/direct/reflected gains, settings and reference diagnostics. BER plot floor 1e−12 is for display only.</p>
+  </section>
+  <p class="footer">Research extension of the supplied 2024 friendly-jamming VLC system. Mirror geometry, perfect location knowledge, the finite codebook and controller adaptations are explicit simulation assumptions. Improved secrecy or uninterrupted communication must be established by experiments.</p>
+</main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const SCHEMES=['baseline','fixed_ris','joint_ris'];
+const COLORS={baseline:'#2767b2',fixed_ris:'#2a8a64',joint_ris:'#d0443c'};
+const LABELS={baseline:'No RIS',fixed_ris:'Fixed RIS',joint_ris:'Joint RIS + FJ'};
+let busy=false,record=null,lastMetrics=null,requestNumber=0,debounceTimer;
+function status(message,error=false){$('status').textContent=message;$('status').classList.toggle('error',error);}
+function number(id){const raw=$(id).value.trim();if(raw==='')throw Error('Enter a value for '+id);const n=Number(raw);if(!Number.isFinite(n))throw Error('Invalid numeric input: '+id);return n;}
+function parameters(){
+  const body={bob:['bx','by','bz'].map(number),eve:['ex','ey','ez'].map(number),energy_model:$('energy').value};
+  for(const position of [body.bob,body.eve])if(position.some((v,i)=>v<0||v>(i===2?2.5:5)))throw Error('Receivers must lie inside the room below 2.5 m.');
+  if($('sigma').value.trim()){body.sigma=number('sigma');if(body.sigma<=0)throw Error('Noise must be positive.');}
+  return body;
+}
+async function jsonRequest(path,options={}){
+  const response=await fetch(path,options);let value;
+  try{value=await response.json();}catch(error){throw Error('The Python service did not return JSON. Start python run.py --gui and open /ris.');}
+  if(!response.ok)throw Error(value.error||'Request failed ('+response.status+')');return value;
+}
+const post=(path,body)=>jsonRequest(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+function fmt(value){if(!Number.isFinite(value))return 'Unavailable';if(value===0)return '0';return Math.abs(value)<.001||Math.abs(value)>=1e4?value.toExponential(4):value.toFixed(6);}
+function appendRow(parent,values){const row=document.createElement('tr');for(const value of values){const cell=document.createElement('td');cell.textContent=String(value);row.appendChild(cell);}parent.appendChild(row);}
+async function updateMetrics(){
+  if(busy)return;
+  const current=++requestNumber;
+  try{
+    const body={...parameters(),beamformer:[0,1,2,3].map(i=>number('w'+i)),ris_index:number('risIndex')};
+    if(body.beamformer.some(v=>Math.abs(v)>1))throw Error('Jammer weights must lie in [-1,1].');
+    const result=await post('/api/ris/metrics',body);if(current!==requestNumber)return;
+    lastMetrics=result;
+    const names=result.configuration_names||result.ris?.configuration_names||[];
+    const oldIndex=body.ris_index;
+    if(names.length){$('risIndex').replaceChildren(...names.map((name,i)=>{const option=document.createElement('option');option.value=i;option.textContent=i+' · '+name;return option;}));$('risIndex').value=Math.min(oldIndex,names.length-1);}
+    $('metrics').replaceChildren();
+    for(const [key,label] of [['secrecy_rate','Secrecy rate (bps/Hz)'],['ber','Bob BER'],['energy','Selected energy cost'],['utility','Paper utility']])appendRow($('metrics'),[label,fmt(result.baseline[key]),fmt(result.selected[key])]);
+    for(const [key,label] of [['h_AB','Alice → Bob effective gain'],['h_AE','Alice → Eve effective gain']])appendRow($('metrics'),[label,fmt(result.baseline.gains[key]),fmt(result.selected.gains[key])]);
+    $('metricNote').textContent='Actual backend metrics for the same four jammer weights. Selected RIS index: '+result.selected.ris_index+'. No training or security guarantee is inferred from this single action.';
+    $('risDetails').textContent=JSON.stringify(result.ris,null,2);
+    status('Optical channel calculated by Python. Training curves remain separate from instantaneous metrics.');
+  }catch(error){if(current===requestNumber)status(error.message,true);}
+}
+function setBusy(value){busy=value;document.querySelectorAll('input,select,button').forEach(el=>el.disabled=value);$('download').disabled=value||!record;}
+function selectedSeeds(){const parts=$('seeds').value.split(',').map(v=>v.trim());if(!parts.length||parts.some(v=>!/^\d+$/.test(v)))throw Error('Use comma-separated integer seeds, for example 42,43,44.');const seeds=parts.map(Number);if(seeds.length>5||seeds.some(v=>!Number.isInteger(v)||v<0||v>=2**32)||new Set(seeds).size!==seeds.length)throw Error('Select 1–5 unique unsigned 32-bit seeds.');return seeds;}
+async function trainStudy(){
+  if(busy)return;let body;
+  try{body={...parameters(),slots:number('slots'),seeds:selectedSeeds()};}catch(error){status(error.message,true);return;}
+  setBusy(true);requestNumber++;const start=Date.now();
+  try{
+    status('Submitting matched Python training: three schemes per seed.');
+    const job=await post('/api/ris/experiment',body);
+    while(true){
+      await new Promise(resolve=>setTimeout(resolve,1000));
+      const value=await jsonRequest('/api/jobs/'+encodeURIComponent(job.job_id));
+      if(value.status==='error')throw Error(value.error||'Python training failed.');
+      if(value.status==='complete'){
+        if(!value.result?.complete)throw Error('The service returned an incomplete study.');
+        attachStudy(value.result);status('Training complete. Actual observations and assumptions are ready to download.');break;
+      }
+      status((value.progress||'Python CNN + DND agents are training.')+' Elapsed '+Math.round((Date.now()-start)/1000)+' s.');
+    }
+  }catch(error){status(error.message,true);}finally{setBusy(false);}
+}
+function attachStudy(value){
+  record=value;const groups=[...new Set(value.runs.map(r=>r.scenario.name+' / '+r.energy_model))];
+  $('resultGroup').replaceChildren(...groups.map(label=>{const option=document.createElement('option');option.value=label;option.textContent=label;return option;}));
+  $('groupWrap').hidden=groups.length<2;
+  renderStudy();$('download').disabled=false;
+}
+function currentRuns(){if(!record)return [];const group=$('resultGroup').value;return record.runs.filter(r=>r.scenario.name+' / '+r.energy_model===group);}
+function renderStudy(){
+  const runs=currentRuns();if(!runs.length){drawCharts();return;}
+  const slots=runs[0].history.secrecy_rate.length,n=new Set(runs.map(r=>r.seed)).size;
+  $('resultStatus').textContent='Completed '+slots+' training slots per scheme per seed; '+n+' independent seed(s). '+(n===1?'No confidence interval is available from a single seed.':'Seed-level confidence intervals are included in the raw study summary.');
+  $('resultTable').replaceChildren();
+  for(const scheme of SCHEMES){const rows=runs.filter(r=>r.scheme===scheme);if(!rows.length)continue;const mean=metric=>rows.reduce((sum,r)=>sum+r.summary.all_slots[metric],0)/rows.length;appendRow($('resultTable'),[LABELS[scheme],rows.length,fmt(mean('secrecy_rate')),fmt(mean('ber')),fmt(mean('utility'))]);}
+  drawCharts();
+}
+function ema(values){const output=[];let previous=values[0];for(const value of values){previous=2/51*value+49/51*previous;output.push(previous);}return output;}
+function drawPlot(id,metric,logarithmic){
+  const canvas=$(id),rect=canvas.getBoundingClientRect(),ratio=window.devicePixelRatio||1;
+  canvas.width=Math.max(1,Math.floor(rect.width*ratio));canvas.height=Math.max(1,Math.floor(rect.height*ratio));
+  const ctx=canvas.getContext('2d');ctx.scale(ratio,ratio);const width=rect.width,height=rect.height;
+  ctx.clearRect(0,0,width,height);ctx.font='12px Segoe UI';ctx.fillStyle='#607088';
+  const rows=currentRuns();
+  if(!rows.length){ctx.fillText('Train Python agents to display actual results.',14,height/2);return;}
+  const curves=[];
+  for(const scheme of SCHEMES){const selected=rows.filter(r=>r.scheme===scheme);if(!selected.length)continue;const series=selected.map(r=>ema(r.history[metric]));const y=series[0].map((_,i)=>series.reduce((sum,s)=>sum+s[i],0)/series.length);curves.push({scheme,y});}
+  const transform=y=>logarithmic?Math.log10(Math.max(y,1e-12)):y;
+  const all=curves.flatMap(c=>c.y.map(transform));let low=Math.min(...all),high=Math.max(...all);
+  if(!logarithmic){low=Math.min(0,low);high=Math.max(0,high);}
+  if(high-low<1e-9){low-=.5;high+=.5;}const padding=(high-low)*.08;low-=padding;high+=padding;
+  const left=61,right=14,top=12,bottom=36,pw=Math.max(1,width-left-right),ph=height-top-bottom;
+  const length=Math.max(...curves.map(c=>c.y.length));
+  ctx.strokeStyle='#e0e6ee';ctx.lineWidth=1;
+  for(let tick=0;tick<=4;tick++){const y=top+ph*tick/4,value=high-(high-low)*tick/4;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(width-right,y);ctx.stroke();ctx.fillStyle='#607088';ctx.textAlign='right';ctx.fillText(logarithmic?'10^'+value.toFixed(1):value.toFixed(2),left-6,y+4);}
+  for(let tick=0;tick<=4;tick++){const x=left+pw*tick/4;ctx.textAlign='center';ctx.fillText(String(Math.round(1+(length-1)*tick/4)),x,height-17);}
+  ctx.textAlign='center';ctx.fillText('Training slot · EMA50',left+pw/2,height-1);
+  for(const curve of curves){ctx.beginPath();ctx.strokeStyle=COLORS[curve.scheme];ctx.lineWidth=2;curve.y.forEach((value,i)=>{const x=left+pw*i/Math.max(1,length-1),y=top+ph*(high-transform(value))/(high-low);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});ctx.stroke();}
+}
+function drawCharts(){drawPlot('ratePlot','secrecy_rate',false);drawPlot('berPlot','ber',true);drawPlot('utilityPlot','utility',false);}
+function download(){if(!record)return;const url=URL.createObjectURL(new Blob([JSON.stringify(record,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='ris_study_data.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+document.querySelectorAll('.scenario,.manual').forEach(el=>el.addEventListener('change',()=>{clearTimeout(debounceTimer);debounceTimer=setTimeout(updateMetrics,250);}));
+$('refresh').addEventListener('click',updateMetrics);$('train').addEventListener('click',trainStudy);$('download').addEventListener('click',download);$('resultGroup').addEventListener('change',renderStudy);
+window.addEventListener('resize',drawCharts);drawCharts();
+if(location.protocol==='file:')status('Start python run.py --gui, then open its /ris page to use the Python RIS model.',true);else updateMetrics();
+</script>
+</body>
+</html>

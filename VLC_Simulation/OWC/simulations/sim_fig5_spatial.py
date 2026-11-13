@@ -25,15 +25,19 @@ from vlc.config import VLCConfig
 from vlc.channel import VLCChannel
 from vlc.bounds import compute_zero_forcing_beamformer
 from vlc.secrecy import compute_secrecy_rate
+from vlc.experiments import metadata, save_record, tag_figure
 
 
 def simulate_fig5(
     grid_res: int = 25,
     save_dir: str = "output_figures",
     show_plots: bool = False,
+    config=None,
 ):
     os.makedirs(save_dir, exist_ok=True)
-    config = VLCConfig()
+    config = config or VLCConfig()
+    if grid_res < 2:
+        raise ValueError("grid_res must be at least 2")
     channel = VLCChannel(config)
 
     x_vals = np.linspace(0.1, 4.9, grid_res)
@@ -45,7 +49,7 @@ def simulate_fig5(
     # -------------------------------------------------------------
     # Fig. 5(a): Secrecy rate vs Eve's location, Bob fixed at (1.8, 1.6, 0.85)
     # -------------------------------------------------------------
-    bob_fixed = np.array([1.8, 1.6, 0.85])
+    bob_fixed = config.bob_pos.copy()
     Z_eve = np.zeros_like(X)
 
     for i in range(grid_res):
@@ -53,20 +57,14 @@ def simulate_fig5(
             eve_cur = np.array([X[i, j], Y[i, j], 0.85])
             h_AB, h_AE, h_JB, h_JE = channel.get_all_channel_gains(bob_fixed, eve_cur)
 
-            # Check distance to Bob: if Eve is exactly at Bob, secrecy rate is zero
-            dist_to_bob = np.linalg.norm(bob_fixed[:2] - eve_cur[:2])
-            if dist_to_bob < 0.15:
-                Z_eve[i, j] = 0.0
-            else:
-                w_zf = compute_zero_forcing_beamformer(h_JB, h_JE)
-                cs = compute_secrecy_rate(h_AB, h_AE, h_JB, h_JE, w_zf, config)
-                # Physical ceiling for room
-                Z_eve[i, j] = min(5.5, max(0.0, cs))
+            w_zf = compute_zero_forcing_beamformer(h_JB, h_JE)
+            cs = compute_secrecy_rate(h_AB, h_AE, h_JB, h_JE, w_zf, config)
+            Z_eve[i, j] = max(0.0, cs)
 
     # -------------------------------------------------------------
     # Fig. 5(b): Secrecy rate vs Bob's location, Eve fixed at (3.2, 3.4, 0.85)
     # -------------------------------------------------------------
-    eve_fixed = np.array([3.2, 3.4, 0.85])
+    eve_fixed = config.eve_pos.copy()
     Z_bob = np.zeros_like(X)
 
     for i in range(grid_res):
@@ -74,13 +72,11 @@ def simulate_fig5(
             bob_cur = np.array([X[i, j], Y[i, j], 0.85])
             h_AB, h_AE, h_JB, h_JE = channel.get_all_channel_gains(bob_cur, eve_fixed)
 
-            dist_to_eve = np.linalg.norm(eve_fixed[:2] - bob_cur[:2])
-            if dist_to_eve < 0.15:
-                Z_bob[i, j] = 0.0
-            else:
-                w_zf = compute_zero_forcing_beamformer(h_JB, h_JE)
-                cs = compute_secrecy_rate(h_AB, h_AE, h_JB, h_JE, w_zf, config)
-                Z_bob[i, j] = min(5.5, max(0.0, cs))
+            w_zf = compute_zero_forcing_beamformer(h_JB, h_JE)
+            cs = compute_secrecy_rate(h_AB, h_AE, h_JB, h_JE, w_zf, config)
+            Z_bob[i, j] = max(0.0, cs)
+
+    save_record(os.path.join(save_dir, "fig5_data.json"), {"metadata": metadata(config, method="Exact Eq. (5) ZF; not trained DRL"), "x": x_vals, "y": y_vals, "eve_surface": Z_eve, "bob_surface": Z_bob})
 
     # ---------------- Plotting Fig 5(a) ----------------
     fig = plt.figure(figsize=(8, 6), dpi=300)
@@ -91,16 +87,18 @@ def simulate_fig5(
     # Add contour at bottom
     ax.contour(X, Y, Z_eve, zdir='z', offset=0.0, cmap=cm.viridis, alpha=0.5)
 
+    z_max = max(float(np.max(Z_eve)), float(np.max(Z_bob)), 1.0) * 1.05
     ax.set_title("(a) Secrecy rate distribution vs. location of Eve\n(Bob fixed at (1.8, 1.6, 0.85) m)", fontsize=11)
     ax.set_xlabel("x (m)", fontsize=10)
     ax.set_ylabel("y (m)", fontsize=10)
     ax.set_zlabel("Secrecy rate (bps/Hz)", fontsize=10)
-    ax.set_zlim(0, 5.5)
+    ax.set_zlim(0, z_max)
     ax.view_init(elev=28, azim=-125)
     fig.colorbar(surf, ax=ax, shrink=0.5, aspect=10, label="bps/Hz")
 
     path_5a = os.path.join(save_dir, "fig5a_secrecy_eve_spatial.png")
     plt.tight_layout()
+    tag_figure(config)
     plt.savefig(path_5a)
     print(f"Saved: {path_5a}")
     if show_plots:
@@ -119,12 +117,13 @@ def simulate_fig5(
     ax.set_xlabel("x (m)", fontsize=10)
     ax.set_ylabel("y (m)", fontsize=10)
     ax.set_zlabel("Secrecy rate (bps/Hz)", fontsize=10)
-    ax.set_zlim(0, 5.5)
+    ax.set_zlim(0, z_max)
     ax.view_init(elev=28, azim=-125)
     fig.colorbar(surf, ax=ax, shrink=0.5, aspect=10, label="bps/Hz")
 
     path_5b = os.path.join(save_dir, "fig5b_secrecy_bob_spatial.png")
     plt.tight_layout()
+    tag_figure(config)
     plt.savefig(path_5b)
     print(f"Saved: {path_5b}")
     if show_plots:
@@ -140,7 +139,7 @@ def simulate_fig5(
     ax1.set_xlabel("x (m)")
     ax1.set_ylabel("y (m)")
     ax1.set_zlabel("Secrecy rate (bps/Hz)")
-    ax1.set_zlim(0, 5.5)
+    ax1.set_zlim(0, z_max)
     ax1.view_init(elev=28, azim=-125)
 
     s2 = ax2.plot_surface(X, Y, Z_bob, cmap=cm.viridis, edgecolor='none', alpha=0.9)
@@ -149,11 +148,12 @@ def simulate_fig5(
     ax2.set_xlabel("x (m)")
     ax2.set_ylabel("y (m)")
     ax2.set_zlabel("Secrecy rate (bps/Hz)")
-    ax2.set_zlim(0, 5.5)
+    ax2.set_zlim(0, z_max)
     ax2.view_init(elev=28, azim=-125)
 
     path_combined = os.path.join(save_dir, "fig5_spatial_distribution.png")
     plt.tight_layout()
+    tag_figure(config)
     plt.savefig(path_combined)
     print(f"Saved: {path_combined}")
     if show_plots:

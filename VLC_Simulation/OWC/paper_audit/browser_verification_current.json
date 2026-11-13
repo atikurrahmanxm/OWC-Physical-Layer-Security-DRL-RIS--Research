@@ -1,0 +1,8 @@
+{
+  "cases": 32,
+  "physics_python_parity": true,
+  "eq4_snr_normalization": true,
+  "actual_python_history_decoding": true,
+  "missing_curves_are_not_fabricated": true,
+  "html_copies_identical": true
+}

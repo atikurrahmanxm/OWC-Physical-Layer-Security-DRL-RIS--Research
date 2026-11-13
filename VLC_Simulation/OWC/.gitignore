@@ -1,0 +1,4 @@
+# Parent repository ignores test_*.*. Keep actual regression tests in version control.
+!tests/
+!tests/test_*.py
+__pycache__/

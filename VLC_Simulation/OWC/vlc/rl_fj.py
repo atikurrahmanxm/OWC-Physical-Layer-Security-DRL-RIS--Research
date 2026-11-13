@@ -19,10 +19,11 @@ class StateDiscretizer:
         self.config = config
         # Bin edges for each state dimension
         self.pe_bins = np.array([0.0, 1e-4, 1e-3, 5e-3, 1e-2, 5e-2, 0.1, 0.3, 0.75])
-        self.cs_bins = np.linspace(0.0, 7.0, 12)
+        self.cs_bins = np.linspace(0.0, 2.*config.symbol_rate_per_hz if config.model == "physical" else 6.0, 25)
         h_nom = 2.7e-5
         self.hab_bins = np.linspace(h_nom * 0.5, h_nom * 1.5, 6)
-        self.e_bins = np.linspace(0.0, 4.0, 9)
+        extent = config.max_jamming_energy
+        self.e_bins = np.linspace(-extent if config.energy_model == "paper_signed" else 0., extent, 17)
 
         self.dims = (
             len(self.pe_bins) + 1,
@@ -57,6 +58,8 @@ class RLFJAgent:
         self.env = env
         self.config = config if config is not None else env.config
         self.num_actions = env.num_actions
+        self.rng = np.random.default_rng(self.config.seed)
+        self.action_history = []
         self.discretizer = StateDiscretizer(self.config)
 
         # Learning hyperparameters
@@ -82,14 +85,14 @@ class RLFJAgent:
 
         best_action = int(np.argmax(q_vals))
 
-        if np.random.rand() > self.epsilon:
+        if self.rng.random() > self.epsilon:
             return best_action
         else:
             # Explore a random alternative action
             other_actions = [a for a in range(self.num_actions) if a != best_action]
             if len(other_actions) == 0:
                 return best_action
-            return int(np.random.choice(other_actions))
+            return int(self.rng.choice(other_actions))
 
     def update(
         self,
@@ -128,9 +131,13 @@ class RLFJAgent:
             "utility": [],
         }
 
+        if num_slots < 1:
+            raise ValueError("num_slots must be positive")
+        self.action_history = []
         state = self.env.reset()
         for k in range(num_slots):
             action_idx = self.select_action(state)
+            self.action_history.append(self.env.action_space[action_idx].tolist())
             next_state, utility, info = self.env.step(action_idx)
             self.update(state, action_idx, utility, next_state)
 

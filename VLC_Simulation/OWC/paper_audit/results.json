@@ -1,0 +1,486 @@
+{
+  "metadata": {
+    "audit_date_ist": "2026-11-12T21:39:42.681879+05:30",
+    "numpy_version": "2.5.4",
+    "torch_version": "2.14.1+cpu",
+    "numpy_seed": 42,
+    "torch_seed": 42,
+    "torch_cpu_threads": 1,
+    "source_sha256": {
+      "vlc\\benchmarks.py": "4759b862c05ff8cf50331d0ab1b4cffca0ef35d3e41ec5e6f060e0b5dc306cd7",
+      "vlc\\bounds.py": "07d4a75267d761969f44baf8808a6437bcba40326998c66251bcbe3c891f8227",
+      "vlc\\channel.py": "9c0d67296365af82e437434eea2ef903544e9c59d50f1d15a9a538d8e80968f9",
+      "vlc\\config.py": "395d62fdcc2cf3afdabb3a30e1410a53b3814a3c001e5a807fdb6f5a638bcc26",
+      "vlc\\drl_fj.py": "b581bf98bcc2f2c1dec623278ca7f996726b319db12007617a0539faa8992f37",
+      "vlc\\environment.py": "39c75fb56ba4b2bbdac2233b04046d85cb67b1922d9e996afa261496ab1c1553",
+      "vlc\\rl_fj.py": "e73ece18e76056ece9345a2bcf941fd641e82ff8676b56c009e4ef9bdb1d5062",
+      "vlc\\secrecy.py": "d185f0b3ab92335bcdba88809e7768c29bdedc94a6d187d1f1c3661eeef0cd03",
+      "vlc\\__init__.py": "338ab877c81dc2905fa3982418e095873a91015d81c27113a4b9f6deb2dd8e3c",
+      "simulations\\run_all.py": "148a4e31c0b74d1b87822585d6794e3b83b8ced674f2df6a1f8d02673c9e1d55",
+      "simulations\\sim_fig4_room3d.py": "993cb363bc39ef8f2971a0afbe4218eddf8e3ffa6c10aece822afaa29f5454ba",
+      "simulations\\sim_fig5_spatial.py": "862321e3772cb472c14eac72ea1f023322c15d7813af1516261207b1d830142b",
+      "simulations\\sim_fig6_convergence.py": "dea0270358bdf6efcc43b2432caadec788f00a06df19b5eccefe96384cb70db4",
+      "simulations\\sim_fig7_snr.py": "dd2514a70a526826b54b975d1144f65c933f4772ec10b68435711003e10ad91f",
+      "simulations\\__init__.py": "d510c9d7b20218968a3aa4226a5fd102258150c62982c370a0c09fca29635aaa",
+      "main.py": "04b5fa60a722e67b38afc3aed660d2222296b95d323f9e30a327b59796a407ea",
+      "run.py": "457c3f628931c8a1fc4278a1acf169b615b3421973ea1036d0139f7a5dea3695",
+      "index.html": "d06fc567fd2cb305e3baaed93ffdf5cd77fe23864d8c54e14498af2ce2410e44",
+      "visualizer.html": "d06fc567fd2cb305e3baaed93ffdf5cd77fe23864d8c54e14498af2ce2410e44",
+      "19 Sep 2024.pdf": "a9d941f77074ea744eeb0e1df6fb15274be9f65fecbf6c58d6f6efa887740b39"
+    },
+    "scope": "Current working-tree source; original output_figures are not overwritten."
+  },
+  "existing_tests": {
+    "run": 21,
+    "failures": 0,
+    "errors": 0,
+    "log": ".....................\n----------------------------------------------------------------------\nRan 21 tests in 0.034s\n\nOK\n"
+  },
+  "default_geometry": {
+    "h_AB": 2.7182657571718358e-05,
+    "h_AE": 2.7182657571718358e-05,
+    "h_JB": [
+      4.275216571052675e-05,
+      1.3765577801489119e-05,
+      1.6849136947234352e-05,
+      7.707210562663787e-06
+    ],
+    "h_JE": [
+      7.707210562663787e-06,
+      1.6849136947234342e-05,
+      1.3765577801489119e-05,
+      4.275216571052675e-05
+    ],
+    "noise_watts": 1.3212956341865711e-13,
+    "snr_db_under_project_definition": 37.47583828436131,
+    "bob_capacity_ceiling_any_beamformer": 1.9086544954886058,
+    "projection_zf": {
+      "w": [
+        -0.3231202272654186,
+        0.2635480585062246,
+        0.14712846371745564,
+        1.0
+      ],
+      "bob_residual": -1.6940658945086007e-21,
+      "eve_amplitude": 4.6727675726001705e-05,
+      "cs": 1.4890286028286064,
+      "ber": 0.0
+    },
+    "box_constrained_zf_counterexample": {
+      "w": [
+        -0.8963738953217839,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "bob_residual": -3.3881317890172014e-21,
+      "eve_amplitude": 6.645833810513008e-05,
+      "cs": 1.6136103641196806
+    },
+    "reported_bound": {
+      "cs": 1.3798881225437083,
+      "ber": 0.0,
+      "utility": 0.8206054463167517,
+      "w": [
+        -0.26057775443015097,
+        0.21253624959098263,
+        0.11865058715980802,
+        0.8064420993864497
+      ],
+      "actual_cs_at_returned_w": 1.3883122502372038,
+      "H_over_h_AE": 1.3862943611198906
+    }
+  },
+  "formula_counterexamples": {
+    "eq14": {
+      "w": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "noise": 1e-10,
+      "effective_channel": -5.389143345019565e-05,
+      "printed_equation_result": 1.0756274996953304e-06,
+      "implementation_result": 0.75
+    },
+    "eq16": {
+      "w": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "printed_signed_sum": -4.0,
+      "implementation_L1": 4.0,
+      "note": "Literal mismatch; negative energy in the printed expression is itself a paper ambiguity, not a recommendation to use signed energy."
+    },
+    "dnd_existing_key": {
+      "old_value": 2.0,
+      "supplied_updated_Q": 4.0,
+      "stored_value": 3.0,
+      "paper_section_IV": "Replace the existing entry by the updated Q-value; implementation averages it again."
+    }
+  },
+  "snr_analytic_checks": [
+    {
+      "snr_db": 4,
+      "noise_watts": 2.9416014330601684e-10,
+      "bob_capacity_ceiling_any_w": 0.0042311251007023706,
+      "maximum_secrecy_over_all_625_actions": 0.0,
+      "zf_cs": 0.0
+    },
+    {
+      "snr_db": 6,
+      "noise_watts": 1.856025028722775e-10,
+      "bob_capacity_ceiling_any_w": 0.006694426883328794,
+      "maximum_secrecy_over_all_625_actions": 0.0,
+      "zf_cs": 0.0
+    },
+    {
+      "snr_db": 8,
+      "noise_watts": 1.1710726234116964e-10,
+      "bob_capacity_ceiling_any_w": 0.010581347752471989,
+      "maximum_secrecy_over_all_625_actions": 0.0,
+      "zf_cs": 0.0
+    },
+    {
+      "snr_db": 10,
+      "noise_watts": 7.388968726612975e-11,
+      "bob_capacity_ceiling_any_w": 0.016699118671944003,
+      "maximum_secrecy_over_all_625_actions": 0.0,
+      "zf_cs": 0.0
+    },
+    {
+      "snr_db": 12,
+      "noise_watts": 4.662124086190918e-11,
+      "bob_capacity_ceiling_any_w": 0.026290088202877995,
+      "maximum_secrecy_over_all_625_actions": 0.0,
+      "zf_cs": 0.0
+    },
+    {
+      "snr_db": 14,
+      "noise_watts": 2.941601433060169e-11,
+      "bob_capacity_ceiling_any_w": 0.04123426949241839,
+      "maximum_secrecy_over_all_625_actions": 0.0,
+      "zf_cs": 0.0
+    },
+    {
+      "snr_db": 16,
+      "noise_watts": 1.8560250287227744e-11,
+      "bob_capacity_ceiling_any_w": 0.06430272110339014,
+      "maximum_secrecy_over_all_625_actions": 0.0,
+      "zf_cs": 0.0
+    },
+    {
+      "snr_db": 18,
+      "noise_watts": 1.1710726234116964e-11,
+      "bob_capacity_ceiling_any_w": 0.09941665048068682,
+      "maximum_secrecy_over_all_625_actions": 0.0,
+      "zf_cs": 0.0
+    },
+    {
+      "snr_db": 20,
+      "noise_watts": 7.388968726612975e-12,
+      "bob_capacity_ceiling_any_w": 0.15178770597521135,
+      "maximum_secrecy_over_all_625_actions": 0.0,
+      "zf_cs": 0.0
+    }
+  ],
+  "training_runs": [
+    {
+      "phase": "fig6",
+      "scheme": "RL-FJ",
+      "slots": 2000,
+      "noise": null,
+      "mean_all_slots": {
+        "secrecy_rate": 0.2432456812295228,
+        "ber": 0.4567294145248346,
+        "energy": 2.547,
+        "utility": -2.3741072696073986
+      },
+      "mean_last_100": {
+        "secrecy_rate": 0.44634626626356444,
+        "ber": 0.3387610539192738,
+        "energy": 2.22,
+        "utility": -1.6273174224538942
+      },
+      "raw_at_slots": {
+        "1200": {
+          "secrecy_rate": 0.0,
+          "ber": 0.75,
+          "energy": 3.0,
+          "utility": -3.825
+        },
+        "1400": {
+          "secrecy_rate": 0.0,
+          "ber": 0.75,
+          "energy": 4.0,
+          "utility": -4.225
+        },
+        "1700": {
+          "secrecy_rate": 1.2375806238263163,
+          "ber": 0.0,
+          "energy": 2.0,
+          "utility": 0.43758062382631624
+        },
+        "1800": {
+          "secrecy_rate": 0.0,
+          "ber": 0.75,
+          "energy": 3.0,
+          "utility": -3.825
+        },
+        "2000": {
+          "secrecy_rate": 0.0,
+          "ber": 0.75,
+          "energy": 2.5,
+          "utility": -3.625
+        }
+      },
+      "EMA50_at_slots": {
+        "1200": {
+          "secrecy_rate": 0.367362746223849,
+          "ber": 0.42761429313497834,
+          "energy": 2.490464860538371,
+          "utility": -2.1254732239639225
+        },
+        "1400": {
+          "secrecy_rate": 0.1936867975382598,
+          "ber": 0.40575675397203215,
+          "energy": 2.5415922408245057,
+          "utility": -2.243098737693653
+        },
+        "1700": {
+          "secrecy_rate": 0.36434987559612064,
+          "ber": 0.3240639552750027,
+          "energy": 2.4167556107199366,
+          "utility": -1.7365762121543626
+        },
+        "1800": {
+          "secrecy_rate": 0.3327934324593455,
+          "ber": 0.33053834070557714,
+          "energy": 2.619036247548418,
+          "utility": -1.871705259029541
+        },
+        "2000": {
+          "secrecy_rate": 0.38561721376612224,
+          "ber": 0.34098491374964507,
+          "energy": 2.219804040598536,
+          "utility": -1.695751600597049
+        }
+      },
+      "seconds": 0.7212806999959867
+    },
+    {
+      "phase": "fig6",
+      "scheme": "DRL-FJ",
+      "slots": 2000,
+      "noise": null,
+      "mean_all_slots": {
+        "secrecy_rate": 1.0699241942985882,
+        "ber": 0.05725828287290875,
+        "energy": 2.0725,
+        "utility": 0.04052020424340725
+      },
+      "mean_last_100": {
+        "secrecy_rate": 1.2004532051115269,
+        "ber": 0.0075,
+        "energy": 2.005,
+        "utility": 0.37220320511152677
+      },
+      "raw_at_slots": {
+        "1200": {
+          "secrecy_rate": 1.2375806238263163,
+          "ber": 0.0,
+          "energy": 2.0,
+          "utility": 0.43758062382631624
+        },
+        "1400": {
+          "secrecy_rate": 1.2375806238263163,
+          "ber": 0.0,
+          "energy": 2.0,
+          "utility": 0.43758062382631624
+        },
+        "1700": {
+          "secrecy_rate": 1.2375806238263163,
+          "ber": 0.0,
+          "energy": 2.0,
+          "utility": 0.43758062382631624
+        },
+        "1800": {
+          "secrecy_rate": 1.2375806238263163,
+          "ber": 0.0,
+          "energy": 2.0,
+          "utility": 0.43758062382631624
+        },
+        "2000": {
+          "secrecy_rate": 1.2375806238263163,
+          "ber": 0.0,
+          "energy": 2.0,
+          "utility": 0.43758062382631624
+        }
+      },
+      "EMA50_at_slots": {
+        "1200": {
+          "secrecy_rate": 1.2321172225954147,
+          "ber": 0.003243312630403108,
+          "energy": 2.00019664147396,
+          "utility": 0.42068697179941894
+        },
+        "1400": {
+          "secrecy_rate": 1.2231167030930932,
+          "ber": 1.086849974338201e-06,
+          "energy": 2.004013134504316,
+          "utility": 0.42150764531645546
+        },
+        "1700": {
+          "secrecy_rate": 1.231446219180432,
+          "ber": 5.2894919281776785e-05,
+          "energy": 2.003659664239601,
+          "utility": 0.4297972212671041
+        },
+        "1800": {
+          "secrecy_rate": 1.2358493718002126,
+          "ber": 9.682875588035368e-07,
+          "energy": 1.9994129121536557,
+          "utility": 0.4360808179322924
+        },
+        "2000": {
+          "secrecy_rate": 1.192931620493712,
+          "ber": 0.004310865811061808,
+          "energy": 1.991807125230007,
+          "utility": 0.38112074006299207
+        }
+      },
+      "CNN_parameter_delta_L2": 0.13511042296886444,
+      "DND_entries": 900,
+      "seconds": 61.90521009999793
+    },
+    {
+      "phase": "fig7",
+      "scheme": "DRL-FJ",
+      "slots": 2000,
+      "noise": 2.9416014330601684e-10,
+      "mean_all_slots": {
+        "secrecy_rate": 0.0,
+        "ber": 0.10743653137113604,
+        "energy": 1.19975,
+        "utility": -0.8559278597989761
+      },
+      "mean_last_100": {
+        "secrecy_rate": 0.0,
+        "ber": 0.01596009845839859,
+        "energy": 0.545,
+        "utility": -0.273860344604395
+      },
+      "raw_at_slots": {
+        "1200": {
+          "secrecy_rate": 0.0,
+          "ber": 0.00849802019109083,
+          "energy": 0.5,
+          "utility": -0.2297430706688179
+        },
+        "1400": {
+          "secrecy_rate": 0.0,
+          "ber": 0.00849802019109083,
+          "energy": 0.5,
+          "utility": -0.2297430706688179
+        },
+        "1700": {
+          "secrecy_rate": 0.0,
+          "ber": 0.00849802019109083,
+          "energy": 0.5,
+          "utility": -0.2297430706688179
+        },
+        "1800": {
+          "secrecy_rate": 0.0,
+          "ber": 0.00849802019109083,
+          "energy": 0.5,
+          "utility": -0.2297430706688179
+        },
+        "2000": {
+          "secrecy_rate": 0.0,
+          "ber": 0.00849802019109083,
+          "energy": 0.5,
+          "utility": -0.2297430706688179
+        }
+      },
+      "CNN_parameter_delta_L2": 0.7783752679824829,
+      "DND_entries": 1566,
+      "seconds": 124.85539980000613
+    },
+    {
+      "phase": "fig7",
+      "scheme": "RL-FJ",
+      "slots": 2000,
+      "noise": 2.9416014330601684e-10,
+      "mean_all_slots": {
+        "secrecy_rate": 0.0,
+        "ber": 0.6233806750258559,
+        "energy": 2.65,
+        "utility": -3.241832362590496
+      },
+      "mean_last_100": {
+        "secrecy_rate": 0.0,
+        "ber": 0.5320799378065234,
+        "energy": 2.42,
+        "utility": -2.8302797823228314
+      },
+      "raw_at_slots": {
+        "1200": {
+          "secrecy_rate": 0.0,
+          "ber": 0.4207560406668227,
+          "energy": 2.0,
+          "utility": -2.2726461423338797
+        },
+        "1400": {
+          "secrecy_rate": 0.0,
+          "ber": 0.056387577423689966,
+          "energy": 2.5,
+          "utility": -1.197356520982915
+        },
+        "1700": {
+          "secrecy_rate": 0.0,
+          "ber": 0.75,
+          "energy": 1.0,
+          "utility": -3.025
+        },
+        "1800": {
+          "secrecy_rate": 0.0,
+          "ber": 0.24410417684716948,
+          "energy": 3.0,
+          "utility": -2.0543646189650935
+        },
+        "2000": {
+          "secrecy_rate": 0.0,
+          "ber": 0.024543544821163304,
+          "energy": 1.0,
+          "utility": -0.4859024068740716
+        }
+      },
+      "seconds": 0.49540170000545913
+    }
+  ],
+  "source_unchanged": true,
+  "verification_scope": {
+    "python_fig6_training_slots_per_agent": 2000,
+    "python_fig7_exhaustive_actions_per_snr": 625,
+    "python_fig7_snr_points": 9,
+    "python_fig7_full_training_completed": false,
+    "browser_check_command": "node paper_audit/check_browser_match.js",
+    "png_writes_suppressed": true,
+    "note": "Both 2000-slot agents completed at 4 dB before the optional full Python Figure 7 training sweep was stopped. Other training points were not completed. Every one of the nine SNR points was separately checked exhaustively over all 625 allowed actions.",
+    "python_fig7_training_points_completed": [
+      4
+    ]
+  },
+  "ordinary_domain_equation_checks": {
+    "seed": 2026,
+    "random_geometries": 100,
+    "eq1_max_abs_error_including_4_LED_aggregation": 2.710505431213761e-20,
+    "eq4_max_abs_error_with_nonnegative_rate_clipping": 0.0,
+    "eq14_positive_effective_channel_cases": 79,
+    "eq14_positive_effective_channel_max_abs_error": 0.0,
+    "note": "These establish ordinary-domain expression agreement, not published-result reproduction or proof correctness."
+  }
+}

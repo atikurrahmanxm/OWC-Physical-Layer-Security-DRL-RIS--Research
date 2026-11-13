@@ -23,26 +23,33 @@ import matplotlib.pyplot as plt
 
 from vlc.config import VLCConfig
 from vlc.environment import VLCEnvironment
-from vlc.bounds import compute_zero_forcing_beamformer
-from vlc.secrecy import (
-    compute_secrecy_rate,
-    compute_bob_ber,
-    compute_energy_consumption,
-    compute_system_utility,
-)
+from vlc.rl_fj import RLFJAgent
+from vlc.drl_fj import DRLFJAgent
+from vlc.benchmarks import BenchmarkRunner
+from vlc.experiments import metadata, save_record, diagnose_operating_point, tag_figure
+import torch
 
 
 def simulate_fig7(
     snr_points: Optional = None,
+    num_slots: int = 2000,
     save_dir: str = "output_figures",
     show_plots: bool = False,
+    config=None,
+    seed: int = 42,
 ):
     os.makedirs(save_dir, exist_ok=True)
     if snr_points is None:
         snr_points = np.arange(4, 22, 2)  # [4, 6, 8, 10, 12, 14, 16, 18, 20] dB
 
-    config = VLCConfig()
-    print(f"Running Figure 7 SNR Sweep across {[int(x) for x in snr_points]} dB...")
+    config = config or VLCConfig(seed=seed)
+    torch.set_num_threads(1)
+    torch.manual_seed(config.seed)
+    np.random.seed(config.seed)
+    if num_slots < 1 or len(snr_points) == 0:
+        raise ValueError("num_slots and SNR points must be nonempty")
+    records = []
+    print(f"Running Figure 7 SNR Sweep across {[int(x) for x in snr_points]} dB (avg over {num_slots} slots)...")
 
     # Data arrays for each scheme
     drl_cs, drl_pe, drl_u = [], [], []
@@ -51,62 +58,67 @@ def simulate_fig7(
     rob_cs, rob_pe, rob_u = [], [], []
 
     for snr_db in snr_points:
-        # Convert SNR (dB) to effective noise variance
-        # SNR_lin = (P_T * h_AB^2) / sigma_B^2
-        # => sigma_B^2 = (P_T * h_AB^2) / 10^(snr_db / 10)
-        env = VLCEnvironment(config=config)
-        h_AB, h_AE, h_JB, h_JE = env.h_AB, env.h_AE, env.h_JB, env.h_JE
-        P_T = config.led_avg_power
+        print(f"Training actual agents at {snr_db:g} dB ({config.snr_definition})...", flush=True)
+        # Convert the explicitly selected SNR convention to noise variance.
+        env_base = VLCEnvironment(config=config)
+        h_AB = env_base.h_AB
+        sigma_sq = config.noise_variance_from_snr(h_AB, float(snr_db))
 
-        snr_lin = 10.0 ** (snr_db / 10.0)
-        sigma_sq = (P_T * (h_AB ** 2)) / max(1e-12, snr_lin)
+        # 1. Proposed DRL-FJ (Algorithm 2): average over num_slots
+        env_drl = VLCEnvironment(config=config, sigma_B_sq=sigma_sq)
+        drl_agent = DRLFJAgent(env_drl, config)
+        hist_drl = drl_agent.train(num_slots=num_slots)
+        drl_cs.append(float(np.mean(hist_drl["secrecy_rate"])))
+        drl_pe.append(float(np.mean(hist_drl["ber"])))
+        drl_u.append(float(np.mean(hist_drl["utility"])))
 
-        # 1. DRL-FJ: reaches optimal beamformer near H*
-        w_drl = compute_zero_forcing_beamformer(h_JB, h_JE)
-        cs_d = compute_secrecy_rate(h_AB, h_AE, h_JB, h_JE, w_drl, config, sigma_B_sq=sigma_sq)
-        # Apply paper scaling: at 4 dB ~1.75, at 12 dB ~3.23, at 20 dB ~4.40
-        cs_d = 1.75 + (4.40 - 1.75) * ((snr_db - 4.0) / 16.0)
-        pe_d = compute_bob_ber(h_AB, h_JB, w_drl, config, sigma_B_sq=sigma_sq)
-        pe_d = float(np.clip(pe_d, 1.2e-4, 0.08))
-        e_d = compute_energy_consumption(w_drl, config) * 0.75
-        u_d = 0.55 + (4.10 - 0.55) * ((snr_db - 4.0) / 16.0)
+        # 2. Proposed RL-FJ (Algorithm 1): average over num_slots
+        env_rl = VLCEnvironment(config=config, sigma_B_sq=sigma_sq)
+        rl_agent = RLFJAgent(env_rl, config)
+        hist_rl = rl_agent.train(num_slots=num_slots)
+        rl_cs.append(float(np.mean(hist_rl["secrecy_rate"])))
+        rl_pe.append(float(np.mean(hist_rl["ber"])))
+        rl_u.append(float(np.mean(hist_rl["utility"])))
 
-        drl_cs.append(cs_d)
-        drl_pe.append(pe_d)
-        drl_u.append(u_d)
+        # 3 & 4. Benchmarks (Scaled ZF (custom) and Robust Beamforming) evaluated physically
+        runner = BenchmarkRunner(VLCEnvironment(config=config, sigma_B_sq=sigma_sq), config)
+        hist_sbj = runner.run_scaled_zf(num_slots=num_slots)
+        hist_rob = runner.run_regularized(num_slots=num_slots)
 
-        # 2. RL-FJ: slightly lower rate and utility than DRL-FJ (4.6% to 10% lower)
-        cs_r = cs_d / 1.10  # 10% lower at 12 dB (paper page 11)
-        pe_r = float(np.clip(pe_d * 8.0, 5e-4, 0.15))
-        u_r = u_d / 1.247   # 24.7% lower at 12 dB (paper page 11)
+        sbj_cs.append(float(np.mean(hist_sbj["secrecy_rate"])))
+        sbj_pe.append(float(np.mean(hist_sbj["ber"])))
+        sbj_u.append(float(np.mean(hist_sbj["utility"])))
 
-        rl_cs.append(cs_r)
-        rl_pe.append(pe_r)
-        rl_u.append(u_r)
+        rob_cs.append(float(np.mean(hist_rob["secrecy_rate"])))
+        rob_pe.append(float(np.mean(hist_rob["ber"])))
+        rob_u.append(float(np.mean(hist_rob["utility"])))
 
-        # 3. SBJ-VLC: intermediate fixed optimization
-        cs_s = cs_r / 1.046  # 4.6% lower than RL-FJ
-        pe_s = float(np.clip(pe_r * 4.5, 2.5e-3, 0.25))
-        u_s = u_r / 1.078    # 7.8% lower than RL-FJ
+        records.append({"snr_db": float(snr_db), "sigma_B_sq": sigma_sq,
+                        "histories": {"rl": hist_rl, "drl": hist_drl,
+                                      "custom_scaled_zf": hist_sbj, "custom_regularized": hist_rob},
+                        "actions": {"rl": rl_agent.action_history, "drl": drl_agent.action_history},
+                        "operating_point": diagnose_operating_point(env_drl)})
 
-        sbj_cs.append(cs_s)
-        sbj_pe.append(pe_s)
-        sbj_u.append(u_s)
+    save_record(os.path.join(save_dir, "fig7_data.json"), {
+        "metadata": metadata(config, slots=num_slots, aggregation="mean of every slot, including exploration"), "points": records})
+    cs_all = np.concatenate([drl_cs, rl_cs, sbj_cs, rob_cs])
+    u_all = np.concatenate([drl_u, rl_u, sbj_u, rob_u])
+    cs_ymin = max(0.0, float(np.min(cs_all)) - 0.15)
+    cs_ymax = max(cs_ymin + 0.5, float(np.max(cs_all)) + 0.25)
+    u_ymin = float(np.min(u_all)) - 0.25
+    u_ymax = max(u_ymin + 0.5, float(np.max(u_all)) + 0.25)
 
-        # 4. Robust beamforming: conservative baseline
-        cs_b = cs_r / 1.20   # 20% lower than RL-FJ (paper page 11)
-        pe_b = float(np.clip(pe_s * 3.5, 1.0e-2, 0.35))
-        u_b = u_r / 1.621    # 62.1% lower than RL-FJ (paper page 11)
-
-        rob_cs.append(cs_b)
-        rob_pe.append(pe_b)
-        rob_u.append(u_b)
+    ber_floor = 1e-12
+    drl_pe_p = np.maximum(drl_pe, ber_floor)
+    rl_pe_p = np.maximum(rl_pe, ber_floor)
+    sbj_pe_p = np.maximum(sbj_pe, ber_floor)
+    rob_pe_p = np.maximum(rob_pe, ber_floor)
 
     # Styling identical to Fig. 7
     style_drl = {"color": "red", "ls": "-", "marker": "s", "label": "Proposed DRL-FJ"}
     style_rl = {"color": "blue", "ls": "-", "marker": "^", "label": "Proposed RL-FJ"}
-    style_sbj = {"color": "green", "ls": "-", "marker": "o", "label": "SBJ-VLC"}
-    style_rob = {"color": "black", "ls": "-", "marker": "x", "label": "Robust beamforming"}
+    style_sbj = {"color": "green", "ls": "-", "marker": "o", "label": "Scaled ZF (custom)"}
+    style_rob = {"color": "black", "ls": "-", "marker": "x", "label": "Regularized BF (custom)"}
 
     # ---------------- Fig 7(a): Secrecy Rate vs SNR ----------------
     plt.figure(figsize=(7, 5), dpi=300)
@@ -119,11 +131,12 @@ def simulate_fig7(
     plt.title("(a) Secrecy rate of the VLC system", fontsize=12)
     plt.xticks(snr_points)
     plt.xlim(4, 20)
-    plt.ylim(1.0, 4.5)
+    plt.ylim(cs_ymin, cs_ymax)
     plt.grid(True, linestyle=":", alpha=0.6)
     plt.legend(loc="upper left", fontsize=8.5, framealpha=0.9)
     plt.tight_layout()
     path_7a = os.path.join(save_dir, "fig7a_secrecy_rate_snr.png")
+    tag_figure(config)
     plt.savefig(path_7a)
     print(f"Saved: {path_7a}")
     if show_plots:
@@ -132,21 +145,21 @@ def simulate_fig7(
 
     # ---------------- Fig 7(b): BER vs SNR ----------------
     plt.figure(figsize=(7, 5), dpi=300)
-    plt.plot(snr_points, drl_pe, **style_drl)
-    plt.plot(snr_points, rl_pe, **style_rl)
-    plt.plot(snr_points, sbj_pe, **style_sbj)
-    plt.plot(snr_points, rob_pe, **style_rob)
+    plt.plot(snr_points, drl_pe_p, **style_drl)
+    plt.plot(snr_points, rl_pe_p, **style_rl)
+    plt.plot(snr_points, sbj_pe_p, **style_sbj)
+    plt.plot(snr_points, rob_pe_p, **style_rob)
     plt.yscale("log")
     plt.xlabel("SNR (dB)", fontsize=11)
     plt.ylabel("BER", fontsize=11)
     plt.title("(b) BER of the legitimate receiver Bob", fontsize=12)
     plt.xticks(snr_points)
     plt.xlim(4, 20)
-    plt.ylim(1e-4, 1e-1)
     plt.grid(True, which="both", linestyle=":", alpha=0.6)
     plt.legend(loc="lower left", fontsize=8.5, framealpha=0.9)
     plt.tight_layout()
     path_7b = os.path.join(save_dir, "fig7b_ber_snr.png")
+    tag_figure(config)
     plt.savefig(path_7b)
     print(f"Saved: {path_7b}")
     if show_plots:
@@ -164,11 +177,12 @@ def simulate_fig7(
     plt.title("(c) Utility of the VLC system", fontsize=12)
     plt.xticks(snr_points)
     plt.xlim(4, 20)
-    plt.ylim(-0.5, 4.2)
+    plt.ylim(u_ymin, u_ymax)
     plt.grid(True, linestyle=":", alpha=0.6)
     plt.legend(loc="upper left", fontsize=8.5, framealpha=0.9)
     plt.tight_layout()
     path_7c = os.path.join(save_dir, "fig7c_utility_snr.png")
+    tag_figure(config)
     plt.savefig(path_7c)
     print(f"Saved: {path_7c}")
     if show_plots:
@@ -188,22 +202,21 @@ def simulate_fig7(
     ax1.set_title("(a) Secrecy rate of the VLC system")
     ax1.set_xticks(snr_points)
     ax1.set_xlim(4, 20)
-    ax1.set_ylim(1.0, 4.5)
+    ax1.set_ylim(cs_ymin, cs_ymax)
     ax1.grid(True, linestyle=":", alpha=0.6)
     ax1.legend(loc="upper left", fontsize=8, framealpha=0.9)
 
     # (b)
-    ax2.plot(snr_points, drl_pe, **style_drl)
-    ax2.plot(snr_points, rl_pe, **style_rl)
-    ax2.plot(snr_points, sbj_pe, **style_sbj)
-    ax2.plot(snr_points, rob_pe, **style_rob)
+    ax2.plot(snr_points, drl_pe_p, **style_drl)
+    ax2.plot(snr_points, rl_pe_p, **style_rl)
+    ax2.plot(snr_points, sbj_pe_p, **style_sbj)
+    ax2.plot(snr_points, rob_pe_p, **style_rob)
     ax2.set_yscale("log")
     ax2.set_xlabel("SNR (dB)")
     ax2.set_ylabel("BER")
     ax2.set_title("(b) BER of the legitimate receiver Bob")
     ax2.set_xticks(snr_points)
     ax2.set_xlim(4, 20)
-    ax2.set_ylim(1e-4, 1e-1)
     ax2.grid(True, which="both", linestyle=":", alpha=0.6)
     ax2.legend(loc="lower left", fontsize=8, framealpha=0.9)
 
@@ -217,12 +230,13 @@ def simulate_fig7(
     ax3.set_title("(c) Utility of the VLC system")
     ax3.set_xticks(snr_points)
     ax3.set_xlim(4, 20)
-    ax3.set_ylim(-0.5, 4.2)
+    ax3.set_ylim(u_ymin, u_ymax)
     ax3.grid(True, linestyle=":", alpha=0.6)
     ax3.legend(loc="upper left", fontsize=8, framealpha=0.9)
 
     plt.tight_layout()
     path_combined = os.path.join(save_dir, "fig7_snr_performance.png")
+    tag_figure(config)
     plt.savefig(path_combined)
     print(f"Saved: {path_combined}")
     if show_plots:

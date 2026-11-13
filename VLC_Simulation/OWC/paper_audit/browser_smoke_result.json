@@ -1,0 +1,16 @@
+{
+  "initial": {
+    "title": "VLC friendly jamming: Python simulation",
+    "rate": "1.61",
+    "status": "ZF physics is live. Train to display actual Python learning results. Published-curve reproduction is unverified.",
+    "energy": "l1",
+    "snr": "eq4",
+    "pending": true
+  },
+  "js_errors": [],
+  "figure_tabs": true,
+  "snr_preset_override": true,
+  "math_panel": true,
+  "defaults_and_energy_labels": true,
+  "scope": "Live UI navigation and physics; real-agent API parity tested in Python regressions."
+}

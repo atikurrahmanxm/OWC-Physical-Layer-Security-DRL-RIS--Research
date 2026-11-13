@@ -1,0 +1,295 @@
+{
+  "physical_consistency_passed": true,
+  "paper_reproduction_verified": false,
+  "model_interpretation": {
+    "noise_variance_unit": "A^2",
+    "information_input": "Equiprobable Gray 4-PAM, peak alpha*I_D",
+    "jamming_input": "Independent shared uniform scalar U[-alpha*I_D, alpha*I_D], beam weights w",
+    "rate": "Positive part of I(X;Y_B)-I(X;Y_E), multiplied by symbol_rate_per_hz",
+    "BER": "Exact Gray-label midpoint decision errors under the same uniform-plus-AWGN PDF",
+    "energy_unit": "J, incremental AC driver energy; excludes DC illumination, circuitry and amplifier efficiency",
+    "noise_conversion": "P_noise[W]/receiver_resistance[ohm] = sampled current variance[A^2]",
+    "assumptions": "1-ohm receiver/driver loads, 1-second slots, equal Bob/Eve AWGN, 1 symbol/s/Hz unless configured",
+    "paper_equations_reproduced": false
+  },
+  "figure6": {
+    "observations_replayed": 4000,
+    "maximum_absolute_errors": {
+      "secrecy_rate": 0.0,
+      "ber": 0.0,
+      "energy": 0.0,
+      "utility": 0.0
+    },
+    "rate_upper": 1.9620138143135872,
+    "ber_lower": 0.004754047004574064,
+    "mean_metrics": {
+      "rl": {
+        "secrecy_rate": 0.41200356902650553,
+        "ber": 0.2454410549002056,
+        "energy": 0.007516250000000001,
+        "utility": -0.450046623124214
+      },
+      "drl": {
+        "secrecy_rate": 1.3495919959700609,
+        "ber": 0.016457393374694086,
+        "energy": 0.00749041666666667,
+        "utility": 1.2889949524919653
+      }
+    }
+  },
+  "figure7": [
+    {
+      "snr_db": 4.0,
+      "observations_replayed": 4000,
+      "maximum_absolute_errors": {
+        "secrecy_rate": 0.0,
+        "ber": 0.0,
+        "energy": 0.0,
+        "utility": 0.0
+      },
+      "rate_upper": 0.8758656935269995,
+      "ber_lower": 0.18734067402882704,
+      "mean_metrics": {
+        "rl": {
+          "secrecy_rate": 0.049224728983355115,
+          "ber": 0.36293221243501694,
+          "energy": 0.008220833333333335,
+          "utility": -1.2243263478725375
+        },
+        "drl": {
+          "secrecy_rate": 0.46143030248735517,
+          "ber": 0.2288338188458718,
+          "energy": 0.01023291666666667,
+          "utility": -0.3435812301398627
+        }
+      }
+    },
+    {
+      "snr_db": 6.0,
+      "observations_replayed": 4000,
+      "maximum_absolute_errors": {
+        "secrecy_rate": 0.0,
+        "ber": 0.0,
+        "energy": 0.0,
+        "utility": 0.0
+      },
+      "rate_upper": 1.1018167749128676,
+      "ber_lower": 0.14141168123805828,
+      "mean_metrics": {
+        "rl": {
+          "secrecy_rate": 0.36150113230401626,
+          "ber": 0.27179905032619717,
+          "energy": 0.009560000000000003,
+          "utility": -0.5936195438376738
+        },
+        "drl": {
+          "secrecy_rate": 0.804728781655096,
+          "ber": 0.15314672372862254,
+          "energy": 0.013074583333333337,
+          "utility": 0.2634854152715835
+        }
+      }
+    },
+    {
+      "snr_db": 8.0,
+      "observations_replayed": 4000,
+      "maximum_absolute_errors": {
+        "secrecy_rate": 0.0,
+        "ber": 0.0,
+        "energy": 0.0,
+        "utility": 0.0
+      },
+      "rate_upper": 1.3418680012794355,
+      "ber_lower": 0.09817076805653135,
+      "mean_metrics": {
+        "rl": {
+          "secrecy_rate": 0.4320124694758219,
+          "ber": 0.23846584265390505,
+          "energy": 0.008922500000000002,
+          "utility": -0.40618697981284574
+        },
+        "drl": {
+          "secrecy_rate": 0.8439442473253573,
+          "ber": 0.10731246266360066,
+          "energy": 0.00749041666666667,
+          "utility": 0.4653544613360879
+        }
+      }
+    },
+    {
+      "snr_db": 10.0,
+      "observations_replayed": 4000,
+      "maximum_absolute_errors": {
+        "secrecy_rate": 0.0,
+        "ber": 0.0,
+        "energy": 0.0,
+        "utility": 0.0
+      },
+      "rate_upper": 1.5819715940253443,
+      "ber_lower": 0.05899272453837226,
+      "mean_metrics": {
+        "rl": {
+          "secrecy_rate": 0.3534030637190881,
+          "ber": 0.25518540261827477,
+          "energy": 0.007528333333333334,
+          "utility": -0.5427571787782067
+        },
+        "drl": {
+          "secrecy_rate": 1.0372938924124833,
+          "ber": 0.07006055997017561,
+          "energy": 0.00749041666666667,
+          "utility": 0.7890857658502021
+        }
+      }
+    },
+    {
+      "snr_db": 12.0,
+      "observations_replayed": 4000,
+      "maximum_absolute_errors": {
+        "secrecy_rate": 0.0,
+        "ber": 0.0,
+        "energy": 0.0,
+        "utility": 0.0
+      },
+      "rate_upper": 1.7897028395133407,
+      "ber_lower": 0.028129619356549833,
+      "mean_metrics": {
+        "rl": {
+          "secrecy_rate": 0.3663468585211499,
+          "ber": 0.24353327045783257,
+          "energy": 0.007097916666666667,
+          "utility": -0.48885875474793067
+        },
+        "drl": {
+          "secrecy_rate": 1.2065714187342687,
+          "ber": 0.0404556152400457,
+          "energy": 0.00749041666666667,
+          "utility": 1.0619805987274422
+        }
+      }
+    },
+    {
+      "snr_db": 14.0,
+      "observations_replayed": 4000,
+      "maximum_absolute_errors": {
+        "secrecy_rate": 0.0,
+        "ber": 0.0,
+        "energy": 0.0,
+        "utility": 0.0
+      },
+      "rate_upper": 1.9265119055288897,
+      "ber_lower": 0.009375613534969216,
+      "mean_metrics": {
+        "rl": {
+          "secrecy_rate": 0.40041064089069023,
+          "ber": 0.23790917316290167,
+          "energy": 0.007105833333333335,
+          "utility": -0.4351137985127989
+        },
+        "drl": {
+          "secrecy_rate": 1.31976765957475,
+          "ber": 0.021577987574583544,
+          "energy": 0.00749041666666667,
+          "utility": 1.241248536397041
+        }
+      }
+    },
+    {
+      "snr_db": 16.0,
+      "observations_replayed": 4000,
+      "maximum_absolute_errors": {
+        "secrecy_rate": 0.0,
+        "ber": 0.0,
+        "energy": 0.0,
+        "utility": 0.0
+      },
+      "rate_upper": 1.9853957011621897,
+      "ber_lower": 0.0017912180856996078,
+      "mean_metrics": {
+        "rl": {
+          "secrecy_rate": 0.44867001761125797,
+          "ber": 0.235905643908848,
+          "energy": 0.007637083333333335,
+          "utility": -0.3800545694030433
+        },
+        "drl": {
+          "secrecy_rate": 1.3689698599352127,
+          "ber": 0.012766610916564964,
+          "energy": 0.00749041666666667,
+          "utility": 1.3212905550605687
+        }
+      }
+    },
+    {
+      "snr_db": 18.0,
+      "observations_replayed": 4000,
+      "maximum_absolute_errors": {
+        "secrecy_rate": 0.0,
+        "ber": 0.0,
+        "energy": 0.0,
+        "utility": 0.0
+      },
+      "rate_upper": 1.9987956479425724,
+      "ber_lower": 0.00014318083055699473,
+      "mean_metrics": {
+        "rl": {
+          "secrecy_rate": 0.5289214383556157,
+          "ber": 0.2207875444629761,
+          "energy": 0.008138750000000002,
+          "utility": -0.2470904672648006
+        },
+        "drl": {
+          "secrecy_rate": 1.3761914280167264,
+          "ber": 0.010060058472411093,
+          "energy": 0.00749041666666667,
+          "utility": 1.3379850566966212
+        }
+      }
+    },
+    {
+      "snr_db": 20.0,
+      "observations_replayed": 4000,
+      "maximum_absolute_errors": {
+        "secrecy_rate": 0.0,
+        "ber": 0.0,
+        "energy": 0.0,
+        "utility": 0.0
+      },
+      "rate_upper": 1.9999749925851993,
+      "ber_lower": 2.904081161641539e-06,
+      "mean_metrics": {
+        "rl": {
+          "secrecy_rate": 0.4349885802001021,
+          "ber": 0.21958958740822368,
+          "energy": 0.007449583333333335,
+          "utility": -0.3365548090620142
+        },
+        "drl": {
+          "secrecy_rate": 1.3687591391841296,
+          "ber": 0.009579768002670169,
+          "energy": 0.00749041666666667,
+          "utility": 1.3322337845081178
+        }
+      }
+    }
+  ],
+  "drl_checkpoints": {
+    "rate_slot1400_raw": 1.390719583081408,
+    "rate_slot1400_EMA50": 1.3903282388722817,
+    "ber_slot1200_raw": 0.007032493346108225,
+    "ber_slot1200_EMA50": 0.00790268211757819
+  },
+  "source_sha256": {
+    "vlc\\benchmarks.py": "1cb0048f1fedffab45f578c0c33143ce7c09ee8888874c2f686e73893a281a75",
+    "vlc\\bounds.py": "bb62eab031b405eb166e5ea9b995343cbc17684e1926e1991a8efc4a22e50580",
+    "vlc\\channel.py": "01f0d84e1257dada697927b9765588166df750e3a0d272f6af3bfa4e62dfc2ef",
+    "vlc\\config.py": "95873ea00ecd3a8df9b09df20c28ea30dce106379cefa4add7b3dac2eb534104",
+    "vlc\\drl_fj.py": "b34f93ed19b8a0c3b352e2ade8fa6ae957a2a47542a44c55e629e9f9a5339a3c",
+    "vlc\\environment.py": "a326c1241b9b2399e806f80e32b885ecf3d64e24b102255897824b2aa9c6202f",
+    "vlc\\experiments.py": "8db24b907ca6da560691f66ac1c9eef1ecab11932b5a595fbf89c72858425029",
+    "vlc\\physical.py": "dc29ec5f39ebed2853c2253d511bf4e42d6ce5c56262aee4b87badfa74eae5c6",
+    "vlc\\rl_fj.py": "93937a0fec9f1b43f6caa577bf80babc956647413eb0f8addfd6792d059fa268",
+    "vlc\\secrecy.py": "c47e5e95418b802429c647b61e7fb3e7bf570f78e3fd49a73f477dd174424d2b",
+    "vlc\\__init__.py": "338ab877c81dc2905fa3982418e095873a91015d81c27113a4b9f6deb2dd8e3c"
+  }
+}

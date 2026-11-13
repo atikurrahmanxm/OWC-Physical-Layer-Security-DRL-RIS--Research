@@ -36,6 +36,7 @@ class VLCEnvironment:
         self.eve_pos = eve_pos if eve_pos is not None else self.config.eve_pos.copy()
         self.sigma_B_sq = sigma_B_sq
         self.nonstationary_noise_std = nonstationary_noise_std
+        self.rng = np.random.default_rng(self.config.seed)
 
         # Construct discrete action space W
         # w_i in { l / Lx | l = -Lx, ..., Lx }
@@ -70,6 +71,7 @@ class VLCEnvironment:
             bob_pos=self.bob_pos,
             eve_pos=self.eve_pos,
             nonstationary_noise_std=self.nonstationary_noise_std,
+            rng=self.rng,
         )
 
     def get_state(self) -> np.ndarray:
@@ -102,9 +104,13 @@ class VLCEnvironment:
         Returns: (next_state, utility_reward, info_dict)
         """
         if isinstance(action_idx_or_vector, (int, np.integer)):
+            if not 0 <= action_idx_or_vector < self.num_actions:
+                raise ValueError("Action index is outside the discrete action space")
             w = self.action_space[action_idx_or_vector]
         else:
             w = np.asarray(action_idx_or_vector, dtype=np.float64)
+        if w.shape != (self.config.num_jammers,) or not np.all(np.isfinite(w)) or np.any(np.abs(w) > 1):
+            raise ValueError("Action must contain one finite weight in [-1,1] per jammer")
 
         self.current_step += 1
         self._update_channel()
