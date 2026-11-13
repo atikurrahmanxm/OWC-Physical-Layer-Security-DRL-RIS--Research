@@ -1,0 +1,4 @@
+# Optional dependencies for scripts/create_final_year_poster.py.
+-r requirements.txt
+python-pptx>=1.0.2
+Pillow>=9.0.0
