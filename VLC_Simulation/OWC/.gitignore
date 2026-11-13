@@ -2,3 +2,21 @@
 !tests/
 !tests/test_*.py
 __pycache__/
+
+# Browser test profiles contain cookies, login databases and session keys.
+scratch/edge_user_data*/
+scratch/*browser*profile*/
+scratch/*user_data*/
+
+# Reinstallable project-local dependencies.
+scratch/poster_deps/
+
+# Local credentials and private keys; keep documented examples shareable.
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+credentials.json
+service-account*.json
