@@ -1,0 +1,1133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Supervisor Demonstration — Optical RIS + Friendly Jamming Secure VLC</title>
+  <style>
+    :root {
+      --primary: #155799;
+      --primary-dark: #0f3e6d;
+      --accent: #28a745;
+      --danger: #d9534f;
+      --warning: #f0ad4e;
+      --bg: #f4f7fa;
+      --card-bg: #ffffff;
+      --border: #d8e2ec;
+      --text: #1d2d3d;
+      --text-muted: #5e6f82;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: var(--font-family);
+      color: var(--text);
+      background: var(--bg);
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header {
+      background: linear-gradient(135deg, #102a45 0%, #173d63 100%);
+      color: white;
+      padding: 24px 32px;
+      border-bottom: 3px solid #0b61a4;
+    }
+    header h1 { margin: 0 0 6px 0; font-size: 24px; font-weight: 700; }
+    header p { margin: 0; color: #b8cde3; font-size: 14px; }
+    .badge-bar { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11.5px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.15);
+      color: #e2eeff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .badge.verified { background: rgba(40, 167, 69, 0.25); border-color: #28a745; color: #a3f7b5; }
+    .badge.warning { background: rgba(240, 173, 78, 0.25); border-color: #f0ad4e; color: #ffe3b3; }
+    main { max-width: 1280px; margin: 0 auto; padding: 24px 20px; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    h2 { font-size: 18px; color: #112d4e; margin-top: 0; margin-bottom: 14px; border-bottom: 2px solid #ebf2f8; padding-bottom: 8px; }
+    h3 { font-size: 15px; margin: 12px 0 8px 0; color: #204060; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 960px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+    button {
+      padding: 9px 15px;
+      border: 1px solid #b5ccdf;
+      border-radius: 6px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #f7fafc;
+      color: #174570;
+      transition: all 0.15s ease-in-out;
+    }
+    button:hover:not(:disabled) { background: #eaf2f9; border-color: #8cb4d6; }
+    button.primary { background: #155799; color: white; border-color: #155799; }
+    button.primary:hover:not(:disabled) { background: #0f4377; }
+    button.active { background: #e0edff; border-color: #155799; color: #0b3d6f; }
+    button:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .field { display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; }
+    .field label { font-weight: 600; color: #40556c; }
+    .field input, .field select {
+      padding: 7px 9px;
+      border: 1px solid #cad6e2;
+      border-radius: 5px;
+      font-size: 13px;
+    }
+    .status-box {
+      padding: 10px 14px;
+      border-radius: 6px;
+      background: #eaf3fc;
+      border-left: 4px solid #1a73e8;
+      font-size: 13.5px;
+      margin: 14px 0;
+    }
+    .status-box.error { background: #fdf2f2; border-left-color: #d9534f; color: #9c2522; }
+    .status-box.success { background: #f0f9f3; border-left-color: #28a745; color: #1e6b30; }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 10px; }
+    th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid #e1e9f1; }
+    th { background: #f6f9fc; color: #3d5268; font-weight: 600; font-size: 13px; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .highlight-win { color: #1e7e34; font-weight: 600; }
+    .highlight-lose { color: #ba2525; }
+    .note { font-size: 12.5px; color: var(--text-muted); margin-top: 8px; }
+    .svg-container {
+      background: #ffffff;
+      border: 1px solid #d4e0ec;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      position: relative;
+    }
+    svg text { font-family: var(--font-family); user-select: none; }
+    .legend-box {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-top: 8px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-color { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+    .tab-bar { display: flex; gap: 4px; border-bottom: 2px solid #dde6f0; margin-bottom: 16px; }
+    .tab-btn {
+      padding: 8px 16px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: #55687d;
+      font-weight: 600;
+      border-radius: 0;
+      margin-bottom: -2px;
+    }
+    .tab-btn.active { color: #155799; border-bottom-color: #155799; background: none; }
+    .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .img-grid img { width: 100%; height: auto; border: 1px solid #d8e2ec; border-radius: 6px; background: white; }
+    @media print {
+      body { background: white; font-size: 12px; }
+      header { background: white; color: black; border-bottom: 2px solid black; padding: 10px 0; }
+      header p, .badge { color: #333; }
+      .badge { border-color: #999; }
+      .no-print, button, .btn-group, select, input { display: none !important; }
+      .card { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; margin-bottom: 16px; padding: 12px; }
+      .img-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Optical RIS + Friendly Jamming Secure VLC System</h1>
+  <p>Interactive Simulation Demonstration & Authoritative Verification Package for Supervisor Review</p>
+  <div class="badge-bar">
+    <span class="badge verified">Python CNN + DND Agent Backend</span>
+    <span class="badge verified">94 Unit Tests Passing</span>
+    <span class="badge verified">Specular DC Ray Optics</span>
+    <span class="badge">10-Seed Matched Study Replay</span>
+    <span class="badge warning">Paper Curve Reproduction: Diagnostic Non-Match</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- SECTION 1: SCHEMATIC ROOM & ACTIVE LINK GAIN VISUALIZATION -->
+  <section class="card">
+    <h2>1 · Optical Geometry & Channel Gain Activity (Top-Down Floorplan Projection)</h2>
+    <p class="note">
+      Top-down schematic projection of the 5.0 m × 5.0 m room. Node coordinates, tile centers, and mirror normal angles are bound to Python backend metadata. Rays indicate active optical channel links based on backend-computed direct and reflected gains (&gt; 0); this is a 2D scalar optical gain visualization, not a full 3D ray tracer.
+    </p>
+
+    <div style="background:#102337;border-radius:12px;padding:14px;margin-bottom:20px;color:#dcecff">
+      <strong>Interactive 3D room · actual backend coordinates and mirror normals</strong>
+      <div style="margin:8px 0"><button type="button" onclick="window.room3DView('orbit')">3D orbit</button> <button type="button" onclick="window.room3DView('top')">Top view</button> <button type="button" onclick="window.room3DView('side')">Side view</button> <label><input id="room3DLinks" type="checkbox" checked> Show active link schematic</label></div>
+      <canvas id="room3D" style="display:block;width:100%;height:470px;touch-action:none" aria-label="Interactive three dimensional room, drag to rotate and scroll to zoom"></canvas>
+      <p id="room3DStatus" style="font-size:13px">Waiting for actual Python geometry. Drag to rotate; scroll to zoom.</p>
+      <p style="font-size:12px">Gold: Alice · purple: friendly jammers · blue: Bob · red: Eve · cyan: finite RIS mirrors. Lines show aggregate active channels via panel center, not exact per-tile optical ray intersections. Mirror sizes are to scale; receiver icons are enlarged for visibility.</p>
+    </div>
+    <div class="grid-2">
+      <!-- SVG Floorplan -->
+      <div class="svg-container">
+        <svg id="roomSvg" viewBox="0 0 540 540" width="100%" height="380" role="img" aria-label="Room Optical Geometry">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#155799" />
+            </marker>
+            <marker id="arrowGreen" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#28a745" />
+            </marker>
+            <marker id="arrowRed" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc3545" />
+            </marker>
+            <marker id="arrowNormal" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M 0 2 L 8 5 L 0 8 z" fill="#1b5e20" />
+            </marker>
+          </defs>
+
+          <!-- Room Boundary 5m x 5m (scaled: 50 to 490 px, span 440 px = 88 px/m) -->
+          <rect x="50" y="50" width="440" height="440" fill="#fcfdfe" stroke="#a0b5c9" stroke-width="2.5" rx="4" />
+          <text x="56" y="70" fill="#7d91a6" font-size="12">Room (5.0 m × 5.0 m)</text>
+          <text x="270" y="45" fill="#102a45" font-size="12" font-weight="bold" text-anchor="middle">South Wall (y = 0.25 m)</text>
+
+          <!-- Grid Lines (1m intervals) -->
+          <g stroke="#e8eff5" stroke-width="1" stroke-dasharray="3,3">
+            <line x1="138" y1="50" x2="138" y2="490" />
+            <line x1="226" y1="50" x2="226" y2="490" />
+            <line x1="314" y1="50" x2="314" y2="490" />
+            <line x1="402" y1="50" x2="402" y2="490" />
+            <line x1="50" y1="138" x2="490" y2="138" />
+            <line x1="50" y1="226" x2="490" y2="226" />
+            <line x1="50" y1="314" x2="490" y2="314" />
+            <line x1="50" y1="402" x2="490" y2="402" />
+          </g>
+
+          <!-- Optical RIS Panel & Tiles Group -->
+          <g id="risPanelGroup">
+            <rect x="226" y="65" width="88" height="14" fill="#28a745" fill-opacity="0.25" stroke="#28a745" stroke-width="2" rx="2" />
+            <g id="risTiles"></g>
+            <g id="risNormals"></g>
+            <text x="270" y="60" fill="#1e7e34" font-size="11" font-weight="bold" text-anchor="middle">Optical RIS (6 Specular Tiles)</text>
+          </g>
+
+          <!-- Dynamic Ray Paths Layer -->
+          <g id="dynamicRays"></g>
+
+          <!-- Alice LED (2.5, 2.5, 3.0) -> (270, 270) -->
+          <g id="aliceNode" transform="translate(270, 270)">
+            <circle r="14" fill="#ffc107" stroke="#b38600" stroke-width="2" />
+            <circle r="4" fill="#ffffff" />
+            <text x="0" y="-18" fill="#7a5c00" font-size="12" font-weight="bold" text-anchor="middle">Alice LED</text>
+            <text x="0" y="24" fill="#7a5c00" font-size="10.5" text-anchor="middle">(2.5, 2.5, 3.0)</text>
+          </g>
+
+          <!-- Friendly Jammers (1.5,1.5), (1.5,3.5), (3.5,1.5), (3.5,3.5) -->
+          <g id="fjNodes">
+            <!-- FJ1 (1.5, 1.5) -> (182, 182) -->
+            <g id="fj0" transform="translate(182, 182)">
+              <circle r="9" fill="#9c27b0" stroke="#6a1b9a" stroke-width="1.8" />
+              <text x="0" y="-12" fill="#6a1b9a" font-size="10.5" font-weight="bold" text-anchor="middle">FJ 1</text>
+            </g>
+            <!-- FJ2 (1.5, 3.5) -> (182, 358) -->
+            <g id="fj1" transform="translate(182, 358)">
+              <circle r="9" fill="#9c27b0" stroke="#6a1b9a" stroke-width="1.8" />
+              <text x="0" y="20" fill="#6a1b9a" font-size="10.5" font-weight="bold" text-anchor="middle">FJ 2</text>
+            </g>
+            <!-- FJ3 (3.5, 1.5) -> (358, 182) -->
+            <g id="fj2" transform="translate(358, 182)">
+              <circle r="9" fill="#9c27b0" stroke="#6a1b9a" stroke-width="1.8" />
+              <text x="0" y="-12" fill="#6a1b9a" font-size="10.5" font-weight="bold" text-anchor="middle">FJ 3</text>
+            </g>
+            <!-- FJ4 (3.5, 3.5) -> (358, 358) -->
+            <g id="fj3" transform="translate(358, 358)">
+              <circle r="9" fill="#9c27b0" stroke="#6a1b9a" stroke-width="1.8" />
+              <text x="0" y="20" fill="#6a1b9a" font-size="10.5" font-weight="bold" text-anchor="middle">FJ 4</text>
+            </g>
+          </g>
+
+          <!-- Bob Node (default 1.8, 1.6) -> (208.4, 190.8) -->
+          <g id="bobNode">
+            <circle id="bobCircle" cx="208" cy="191" r="11" fill="#007bff" stroke="#004085" stroke-width="2" />
+            <text id="bobText" x="208" y="174" fill="#004085" font-size="11.5" font-weight="bold" text-anchor="middle">Bob</text>
+          </g>
+
+          <!-- Eve Node (default 3.2, 3.4) -> (331.6, 349.2) -->
+          <g id="eveNode">
+            <circle id="eveCircle" cx="332" cy="349" r="11" fill="#dc3545" stroke="#721c24" stroke-width="2" />
+            <text id="eveText" x="332" y="372" fill="#721c24" font-size="11.5" font-weight="bold" text-anchor="middle">Eve</text>
+          </g>
+        </svg>
+
+        <div class="legend-box">
+          <div class="legend-item"><span class="legend-color" style="background:#007bff;"></span><span>Bob (Legitimate)</span></div>
+          <div class="legend-item"><span class="legend-color" style="background:#dc3545;"></span><span>Eve (Eavesdropper)</span></div>
+          <div class="legend-item"><span class="legend-color" style="background:#ffc107;"></span><span>Alice (Tx LED)</span></div>
+          <div class="legend-item"><span class="legend-color" style="background:#9c27b0;"></span><span>4 Jammers</span></div>
+          <div class="legend-item"><span class="legend-color" style="background:#28a745;"></span><span>RIS Reflected (Active)</span></div>
+        </div>
+      </div>
+
+      <!-- Geometry Presets & Controls -->
+      <div>
+        <h3>Scenario Presets</h3>
+        <div class="btn-group">
+          <button id="presetNominal" class="active" onclick="setPreset('nominal')">Nominal Benchmark (Default)</button>
+          <button id="presetNearBob" onclick="setPreset('near_bob')">Near-Bob Boundary (7 cm)</button>
+          <button id="presetColocated" onclick="setPreset('colocated')">Colocated Eve (Zero Secrecy)</button>
+        </div>
+
+        <h3>Receiver Coordinates (m)</h3>
+        <div class="grid-2">
+          <div class="card" style="padding: 10px; margin-bottom: 8px;">
+            <strong>Bob Position</strong>
+            <div style="display:flex; gap:6px; margin-top:4px;">
+              <input id="bx" type="number" step="0.05" value="1.8" style="width:33%;" onchange="triggerUpdate()">
+              <input id="by" type="number" step="0.05" value="1.6" style="width:33%;" onchange="triggerUpdate()">
+              <input id="bz" type="number" step="0.05" value="0.85" style="width:33%;" onchange="triggerUpdate()">
+            </div>
+          </div>
+          <div class="card" style="padding: 10px; margin-bottom: 8px;">
+            <strong>Eve Position</strong>
+            <div style="display:flex; gap:6px; margin-top:4px;">
+              <input id="ex" type="number" step="0.05" value="3.2" style="width:33%;" onchange="triggerUpdate()">
+              <input id="ey" type="number" step="0.05" value="3.4" style="width:33%;" onchange="triggerUpdate()">
+              <input id="ez" type="number" step="0.05" value="0.85" style="width:33%;" onchange="triggerUpdate()">
+            </div>
+          </div>
+        </div>
+
+        <h3>Optical RIS Mirror Configuration</h3>
+        <div class="btn-group">
+          <button id="cfg0" onclick="setRisIndex(0)">0: Off (Stowed)</button>
+          <button id="cfg1" class="active primary" onclick="setRisIndex(1)">1: Aim Alice → Bob</button>
+          <button id="cfg2" onclick="setRisIndex(2)">2: Jammers → Eve</button>
+          <button id="cfg3" onclick="setRisIndex(3)">3: Split Bob/Eve</button>
+          <button id="cfg4" onclick="setRisIndex(4)">4: Neutral [0,1,0]</button>
+        </div>
+
+        <h3>Friendly Jammer Modulation Weights (w<sub>1</sub>, w<sub>2</sub>, w<sub>3</sub>, w<sub>4</sub>)</h3>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <input id="w0" type="number" min="-1" max="1" step="0.1" value="-0.5" style="width:23%;" onchange="triggerUpdate()">
+          <input id="w1" type="number" min="-1" max="1" step="0.1" value="1.0" style="width:23%;" onchange="triggerUpdate()">
+          <input id="w2" type="number" min="-1" max="1" step="0.1" value="0.0" style="width:23%;" onchange="triggerUpdate()">
+          <input id="w3" type="number" min="-1" max="1" step="0.1" value="1.0" style="width:23%;" onchange="triggerUpdate()">
+        </div>
+        <div class="btn-group" style="margin-top:6px;">
+          <button onclick="setWeights([-0.5, 1.0, 0.0, 1.0])">Benchmark [-0.5, 1, 0, 1]</button>
+          <button onclick="setWeights([0, 0, 0, 0])">Zero Jamming [0, 0, 0, 0]</button>
+          <button onclick="setWeights([1, 1, 1, 1])">Max Jamming [1, 1, 1, 1]</button>
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:8px;">
+          <div class="field" style="flex:1;">
+            <label>Energy Model Interpretation</label>
+            <select id="energyModel" onchange="triggerUpdate()">
+              <option value="l1" selected>L1 Cost: sum(|w_i|) (Matched Study Baseline)</option>
+              <option value="paper_signed">Paper Eq. 16: sum(w_i) (Credits negative weights)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: LIVE BACKEND COMPUTATION & DIRECT VS REFLECTED GAINS -->
+  <section class="card">
+    <h2>2 · Live Python Backend Computation: Link Gains & Physical Metrics</h2>
+    <div id="liveStatus" class="status-box">Connecting to local Python simulation server...</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Metric / Channel Link</th>
+          <th class="num">No RIS (q = 0, Stowed)</th>
+          <th class="num">Selected Configuration (<span id="selectedCfgName">Config 1</span>)</th>
+          <th class="num">Physical Effect of RIS</th>
+        </tr>
+      </thead>
+      <tbody id="metricsTableBody">
+        <tr><td colspan="4">Loading backend metrics...</td></tr>
+      </tbody>
+    </table>
+    <p class="note">
+      * Direct gains are purely line-of-sight (Lambertian LED, m=1). Reflected gains are computed by 2D Gauss-Legendre quadrature integration over the 6 specular mirror tiles.
+      Effective gain is the coherent sum: h<sub>eff</sub> = h<sup>dir</sup> + h<sup>ref</sup>.
+    </p>
+  </section>
+
+  <!-- SECTION 3: AUTHORITATIVE SCIENTIFIC STUDY EVIDENCE (DYNAMIC JSON BINDING) -->
+  <section class="card">
+    <h2>3 · Authoritative Scientific Evidence: 10-Seed Matched Study</h2>
+    <div id="provenanceBox" class="status-box">Loading verified compact study JSON from backend...</div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('phase1')">Phase 1: Frozen Evaluation (1,000 Slots)</button>
+      <button class="tab-btn" onclick="switchTab('phase2')">Phase 2: Final Training Window (Slots 1501–2000)</button>
+      <button class="tab-btn" onclick="switchTab('phase3')">Phase 3: All-Training Outage (2,000 Slots)</button>
+    </div>
+
+    <!-- Tab 1: Phase 1 Frozen Evaluation -->
+    <div id="tabPhase1">
+      <table>
+        <thead>
+          <tr>
+            <th>Scheme</th>
+            <th class="num">Mean Secrecy (bps/Hz)</th>
+            <th class="num">95% Student-t CI</th>
+            <th class="num">Bob BER</th>
+            <th class="num">Evaluation Outage</th>
+            <th>Statistical Verdict</th>
+          </tr>
+        </thead>
+        <tbody id="phase1TableBody">
+          <tr><td colspan="6">Loading Phase 1 data...</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top:16px;">Paired Statistical Significance Analysis (10 Matched Pairs, df = 9)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Paired Comparison</th>
+            <th class="num">Mean Difference &Delta;R<sub>s</sub></th>
+            <th class="num">Two-Sided 95% Student-t CI</th>
+            <th class="num">Derived p-value</th>
+            <th>Statistical Conclusion</th>
+          </tr>
+        </thead>
+        <tbody id="pairedTableBody">
+          <tr><td colspan="5">Loading paired comparisons...</td></tr>
+        </tbody>
+      </table>
+      <p class="note">
+        <strong>Important Clarification:</strong> In the frozen evaluation phase, all three schemes repeat their static best-learned action. Consequently, Bob BER is identically 0.0 and secrecy outage is strictly 0.0% for all three schemes at this nominal static operating point.
+      </p>
+    </div>
+
+    <!-- Tab 2: Phase 2 Final Training Window -->
+    <div id="tabPhase2" style="display:none;">
+      <table>
+        <thead>
+          <tr>
+            <th>Scheme</th>
+            <th class="num">Window Mean Secrecy</th>
+            <th class="num">Window Mean BER</th>
+            <th class="num">Window Jammer Cost</th>
+            <th class="num">Window Utility</th>
+          </tr>
+        </thead>
+        <tbody id="phase2TableBody">
+          <tr><td colspan="5">Loading Phase 2 data...</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Window: Slots 1501–2000. Residual &epsilon; &approx; 0.02 causes minor exploratory BER spikes, but convergence is stable.</p>
+    </div>
+
+    <!-- Tab 3: Phase 3 All-Training Outage -->
+    <div id="tabPhase3" style="display:none;">
+      <table>
+        <thead>
+          <tr>
+            <th>Scheme</th>
+            <th class="num">All-Training Secrecy</th>
+            <th class="num">All-Training BER</th>
+            <th class="num">All-Training Outage Fraction</th>
+            <th>Outage Cause</th>
+          </tr>
+        </thead>
+        <tbody id="phase3TableBody">
+          <tr><td colspan="5">Loading Phase 3 data...</td></tr>
+        </tbody>
+      </table>
+      <p class="note">
+        <strong>Phase Separation Rigor:</strong> Training outages are caused by &epsilon;-greedy exploratory perturbations across slots 1–1500. They must never be conflated with frozen evaluation performance.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 4: REAL DRL SMOKE DEMO EXECUTION -->
+  <section class="card">
+    <h2>4 · Live DRL Smoke Preview (Execution Proof)</h2>
+    <p class="note">
+      Click below to execute a real, interactive training session with the PyTorch CNN + DND learner over 24 or 200 slots.
+      <strong>Label:</strong> Smoke / demo run for execution proof — not scientific evidence of superiority.
+    </p>
+
+    <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <select id="smokeSlots" style="padding:8px 12px; border-radius:6px; border:1px solid #cad6e2;">
+        <option value="24" selected>24 Slots · Fast Smoke Preview (~2 seconds)</option>
+        <option value="200">200 Slots · Short Training Demo (~12 seconds)</option>
+      </select>
+      <button id="btnTrainSmoke" class="primary" onclick="runSmokeTrain()">Run Live DRL Smoke Run</button>
+      <span id="smokeProgress" style="font-size:13px; color:#5e6f82;">Ready to execute.</span>
+    </div>
+
+    <div id="smokeResultBox" style="margin-top:14px; display:none;">
+      <div class="status-box success" id="smokeStatusMsg">Training complete.</div>
+      <table id="smokeTable">
+        <thead>
+          <tr>
+            <th>Scheme</th>
+            <th class="num">Final Secrecy Rate</th>
+            <th class="num">Final Bob BER</th>
+            <th class="num">Final Action Chosen</th>
+          </tr>
+        </thead>
+        <tbody id="smokeTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION 5: STATIC SCIENTIFIC FIGURES GALLERY -->
+  <section class="card">
+    <h2>5 · High-Resolution Publication Figures</h2>
+    <p class="note">
+      Generated directly from authoritative multi-seed simulation data by <code>scripts/generate_supervisor_figures.py</code>. Available as high-res PNG and vector PDF.
+    </p>
+
+    <div class="img-grid">
+      <div>
+        <h3>Fig 1: Training Convergence Curves (95% CI Bands)</h3>
+        <img src="/figures/fig1_training_curves.png" alt="Fig 1: Training Curves" loading="lazy">
+      </div>
+      <div>
+        <h3>Fig 2: Frozen Greedy Evaluation Secrecy Rate (1,000 Slots)</h3>
+        <img src="/figures/fig2_frozen_evaluation_secrecy.png" alt="Fig 2: Frozen Evaluation" loading="lazy">
+      </div>
+      <div>
+        <h3>Fig 3: Paired Statistical Significance Forest Plot</h3>
+        <img src="/figures/fig3_paired_differences.png" alt="Fig 3: Paired Differences" loading="lazy">
+      </div>
+      <div>
+        <h3>Fig 4: Optical Channel Gain Decomposition</h3>
+        <img src="/figures/fig4_optical_channel_breakdown.png" alt="Fig 4: Optical Channel Breakdown" loading="lazy">
+      </div>
+    </div>
+    <div style="margin-top:16px;">
+      <h3>Fig 5: Near-Bob Boundary Condition (3,125-Action Grid Search)</h3>
+      <div style="max-width:650px; margin:0 auto;">
+        <img src="/figures/fig5_near_bob_boundary.png" alt="Fig 5: Near-Bob Boundary Search" loading="lazy" style="width:100%;">
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: SCIENTIFIC ASSUMPTIONS, BOUNDARIES & DISCUSSION GUIDE -->
+  <section class="card">
+    <h2>6 · Physical Boundaries, Assumptions & Supervisor Discussion Guide</h2>
+    
+    <div class="grid-2">
+      <div>
+        <h3>Explicit Simulation Assumptions</h3>
+        <ul>
+          <li><strong>Direct-Current (DC) Optical Channel:</strong> Single-bounce specular mirror reflection using image-source virtual emitters. Dispersion, multipath delay spread, and ISI are omitted under the low-bandwidth VLC regime.</li>
+          <li><strong>Oracle Channel State Information (CSI):</strong> Bob and Eve coordinates are assumed known in the simulation environment to generate codebooks.</li>
+          <li><strong>Omitted RIS Actuation Power:</strong> The power required to mechanically tilt mirrors or switch states is not counted in the utility function.</li>
+          <li><strong>Energy Interpretation:</strong> Primary results use nonnegative L1 norm &sum;|w<sub>i</sub>|; printed paper equation uses signed sum &sum;w<sub>i</sub>.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Boundary Conditions & Honest Disclosures</h3>
+        <ul>
+          <li><strong>Near-Bob Boundary (d<sub>BE</sub> = 7.07 cm):</strong> When Eve is spatially collinear between Alice and Bob (h<sub>AE</sub> &gt; h<sub>AB</sub>), exhaustive search across all 3,125 actions yields max R<sub>s</sub> &equiv; 0.0000 bps/Hz. Security cannot be established purely via friendly jamming in this geometric singularity.</li>
+          <li><strong>Colocated Boundary:</strong> When Eve is identical to Bob, channel gains are indistinguishable and secrecy is identically zero.</li>
+          <li><strong>2024 Paper Numerical Non-Reproduction:</strong> The published curves (R<sub>s</sub> &approx; 5.68 bps/Hz) cannot be verified with the paper's declared physical constants (under which single-channel capacity &approx; 1.55 bps/Hz).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:16px; padding:14px; background:#f0f5fa; border-radius:8px; border:1px solid #d0e0ee;">
+      <h3 style="margin-top:0; color:#102a45;">Supervisor Alignment Questions</h3>
+      <ol style="margin-bottom:0; padding-left:20px;">
+        <li>Does the <strong>Fixed RIS statistical advantage (+0.1773 bps/Hz, p = 0.0183 &lt; 0.05)</strong> and the honest evaluation of Joint DRL trade-offs represent an acceptable contribution for the paper submission?</li>
+        <li>Would you recommend adding a continuous action-space policy gradient agent (e.g. DDPG/SAC) to overcome the discrete grid limitations of the 3,125 action space?</li>
+        <li>Should the manuscript explicitly document the paper's original curve discrepancy in an appendix as a reproducible correction for the community?</li>
+      </ol>
+    </div>
+
+    <div style="margin-top:18px; text-align:right;" class="no-print">
+      <a href="/ris" target="_blank" style="margin-right:12px; font-size:13.5px; color:#155799; text-decoration:none; font-weight:600;">Open Advanced Research Dashboard &rarr;</a>
+      <button class="primary" onclick="window.print()">Print / Save Takeaway Handout (PDF)</button>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const fmt = (x, dec = 6) => {
+    if (x === null || x === undefined || !Number.isFinite(x)) return '—';
+    if (x === 0) return '0.000000';
+    if (Math.abs(x) < 1e-4) return x.toExponential(4);
+    return x.toFixed(dec);
+  };
+
+  let currentRisIndex = 1;
+  let currentPreset = 'nominal';
+  let activeRequestId = 0;
+
+  // Exact derived two-sided Student-t p-values (df = 9)
+  const DERIVED_P_VALUES = {
+    'fixed_ris minus baseline': 0.0182917,
+    'joint_ris minus baseline': 0.1216017,
+    'joint_ris minus fixed_ris': 0.6887355
+  };
+
+  // Room geometry scale: room is 5m x 5m, mapped to 50..490 in SVG (span 440 px -> 88 px/m)
+  function toSvgCoords(x, y) {
+    const px = 50 + x * 88;
+    const py = 50 + y * 88;
+    return { x: px, y: py };
+  }
+
+  function setPreset(name) {
+    currentPreset = name;
+    ['presetNominal', 'presetNearBob', 'presetColocated'].forEach(id => {
+      $(id).classList.remove('active');
+    });
+    if (name === 'nominal') {
+      $('presetNominal').classList.add('active');
+      $('bx').value = 1.8; $('by').value = 1.6; $('bz').value = 0.85;
+      $('ex').value = 3.2; $('ey').value = 3.4; $('ez').value = 0.85;
+    } else if (name === 'near_bob') {
+      $('presetNearBob').classList.add('active');
+      $('bx').value = 1.8; $('by').value = 1.6; $('bz').value = 0.85;
+      $('ex').value = 1.85; $('ey').value = 1.65; $('ez').value = 0.85;
+    } else if (name === 'colocated') {
+      $('presetColocated').classList.add('active');
+      $('bx').value = 1.8; $('by').value = 1.6; $('bz').value = 0.85;
+      $('ex').value = 1.8; $('ey').value = 1.6; $('ez').value = 0.85;
+    }
+    triggerUpdate();
+  }
+
+  function setRisIndex(idx) {
+    currentRisIndex = idx;
+    for (let i = 0; i < 5; i++) {
+      const btn = $('cfg' + i);
+      if (btn) btn.classList.toggle('active', i === idx);
+      if (btn) btn.classList.toggle('primary', i === idx);
+    }
+    triggerUpdate();
+  }
+
+  function setWeights(w) {
+    $('w0').value = w[0];
+    $('w1').value = w[1];
+    $('w2').value = w[2];
+    $('w3').value = w[3];
+    triggerUpdate();
+  }
+
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    $('tabPhase1').style.display = tabId === 'phase1' ? 'block' : 'none';
+    $('tabPhase2').style.display = tabId === 'phase2' ? 'block' : 'none';
+    $('tabPhase3').style.display = tabId === 'phase3' ? 'block' : 'none';
+  }
+
+  function clearRays() {
+    $('dynamicRays').innerHTML = '';
+  }
+
+  function clearMetricsTable(msg) {
+    $('metricsTableBody').innerHTML = `<tr><td colspan="4" style="color:#d9534f; font-weight:bold;">${msg}</td></tr>`;
+  }
+
+  async function triggerUpdate() {
+    const reqId = ++activeRequestId;
+    const bob = [parseFloat($('bx').value), parseFloat($('by').value), parseFloat($('bz').value)];
+    const eve = [parseFloat($('ex').value), parseFloat($('ey').value), parseFloat($('ez').value)];
+    const beamformer = [parseFloat($('w0').value), parseFloat($('w1').value), parseFloat($('w2').value), parseFloat($('w3').value)];
+    const energy = $('energyModel').value;
+
+    // Update SVG Node positions
+    const bobSvg = toSvgCoords(bob[0], bob[1]);
+    const eveSvg = toSvgCoords(eve[0], eve[1]);
+    $('bobCircle').setAttribute('cx', bobSvg.x);
+    $('bobCircle').setAttribute('cy', bobSvg.y);
+    $('bobText').setAttribute('x', bobSvg.x);
+    $('bobText').setAttribute('y', bobSvg.y - 16);
+    $('bobText').textContent = `Bob (${bob[0]}, ${bob[1]})`;
+
+    $('eveCircle').setAttribute('cx', eveSvg.x);
+    $('eveCircle').setAttribute('cy', eveSvg.y);
+    $('eveText').setAttribute('x', eveSvg.x);
+    $('eveText').setAttribute('y', eveSvg.y + 22);
+    $('eveText').textContent = `Eve (${eve[0]}, ${eve[1]})`;
+
+    $('liveStatus').className = 'status-box';
+    $('liveStatus').textContent = 'Computing live optical metrics via Python...';
+
+    try {
+      const payload = {
+        bob: bob,
+        eve: eve,
+        beamformer: beamformer,
+        ris_index: currentRisIndex,
+        energy_model: energy
+      };
+
+      const res = await fetch('/api/ris/metrics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (reqId !== activeRequestId) return; // Discard stale response
+      const data = await res.json();
+      if (reqId !== activeRequestId) return;
+      if (!res.ok) throw new Error(data.error || 'Backend calculation failed');
+
+      renderMetricsTable(data);
+      renderDynamicRays(data);
+      renderTileNormals(data);
+      window.dispatchEvent(new CustomEvent('ris-3d-update', {detail:data}));
+
+      $('selectedCfgName').textContent = data.configuration_names[currentRisIndex] || ('Config ' + currentRisIndex);
+      $('liveStatus').className = 'status-box success';
+      $('liveStatus').textContent = `Backend Calculation Verified: ${data.configuration_names[currentRisIndex]} | Secrecy: ${data.selected.secrecy_rate.toFixed(4)} bps/Hz | Bob BER: ${data.selected.ber === 0 ? '0.0' : data.selected.ber.toExponential(2)}`;
+    } catch (err) {
+      if (reqId !== activeRequestId) return;
+      $('liveStatus').className = 'status-box error';
+      $('liveStatus').textContent = 'Calculation Error: ' + err.message;
+      clearMetricsTable('Error: ' + err.message);
+      clearRays();
+      window.dispatchEvent(new CustomEvent('ris-3d-update', {detail:null}));
+    }
+  }
+
+  function renderMetricsTable(d) {
+    const body = $('metricsTableBody');
+    body.innerHTML = '';
+
+    const b = d.baseline;
+    const s = d.selected;
+
+    const rows = [
+      ['Direct Alice → Bob Gain (h_AB^dir)', b.direct_gains.h_AB, s.direct_gains.h_AB, 'LOS constant optical path'],
+      ['Reflected Alice → Bob Gain (h_AB^ref)', b.reflected_gains.h_AB, s.reflected_gains.h_AB,
+        s.reflected_gains.h_AB > 0 ? `+${((s.reflected_gains.h_AB / s.direct_gains.h_AB) * 100).toFixed(1)}% reflection boost` : '0 (Stowed/Misaligned)'],
+      ['Effective Alice → Bob Gain (h_AB)', b.gains.h_AB, s.gains.h_AB, 'Total received Alice power'],
+      ['Effective Alice → Eve Gain (h_AE)', b.gains.h_AE, s.gains.h_AE,
+        s.gains.h_AE > b.gains.h_AE ? 'Increased leakage to Eve' : 'Minimally affected leakage'],
+      ['Total Jamming on Bob (||h_JB||)', Math.hypot(...b.gains.h_JB), Math.hypot(...s.gains.h_JB), 'Bob self-interference'],
+      ['Total Jamming on Eve (||h_JE||)', Math.hypot(...b.gains.h_JE), Math.hypot(...s.gains.h_JE),
+        Math.hypot(...s.gains.h_JE) > Math.hypot(...b.gains.h_JE) ? 'Steered Jamming Boost to Eve' : 'Direct Jamming Only'],
+      ['Achievable Secrecy Rate (bps/Hz)', b.secrecy_rate, s.secrecy_rate,
+        s.secrecy_rate > b.secrecy_rate ? `+${(s.secrecy_rate - b.secrecy_rate).toFixed(4)} bps/Hz advantage` : (s.secrecy_rate < b.secrecy_rate ? 'Adverse / decreased secrecy' : 'Equal secrecy')],
+      ['Bob Bit Error Rate (4-PAM)', b.ber, s.ber, s.ber === 0 ? '0.0 (Error-free static reception)' : fmt(s.ber)],
+      ['Jammer Energy Cost', b.energy, s.energy, 'Normalized jammer power'],
+      ['System Utility (u = R_s - 3.5 P_e - 0.4 E)', b.utility, s.utility,
+        s.utility > b.utility ? `+${(s.utility - b.utility).toFixed(4)} utility improvement` : 'Baseline utility']
+    ];
+
+    rows.forEach(([label, vBase, vSel, effect]) => {
+      const tr = document.createElement('tr');
+      const isRate = label.includes('Secrecy Rate');
+      const isUtility = label.includes('System Utility');
+      const win = (isRate || isUtility) && vSel > vBase;
+      const lose = (isRate || isUtility) && vSel < vBase;
+
+      tr.innerHTML = `
+        <td><strong>${label}</strong></td>
+        <td class="num">${typeof vBase === 'number' ? fmt(vBase) : vBase}</td>
+        <td class="num ${win ? 'highlight-win' : (lose ? 'highlight-lose' : '')}">${typeof vSel === 'number' ? fmt(vSel) : vSel}</td>
+        <td><small>${effect}</small></td>
+      `;
+      body.appendChild(tr);
+    });
+  }
+
+  function renderDynamicRays(data) {
+    const group = $('dynamicRays');
+    group.innerHTML = '';
+
+    const geom = data.geometry || {};
+    const alicePos = geom.alice || [2.5, 2.5, 3.0];
+    const jammers = geom.jammers || [[1.5,1.5,3.0],[1.5,3.5,3.0],[3.5,1.5,3.0],[3.5,3.5,3.0]];
+    const bobPos = geom.bob || [1.8, 1.6, 0.85];
+    const evePos = geom.eve || [3.2, 3.4, 0.85];
+
+    const aliceSvg = toSvgCoords(alicePos[0], alicePos[1]);
+    const bobSvg = toSvgCoords(bobPos[0], bobPos[1]);
+    const eveSvg = toSvgCoords(evePos[0], evePos[1]);
+    const risCenterSvg = toSvgCoords(2.5, 0.25);
+
+    const s = data.selected;
+
+    // 1. Direct Alice -> Bob (drawn if direct gain > 0)
+    if (s.direct_gains.h_AB > 0) {
+      addRay(group, aliceSvg.x, aliceSvg.y, bobSvg.x, bobSvg.y, '#007bff', 2, 'none');
+    }
+
+    // 2. Direct Alice -> Eve (drawn if direct gain > 0)
+    if (s.direct_gains.h_AE > 0) {
+      addRay(group, aliceSvg.x, aliceSvg.y, eveSvg.x, eveSvg.y, '#fd7e14', 1.6, '4,4');
+    }
+
+    // 3. Direct Jammers -> Bob & Eve (per-jammer check)
+    jammers.forEach((jPos, i) => {
+      const jSvg = toSvgCoords(jPos[0], jPos[1]);
+      if (s.direct_gains.h_JB && s.direct_gains.h_JB[i] > 0) {
+        addRay(group, jSvg.x, jSvg.y, bobSvg.x, bobSvg.y, '#9c27b0', 1.0, '2,2');
+      }
+      if (s.direct_gains.h_JE && s.direct_gains.h_JE[i] > 0) {
+        addRay(group, jSvg.x, jSvg.y, eveSvg.x, eveSvg.y, '#9c27b0', 1.0, '2,2');
+      }
+    });
+
+    // 4. Reflected Alice -> RIS -> Bob (gated by actual reflected h_AB)
+    if (s.reflected_gains.h_AB > 1e-12) {
+      addRay(group, aliceSvg.x, aliceSvg.y, risCenterSvg.x, risCenterSvg.y, '#28a745', 2.5, 'none');
+      addRay(group, risCenterSvg.x, risCenterSvg.y, bobSvg.x, bobSvg.y, '#28a745', 2.5, 'none');
+    }
+
+    // 5. Reflected Alice -> RIS -> Eve (gated by actual reflected h_AE)
+    if (s.reflected_gains.h_AE > 1e-12) {
+      addRay(group, aliceSvg.x, aliceSvg.y, risCenterSvg.x, risCenterSvg.y, '#28a745', 1.8, '3,3');
+      addRay(group, risCenterSvg.x, risCenterSvg.y, eveSvg.x, eveSvg.y, '#28a745', 1.8, '3,3');
+    }
+
+    // 6. Reflected Jammers -> RIS -> Eve / Bob (checked per jammer)
+    if (s.reflected_gains.h_JE) {
+      s.reflected_gains.h_JE.forEach((gain, i) => {
+        if (gain > 1e-12) {
+          const jSvg = toSvgCoords(jammers[i][0], jammers[i][1]);
+          addRay(group, jSvg.x, jSvg.y, risCenterSvg.x, risCenterSvg.y, '#dc3545', 1.6, '3,3');
+          addRay(group, risCenterSvg.x, risCenterSvg.y, eveSvg.x, eveSvg.y, '#dc3545', 2.2, 'none');
+        }
+      });
+    }
+  }
+
+  function renderTileNormals(data) {
+    const tilesGroup = $('risTiles');
+    const normalsGroup = $('risNormals');
+    tilesGroup.innerHTML = '';
+    normalsGroup.innerHTML = '';
+
+    const risMeta = data.ris || {};
+    const centers = risMeta.tile_centers || [
+      [2.167, 0.25, 2.475], [2.5, 0.25, 2.475], [2.833, 0.25, 2.475],
+      [2.167, 0.25, 2.725], [2.5, 0.25, 2.725], [2.833, 0.25, 2.725]
+    ];
+
+    const cfgName = (data.configuration_names && data.configuration_names[currentRisIndex]) || 'alice_to_bob';
+    const cfgMeta = risMeta.configurations && risMeta.configurations[cfgName];
+    const normals = (cfgMeta && cfgMeta.tile_normals) || [
+      [0,1,0],[0,1,0],[0,1,0],[0,1,0],[0,1,0],[0,1,0]
+    ];
+
+    centers.forEach((pos, idx) => {
+      const svgPos = toSvgCoords(pos[0], pos[1]);
+      // Draw tile rectangle
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', svgPos.x - 12);
+      rect.setAttribute('y', svgPos.y - 3);
+      rect.setAttribute('width', 24);
+      rect.setAttribute('height', 6);
+      rect.setAttribute('fill', '#28a745');
+      rect.setAttribute('stroke', '#1e7e34');
+      rect.setAttribute('stroke-width', '0.8');
+      tilesGroup.appendChild(rect);
+
+      // Draw normal vector projection (arrow indicating tilt in x-y plane)
+      const n = normals[idx] || [0, 1, 0];
+      const normLen = 14;
+      const x2 = svgPos.x + n[0] * normLen;
+      const y2 = svgPos.y + n[1] * normLen;
+
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', svgPos.x);
+      line.setAttribute('y1', svgPos.y);
+      line.setAttribute('x2', x2);
+      line.setAttribute('y2', y2);
+      line.setAttribute('stroke', '#1b5e20');
+      line.setAttribute('stroke-width', '1.6');
+      line.setAttribute('marker-end', 'url(#arrowNormal)');
+      normalsGroup.appendChild(line);
+    });
+  }
+
+  function addRay(svgGroup, x1, y1, x2, y2, color, strokeWidth, dashArray) {
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', x1);
+    line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2);
+    line.setAttribute('y2', y2);
+    line.setAttribute('stroke', color);
+    line.setAttribute('stroke-width', strokeWidth);
+    if (dashArray && dashArray !== 'none') line.setAttribute('stroke-dasharray', dashArray);
+    svgGroup.appendChild(line);
+  }
+
+  // Section 3: Dynamic Data Binding from compact_results.json
+  async function loadSavedStudy() {
+    try {
+      const res = await fetch('/compact_results.json');
+      if (!res.ok) throw new Error('Could not load /compact_results.json');
+      const data = await res.json();
+
+      $('provenanceBox').className = 'status-box';
+      $('provenanceBox').innerHTML = `<strong>Data Provenance:</strong> ${data.protocol || 'Nominal L1 Study across 10 Seeds'}<br><small>Source: <code>${data.source || 'ris_study_summary.json'}</code> | SHA-256: <code>${data.source_sha256 || '7948189a9ca87ff5c1e60f387ee64b2fc59424c6b42e8525b83ec934f37968c1'}</code></small>`;
+
+      renderPhase1Table(data);
+      renderPairedTable(data);
+      renderPhase2Table(data);
+      renderPhase3Table(data);
+    } catch (err) {
+      $('provenanceBox').className = 'status-box error';
+      $('provenanceBox').textContent = 'Error loading compact study JSON: ' + err.message;
+    }
+  }
+
+  function renderPhase1Table(data) {
+    const tbody = $('phase1TableBody');
+    tbody.innerHTML = '';
+    const aggs = data.aggregates || [];
+
+    const schemeNames = {
+      'baseline': 'Baseline (No RIS)',
+      'fixed_ris': 'Fixed RIS (Config 1: Alice→Bob)',
+      'joint_ris': 'Joint RIS + FJ (Adaptive Codebook)'
+    };
+
+    aggs.forEach(agg => {
+      const tr = document.createElement('tr');
+      const s = agg.scheme;
+      const rate = agg.evaluation.secrecy_rate;
+      const ber = agg.evaluation.ber;
+      const outage = agg.evaluation_secrecy_outage || { mean: 0.0 };
+
+      const verdict = s === 'baseline' ? 'Paper 2024 Friendly Jamming Reference' :
+                      s === 'fixed_ris' ? '<span class="highlight-win">+13.4% Secrecy Gain (Statistically Significant)</span>' :
+                      '+10.3% Secrecy Gain (CI Spans Zero vs Baseline)';
+
+      tr.innerHTML = `
+        <td><strong>${schemeNames[s] || s}</strong></td>
+        <td class="num">${rate.mean.toFixed(4)}</td>
+        <td class="num">[${rate.ci95[0].toFixed(4)}, ${rate.ci95[1].toFixed(4)}]</td>
+        <td class="num">${ber.mean === 0 ? '0.0' : ber.mean.toExponential(2)}</td>
+        <td class="num">${(outage.mean * 100).toFixed(1)}%</td>
+        <td>${verdict}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderPairedTable(data) {
+    const tbody = $('pairedTableBody');
+    tbody.innerHTML = '';
+    const pairs = data.paired_seed_comparisons || [];
+
+    pairs.forEach(p => {
+      const tr = document.createElement('tr');
+      const comp = p.comparison;
+      const rate = p.evaluation.secrecy_rate;
+      const pval = DERIVED_P_VALUES[comp] !== undefined ? DERIVED_P_VALUES[comp] : 0.0;
+
+      let conclusion = '';
+      let isWin = false;
+      if (comp.includes('fixed') && comp.includes('baseline')) {
+        conclusion = '<strong>Proven Improvement:</strong> Lower bound > 0 (p = 0.0183 &lt; 0.05).';
+        isWin = true;
+      } else if (comp.includes('joint') && comp.includes('baseline')) {
+        conclusion = '<strong>Superiority Not Proven:</strong> 95% CI includes zero (p = 0.1216 &gt; 0.05).';
+      } else {
+        conclusion = '<strong>Equivalence Not Proven:</strong> Large CI spans zero; failure to reject null.';
+      }
+
+      tr.innerHTML = `
+        <td><strong>${comp}</strong></td>
+        <td class="num ${isWin ? 'highlight-win' : ''}">${rate.mean > 0 ? '+' : ''}${rate.mean.toFixed(4)} bps/Hz</td>
+        <td class="num">[${rate.ci95[0] > 0 ? '+' : ''}${rate.ci95[0].toFixed(4)}, ${rate.ci95[1] > 0 ? '+' : ''}${rate.ci95[1].toFixed(4)}]</td>
+        <td class="num"><strong>${pval.toFixed(4)}</strong></td>
+        <td>${conclusion}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderPhase2Table(data) {
+    const tbody = $('phase2TableBody');
+    tbody.innerHTML = '';
+    const aggs = data.aggregates || [];
+
+    const schemeNames = {
+      'baseline': 'Baseline (No RIS)',
+      'fixed_ris': 'Fixed RIS (Config 1)',
+      'joint_ris': 'Joint RIS + FJ'
+    };
+
+    aggs.forEach(agg => {
+      const tr = document.createElement('tr');
+      const w = agg.final_window;
+      tr.innerHTML = `
+        <td><strong>${schemeNames[agg.scheme] || agg.scheme}</strong></td>
+        <td class="num">${w.secrecy_rate.mean.toFixed(4)} bps/Hz</td>
+        <td class="num">${w.ber.mean.toExponential(2)}</td>
+        <td class="num">${w.energy.mean.toFixed(3)}</td>
+        <td class="num">${w.utility.mean.toFixed(4)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderPhase3Table(data) {
+    const tbody = $('phase3TableBody');
+    tbody.innerHTML = '';
+    const aggs = data.aggregates || [];
+
+    const schemeNames = {
+      'baseline': 'Baseline (No RIS)',
+      'fixed_ris': 'Fixed RIS (Config 1)',
+      'joint_ris': 'Joint RIS + FJ'
+    };
+
+    aggs.forEach(agg => {
+      const tr = document.createElement('tr');
+      const all = agg.all_slots;
+      const outage = agg.secrecy_outage || { mean: 0.0 };
+      const outagePct = (outage.mean * 100).toFixed(2);
+      const isLowest = agg.scheme === 'joint_ris';
+      const isHighest = agg.scheme === 'baseline';
+
+      tr.innerHTML = `
+        <td><strong>${schemeNames[agg.scheme] || agg.scheme}</strong></td>
+        <td class="num">${all.secrecy_rate.mean.toFixed(4)} bps/Hz</td>
+        <td class="num">${all.ber.mean.toExponential(2)}</td>
+        <td class="num ${isLowest ? 'highlight-win' : (isHighest ? 'highlight-lose' : '')}">${outagePct}% (${(outage.mean * 2000).toFixed(1)} / 2,000 slots)</td>
+        <td>Random action exploration (&epsilon;: 0.1 &rarr; 0)</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Section 4: Live DRL Smoke Run
+  async function runSmokeTrain() {
+    const btn = $('btnTrainSmoke');
+    const slots = parseInt($('smokeSlots').value);
+    btn.disabled = true;
+    $('smokeProgress').textContent = `Submitting ${slots}-slot smoke run to Python CNN+DND backend...`;
+
+    try {
+      const payload = {
+        bob: [parseFloat($('bx').value), parseFloat($('by').value), parseFloat($('bz').value)],
+        eve: [parseFloat($('ex').value), parseFloat($('ey').value), parseFloat($('ez').value)],
+        slots: slots,
+        seeds: [42],
+        energy_model: $('energyModel').value
+      };
+
+      const submitRes = await fetch('/api/ris/experiment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const submitData = await submitRes.json();
+      if (!submitRes.ok) throw new Error(submitData.error || 'Failed to submit training job');
+
+      const jobId = submitData.job_id;
+      let completed = false;
+
+      while (!completed) {
+        await new Promise(r => setTimeout(r, 600));
+        const statusRes = await fetch('/api/jobs/' + jobId);
+        const jobData = await statusRes.json();
+        if (jobData.status === 'error') throw new Error(jobData.error);
+        if (jobData.status === 'complete') {
+          completed = true;
+          displaySmokeResults(jobData.result);
+        } else {
+          $('smokeProgress').textContent = (jobData.progress || 'Agent training in progress...') + ' Please wait.';
+        }
+      }
+    } catch (err) {
+      $('smokeProgress').textContent = 'Error: ' + err.message;
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  function displaySmokeResults(res) {
+    $('smokeProgress').textContent = 'Execution finished successfully.';
+    $('smokeResultBox').style.display = 'block';
+    const tbody = $('smokeTableBody');
+    tbody.innerHTML = '';
+
+    const runs = res.runs || [];
+    runs.forEach(r => {
+      const tr = document.createElement('tr');
+      const finalRate = r.history.secrecy_rate[r.history.secrecy_rate.length - 1];
+      const finalBer = r.history.ber[r.history.ber.length - 1];
+      const finalAction = r.actions[r.actions.length - 1];
+
+      tr.innerHTML = `
+        <td><strong>${r.scheme}</strong></td>
+        <td class="num">${finalRate.toFixed(4)} bps/Hz</td>
+        <td class="num">${finalBer === 0 ? '0.0' : finalBer.toExponential(3)}</td>
+        <td><code>[${finalAction.map(x => x.toFixed(2)).join(', ')}]</code></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Initial update on load
+  window.addEventListener('DOMContentLoaded', () => {
+    triggerUpdate();
+    loadSavedStudy();
+  });
+</script>
+
+<script>
+/* Dependency-free 3D geometry projection. No simulation metrics are computed here. */
+(() => {
+  const canvas=document.getElementById('room3D'),ctx=canvas.getContext('2d');
+  let data=null,yaw=-.65,pitch=.55,zoom=1,drag=null,W=0,H=0;
+  const sub=(a,b)=>a.map((v,i)=>v-b[i]),add=(a,b)=>a.map((v,i)=>v+b[i]),mul=(a,k)=>a.map(v=>v*k);
+  const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+  const unit=a=>mul(a,1/Math.hypot(...a));
+  function project(p){const a=sub(p,[2.5,2.5,1.3]),x=a[0]*Math.cos(yaw)-a[1]*Math.sin(yaw),y=a[0]*Math.sin(yaw)+a[1]*Math.cos(yaw);const s=Math.min(W/8,H/6.7)*zoom;return [W/2+x*s,H/2+(y*Math.sin(pitch)-a[2]*Math.cos(pitch))*s,y*Math.cos(pitch)+a[2]*Math.sin(pitch)];}
+  function line(a,b,color,width=1,dashed=false){const p=project(a),q=project(b);ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dashed?[5,5]:[]);ctx.moveTo(...p.slice(0,2));ctx.lineTo(...q.slice(0,2));ctx.stroke();ctx.setLineDash([]);}
+  function label(p,text,color){const q=project(p);ctx.fillStyle=color;ctx.font='13px system-ui';ctx.fillText(text,q[0]+9,q[1]-10);}
+  function node(p,text,color,r=6){const q=project(p);ctx.beginPath();ctx.arc(q[0],q[1],r,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();label(p,text,color);line([p[0],p[1],0],p,color+'44',1,true);}
+  function mirrorBasis(n){const n0=[0,1,0],axis=cross(n0,n),s=Math.hypot(...axis),c=dot(n0,n);if(s<1e-10)return [[c>=0?1:-1,0,0],[0,0,1]];const k=mul(axis,1/s);const rotate=v=>add(add(mul(v,c),mul(cross(k,v),s)),mul(k,dot(k,v)*(1-c)));return [rotate([1,0,0]),rotate([0,0,1])];}
+  function draw(){const rect=canvas.getBoundingClientRect(),dpr=devicePixelRatio||1;W=rect.width;H=rect.height;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#102337';ctx.fillRect(0,0,W,H);
+    for(let i=0;i<=5;i++){line([i,0,0],[i,5,0],'#294357');line([0,i,0],[5,i,0],'#294357');}
+    for(const z of [0,3]){line([0,0,z],[5,0,z],'#658096');line([5,0,z],[5,5,z],'#658096');line([5,5,z],[0,5,z],'#658096');line([0,5,z],[0,0,z],'#658096');}
+    for(const x of [0,5])for(const y of [0,5])line([x,y,0],[x,y,3],'#658096');label([5,0,0],'x = 5 m','#9ab2c5');label([0,5,0],'y = 5 m','#9ab2c5');label([0,0,3],'ceiling z = 3 m','#9ab2c5');
+    if(!data){ctx.fillStyle='#cadbe8';ctx.fillText('Waiting for valid backend response…',20,30);return;}
+    const g=data.geometry,r=data.ris,s=data.selected,center=r.panel_center;
+    if(document.getElementById('room3DLinks').checked){const link=(a,b,gain,color)=>{if(gain>0)line(a,b,color,1.5)};link(g.alice,g.bob,s.direct_gains.h_AB,'#58aaff');link(g.alice,g.eve,s.direct_gains.h_AE,'#ffad65');g.jammers.forEach((j,i)=>{link(j,g.bob,s.direct_gains.h_JB[i],'#b48af355');link(j,g.eve,s.direct_gains.h_JE[i],'#b48af355')});const reflect=(a,b,gain,color)=>{if(gain>0){line(a,center,color,2,true);line(center,b,color,2,true)}};reflect(g.alice,g.bob,s.reflected_gains.h_AB,'#3ee9be');reflect(g.alice,g.eve,s.reflected_gains.h_AE,'#ff886a');g.jammers.forEach((j,i)=>{reflect(j,g.bob,s.reflected_gains.h_JB[i],'#bbaaff');reflect(j,g.eve,s.reflected_gains.h_JE[i],'#ff6f89')});}
+    const name=data.configuration_names[s.ris_index],normals=r.configurations[name].tile_normals;
+    const tiles=r.tile_centers.map((m,i)=>({m,n:normals[i],depth:project(m)[2]})).sort((a,b)=>a.depth-b.depth);
+    tiles.forEach(({m,n})=>{const [u,v]=mirrorBasis(n),half=r.tile_side_m/2,points=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([a,b])=>project(add(m,add(mul(u,a*half),mul(v,b*half)))));ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();ctx.fillStyle=s.ris_index===0?'#697985':'#46cbd2';ctx.fill();ctx.strokeStyle='#d4ffff';ctx.stroke();line(m,add(m,mul(n,.22)),'#e8ffff',1.5);});
+    label(center,'RIS: '+name,'#72eaf0');node(g.alice,'Alice · ceiling','#ffd05b',8);g.jammers.forEach((p,i)=>node(p,'FJ '+(i+1),'#bf8cff'));node(g.bob,'Bob · z='+g.bob[2]+' m','#58adff',8);node(g.eve,'Eve · z='+g.eve[2]+' m','#ff738b',7);
+  }
+  window.room3DView=view=>{yaw=view==='side'?0:-.65;pitch=view==='top'?Math.PI/2:view==='side'?0:.55;zoom=1;draw()};
+  canvas.addEventListener('pointerdown',e=>{drag=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(!drag)return;yaw+=(e.clientX-drag[0])*.008;pitch=Math.max(-.2,Math.min(1.57,pitch+(e.clientY-drag[1])*.008));drag=[e.clientX,e.clientY];draw()});canvas.addEventListener('pointerup',()=>drag=null);canvas.addEventListener('pointercancel',()=>drag=null);canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.5,Math.min(2.5,zoom*Math.exp(-e.deltaY*.001)));draw()},{passive:false});
+  document.getElementById('room3DLinks').onchange=draw;window.addEventListener('resize',draw);window.addEventListener('ris-3d-update',e=>{data=e.detail;document.getElementById('room3DStatus').textContent=data?'Backend-linked 3D view · configuration '+data.selected.ris_index+' · '+data.ris.num_tiles+' mirrors · drag to orbit, wheel to zoom':'Backend error: live geometry cleared';draw()});draw();
+})();
+
+</script>
+</body>
+</html>

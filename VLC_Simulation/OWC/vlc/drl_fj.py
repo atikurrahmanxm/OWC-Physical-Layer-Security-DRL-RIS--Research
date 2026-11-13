@@ -199,18 +199,25 @@ class DRLFJAgent:
         self._packed_signature = None
         self._packed_memory = None
 
-    def _assemble_state_action_sequence(self, current_state: np.ndarray) -> np.ndarray:
+    def _assemble_state_action_sequence(
+        self,
+        current_state: np.ndarray,
+        history_states: Optional[List[np.ndarray]] = None,
+        history_actions: Optional[List[np.ndarray]] = None,
+    ) -> np.ndarray:
         """
         Assembles phi^(k) = [ s^(k-M), w^(k-M), ..., w^(k-1), s^(k) ]
-        Pads or slices to 92 elements, then pads with 8 zeros to reshape to (10, 10).
+        Pads or slices to 92 elements, then pads with zeros to reshape to (m0, m0).
         """
+        states = self.history_states if history_states is None else history_states
+        actions = self.history_actions if history_actions is None else history_actions
         seq = []
-        k = len(self.history_actions)
+        k = len(actions)
         start_idx = max(0, k - self.m)
 
         for i in range(start_idx, k):
-            seq.extend(self.history_states[i])
-            seq.extend(self.history_actions[i])
+            seq.extend(states[i])
+            seq.extend(actions[i])
 
         # Fill with initial state/action if history is shorter than M
         target_len = self.m * (4 + self.action_width)
@@ -221,8 +228,8 @@ class DRLFJAgent:
         # Append current state s^(k) (length 4) -> total length 92
         seq.extend(current_state)
 
-        # Pad to 100 entries to reshape into 10 x 10 matrix
-        m0_sq = self.config.cnn_m0 * self.config.cnn_m0  # 100
+        # Pad to m0*m0 entries to reshape into m0 x m0 matrix
+        m0_sq = self.config.cnn_m0 * self.config.cnn_m0
         if len(seq) > m0_sq:
             raise ValueError("CNN input cannot contain the complete state-action sequence")
         if len(seq) < m0_sq:
@@ -404,3 +411,57 @@ class DRLFJAgent:
             history["utility"].append(info["utility"])
 
         return history
+
+    def evaluate(self, num_slots: int = 1000) -> Dict[str, Any]:
+        """
+        Evaluates the frozen trained policy over num_slots without learning updates.
+        - CNN is set to eval mode (no dropout/training behavior).
+        - Exploration is disabled (pure deterministic greedy: argmax over Q-values).
+        - DND memory is frozen: no new entries appended or updated.
+        - Experience replay buffer is not modified.
+        - Returns history, actions, and evaluation summary.
+        """
+        if num_slots < 1:
+            raise ValueError("num_slots must be positive")
+
+        self.cnn.eval()
+        self.prev_cnn.eval()
+
+        eval_history = {
+            "secrecy_rate": [],
+            "ber": [],
+            "energy": [],
+            "utility": [],
+        }
+        eval_actions = []
+
+        # Fresh evaluation episode environment reset
+        state = self.env.reset()
+        eval_history_states: List[np.ndarray] = []
+        eval_history_actions: List[np.ndarray] = []
+
+        for k in range(1, num_slots + 1):
+            phi = self._assemble_state_action_sequence(state, eval_history_states, eval_history_actions)
+            look_key = self.get_lookup_key(phi)
+            q_values = self.estimate_all_q_values(look_key)
+            action_idx = int(np.argmax(q_values))
+
+            next_state, utility, info = self.env.step(action_idx)
+            act_vec = info["action"]
+
+            eval_history["secrecy_rate"].append(float(info["secrecy_rate"]))
+            eval_history["ber"].append(float(info["ber"]))
+            eval_history["energy"].append(float(info["energy"]))
+            eval_history["utility"].append(float(info["utility"]))
+            eval_actions.append(act_vec.tolist() if hasattr(act_vec, "tolist") else list(act_vec))
+
+            eval_history_states.append(state.copy())
+            eval_history_actions.append(np.asarray(act_vec, dtype=np.float64))
+
+            state = next_state
+
+        return {
+            "history": eval_history,
+            "actions": eval_actions,
+            "num_slots": num_slots,
+        }

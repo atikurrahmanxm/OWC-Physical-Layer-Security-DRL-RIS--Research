@@ -400,6 +400,7 @@ def interactive_menu():
         print("=" * 76)
         print(" [1]  Launch Desktop App (Native Window GUI)")
         print(" [2]  Open 3D Web Visualizer (in Browser)")
+        print(" [d]  Launch Supervisor Demonstration (/demo)")
         print(" [3]  Run Automated Unit Tests (21 Tests)")
         print(" [4]  Evaluate Default Nominal Scenario (Bob/Eve/SNR)")
         print(" [5]  Generate All Figures (Fig 5, Fig 6, Fig 7)")
@@ -421,6 +422,9 @@ def interactive_menu():
             launch_desktop()
         elif choice == "2":
             launch_web_gui()
+        elif choice.lower() == "d":
+            from app_server import serve
+            serve(open_browser=True, path="demo")
         elif choice == "3":
             run_unit_tests()
         elif choice == "4":
@@ -462,10 +466,11 @@ def main():
     )
 
     # Core Execution Modes
-    parser.add_argument("--mode", type=str, choices=["app", "gui", "test", "eval", "fig", "train", "all", "ris", "backup", "restore", "list"],
+    parser.add_argument("--mode", type=str, choices=["app", "gui", "test", "eval", "fig", "train", "all", "ris", "demo", "backup", "restore", "list"],
                         help="Execution mode:\n"
                              "  app:      Launch Desktop App\n"
                              "  gui:      Open 3D Web Visualizer in Browser\n"
+                             "  demo:     Launch Supervisor Demonstration (/demo)\n"
                              "  test:     Run the regression suite\n"
                              "  eval:     Evaluate custom scenario\n"
                              "  fig:      Generate paper figures\n"
@@ -479,6 +484,7 @@ def main():
     # Quick Shorthand Flags
     parser.add_argument("--app", action="store_true", help="Shorthand for --mode app")
     parser.add_argument("--gui", action="store_true", help="Shorthand for --mode gui")
+    parser.add_argument("--demo", action="store_true", help="Shorthand for --mode demo")
     parser.add_argument("--test", action="store_true", help="Shorthand for --mode test")
     parser.add_argument("--all", action="store_true", help="Shorthand for --mode all")
 
@@ -529,8 +535,8 @@ def main():
     # Determine action
     b_dir = Path(args.backup_dir)
 
-    simulation_mode = args.mode if args.mode in ["eval","fig","train","all","test","gui","app","ris"] else None
-    for flag, mode in [(args.app,"app"),(args.gui,"gui"),(args.test,"test"),(args.all,"all")]:
+    simulation_mode = args.mode if args.mode in ["eval","fig","train","all","test","gui","app","ris","demo"] else None
+    for flag, mode in [(args.app,"app"),(args.gui,"gui"),(args.demo,"demo"),(args.test,"test"),(args.all,"all")]:
         if flag:
             simulation_mode = mode
     if args.mode is None and "--fig" in sys.argv:

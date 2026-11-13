@@ -77,6 +77,7 @@ def main(argv=None):
     parser.add_argument('--scenarios',nargs='+',choices=['nominal','near_bob','colocated','all'],default=['nominal'])
     parser.add_argument('--snr',type=float,default=None)
     parser.add_argument('--snr-definition',choices=['eq4','electrical','pam'],default='eq4')
+    parser.add_argument('--eval-slots',type=int,default=0,help='Separate frozen greedy evaluation slots after training')
     parser.add_argument('--qos-ber-max',type=float,default=None)
     parser.add_argument('--qos-penalty',type=float,default=0.)
     parser.add_argument('--secrecy-target',type=float,default=.1)
@@ -89,7 +90,7 @@ def main(argv=None):
     selected=predefined_scenarios(config)
     if 'all' not in args.scenarios:selected=[s for s in selected if s['name'] in args.scenarios]
     for scenario in selected:scenario['snr_db']=args.snr
-    record=simulate_ris_study(config=config,slots=args.slots,seeds=args.seeds,scenarios=selected,
+    record=simulate_ris_study(config=config,slots=args.slots,eval_slots=args.eval_slots,seeds=args.seeds,scenarios=selected,
         energy_models=['paper_signed','l1'] if args.energy_model=='both' else None,
         output_dir=args.output,fixed_configuration=args.fixed_configuration,
         qos_ber_max=args.qos_ber_max,qos_penalty=args.qos_penalty,secrecy_target=args.secrecy_target,

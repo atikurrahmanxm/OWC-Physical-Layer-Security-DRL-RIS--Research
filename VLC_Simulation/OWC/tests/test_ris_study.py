@@ -52,5 +52,49 @@ class RISStudyTests(unittest.TestCase):
         with self.assertRaises(ValueError):run_ris_study(slots=1,qos_penalty=1.,qos_ber_max=None)
         with self.assertRaises(ValueError):run_ris_study(slots=1,scenarios=[{'name':'../outside','bob':[1,1,.85],'eve':[3,3,.85]}])
 
+    def test_evaluate_does_not_modify_cnn_or_dnd_memory(self):
+        import copy
+        import torch
+        from vlc.environment import VLCEnvironment
+        from vlc.drl_fj import DRLFJAgent
+        cfg = VLCConfig(model='paper', cnn_m0=11)
+        env = VLCEnvironment(config=cfg)
+        agent = DRLFJAgent(env, cfg)
+        agent.train(num_slots=15)
+
+        # Snapshot weights, memory, buffer
+        cnn_weights_before = {k: v.clone() for k, v in agent.cnn.state_dict().items()}
+        dnd_counts_before = {a: len(d) for a, d in agent.dnd_dict.items()}
+        replay_len_before = len(agent.replay_buffer)
+
+        # Run frozen evaluation
+        eval_res = agent.evaluate(num_slots=25)
+        self.assertEqual(len(eval_res['actions']), 25)
+        self.assertEqual(len(eval_res['history']['secrecy_rate']), 25)
+
+        # Verify no CNN weight changes
+        for k, v in agent.cnn.state_dict().items():
+            self.assertTrue(torch.equal(v, cnn_weights_before[k]), f"CNN parameter {k} modified during evaluate")
+
+        # Verify no DND memory additions
+        dnd_counts_after = {a: len(d) for a, d in agent.dnd_dict.items()}
+        self.assertEqual(dnd_counts_before, dnd_counts_after, "DND memory count changed during evaluate")
+
+        # Verify no replay buffer additions
+        self.assertEqual(len(agent.replay_buffer), replay_len_before, "Replay buffer grew during evaluate")
+
+    def test_evaluate_is_deterministic_and_reproducible(self):
+        from vlc.environment import VLCEnvironment
+        from vlc.drl_fj import DRLFJAgent
+        cfg = VLCConfig(model='paper', cnn_m0=11)
+        env = VLCEnvironment(config=cfg)
+        agent = DRLFJAgent(env, cfg)
+        agent.train(num_slots=15)
+
+        eval1 = agent.evaluate(num_slots=20)
+        eval2 = agent.evaluate(num_slots=20)
+        self.assertEqual(eval1['actions'], eval2['actions'], "Frozen evaluation actions must be deterministic and identical")
+        np.testing.assert_allclose(eval1['history']['secrecy_rate'], eval2['history']['secrecy_rate'])
+
 
 if __name__=='__main__':unittest.main()

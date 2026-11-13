@@ -209,12 +209,36 @@ class Handler(BaseHTTPRequestHandler):
                 job = self.server.jobs.get(self.path.split("/")[-1])
                 result = {k: v for k, v in job.items() if k != "key"} if job else None
             return self.reply(200 if result else 404, result or {"error": "Unknown job"})
-        name = "index.html" if self.path in {"/", "/index.html"} else "visualizer.html" if self.path == "/visualizer.html" else 'ris.html' if self.path in {'/ris','/ris.html'} else None
+        if self.path.startswith("/figures/"):
+            fig_name = Path(self.path.split("?")[0]).name
+            fig_file = ROOT / "supervisor_package" / "figures" / fig_name
+            if fig_file.exists() and fig_file.is_file():
+                raw = fig_file.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", "image/png")
+                self.send_header("Content-Length", str(len(raw)))
+                self.send_header("Cache-Control", "no-cache")
+                self.end_headers()
+                self.wfile.write(raw)
+                return
+            return self.reply(404, {"error": "Figure not found"})
+
+        name = ('supervisor_demo.html' if self.path in {'/demo', '/supervisor_demo.html'}
+                else 'supervisor_results.json' if self.path == '/supervisor_results.json'
+                else 'supervisor_package/compact_results.json' if self.path == '/compact_results.json'
+                else "index.html" if self.path in {"/", "/index.html"}
+                else "visualizer.html" if self.path == "/visualizer.html"
+                else 'ris.html' if self.path in {'/ris', '/ris.html'}
+                else None)
         if name is None:
             return self.reply(404, {"error": "Not found"})
-        raw = (ROOT / name).read_bytes()
+        target_path = ROOT / name
+        if not target_path.exists():
+            return self.reply(404, {"error": "File not found"})
+        raw = target_path.read_bytes()
         self.send_response(200)
-        self.send_header("Content-Type", "text/html; charset=utf-8")
+        ctype = "application/json; charset=utf-8" if name.endswith(".json") else "text/html; charset=utf-8"
+        self.send_header("Content-Type", ctype)
         self.send_header("Content-Length", str(len(raw)))
         self.end_headers()
         self.wfile.write(raw)
@@ -246,11 +270,12 @@ def start_server():
     return server, f"http://127.0.0.1:{server.server_port}/"
 
 
-def serve(open_browser=True):
+def serve(open_browser=True, path=""):
     server, url = start_server()
-    print(f"VLC simulation: {url}\nPress Ctrl+C to stop. Published curves are not certified.", flush=True)
+    target_url = f"{url}{path.lstrip('/')}"
+    print(f"VLC simulation: {target_url}\nPress Ctrl+C to stop. Published curves are not certified.", flush=True)
     if open_browser:
-        webbrowser.open(url)
+        webbrowser.open(target_url)
     try:
         while True:
             threading.Event().wait(1)

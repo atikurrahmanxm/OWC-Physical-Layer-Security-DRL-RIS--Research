@@ -18,7 +18,7 @@
 
 | Subsystem | Status | Verification Evidence |
 |---|---|---|
-| **2024 Paper Equations (Eq. 1–23)** | **100% Implemented Verbatim** | `tests/test_vlc_paper.py` (21/21 passed) |
+| **2024 Paper Equations (Eq. 1–23)** | **Implemented with Disclosed Options** | Implemented with explicit energy model choices (`l1` vs `paper_signed`) and SNR conventions; formula tests pass (`tests/test_vlc_paper.py` 21/21 passed) |
 | **Full Regression Test Suite** | **87 / 87 Tests Passed** | `python -B -m unittest discover -s tests -v` (`28.4s OK`) |
 | **Optical RIS Physics (`vlc/ris.py`)** | **Validated & Power-Conserving** | Snell's law reflection, sub-tile quadrature, area shrinking, FoV cutoff, power bounds (`tests/test_ris_optics.py` 13/13 passed) |
 | **Joint Environment (`vlc/ris_environment.py`)** | **Fully Integrated** | Supports `off` (baseline), `fixed` ($q=1$), and `joint` DRL control ($[w, q]$ in state-action sequence $\phi^{(k)}$) |
@@ -47,15 +47,17 @@ From 36 completed matched simulation runs over 2,000 slots each:
 
 ### A. Nominal Scenario (Bob at $(1.8, 1.6)$, Eve at $(3.2, 3.4)$)
 * **Under $L_1$ Non-Negative Energy:**
-  * **Baseline (No RIS):** Final 500-slot Secrecy Rate = **$1.3504\text{ bps/Hz}$**, Utility = **$0.6114$**, Bob BER = **$1.30 \times 10^{-4}$**.
-  * **Fixed RIS ($q=1$, Alice $\to$ Bob):** Secrecy Rate = **$1.5078\text{ bps/Hz}$**, Utility = **$0.6388$**, Bob BER = **$4.30 \times 10^{-5}$**.
-  * **Joint RIS + FJ + DRL:** Secrecy Rate = **$1.5230\text{ bps/Hz}$** ($+0.1726\text{ bps/Hz}$ over baseline), Utility = **$0.6543$**, Bob BER drops to **$4.84 \times 10^{-12}$** (virtual error-free communication).
+  * **Baseline (No RIS):** Final 500-slot training Secrecy Rate = **$1.3504\text{ bps/Hz}$**, Utility = **$0.6114$**, Bob BER = **$1.30 \times 10^{-4}$**.
+  * **Fixed RIS ($q=1$, Alice $\to$ Bob):** Final 500-slot Secrecy Rate = **$1.5078\text{ bps/Hz}$**, Utility = **$0.6388$**, Bob BER = **$4.30 \times 10^{-5}$**.
+  * **Joint RIS + FJ + DRL:** Final 500-slot Secrecy Rate = **$1.5230\text{ bps/Hz}$** ($+0.1726\text{ bps/Hz}$ sample mean difference over baseline), Utility = **$0.6543$**, Bob BER = **$4.84 \times 10^{-12}$**.
+  * **Uncertainty & Significance:** Across $N=3$ seeds, paired 95% Student-$t$ confidence interval for joint vs. baseline is $[-0.7403, +1.0854]\text{ bps/Hz}$ (and $[-1.0904, +1.1208]$ vs. fixed RIS). Because both intervals cross zero, superiority is not statistically established with $N=3$ seeds.
 * **Under Signed Energy ($\sum w_i$):**
-  * Baseline suffers catastrophic **zero-collapse** ($99.48\%$ secrecy outage) because the agent exploits negative weights for energy bonuses without transmitting secrecy jamming.
+  * Baseline suffers severe **zero-collapse** ($99.48\%$ secrecy outage) because the agent exploits negative weights for energy bonuses without transmitting secrecy jamming.
   * Joint RIS + FJ + DRL drives secrecy rate to **$1.0530\text{ bps/Hz}$**, reducing secrecy outage to $36.8\%$.
 
-### B. Colocated Adversary Boundary Test (Eve at exact Bob location)
-* When Eve is colocated with Bob, physical channel separation is zero. Across all 9 runs and all schemes, secrecy rate is **identically $0.0000\text{ bps/Hz}$**, correctly matching the fundamental physical boundary of wiretap channels.
+### B. Adversarial & Boundary Tests (Near-Bob and Colocated)
+* **Near-Bob ($\sim 7\text{ cm}$ separation):** Secrecy rate evaluates strictly to **$0.0000\text{ bps/Hz}$** across all schemes and slots because spatial channels to Bob and Eve are nearly collinear, making jamming without damaging Bob physically impossible on the discrete grid.
+* **Colocated:** Secrecy rate is **identically $0.0000\text{ bps/Hz}$**, correctly matching the fundamental physical boundary of wiretap channels.
 
 ---
 

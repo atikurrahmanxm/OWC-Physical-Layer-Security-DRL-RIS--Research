@@ -60,7 +60,7 @@ def run_unit_tests():
 
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--mode",choices=["eval","fig","train","test","all","gui","app","desktop","ris"],default="eval")
+    p.add_argument("--mode",choices=["eval","fig","train","test","all","gui","app","desktop","ris","demo"],default="eval")
     p.add_argument("--model",choices=["paper","physical"],default="paper")
     p.add_argument("--receiver-resistance",type=float,default=1.,help="Ohms: physical current-noise variance=P_noise/R")
     p.add_argument("--jammer-resistance",type=float,default=1.,help="Ohms: physical AC jamming energy=E[j^2]*R*duration")
@@ -93,6 +93,7 @@ def main(argv=None):
     p.add_argument('--qos-ber-max',type=float,default=None)
     p.add_argument('--qos-penalty',type=float,default=0.)
     p.add_argument('--secrecy-target',type=float,default=.1)
+    p.add_argument('--ris-eval-slots',type=int,default=0,help='Separate frozen greedy evaluation slots after training')
     a = p.parse_args(argv)
     if a.slots < 1:
         p.error("--slots must be positive")
@@ -122,7 +123,7 @@ def main(argv=None):
         for scenario in scenarios:scenario['snr_db']=a.snr
         ris_config=OpticalRISConfig(panel_center=tuple(a.ris_center),panel_width_m=a.ris_width,
             panel_height_m=a.ris_height,rows=a.ris_rows,cols=a.ris_cols,reflectivity=a.ris_reflectivity)
-        simulate_ris_study(config=c,ris_config=ris_config,slots=a.slots,seeds=a.seeds or [a.seed],
+        simulate_ris_study(config=c,ris_config=ris_config,slots=a.slots,eval_slots=a.ris_eval_slots,seeds=a.seeds or [a.seed],
             scenarios=scenarios,energy_models=['paper_signed','l1'] if a.ris_energy_sensitivity else None,
             output_dir=a.save_dir,qos_ber_max=a.qos_ber_max,qos_penalty=a.qos_penalty,secrecy_target=a.secrecy_target)
     elif a.mode == "test":
@@ -133,6 +134,9 @@ def main(argv=None):
     elif a.mode == "gui":
         from app_server import serve
         serve(open_browser=True)
+    elif a.mode == "demo":
+        from app_server import serve
+        serve(open_browser=True, path="demo")
     elif a.mode == "eval":
         evaluate_custom_scenario(*a.bob,*a.eve,snr_db=a.snr,config=c,slots=a.slots,
                                  save_path=a.results or str(Path(a.save_dir)/"evaluation.json"))

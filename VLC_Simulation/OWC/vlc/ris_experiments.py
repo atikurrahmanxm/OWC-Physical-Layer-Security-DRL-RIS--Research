@@ -75,8 +75,10 @@ def summarize_history(history, *, final_window=500, qos_ber_max=None, secrecy_ta
         result['final_window'][metric] = float(values[-window:].mean())
     ber, rate = np.asarray(history['ber']), np.asarray(history['secrecy_rate'])
     result['bob_qos_outage_fraction'] = None if qos_ber_max is None else float(np.mean(ber > qos_ber_max))
+    result['bob_qos_outage_1e3'] = float(np.mean(ber > 1e-3))
+    result['bob_qos_outage_1e4'] = float(np.mean(ber > 1e-4))
     result['secrecy_outage_fraction'] = float(np.mean(rate < secrecy_target))
-    result['targets'] = {'bob_ber_max': qos_ber_max, 'secrecy_rate_min': secrecy_target}
+    result['targets'] = {'bob_ber_max': qos_ber_max, 'secrecy_rate_min': secrecy_target, 'provisional_qos': [1e-3, 1e-4]}
     return result
 
 
@@ -173,26 +175,48 @@ def aggregate_runs(runs):
             rows = [r for r in selected if r['scheme']==scheme]
             if not rows:
                 continue
-            groups.append({'scenario': scenario, 'energy_model': energy, 'scheme': scheme,
+            group_entry = {'scenario': scenario, 'energy_model': energy, 'scheme': scheme,
                            'seeds': [r['seed'] for r in rows],
                            'all_slots': {metric: estimate_uncertainty([r['summary']['all_slots'][metric] for r in rows]) for metric in METRICS},
                            'final_window': {metric: estimate_uncertainty([r['summary']['final_window'][metric] for r in rows]) for metric in METRICS},
                            'secrecy_outage': estimate_uncertainty([r['summary']['secrecy_outage_fraction'] for r in rows]),
+                           'bob_qos_outage_1e3': estimate_uncertainty([r['summary']['bob_qos_outage_1e3'] for r in rows]) if 'bob_qos_outage_1e3' in rows[0]['summary'] else None,
+                           'bob_qos_outage_1e4': estimate_uncertainty([r['summary']['bob_qos_outage_1e4'] for r in rows]) if 'bob_qos_outage_1e4' in rows[0]['summary'] else None,
                            'bob_qos_outage': None if rows[0]['summary']['bob_qos_outage_fraction'] is None else
-                               estimate_uncertainty([r['summary']['bob_qos_outage_fraction'] for r in rows])})
+                               estimate_uncertainty([r['summary']['bob_qos_outage_fraction'] for r in rows])}
+            if all(r.get('evaluation') is not None for r in rows):
+                group_entry['evaluation'] = {metric: estimate_uncertainty([r['evaluation']['summary']['all_slots'][metric] for r in rows]) for metric in METRICS}
+                group_entry['evaluation_secrecy_outage'] = estimate_uncertainty([r['evaluation']['summary']['secrecy_outage_fraction'] for r in rows])
+                if 'bob_qos_outage_1e3' in rows[0]['evaluation']['summary']:
+                    group_entry['evaluation_qos_outage_1e3'] = estimate_uncertainty([r['evaluation']['summary']['bob_qos_outage_1e3'] for r in rows])
+                    group_entry['evaluation_qos_outage_1e4'] = estimate_uncertainty([r['evaluation']['summary']['bob_qos_outage_1e4'] for r in rows])
+            groups.append(group_entry)
         by_seed = {(r['seed'],r['scheme']): r for r in selected}
-        for scheme in ['fixed_ris','joint_ris']:
-            seeds = sorted(s for s,kind in by_seed if kind==scheme and (s,'baseline') in by_seed)
+        comparisons = [
+            ('fixed_ris', 'baseline', 'fixed_ris minus baseline'),
+            ('joint_ris', 'baseline', 'joint_ris minus baseline'),
+            ('joint_ris', 'fixed_ris', 'joint_ris minus fixed_ris'),
+        ]
+        for num_s, den_s, label in comparisons:
+            seeds = sorted(s for s,kind in by_seed if kind==num_s and (s,den_s) in by_seed)
             if not seeds:
                 continue
-            paired.append({'scenario':scenario,'energy_model':energy,'comparison':scheme+' minus baseline',
-                           'seeds':seeds,'all_slots':{metric: estimate_uncertainty([
-                               by_seed[s,scheme]['summary']['all_slots'][metric]-by_seed[s,'baseline']['summary']['all_slots'][metric]
-                               for s in seeds]) for metric in METRICS}})
+            pair_entry = {'scenario': scenario, 'energy_model': energy, 'comparison': label,
+                          'seeds': seeds,
+                          'all_slots': {metric: estimate_uncertainty([
+                              by_seed[s,num_s]['summary']['all_slots'][metric]-by_seed[s,den_s]['summary']['all_slots'][metric]
+                              for s in seeds]) for metric in METRICS},
+                          'final_window': {metric: estimate_uncertainty([
+                              by_seed[s,num_s]['summary']['final_window'][metric]-by_seed[s,den_s]['summary']['final_window'][metric]
+                              for s in seeds]) for metric in METRICS}}
+            if all(by_seed[s,num_s].get('evaluation') is not None and by_seed[s,den_s].get('evaluation') is not None for s in seeds):
+                pair_entry['evaluation'] = {metric: estimate_uncertainty([
+                    by_seed[s,num_s]['evaluation']['summary']['all_slots'][metric]-by_seed[s,den_s]['evaluation']['summary']['all_slots'][metric]
+                    for s in seeds]) for metric in METRICS}
+            paired.append(pair_entry)
     return groups, paired
 
-
-def run_ris_study(config=None, ris_config=None, *, slots=2000, seeds=(42,), scenarios=None,
+def run_ris_study(config=None, ris_config=None, *, slots=2000, eval_slots=0, seeds=(42,), scenarios=None,
                   energy_models=None, output_dir='output_figures/ris', fixed_configuration=1,
                   qos_ber_max=None, qos_penalty=0., secrecy_target=.1, final_window=500,
                   include_exhaustive=True, progress=None):
@@ -201,7 +225,7 @@ def run_ris_study(config=None, ris_config=None, *, slots=2000, seeds=(42,), scen
     if c.model != 'paper':
         raise ValueError('The agreed RIS study uses the 2024 paper model, not physical mode')
     c = replace(c,cnn_m0=max(11,c.cnn_m0))
-    if type(slots) is not int or slots<1 or type(final_window) is not int or final_window<1:
+    if type(slots) is not int or slots<1 or type(final_window) is not int or final_window<1 or type(eval_slots) is not int or eval_slots<0:
         raise ValueError('slots and final_window must be positive integers')
     seeds = tuple(seeds)
     if not seeds or len(set(seeds))!=len(seeds) or any(type(s) is not int or not 0<=s<2**32 for s in seeds):
@@ -235,7 +259,7 @@ def run_ris_study(config=None, ris_config=None, *, slots=2000, seeds=(42,), scen
               'settings': {'scenarios': scenarios,'energy_models':energies,
                            'ris_config': asdict(ris_config),'fixed_configuration':fixed_configuration,
                            'qos_ber_max':qos_ber_max,'qos_penalty':qos_penalty,
-                           'secrecy_target':secrecy_target,'final_window':final_window},
+                           'secrecy_target':secrecy_target,'final_window':final_window,'eval_slots':eval_slots},
               'schemes': SCHEMES, 'runs': [],'complete':False}
     count = len(energies)*len(scenarios)*len(seeds)*len(SCHEMES)
     completed = 0
@@ -265,12 +289,28 @@ def run_ris_study(config=None, ris_config=None, *, slots=2000, seeds=(42,), scen
                     if max(replay_errors.values())>1e-10:
                         raise RuntimeError(f'Saved-action replay mismatch: {replay_errors}')
                     reference = exhaustive_reference(env,qos_ber_max=qos_ber_max,secrecy_target=secrecy_target) if include_exhaustive else None
-                    record['runs'].append({'scenario':scenario.copy(),'seed':seed,'energy_model':energy,'scheme':scheme,
+                    run_entry = {'scenario':scenario.copy(),'seed':seed,'energy_model':energy,'scheme':scheme,
                         'config':asdict(env.config),'sigma_B_sq':sigma,'ris':env.ris_metadata(),
                         'history':history,'actions':agent.action_history,'observations':observations,
                         'training_seconds':training_seconds,'action_replay_maximum_errors':replay_errors,
                         'summary':summarize_history(history,final_window=final_window,qos_ber_max=qos_ber_max,secrecy_target=secrecy_target),
-                        'discrete_reference':reference})
+                        'discrete_reference':reference}
+                    if eval_slots > 0:
+                        t_eval = time.perf_counter()
+                        eval_res = agent.evaluate(eval_slots)
+                        eval_seconds = time.perf_counter() - t_eval
+                        eval_obs = [_action_record(env, a) for a in eval_res['actions']]
+                        eval_summary = summarize_history(eval_res['history'], final_window=min(eval_slots, final_window),
+                                                         qos_ber_max=qos_ber_max, secrecy_target=secrecy_target)
+                        run_entry['evaluation'] = {
+                            'history': eval_res['history'],
+                            'actions': eval_res['actions'],
+                            'observations': eval_obs,
+                            'summary': eval_summary,
+                            'evaluation_seconds': eval_seconds,
+                            'num_slots': eval_slots,
+                        }
+                    record['runs'].append(run_entry)
                     completed += 1
                     # Checkpoints preserve completed runs if a later experiment
                     # fails; complete=False prevents treating partial data as a study.

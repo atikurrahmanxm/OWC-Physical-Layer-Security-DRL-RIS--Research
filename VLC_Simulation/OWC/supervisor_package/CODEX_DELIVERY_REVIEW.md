@@ -1,0 +1,15 @@
+# Independent delivery review — 2026-11-13
+
+Codex reran the full suite: **94 tests passed in 27.265 seconds**. Launcher, live Python metric API, smoke-training request/polling code, report package, six PNG artifacts (five plots plus screenshot) and phase-separated demonstration tables exist. Screenshot was visually inspected. This is substantial real implementation, not only a report. The existing tests verify routes/metrics, but do not prove complete interactive browser behavior.
+
+Important remaining discrepancies against the delivery task:
+
+1. The room view is a schematic top-down SVG, NOT per-tile specular ray tracing. Alice/RIS/jammer drawing coordinates are hardcoded; mirror normals and tile endpoints are not derived from metadata. Reflected Alice-to-Bob drawing is gated by aggregate h_AB_RIS. Any positive jammer-to-Eve gain triggers a line from ONE hardcoded jammer, which may not be the jammer producing that gain. Direct rays draw without checking their gain. Label this schematic or implement actual per-link/per-tile metadata rendering; do not describe it as validated dynamic specular ray tracing.
+2. Saved on-page results are hardcoded HTML. The compact JSON endpoint exists but the page does not fetch it. Replace hardcoded tables with generated/loaded data and display provenance before claiming the saved-results viewer loads compact JSON.
+3. Live async updates lack request-order guarding: rapid control changes may display stale response metrics under newer labels. Backend errors leave old tables/rays visible. Add latest-request protection and clear/mark invalid data on errors.
+4. Launcher batch file lacks `cd /d "%~dp0"`, so invocation from a different working directory can fail. Dependency imports happen before the Python launcher's try block; dependency failures are not handled as gracefully as claimed.
+5. Figure outputs are PNG only; no vector PDF/SVG versions. The screenshot shows unrendered LaTeX delimiters/formulas and a stale '89 Unit Tests' badge. Polish these before a meeting.
+6. Recomputed paired t-test p-values from saved summary are fixed-minus-baseline 0.0182917, joint-minus-baseline 0.1216017, joint-minus-fixed 0.6887355. Package/page values 0.124 and 0.690 are approximate/inaccurate; derive rather than hand-enter them. Statistical conclusions do not change.
+7. Offline package report links into ../antigravity_report and other project paths require the project, not just the supervisor_package folder. Clearly document the required bundle contents or include portable copies. Do not promise a self-contained package if links point outside it.
+
+Verdict: useful working presentation shell and evidence artifacts delivered, but full acceptance is premature. The bounded next step is to correct visualization claims/links, data binding, async correctness and launch portability; no new long scientific runs are required for these fixes. This review did not retrain long studies, independently replay all saved observations, or verify every reference/figure numeric point.

@@ -149,3 +149,37 @@ class RLFJAgent:
             history["utility"].append(info["utility"])
 
         return history
+
+    def evaluate(self, num_slots: int = 1000) -> Dict[str, Any]:
+        """
+        Evaluates the frozen Q-table over num_slots without learning updates.
+        Exploration is disabled (pure deterministic greedy: argmax over Q-values).
+        """
+        if num_slots < 1:
+            raise ValueError("num_slots must be positive")
+        eval_history = {
+            "secrecy_rate": [],
+            "ber": [],
+            "energy": [],
+            "utility": [],
+        }
+        eval_actions = []
+        state = self.env.reset()
+        for k in range(num_slots):
+            s_idx = self.discretizer.discretize(state)
+            q_values = self._get_q_values(s_idx)
+            action_idx = int(np.argmax(q_values))
+            act_vec = self.env.action_space[action_idx]
+            next_state, utility, info = self.env.step(action_idx)
+            eval_history["secrecy_rate"].append(float(info["secrecy_rate"]))
+            eval_history["ber"].append(float(info["ber"]))
+            eval_history["energy"].append(float(info["energy"]))
+            eval_history["utility"].append(float(info["utility"]))
+            eval_actions.append(act_vec.tolist() if hasattr(act_vec, "tolist") else list(act_vec))
+            state = next_state
+
+        return {
+            "history": eval_history,
+            "actions": eval_actions,
+            "num_slots": num_slots,
+        }
