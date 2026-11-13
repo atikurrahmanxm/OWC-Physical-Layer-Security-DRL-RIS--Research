@@ -1,19 +1,24 @@
 # Antigravity live status
 
-Status: SUPERVISOR DEMONSTRATION & DELIVERY PACKAGE COMPLETE & CODEX REVIEW AUDITED (Antigravity IDE Active Worker)
+Status: CHANGED POSITIONS EMPIRICAL STUDY & BUILD INTEGRATION COMPLETE (Antigravity IDE Active Worker)
 
 Current Activity:
-- Executed `antigravity_report/SUPERVISOR_SIMULATION_DELIVERY_TASK.md` and resolved all 7 findings from `supervisor_package/CODEX_DELIVERY_REVIEW.md`:
-  1. Built and verified one-click loopback launcher system: `run_supervisor_demo.bat` (with `cd /d "%~dp0"` portability), `launch_supervisor_demo.py` (with pre-import `check_dependencies()`), `--mode demo` flag in `main.py` and `run.py`. Auto-detects ephemeral port on IPv4 `127.0.0.1`, opens `/demo`, shuts down cleanly on `Ctrl+C`.
-  2. Upgraded `supervisor_demo.html` (/demo) into a comprehensive interactive demonstration interface: Schematic 2D SVG floorplan ($5\text{ m} \times 5\text{ m}$), dynamic per-link ray rendering tied strictly to positive computed gains, dynamic RIS tile normal projection vectors showing actual tilt angles, geometry presets (Nominal, Near-Bob, Colocated), instant codebook selection ($q \in \{0, 1, 2, 3, 4\}$), side-by-side Bob & Eve link gain breakdowns, live PyTorch DRL smoke run preview (24/200 slots), and embedded publication figures.
-  3. Implemented dynamic client-side JSON data binding: Section 3 dynamically fetches `/compact_results.json` and renders Phase 1, Paired Comparisons, Phase 2, and Phase 3 tables alongside data provenance and SHA-256 hashes.
-  4. Added asynchronous request sequencing (`activeRequestId`) and error state clearing in UI to prevent stale or conflicting metric displays.
-  5. Generated 5 standalone publication plots in both high-resolution PNG (DPI 200) and vector PDF formats in `supervisor_package/figures/`: training curves, frozen evaluation secrecy, paired differences with exact derived $p$-values, optical channel decomposition, and near-Bob boundary search.
-  6. Recomputed and derived exact two-sided Student-$t$ ($df = 9$) $p$-values across all documents and figures: Fixed-minus-Baseline $p = 0.0183$, Joint-minus-Baseline $p = 0.1216$, Joint-minus-Fixed $p = 0.6887$.
-  7. Captured live demo screenshot (`demo_screenshot.png`) using Microsoft Edge headless natively. Polished math delimiters to clean HTML entities and updated badge to "94 Unit Tests Passing".
-  8. Assembled complete offline evidence package in `supervisor_package/`: `START_HERE.md`, `DEMO_SCRIPT_BN.md`, `IMPLEMENTATION_AND_VERIFICATION.md`, `RESULTS.md`, `REPORT_INDEX.md`, `COMPLETION_REPORT.md`, `PROVENANCE.json`, `compact_results.json`. Clarified package portability boundaries.
-  9. Added and verified `tests/test_supervisor_demo.py`: Expanded regression suite from 89 to **94 unit tests, all passing 100% in 28.4s**.
-  10. Verified all equation, browser, and git diff audits cleanly. Zero new long simulations run; manuscript work maintained on hold.
+- Completed Build Integration Diagnosis, Served HTTP Verification, and Changed Receiver Positions Empirical Study:
+  1. Diagnosed and resolved HTML staleness root cause: regex pattern in `scratch/build_dynamic_3d.py` matched an obsolete header comment, silently returning unmodified text; IDE in-memory buffer periodically rewrote older 90,843-byte buffer over disk.
+  2. Fixed build pipeline in `scripts/build_supervisor_demo.py` with structural regex matching `<script[^>]*>(?:(?!<script)[\s\S])*?</script>\s*</body>`, asserting `count == 1`, updating the room HUD label to 6 mirror tiles ($0.159\text{m} \times 0.159\text{m}$), and validating syntax via `node --check`.
+  3. Verified exact HTTP response body served by `app_server.py` at `/demo`: confirmed presence of `Number.isFinite(w) ? w : 0.0`, `replayScenario`, `tile_side_m`, and `0.159m × 0.159m`, and confirmed total absence of `0.2m x 0.2m`.
+  4. Added "Changed Positions (Bob [2.0, 3.0], Eve [3.5, 1.5])" preset button to Section 1 of `supervisor_demo.html`.
+  5. Implemented and executed real 9-run matched experiment in `simulations/sim_changed_positions_study.py` (seeds 42, 43, 44; Baseline, Fixed RIS, Joint RIS; 1,000 slots training + 500 slots frozen greedy evaluation, $\epsilon=0$, L1 energy).
+  6. Generated 5 scenario-labeled figures in both 200 DPI PNG and vector PDF in `supervisor_package/figures/scenario_changed/` and `output_figures/ris/changed_positions/figures/`:
+     - Figure 1: Training Convergence (`fig1_changed_training_convergence.png` / `.pdf`)
+     - Figure 2: Frozen Greedy Evaluation (`fig2_changed_frozen_evaluation.png` / `.pdf`)
+     - Figure 3: Paired Differences Forest Plot (`fig3_changed_paired_differences.png` / `.pdf`)
+     - Figure 4: Optical Channel Gain Decomposition (`fig4_changed_optical_breakdown.png` / `.pdf`)
+     - Figure 5: Cross-Scenario Spatial Comparison (`fig5_cross_scenario_comparison.png` / `.pdf`)
+  7. Conducted in-browser CDP test using headless Microsoft Edge via `scripts/verify_demo_in_browser.js`: verified metadata labels, verified zero weights handling, verified replay scenario isolation and invalidation on manual preset changes, verified changed preset DOM coordinates, captured screenshots (`demo_3d_nominal.png`, `demo_3d_near_bob.png`, `demo_3d_stowed.png`, `demo_3d_changed_positions.png`, `demo_screenshot.png`), and asserted 0 browser console errors.
+  8. Delivered authoritative research report `supervisor_package/CHANGED_POSITIONS_STUDY.md` and updated `DYNAMIC_3D_COMPLETION_REPORT.md`, `START_HERE.md`, `REPORT_INDEX.md`, and `PROVENANCE.json`.
+  9. Preserved all historical 10-seed nominal data in `output_figures/ris/final_evaluation/`.
+  10. Automated regression: All 94 unit tests passing cleanly (100%).
 
 Progress Milestones:
 1. [COMPLETED] Task 1: Audit and repair reporting claims, regenerate exact tables from raw JSON.
@@ -23,4 +28,6 @@ Progress Milestones:
 5. [COMPLETED] Task 5: Draft complete manuscript in `manuscript/draft.md`, `manuscript/tables.md`, and `manuscript/references.bib`.
 6. [COMPLETED] Task 6: Address all review findings, reconcile architecture/dimensions/notation, deliver `antigravity_report/AUTHORITATIVE_TABLES.md` and `antigravity_report/TODAY_COMPLETION_REPORT.md`.
 7. [COMPLETED] Task 7: Supervisor Simulation & Delivery Package: live demo interface (`/demo`), launchers (`run_supervisor_demo.bat`), 5 publication figures, complete `supervisor_package/` reports, and 94 passing unit tests.
-8. [COMPLETED] Task 8: CODEX Delivery Review Audit: all 7 review findings resolved and verified (ray labeling, JSON binding, async guards, launcher portability, vector PDFs, derived p-values, link portability).
+8. [COMPLETED] Task 8: CODEX Delivery Review Audit: all 7 review findings resolved and verified.
+9. [COMPLETED] Task 9: Dynamic 3D RIS Presentation Engine & CODEX 3D Review Audit: interactive Canvas 2D perspective engine, camera controls, slerp tilting, recorded-action replay timeline, zero-jamming truthiness fix, real Edge screenshots, and DYNAMIC_3D_COMPLETION_REPORT.md delivered.
+10. [COMPLETED] Task 10: Changed Positions Empirical Study, HTML Staleness Diagnosis & Build Structural Fix, Exact Served HTTP Verification, and 5 Scenario-Labeled Figures (PNG + Vector PDF) Delivered.

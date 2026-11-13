@@ -1,6 +1,6 @@
 {
   "title": "Optical RIS + Friendly Jamming Physical Layer Security Study: Reproducibility & Provenance",
-  "created_at_utc": "2026-11-13T17:19:56.368395+00:00",
+  "created_at_utc": "2026-11-13T20:24:01.463314+00:00",
   "platform": {
     "os": "Windows",
     "os_release": "11",
@@ -111,12 +111,12 @@
       "bytes": 5637
     },
     "app_server.py": {
-      "sha256": "7df3fbfdd64f65badb7cdb6ec127f04ea860f4ae579bf4c4820b5843af0591dc",
-      "bytes": 14734
+      "sha256": "b68534413e8735c3a81414280f99740a2d7f3331760485aabc9bb228d23f7b68",
+      "bytes": 14777
     },
     "supervisor_demo.html": {
-      "sha256": "b96b4e86e3bcdb17d4b520444ca555dff31b0a814ae05861387b6bddb6bff5ec",
-      "bytes": 49113
+      "sha256": "7e0db3b154edf1cfef2f7f522ad13bc60dd77a07fb5c4d2347e1e7fc980d7684",
+      "bytes": 97996
     },
     "output_figures\\ris\\final_evaluation\\ris_study_summary.json": {
       "sha256": "7948189a9ca87ff5c1e60f387ee64b2fc59424c6b42e8525b83ec934f37968c1",

@@ -1,8 +1,46 @@
 # Project handoff: RIS + FJ + VLC + DRL
 
-Last updated: 2026-11-13, Asia/Calcutta.
+Last updated: 2026-11-14, Asia/Calcutta.
 
-**Codex 3D demo addition:** User requested a 3D model for supervisor presentation. Added dependency-free interactive Canvas 3D projection directly to `supervisor_demo.html`, source maintained in `scripts/room3d_inline.js` (embedded copy must be synchronized when editing). Backend positions, actual finite tile side/centers and shared normals drive geometry; rotation uses the same Rodrigues construction as optics. Orbit drag, zoom, top/side presets and aggregate link toggle included. Lines via panel center are explicitly schematic, not exact per-tile ray intersections; no metric/physics changes. Backend errors clear 3D data. Node syntax check and headless Edge verified live q1 geometry/six mirrors; screenshot `supervisor_package/figures/demo_3d.png`. Existing report hashes/screenshots describing old page may need regeneration. Full regression suite not rerun for this presentation-only addition.
+**Final-year poster prepared (14 November 2026):** User supplied team Ruposhi Bytes, four member names/rolls, guide Dr. Rima Deka (Assistant Professor, Department of Electronics), university logo reference and `C:/Users/victu/Downloads/Template.pptx`. Created `supervisor_package/poster/Ruposhi_Bytes_Project_Poster.pptx`, `.pdf` and `.png`, using the template's 36×24 inch landscape format, section order and blue three-column styling; template original untouched. Native text/architecture remain editable; equations and seed/CI plot are high-resolution assets. Used actual nominal L1 frozen results and honest joint-control limitations. PowerPoint-native PDF export verified one page, names/rolls, no placeholders; final PNG visually inspected for clipping/overlap. Build: `scripts/create_final_year_poster.py` (project-local dependency directory `scratch/poster_deps`) then `scripts/export_poster.ps1`. `POSTER_NOTES.md` records sources, editable-asset boundaries and printing notes. Other project demo/research work is preserved.
+
+**Changed Positions Study & Authoritative In-Browser Verification (`supervisor_package/CHANGED_POSITIONS_STUDY.md`):**
+- **HTML Staleness Diagnosis & Structural Build Resolution:**
+  1. *Staleness Root Cause:* Regex substitution in `scratch/build_dynamic_3d.py` matched an obsolete comment header (`/* Dependency-free 3D geometry projection...`), silently returning unmodified text while printing success. In parallel, an open editor buffer in the IDE repeatedly flushed an earlier 90,843-byte version over disk.
+  2. *Structural Build Solution:* Created `scripts/build_supervisor_demo.py` with structural regex matching `<script[^>]*>(?:(?!<script)[\s\S])*?</script>\s*</body>`, asserting `count == 1`, updating the room HUD label to 6 mirror tiles ($0.159\text{m} \times 0.159\text{m}$), and running `node --check` validation.
+  3. *Authoritative Served Byte Verification:* Tested the exact HTTP response body served by `app_server.py` at `http://127.0.0.1:<port>/demo`. Confirmed presence of `Number.isFinite(w) ? w : 0.0`, `replayScenario`, `tile_side_m`, and `0.159m × 0.159m`, and confirmed total absence of `0.2m x 0.2m`.
+- **Changed Receiver Positions Empirical Study:**
+  1. *Geometry:* Translated Bob to $(2.00, 3.00, 0.85)\text{ m}$ (NW quadrant) and Eve to $(3.50, 1.50, 0.85)\text{ m}$ (SE quadrant), yielding $d_{BE} = 2.1213\text{ m}$. Alice direct distance: $d_{AB} = 2.263\text{ m}$ ($h_{AB}^{\text{dir}} = 3.634 \times 10^{-5}\text{ A/W}$) vs $d_{AE} = 2.573\text{ m}$ ($h_{AE}^{\text{dir}} = 2.174 \times 10^{-5}\text{ A/W}$).
+  2. *Real Matched Study (9 runs, seeds 42, 43, 44):* Executed 1,000 slots training + 500 slots frozen greedy evaluation ($\epsilon=0$, L1 energy). Produced raw JSON `output_figures/ris/changed_positions/ris_study_data.json` and `ris_study_summary.json`.
+  3. *Empirical Findings:*
+     - Baseline: $1.5550 \pm 0.0140\text{ bps/Hz}$ (individual seeds: 1.5794, 1.5546, 1.5310).
+     - Fixed RIS: $1.6418 \pm 0.0134\text{ bps/Hz}$ (individual seeds: 1.6601, 1.6493, 1.6158). Statistically significant gain: $\Delta R_s = +0.0868\text{ bps/Hz}$ ($t = 8.60, p = 0.0132$).
+     - Joint RIS: $1.5514 \pm 0.0299\text{ bps/Hz}$ (individual seeds: 1.6033, 1.4998, 1.5513). Paired difference: $\Delta R_s = -0.0036\text{ bps/Hz}$ ($t = -0.08, p = 0.9419$), confirming high variance in 1,000 slots due to the $5\times$ action space ($|\mathcal{A}|=3,125$).
+  4. *Scenario-Labeled Figures (200 DPI PNG & Vector PDF):* Generated in both `supervisor_package/figures/scenario_changed/` and `output_figures/ris/changed_positions/figures/`:
+     - Figure 1: Training Convergence (`fig1_changed_training_convergence.png` / `.pdf`)
+     - Figure 2: Frozen Greedy Evaluation (`fig2_changed_frozen_evaluation.png` / `.pdf`)
+     - Figure 3: Paired Differences Forest Plot (`fig3_changed_paired_differences.png` / `.pdf`)
+     - Figure 4: Optical Channel Gain Decomposition (`fig4_changed_optical_breakdown.png` / `.pdf`)
+     - Figure 5: Cross-Scenario Spatial Comparison (`fig5_cross_scenario_comparison.png` / `.pdf`)
+- **CDP In-Browser Verification in Headless Edge:**
+  - Ran `node scripts/verify_demo_in_browser.js`: Verified metadata tile size labels in DOM, verified zero-jamming unmodulated state ($[0,0,0,0]$), verified DRL replay scenario isolation and pause guards on preset changes, verified changed positions preset button updates DOM coordinates ($bx=2.0, ex=3.5$), captured screenshots (`demo_3d_nominal.png`, `demo_3d_near_bob.png`, `demo_3d_stowed.png`, `demo_3d_changed_positions.png`, `demo_screenshot.png`), and asserted 0 browser console errors.
+- **Master Regression & Audit:**
+  - All 94 unit tests passing cleanly in 28.2s.
+  - Historical 10-seed nominal dataset in `output_figures/ris/final_evaluation/` strictly preserved.
+  - Dedicated documentation delivered in `supervisor_package/CHANGED_POSITIONS_STUDY.md`.
+
+**Dynamic 3D RIS Presentation Engine & Codex Review Audit Completed (`supervisor_package/`):**
+- **Executed `antigravity_report/DYNAMIC_3D_ANTIGRAVITY_TASK.md` and resolved `supervisor_package/DYNAMIC_3D_CODEX_REVIEW.md` (100%):**
+  1. *Canvas 2D Perspective Projection Engine:* Built an offline, dependency-free HTML5 Canvas 2D 3D engine in `supervisor_demo.html` (/demo). 60 FPS, $5\text{ m} \times 5\text{ m} \times 3\text{ m}$ room wireframe, 1m floor grid, drop lines, shadows, and distinct 3D models for Alice, 4 Jammers, Bob, Eve, and south-wall RIS panel.
+  2. *Finite Mirror Facets with Slerp Tilting:* 6 specular mirror tiles ($0.159\text{ m} \times 0.159\text{ m}$, derived from backend metadata) rendered at true coordinates. Smooth spherical linear orientation interpolation (`slerp`) tilts facets on codebook switch. $q = 0$ is neutral slate stowed reference; $q \ge 1$ shows glowing cyan/emerald facets with white gleam lines and 3D normal vectors.
+  3. *Camera Navigation & Presets:* Orbit (left-drag), Pan (shift/right-drag), Zoom (wheel/buttons), Reset (double-click/button), and 4 camera presets (`🪐 3D Orbit`, `🦅 Top-Down`, `📐 Side Elevation`, `🪞 Front Wall (RIS)`).
+  4. *Zero-Jamming Truthiness Fix (Codex Finding 1):* Bound `currentWeights` to `backendData.selected.beamformer` with `Number.isFinite(w) ? w : 0.0`. Modulated pulses and wavefronts strictly gated by $|w_i| > 10^{-6}$. When $w_i = 0$, fixture dims and emits zero modulated pulses.
+  5. *Replay Consistency Lock (Codex Finding 2):* Snapshotted scenario at start of training, replays direct observation vector (`obs`) without re-querying backend with mismatched coordinates. Manually changing receiver coordinates pauses and invalidates replay.
+  6. *Dynamic Metadata Tile Size (Codex Finding 3):* Dynamically derived tile dimensions from `backendData.selected.geometry.ris.tile_side_m` ($0.159\text{ m}$).
+  7. *App Server Query Param Routing:* Updated `app_server.py` `do_GET` to split query parameters (`clean_path = self.path.split("?")[0]`), cleanly supporting URL parameters.
+  8. *Real High-Resolution Edge Headless Screenshots:* Captured and stored in `supervisor_package/figures/`: `demo_3d_nominal.png` (523 KB), `demo_3d_near_bob.png` (516 KB), `demo_3d_stowed.png` (520 KB), and `demo_screenshot.png` (523 KB).
+  9. *Deliverable & Documentation:* Delivered `supervisor_package/DYNAMIC_3D_COMPLETION_REPORT.md` and updated `START_HERE.md`, `DEMO_SCRIPT_BN.md`, `REPORT_INDEX.md`, and `PROVENANCE.json`.
+  10. *Verification:* All 94 unit tests passing (100% pass in 32.9s), equation parity passing, browser parity passing, clean git diff. Manuscript remains on hold.
 
 **Supervisor Demonstration & Delivery Package Completed & Audited (`supervisor_package/`):**
 - **Independent CODEX Delivery Review Findings Resolved (100%):**

@@ -15,10 +15,13 @@ These documents contain the verified, phase-separated, code-reconciled findings 
 | :--- | :--- | :--- |
 | **Start Here Guide** | [`START_HERE.md`](START_HERE.md) | Launcher commands, Windows batch script, 5-minute meeting flow, clean shutdown instructions. |
 | **Bengali Demo Script** | [`DEMO_SCRIPT_BN.md`](DEMO_SCRIPT_BN.md) | 5–10 minute step-by-step walkthrough in Bengali with English technical terms, expected metrics, and FAQ. |
+| **Dynamic 3D Completion Report** | [`DYNAMIC_3D_COMPLETION_REPORT.md`](DYNAMIC_3D_COMPLETION_REPORT.md) | Implementation details of Canvas 2D perspective engine, camera controls, slerp tilting, zero-jamming fix, and test verification. |
+| **Dynamic 3D Codex Review** | [`DYNAMIC_3D_CODEX_REVIEW.md`](DYNAMIC_3D_CODEX_REVIEW.md) | Codex audit findings and detailed resolution log for dynamic 3D presentation engine. |
+| **Changed Positions Study** | [`CHANGED_POSITIONS_STUDY.md`](CHANGED_POSITIONS_STUDY.md) | Empirical investigation of modified receiver coordinates (Bob [2.0, 3.0], Eve [3.5, 1.5]), paired Student-t tests, and 5 scenario figures. |
 | **Implementation & Verification** | [`IMPLEMENTATION_AND_VERIFICATION.md`](IMPLEMENTATION_AND_VERIFICATION.md) | Complete system architecture, FeatureCNN ($m_0=11$, flatten $2560$), DND, $|\mathcal{A}|=3125$ action space, 94 unit tests. |
 | **Authoritative Results** | [`RESULTS.md`](RESULTS.md) | Programmatically generated phase-separated tables (Phases 1, 2, 3), paired 95% Student-$t$ CIs, per-seed breakdown, boundary conditions. |
 | **Master Index** | [`REPORT_INDEX.md`](REPORT_INDEX.md) | This document: catalog of active vs. historical project reports. |
-| **Completion Report** | [`COMPLETION_REPORT.md`](COMPLETION_REPORT.md) | Final execution summary, test outcomes, checklist against supervisor delivery task, and handoff. |
+| **Completion Report** | [`COMPLETION_REPORT.md`](COMPLETION_REPORT.md) | Master delivery summary, test outcomes, checklist against supervisor delivery task, and handoff. |
 | **Dataset Provenance** | [`PROVENANCE.json`](PROVENANCE.json) | SHA-256 hashes of datasets and critical source files, sample counts, protocol flags. |
 | **Compact Summary Data** | [`compact_results.json`](compact_results.json) | Standalone JSON export of 10-seed aggregates and paired comparisons (38 KB). |
 | **Publication Figures** | [`figures/`](figures/) | High-resolution publication plots (DPI 200) for training curves, frozen eval, paired differences, channel gains, and near-Bob boundary. |
