@@ -202,15 +202,16 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         if not self.valid_origin():
             return self.reply(403, {"error": "Use the local simulation address"})
-        if self.path == "/api/status":
+        clean_path = self.path.split("?")[0]
+        if clean_path == "/api/status":
             return self.reply(200, {"engine": "Python CNN + DND", "paper_reproduction_verified": False})
-        if self.path.startswith("/api/jobs/"):
+        if clean_path.startswith("/api/jobs/"):
             with self.server.lock:
-                job = self.server.jobs.get(self.path.split("/")[-1])
+                job = self.server.jobs.get(clean_path.split("/")[-1])
                 result = {k: v for k, v in job.items() if k != "key"} if job else None
             return self.reply(200 if result else 404, result or {"error": "Unknown job"})
-        if self.path.startswith("/figures/"):
-            fig_name = Path(self.path.split("?")[0]).name
+        if clean_path.startswith("/figures/"):
+            fig_name = Path(clean_path).name
             fig_file = ROOT / "supervisor_package" / "figures" / fig_name
             if fig_file.exists() and fig_file.is_file():
                 raw = fig_file.read_bytes()
@@ -223,12 +224,12 @@ class Handler(BaseHTTPRequestHandler):
                 return
             return self.reply(404, {"error": "Figure not found"})
 
-        name = ('supervisor_demo.html' if self.path in {'/demo', '/supervisor_demo.html'}
-                else 'supervisor_results.json' if self.path == '/supervisor_results.json'
-                else 'supervisor_package/compact_results.json' if self.path == '/compact_results.json'
-                else "index.html" if self.path in {"/", "/index.html"}
-                else "visualizer.html" if self.path == "/visualizer.html"
-                else 'ris.html' if self.path in {'/ris', '/ris.html'}
+        name = ('supervisor_demo.html' if clean_path in {'/demo', '/supervisor_demo.html'}
+                else 'supervisor_results.json' if clean_path == '/supervisor_results.json'
+                else 'supervisor_package/compact_results.json' if clean_path == '/compact_results.json'
+                else "index.html" if clean_path in {"/", "/index.html"}
+                else "visualizer.html" if clean_path == "/visualizer.html"
+                else 'ris.html' if clean_path in {'/ris', '/ris.html'}
                 else None)
         if name is None:
             return self.reply(404, {"error": "Not found"})
