@@ -1,0 +1,203 @@
+{
+  "indexed": {
+    "date-parts": [
+      [
+        2026,
+        10,
+        27
+      ]
+    ],
+    "date-time": "2026-10-27T18:32:46Z",
+    "timestamp": 1793125966258,
+    "version": "4.5.0"
+  },
+  "reference-count": 10,
+  "publisher": "IEEE",
+  "content-domain": {
+    "domain": [],
+    "crossmark-restriction": false
+  },
+  "short-container-title": [],
+  "published-print": {
+    "date-parts": [
+      [
+        2006,
+        7
+      ]
+    ]
+  },
+  "DOI": "10.1109/isit.2006.261612",
+  "type": "proceedings-article",
+  "created": {
+    "date-parts": [
+      [
+        2007,
+        1,
+        5
+      ]
+    ],
+    "date-time": "2007-01-05T03:11:51Z",
+    "timestamp": 1167966711000
+  },
+  "page": "351-355",
+  "source": "Crossref",
+  "is-referenced-by-count": 3,
+  "title": [
+    "Random Binary Fingerprinting Codes for Arbitrarily Sized Coalitions"
+  ],
+  "prefix": "10.1109",
+  "author": [
+    {
+      "given": "N.",
+      "family": "Anthapadmanabhan",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Alexander",
+      "family": "Barg",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    }
+  ],
+  "member": "263",
+  "reference": [
+    {
+      "key": "3",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1137/S0895480100376848"
+    },
+    {
+      "key": "2",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ISIT.2004.1365239"
+    },
+    {
+      "key": "10",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/780559.780561"
+    },
+    {
+      "key": "1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TIT.2003.809570"
+    },
+    {
+      "key": "7",
+      "year": "0"
+    },
+    {
+      "key": "6",
+      "first-page": "422",
+      "article-title": "Short c-secure fingerprinting codes",
+      "author": "le",
+      "year": "2003",
+      "journal-title": "Proceedings of the 6th Information Security Conference (ISC 03)"
+    },
+    {
+      "key": "5",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1006/jcta.1997.2851"
+    },
+    {
+      "key": "4",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/18.705568"
+    },
+    {
+      "key": "9",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ITW.2005.1531884"
+    },
+    {
+      "key": "8",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ISIT.2004.1365240"
+    }
+  ],
+  "event": {
+    "name": "2006 IEEE International Symposium on Information Theory",
+    "location": "Seattle, WA",
+    "start": {
+      "date-parts": [
+        [
+          2006,
+          7,
+          9
+        ]
+      ]
+    },
+    "end": {
+      "date-parts": [
+        [
+          2006,
+          7,
+          9
+        ]
+      ]
+    }
+  },
+  "container-title": [
+    "2006 IEEE International Symposium on Information Theory"
+  ],
+  "original-title": [],
+  "link": [
+    {
+      "URL": "http://xplorestaging.ieee.org/ielx5/4035458/4035896/04035981.pdf?arnumber=4035981",
+      "content-type": "unspecified",
+      "content-version": "vor",
+      "intended-application": "similarity-checking"
+    }
+  ],
+  "deposited": {
+    "date-parts": [
+      [
+        2017,
+        3,
+        15
+      ]
+    ],
+    "date-time": "2017-03-15T21:06:38Z",
+    "timestamp": 1489611998000
+  },
+  "score": 1,
+  "resource": {
+    "primary": {
+      "URL": "http://ieeexplore.ieee.org/document/4035981/"
+    }
+  },
+  "subtitle": [],
+  "short-title": [],
+  "issued": {
+    "date-parts": [
+      [
+        2006,
+        7
+      ]
+    ]
+  },
+  "references-count": 10,
+  "URL": "https://doi.org/10.1109/isit.2006.261612",
+  "relation": {},
+  "subject": [],
+  "published": {
+    "date-parts": [
+      [
+        2006,
+        7
+      ]
+    ]
+  }
+}

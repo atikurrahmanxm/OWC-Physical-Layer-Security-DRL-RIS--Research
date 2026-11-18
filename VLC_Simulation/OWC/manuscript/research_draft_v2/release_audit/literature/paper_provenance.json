@@ -1,0 +1,35 @@
+[
+  {
+    "key": "qian2021",
+    "url": "https://arxiv.org/pdf/2101.12390",
+    "local_file": "qian2021.pdf",
+    "sha256": "2e341ba41b2b2d6070f2dc464bbe6c4a1f5721158d4c04d4e9522c46cf2a64ba",
+    "pages": 6,
+    "checked_date": "2026-11-18",
+    "scope": "Primary full-text available; selected method and evaluation sections inspected."
+  },
+  {
+    "key": "liu2024",
+    "url": "https://liusc1028.github.io/papers/TWC24liu.pdf",
+    "local_file": "liu2024.pdf",
+    "sha256": "a9d941f77074ea744eeb0e1df6fb15274be9f65fecbf6c58d6f6efa887740b39",
+    "pages": 14,
+    "checked_date": "2026-11-18",
+    "scope": "Primary full-text available; selected method and evaluation sections inspected."
+  },
+  {
+    "key": "saifaldeen2022",
+    "url": "https://ndownloader.figshare.com/files/48851128",
+    "local_file": "saifaldeen2022.pdf",
+    "sha256": "b0db932342453d3c34b575502fce5edee3de654b3768b0e0ef2836348ae0b429",
+    "pages": 9,
+    "checked_date": "2026-11-18",
+    "scope": "Primary full-text available; selected method and evaluation sections inspected."
+  },
+  {
+    "key": "liu2026",
+    "url": "https://scholars.cityu.edu.hk/en/publications/optical-reflecting-intelligent-surface-assisted-secure-visible-li/",
+    "doi": "10.1109/TWC.2026.3708130",
+    "scope": "Primary institutional abstract and metadata only; full text not obtained. IEEE access blocked and no repository fulltext found."
+  }
+]

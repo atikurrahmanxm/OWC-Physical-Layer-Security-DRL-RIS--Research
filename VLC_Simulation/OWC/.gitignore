@@ -20,3 +20,9 @@ scratch/poster_deps/
 *.key
 credentials.json
 service-account*.json
+
+# Reinstallable local LaTeX compiler and generated intermediate files.
+.tools/
+manuscript/research_draft_v2/*.aux
+manuscript/research_draft_v2/*.out
+manuscript/research_draft_v2/*.blg

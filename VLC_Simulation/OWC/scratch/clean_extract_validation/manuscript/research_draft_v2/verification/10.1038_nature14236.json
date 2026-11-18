@@ -1,0 +1,794 @@
+{
+  "indexed": {
+    "date-parts": [
+      [
+        2026,
+        11,
+        18
+      ]
+    ],
+    "date-time": "2026-11-18T04:15:11Z",
+    "timestamp": 1794975311862,
+    "version": "4.9.1"
+  },
+  "reference-count": 33,
+  "publisher": "Springer Science and Business Media LLC",
+  "issue": "7540",
+  "license": [
+    {
+      "start": {
+        "date-parts": [
+          [
+            2015,
+            2,
+            25
+          ]
+        ],
+        "date-time": "2015-02-25T00:00:00Z",
+        "timestamp": 1424822400000
+      },
+      "content-version": "tdm",
+      "delay-in-days": 0,
+      "URL": "https://www.springer.com/tdm"
+    },
+    {
+      "start": {
+        "date-parts": [
+          [
+            2015,
+            2,
+            25
+          ]
+        ],
+        "date-time": "2015-02-25T00:00:00Z",
+        "timestamp": 1424822400000
+      },
+      "content-version": "vor",
+      "delay-in-days": 0,
+      "URL": "https://www.springer.com/tdm"
+    }
+  ],
+  "content-domain": {
+    "domain": [
+      "link.springer.com"
+    ],
+    "crossmark-restriction": false
+  },
+  "short-container-title": [
+    "Nature"
+  ],
+  "published-print": {
+    "date-parts": [
+      [
+        2015,
+        2,
+        26
+      ]
+    ]
+  },
+  "DOI": "10.1038/nature14236",
+  "type": "journal-article",
+  "created": {
+    "date-parts": [
+      [
+        2015,
+        2,
+        24
+      ]
+    ],
+    "date-time": "2015-02-24T12:28:05Z",
+    "timestamp": 1424780885000
+  },
+  "page": "529-533",
+  "update-policy": "https://doi.org/10.1007/springer_crossmark_policy",
+  "source": "Crossref",
+  "is-referenced-by-count": 25400,
+  "title": [
+    "Human-level control through deep reinforcement learning"
+  ],
+  "prefix": "10.1038",
+  "volume": "518",
+  "author": [
+    {
+      "given": "Volodymyr",
+      "family": "Mnih",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Koray",
+      "family": "Kavukcuoglu",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "David",
+      "family": "Silver",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Andrei A.",
+      "family": "Rusu",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Joel",
+      "family": "Veness",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Marc G.",
+      "family": "Bellemare",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Alex",
+      "family": "Graves",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Martin",
+      "family": "Riedmiller",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Andreas K.",
+      "family": "Fidjeland",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Georg",
+      "family": "Ostrovski",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Stig",
+      "family": "Petersen",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Charles",
+      "family": "Beattie",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Amir",
+      "family": "Sadik",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Ioannis",
+      "family": "Antonoglou",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Helen",
+      "family": "King",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Dharshan",
+      "family": "Kumaran",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Daan",
+      "family": "Wierstra",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Shane",
+      "family": "Legg",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Demis",
+      "family": "Hassabis",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    }
+  ],
+  "member": "297",
+  "published-online": {
+    "date-parts": [
+      [
+        2015,
+        2,
+        25
+      ]
+    ]
+  },
+  "reference": [
+    {
+      "key": "BFnature14236_CR1",
+      "volume-title": "Reinforcement Learning: An Introduction",
+      "author": "R Sutton",
+      "year": "1998",
+      "unstructured": "Sutton, R. & Barto, A. Reinforcement Learning: An Introduction (MIT Press, 1998)"
+    },
+    {
+      "key": "BFnature14236_CR2",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.5962/bhl.title.55072",
+      "volume-title": "Animal Intelligence: Experimental studies",
+      "author": "EL Thorndike",
+      "year": "1911",
+      "unstructured": "Thorndike, E. L. Animal Intelligence: Experimental studies (Macmillan, 1911)"
+    },
+    {
+      "key": "BFnature14236_CR3",
+      "doi-asserted-by": "publisher",
+      "first-page": "1593",
+      "DOI": "10.1126/science.275.5306.1593",
+      "volume": "275",
+      "author": "W Schultz",
+      "year": "1997",
+      "unstructured": "Schultz, W., Dayan, P. & Montague, P. R. A neural substrate of prediction and reward. Science 275, 1593\u20131599 (1997)",
+      "journal-title": "Science"
+    },
+    {
+      "key": "BFnature14236_CR4",
+      "first-page": "994",
+      "volume-title": "Proc. IEEE. Comput. Soc. Conf. Comput. Vis. Pattern. Recognit.",
+      "author": "T Serre",
+      "year": "2005",
+      "unstructured": "Serre, T., Wolf, L. & Poggio, T. Object recognition with features inspired by visual cortex. Proc. IEEE. Comput. Soc. Conf. Comput. Vis. Pattern. Recognit. 994\u20131000 (2005)"
+    },
+    {
+      "key": "BFnature14236_CR5",
+      "doi-asserted-by": "publisher",
+      "first-page": "193",
+      "DOI": "10.1007/BF00344251",
+      "volume": "36",
+      "author": "K Fukushima",
+      "year": "1980",
+      "unstructured": "Fukushima, K. Neocognitron: A self-organizing neural network model for a mechanism of pattern recognition unaffected by shift in position. Biol. Cybern. 36, 193\u2013202 (1980)",
+      "journal-title": "Biol. Cybern."
+    },
+    {
+      "key": "BFnature14236_CR6",
+      "doi-asserted-by": "publisher",
+      "first-page": "58",
+      "DOI": "10.1145/203330.203343",
+      "volume": "38",
+      "author": "G Tesauro",
+      "year": "1995",
+      "unstructured": "Tesauro, G. Temporal difference learning and TD-Gammon. Commun. ACM 38, 58\u201368 (1995)",
+      "journal-title": "Commun. ACM"
+    },
+    {
+      "key": "BFnature14236_CR7",
+      "doi-asserted-by": "publisher",
+      "first-page": "55",
+      "DOI": "10.1007/s10514-009-9120-4",
+      "volume": "27",
+      "author": "M Riedmiller",
+      "year": "2009",
+      "unstructured": "Riedmiller, M., Gabel, T., Hafner, R. & Lange, S. Reinforcement learning for robot soccer. Auton. Robots 27, 55\u201373 (2009)",
+      "journal-title": "Auton. Robots"
+    },
+    {
+      "key": "BFnature14236_CR8",
+      "first-page": "240",
+      "volume-title": "Proc. Int. Conf. Mach. Learn.",
+      "author": "C Diuk",
+      "year": "2008",
+      "unstructured": "Diuk, C., Cohen, A. & Littman, M. L. An object-oriented representation for efficient reinforcement learning. Proc. Int. Conf. Mach. Learn. 240\u2013247 (2008)"
+    },
+    {
+      "key": "BFnature14236_CR9",
+      "doi-asserted-by": "publisher",
+      "first-page": "1",
+      "DOI": "10.1561/2200000006",
+      "volume": "2",
+      "author": "Y Bengio",
+      "year": "2009",
+      "unstructured": "Bengio, Y. Learning deep architectures for AI. Foundations and Trends in Machine Learning 2, 1\u2013127 (2009)",
+      "journal-title": "Foundations and Trends in Machine Learning"
+    },
+    {
+      "key": "BFnature14236_CR10",
+      "first-page": "1106",
+      "volume": "25",
+      "author": "A Krizhevsky",
+      "year": "2012",
+      "unstructured": "Krizhevsky, A., Sutskever, I. & Hinton, G. ImageNet classification with deep convolutional neural networks. Adv. Neural Inf. Process. Syst. 25, 1106\u20131114 (2012)",
+      "journal-title": "Adv. Neural Inf. Process. Syst."
+    },
+    {
+      "key": "BFnature14236_CR11",
+      "doi-asserted-by": "publisher",
+      "first-page": "504",
+      "DOI": "10.1126/science.1127647",
+      "volume": "313",
+      "author": "GE Hinton",
+      "year": "2006",
+      "unstructured": "Hinton, G. E. & Salakhutdinov, R. R. Reducing the dimensionality of data with neural networks. Science 313, 504\u2013507 (2006)",
+      "journal-title": "Science"
+    },
+    {
+      "key": "BFnature14236_CR12",
+      "doi-asserted-by": "publisher",
+      "first-page": "253",
+      "DOI": "10.1613/jair.3912",
+      "volume": "47",
+      "author": "MG Bellemare",
+      "year": "2013",
+      "unstructured": "Bellemare, M. G., Naddaf, Y., Veness, J. & Bowling, M. The arcade learning environment: An evaluation platform for general agents. J. Artif. Intell. Res. 47, 253\u2013279 (2013)",
+      "journal-title": "J. Artif. Intell. Res."
+    },
+    {
+      "key": "BFnature14236_CR13",
+      "doi-asserted-by": "publisher",
+      "first-page": "391",
+      "DOI": "10.1007/s11023-007-9079-x",
+      "volume": "17",
+      "author": "S Legg",
+      "year": "2007",
+      "unstructured": "Legg, S. & Hutter, M. Universal Intelligence: a definition of machine intelligence. Minds Mach. 17, 391\u2013444 (2007)",
+      "journal-title": "Minds Mach."
+    },
+    {
+      "key": "BFnature14236_CR14",
+      "first-page": "62",
+      "volume": "26",
+      "author": "M Genesereth",
+      "year": "2005",
+      "unstructured": "Genesereth, M., Love, N. & Pell, B. General game playing: overview of the AAAI competition. AI Mag. 26, 62\u201372 (2005)",
+      "journal-title": "AI Mag."
+    },
+    {
+      "key": "BFnature14236_CR15",
+      "first-page": "864",
+      "volume-title": "Proc. Conf. AAAI. Artif. Intell.",
+      "author": "MG Bellemare",
+      "year": "2012",
+      "unstructured": "Bellemare, M. G., Veness, J. & Bowling, M. Investigating contingency awareness using Atari 2600 games. Proc. Conf. AAAI. Artif. Intell. 864\u2013871 (2012)"
+    },
+    {
+      "key": "BFnature14236_CR16",
+      "volume-title": "Parallel Distributed Processing: Explorations in the Microstructure of Cognition",
+      "author": "JL McClelland",
+      "year": "1986",
+      "unstructured": "McClelland, J. L., Rumelhart, D. E. & Group, T. P. R. Parallel Distributed Processing: Explorations in the Microstructure of Cognition (MIT Press, 1986)"
+    },
+    {
+      "key": "BFnature14236_CR17",
+      "doi-asserted-by": "publisher",
+      "first-page": "2278",
+      "DOI": "10.1109/5.726791",
+      "volume": "86",
+      "author": "Y LeCun",
+      "year": "1998",
+      "unstructured": "LeCun, Y., Bottou, L., Bengio, Y. & Haffner, P. Gradient-based learning applied to document recognition. Proc. IEEE 86, 2278\u20132324 (1998)",
+      "journal-title": "Proc. IEEE"
+    },
+    {
+      "key": "BFnature14236_CR18",
+      "doi-asserted-by": "publisher",
+      "first-page": "559",
+      "DOI": "10.1113/jphysiol.1963.sp007079",
+      "volume": "165",
+      "author": "DH Hubel",
+      "year": "1963",
+      "unstructured": "Hubel, D. H. & Wiesel, T. N. Shape and arrangement of columns in cat\u2019s striate cortex. J. Physiol. 165, 559\u2013568 (1963)",
+      "journal-title": "J. Physiol."
+    },
+    {
+      "key": "BFnature14236_CR19",
+      "first-page": "279",
+      "volume": "8",
+      "author": "CJ Watkins",
+      "year": "1992",
+      "unstructured": "Watkins, C. J. & Dayan, P. Q-learning. Mach. Learn. 8, 279\u2013292 (1992)",
+      "journal-title": "Mach. Learn."
+    },
+    {
+      "key": "BFnature14236_CR20",
+      "doi-asserted-by": "publisher",
+      "first-page": "674",
+      "DOI": "10.1109/9.580874",
+      "volume": "42",
+      "author": "J Tsitsiklis",
+      "year": "1997",
+      "unstructured": "Tsitsiklis, J. & Roy, B. V. An analysis of temporal-difference learning with function approximation. IEEE Trans. Automat. Contr. 42, 674\u2013690 (1997)",
+      "journal-title": "IEEE Trans. Automat. Contr."
+    },
+    {
+      "key": "BFnature14236_CR21",
+      "doi-asserted-by": "publisher",
+      "first-page": "419",
+      "DOI": "10.1037/0033-295X.102.3.419",
+      "volume": "102",
+      "author": "JL McClelland",
+      "year": "1995",
+      "unstructured": "McClelland, J. L., McNaughton, B. L. & O\u2019Reilly, R. C. Why there are complementary learning systems in the hippocampus and neocortex: insights from the successes and failures of connectionist models of learning and memory. Psychol. Rev. 102, 419\u2013457 (1995)",
+      "journal-title": "Psychol. Rev."
+    },
+    {
+      "key": "BFnature14236_CR22",
+      "doi-asserted-by": "publisher",
+      "first-page": "220",
+      "DOI": "10.1016/j.tins.2010.01.006",
+      "volume": "33",
+      "author": "J O\u2019Neill",
+      "year": "2010",
+      "unstructured": "O\u2019Neill, J., Pleydell-Bouverie, B., Dupret, D. & Csicsvari, J. Play it again: reactivation of waking experience and memory. Trends Neurosci. 33, 220\u2013229 (2010)",
+      "journal-title": "Trends Neurosci."
+    },
+    {
+      "key": "BFnature14236_CR23",
+      "unstructured": "Lin, L.-J. Reinforcement learning for robots using neural networks. Technical Report, DTIC Document. (1993)"
+    },
+    {
+      "key": "BFnature14236_CR24",
+      "first-page": "317",
+      "volume": "3720",
+      "author": "M Riedmiller",
+      "year": "2005",
+      "unstructured": "Riedmiller, M. Neural fitted Q iteration - first experiences with a data efficient neural reinforcement learning method. Mach. Learn.: ECML 3720, 317\u2013328 (Springer, 2005)",
+      "journal-title": "Mach. Learn.: ECML"
+    },
+    {
+      "key": "BFnature14236_CR25",
+      "first-page": "2579",
+      "volume": "9",
+      "author": "LJP Van der Maaten",
+      "year": "2008",
+      "unstructured": "Van der Maaten, L. J. P. & Hinton, G. E. Visualizing high-dimensional data using t-SNE. J. Mach. Learn. Res. 9, 2579\u20132605 (2008)",
+      "journal-title": "J. Mach. Learn. Res."
+    },
+    {
+      "key": "BFnature14236_CR26",
+      "first-page": "1",
+      "volume-title": "Proc. Int. Jt. Conf. Neural. Netw.",
+      "author": "S Lange",
+      "year": "2010",
+      "unstructured": "Lange, S. & Riedmiller, M. Deep auto-encoder neural networks in reinforcement learning. Proc. Int. Jt. Conf. Neural. Netw. 1\u20138 (2010)"
+    },
+    {
+      "key": "BFnature14236_CR27",
+      "doi-asserted-by": "publisher",
+      "first-page": "655",
+      "DOI": "10.1038/nn.2304",
+      "volume": "12",
+      "author": "C-T Law",
+      "year": "2009",
+      "unstructured": "Law, C.-T. & Gold, J. I. Reinforcement learning can account for associative and perceptual learning on a visual decision task. Nature Neurosci. 12, 655 (2009)",
+      "journal-title": "Nature Neurosci."
+    },
+    {
+      "key": "BFnature14236_CR28",
+      "doi-asserted-by": "publisher",
+      "first-page": "318",
+      "DOI": "10.1038/415318a",
+      "volume": "415",
+      "author": "N Sigala",
+      "year": "2002",
+      "unstructured": "Sigala, N. & Logothetis, N. K. Visual categorization shapes feature selectivity in the primate temporal cortex. Nature 415, 318\u2013320 (2002)",
+      "journal-title": "Nature"
+    },
+    {
+      "key": "BFnature14236_CR29",
+      "doi-asserted-by": "publisher",
+      "first-page": "1439",
+      "DOI": "10.1038/nn.3203",
+      "volume": "15",
+      "author": "D Bendor",
+      "year": "2012",
+      "unstructured": "Bendor, D. & Wilson, M. A. Biasing the content of hippocampal replay during sleep. Nature Neurosci. 15, 1439\u20131444 (2012)",
+      "journal-title": "Nature Neurosci."
+    },
+    {
+      "key": "BFnature14236_CR30",
+      "first-page": "103",
+      "volume": "13",
+      "author": "A Moore",
+      "year": "1993",
+      "unstructured": "Moore, A. & Atkeson, C. Prioritized sweeping: reinforcement learning with less data and less real time. Mach. Learn. 13, 103\u2013130 (1993)",
+      "journal-title": "Mach. Learn."
+    },
+    {
+      "key": "BFnature14236_CR31",
+      "first-page": "2146",
+      "volume-title": "Proc. IEEE. Int. Conf. Comput. Vis.",
+      "author": "K Jarrett",
+      "year": "2009",
+      "unstructured": "Jarrett, K., Kavukcuoglu, K., Ranzato, M. A. & LeCun, Y. What is the best multi-stage architecture for object recognition? Proc. IEEE. Int. Conf. Comput. Vis. 2146\u20132153 (2009)"
+    },
+    {
+      "key": "BFnature14236_CR32",
+      "unstructured": "Nair, V. & Hinton, G. E. Rectified linear units improve restricted Boltzmann machines. Proc. Int. Conf. Mach. Learn. 807\u2013814 (2010)"
+    },
+    {
+      "key": "BFnature14236_CR33",
+      "doi-asserted-by": "publisher",
+      "first-page": "99",
+      "DOI": "10.1016/S0004-3702(98)00023-X",
+      "volume": "101",
+      "author": "LP Kaelbling",
+      "year": "1994",
+      "unstructured": "Kaelbling, L. P., Littman, M. L. & Cassandra, A. R. Planning and acting in partially observable stochastic domains. Artificial Intelligence 101, 99\u2013134 (1994)",
+      "journal-title": "Artificial Intelligence"
+    }
+  ],
+  "container-title": [
+    "Nature"
+  ],
+  "original-title": [],
+  "language": "en",
+  "link": [
+    {
+      "URL": "http://www.nature.com/articles/nature14236.pdf",
+      "content-type": "application/pdf",
+      "content-version": "vor",
+      "intended-application": "text-mining"
+    },
+    {
+      "URL": "http://www.nature.com/articles/nature14236",
+      "content-type": "text/html",
+      "content-version": "vor",
+      "intended-application": "text-mining"
+    },
+    {
+      "URL": "http://www.nature.com/articles/nature14236.pdf",
+      "content-type": "application/pdf",
+      "content-version": "vor",
+      "intended-application": "similarity-checking"
+    }
+  ],
+  "deposited": {
+    "date-parts": [
+      [
+        2023,
+        5,
+        18
+      ]
+    ],
+    "date-time": "2023-05-18T14:29:18Z",
+    "timestamp": 1684420158000
+  },
+  "score": 1,
+  "resource": {
+    "primary": {
+      "URL": "https://www.nature.com/articles/nature14236"
+    }
+  },
+  "subtitle": [],
+  "short-title": [],
+  "issued": {
+    "date-parts": [
+      [
+        2015,
+        2,
+        25
+      ]
+    ]
+  },
+  "references-count": 33,
+  "journal-issue": {
+    "issue": "7540",
+    "published-print": {
+      "date-parts": [
+        [
+          2015,
+          2,
+          26
+        ]
+      ]
+    }
+  },
+  "alternative-id": [
+    "BFnature14236"
+  ],
+  "URL": "https://doi.org/10.1038/nature14236",
+  "relation": {
+    "has-review": [
+      {
+        "id-type": "doi",
+        "id": "10.3410/f.725368782.793506817",
+        "asserted-by": "object"
+      },
+      {
+        "id-type": "doi",
+        "id": "10.3410/f.725368782.793509339",
+        "asserted-by": "object"
+      }
+    ]
+  },
+  "ISSN": [
+    "0028-0836",
+    "1476-4687"
+  ],
+  "issn-type": [
+    {
+      "value": "0028-0836",
+      "type": "print"
+    },
+    {
+      "value": "1476-4687",
+      "type": "electronic"
+    }
+  ],
+  "subject": [],
+  "published": {
+    "date-parts": [
+      [
+        2015,
+        2,
+        25
+      ]
+    ]
+  },
+  "assertion": [
+    {
+      "value": "10 July 2014",
+      "order": 1,
+      "name": "received",
+      "label": "Received",
+      "group": {
+        "name": "ArticleHistory",
+        "label": "Article History"
+      }
+    },
+    {
+      "value": "16 January 2015",
+      "order": 2,
+      "name": "accepted",
+      "label": "Accepted",
+      "group": {
+        "name": "ArticleHistory",
+        "label": "Article History"
+      }
+    },
+    {
+      "value": "25 February 2015",
+      "order": 3,
+      "name": "first_online",
+      "label": "First Online",
+      "group": {
+        "name": "ArticleHistory",
+        "label": "Article History"
+      }
+    },
+    {
+      "value": "The authors declare no competing financial interests.",
+      "order": 1,
+      "name": "Ethics",
+      "group": {
+        "name": "EthicsHeading",
+        "label": "Competing interests"
+      }
+    }
+  ]
+}

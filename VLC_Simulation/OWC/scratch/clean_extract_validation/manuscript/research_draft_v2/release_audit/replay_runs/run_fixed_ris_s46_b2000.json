@@ -1,0 +1,32 @@
+{
+  "run": "run_fixed_ris_s46_b2000.json",
+  "scheme": "fixed_ris",
+  "budget": 2000,
+  "seed": 46,
+  "slots": 1000,
+  "metrics_match": true,
+  "max_absolute_errors": {
+    "utility": 0.0,
+    "secrecy_rate": 0.0,
+    "ber": 0.0,
+    "energy": 0.0
+  },
+  "first_action_match": true,
+  "q_counts": {
+    "1": 1000
+  },
+  "recorded_q_counts": {
+    "1": 1000
+  },
+  "q_counts_match": true,
+  "recorded_chosen_q": 1,
+  "actual_modal_q": 1,
+  "metric_array_sha256": {
+    "utility": "24267506346e48ad967b4a536898bcfa2f91a7b10cc413ab2458384021632c74",
+    "secrecy_rate": "386f291e33e8189475b177990f83a2d41feba24300ebb4b68c42e2451739cbd5",
+    "ber": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+    "energy": "996bc8d14ad0673408ac4e9c2ab00819e1033db574e56b6ff58a49f33ca02960"
+  },
+  "elapsed_seconds": 2.279389000000265,
+  "source_run_sha256": "e6c637cc016b9d50440ee83476ec2402343ead372fd2423dfad66a3811bf2115"
+}

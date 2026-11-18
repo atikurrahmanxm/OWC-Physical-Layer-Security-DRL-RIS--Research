@@ -1,0 +1,122 @@
+{
+  "title": "Controlled Training-Budget Matched Empirical Study (Protocol v2: 2,000 / 5,000 / 10,000 slots)",
+  "protocol_version": 2,
+  "date": "2026-11-18",
+  "primary_question": "Does increasing the training budget from 2,000 to 5,000 and 10,000 slots allow the Joint RIS/FJ DRL controller to overcome its exploration deficit and achieve a statistically significant utility or secrecy gain over Fixed RIS?",
+  "primary_metric": "Frozen evaluation system utility difference (Joint minus Fixed) at 10,000 slots",
+  "secondary_metrics": [
+    "Frozen evaluation secrecy rate difference (Joint minus Fixed) at 10,000 slots",
+    "Paired utility and secrecy differences at 2,000 and 5,000 slots",
+    "Finite-grid theoretical utility gap reduction vs budget",
+    "Action coverage percentage vs budget",
+    "RIS configuration q distribution vs budget",
+    "Bob QoS outage (BER > 1e-3, 1e-4) and secrecy outage (Rs < 0.1) fractions"
+  ],
+  "geometry": {
+    "room_size": [
+      5.0,
+      5.0,
+      3.0
+    ],
+    "alice": [
+      2.5,
+      2.5,
+      3.0
+    ],
+    "bob": [
+      1.8,
+      1.6,
+      0.85
+    ],
+    "eve": [
+      3.2,
+      3.4,
+      0.85
+    ],
+    "jammers": [
+      [
+        1.5,
+        1.5,
+        3.0
+      ],
+      [
+        1.5,
+        3.5,
+        3.0
+      ],
+      [
+        3.5,
+        1.5,
+        3.0
+      ],
+      [
+        3.5,
+        3.5,
+        3.0
+      ]
+    ],
+    "ris_center": [
+      2.5,
+      0.25,
+      2.6
+    ]
+  },
+  "architecture": {
+    "matched_cnn_m0": 11,
+    "cnn_input_dim": 121,
+    "feature_cnn_in_fc1": 2560,
+    "feature_cnn_params": 497000,
+    "hyperparameters_F": [
+      20,
+      40,
+      3,
+      2,
+      1,
+      1,
+      180,
+      180
+    ]
+  },
+  "parameters": {
+    "model": "paper",
+    "energy_model": "l1",
+    "reward_weights": {
+      "secrecy": 1.0,
+      "ber": -3.5,
+      "energy": -0.4
+    },
+    "sliding_window_m": 11,
+    "cnn_learning_rate": 0.01,
+    "epsilon_start": 0.15,
+    "epsilon_decay": 0.998,
+    "epsilon_min": 0.02,
+    "evaluation_slots": 1000,
+    "evaluation_epsilon": 0.0
+  },
+  "matrix": {
+    "schemes": [
+      "baseline",
+      "fixed_ris",
+      "joint_ris"
+    ],
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "budgets": [
+      2000,
+      5000,
+      10000
+    ]
+  },
+  "total_runs": 90,
+  "source_git_hash": "a6d4304192cb9e6a2881aa4649ea436d2d81d8d2"
+}

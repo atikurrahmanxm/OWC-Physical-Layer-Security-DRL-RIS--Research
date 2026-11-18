@@ -1,0 +1,32 @@
+{
+  "run": "run_baseline_s46_b2000.json",
+  "scheme": "baseline",
+  "budget": 2000,
+  "seed": 46,
+  "slots": 1000,
+  "metrics_match": true,
+  "max_absolute_errors": {
+    "utility": 0.0,
+    "secrecy_rate": 0.0,
+    "ber": 0.0,
+    "energy": 0.0
+  },
+  "first_action_match": true,
+  "q_counts": {
+    "0": 1000
+  },
+  "recorded_q_counts": {
+    "0": 1000
+  },
+  "q_counts_match": true,
+  "recorded_chosen_q": 0,
+  "actual_modal_q": 0,
+  "metric_array_sha256": {
+    "utility": "d84f76169f44e70720f603a91717925adb5c923e24a52639d33b4220d7087390",
+    "secrecy_rate": "5f4c2c11222b8e7908fe4850c03d7524602cdf9248334b4c2843e4568d011ad1",
+    "ber": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+    "energy": "cc79b7bdf67813ed07b4760dee539c0968ba3be81ad3af8d62785ef6a345a6da"
+  },
+  "elapsed_seconds": 2.5073763999998846,
+  "source_run_sha256": "65ddfd99a91fcad5d2528d098e3a8edcd0b0f37b8250cd5258428d7c6297d651"
+}

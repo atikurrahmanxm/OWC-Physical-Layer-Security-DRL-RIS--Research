@@ -1,5 +1,7 @@
 # VLC friendly jamming: paper-based implementation
 
+**Completed manuscript release package:** The full research paper package is available under `manuscript/research_draft_v2/` (compiled ten-page `main.pdf`, editable `main.docx` with native equations, `source_package.zip`, and `research_release/RIS_FJ_VLC_DRL_reproducibility.zip`). All 90 matched-budget DRL runs, 15 geometry sensitivity grids, 120 zero-shot transfer evaluations, and 9 calibrated 4-PAM diagnostic grids have completed and are verified. See [Agent.MD](Agent.MD) and [manuscript/research_draft_v2/README.md](manuscript/research_draft_v2/README.md) for full details.
+
 **Current research direction:** extend the 2024 paper's original system with an optical RIS, using joint **RIS + FJ + VLC + DRL** control. RIS is fully implemented, validated across 87 unit tests, and empirically evaluated over 36 multi-seed runs. Read [antigravity_report/README.md](antigravity_report/README.md) and [Agent.MD](Agent.MD) for the complete handoff; [AGENTS.md](AGENTS.md) is the automatic entry point for AI coding agents.
 
 Python implementation of Algorithms 1 and 2 from **Smart Jamming for Secrecy: Deep Reinforcement Learning Enabled Secure Visible Light Communication**, Liu et al., IEEE TWC (2024), DOI 10.1109/TWC.2024.3458046. The supplied `19 Sep 2024.pdf` is the reference.

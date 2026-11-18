@@ -1,0 +1,723 @@
+PAGE 1
+Secure Visible Light Communications via
+Intelligent Reﬂecting Surfaces
+Lei Qian 1 , Xuefen Chi 1,* , Linlin Zhao 1 , Anas Chaaban 2
+1 Department of Communications Engineering, Jilin University, Changchun, China
+2 School of Engineering, University of British Columbia, Kelowna, BC, Canada
+Email: qianlei16@mails.jlu.edu.cn, chixf@jlu.edu.cn, zhaoll13@mails.jlu.edu.cn, anas.chaaban@ubc.ca
+Abstract—Intelligent reﬂecting surfaces (IRS) can improve the
+physical layer security (PLS) by providing a controllable wireless
+environment. In this paper, we propose a novel PLS technique
+with the help of IRS implemented by an intelligent mirror array
+for the visible light communication (VLC) system. First, for
+the IRS aided VLC system containing an access point (AP),
+a legitimate user and an eavesdropper, the IRS channel gain
+and a lower bound of the achievable secrecy rate are derived.
+Further, to enhance the IRS channel gain of the legitimate user
+while restricting the IRS channel gain of the eavesdropper, we
+formulate an achievable secrecy rate maximization problem for
+the proposed IRS-aided PLS technique to ﬁnd the optimal orien-
+tations of mirrors. Since the sensitivity of mirrors’ orientations
+on the IRS channel gain makes the optimization problem hard
+to solve, we transform the original problem into a reﬂected spot
+position optimization problem and solve it by a particle swarm
+optimization (PSO) algorithm. Our simulation results show that
+secrecy performance can be signiﬁcantly improved by adding an
+IRS in a VLC system.
+Index Terms —Visible light communication, physical-layer se-
+curity, intelligent reﬂecting surface, mirror array.
+I. I NTRODUCTION
+Security and privacy guarantees attract special attention in
+the sixth generation (6G) networks [1] [2]. Inherited from
+the fact that light cannot penetrate through walls or opaque
+objects, visible light communication (VLC) is considered as
+a secure alternative for the 6G indoor wireless networks
+[1]. Furthermore, by employing light-emitting diodes (LEDs),
+VLC can provide both illumination and high-rate data com-
+munication simultaneously. However, due to the open and
+broadcasting nature of VLC, user’s conﬁdential information
+may still be intercepted when VLC systems are deployed
+in public areas, such as shopping centers, libraries, coffee
+shops, hospitals, train stations, etc. During the past few years,
+physical-layer security (PLS) techniques are introduced to
+VLC networks in an effort to enhance the overall system
+security by complementing existing upper-layer encryption
+security techniques. For the single-input-single-output (SISO)
+VLC system, upper and lower bounds on secrecy capacity are
+derived in [3]-[5]. Based on Polar Codes, a physical-layer se-
+cure coding scheme is proposed to enhance the secrecy perfor-
+mance of SISO VLC system [6]. For a multiple-input-single-
+output (MISO) VLC system, beamforming [3] [7] [8] and
+jamming [9]-[11] are two main categories of PLS techniques.
+More speciﬁcally, beamforming schemes perform better than
+jamming schemes when the eavesdropper is an authorized user
+and the CSI of eavesdropping channel is perfectly known. By
+contrast, jamming schemes are most commonly adopted for
+the cases when the CSI of the eavesdroppers is not available,
+for example, when eavesdroppers are malicious users not
+registered in the network [9]. However, both beamforming
+and jamming techniques require the cooperation of multiple
+transmitters, which means energy consumption is increased to
+enhance the secrecy performance of VLC systems.
+Recently, as an eye-catching architecture for 6G networks,
+intelligent reﬂecting surfaces (IRS) have received signiﬁcant
+research attention in radio frequency (RF) systems [2]. Con-
+sisting a number of low-cost passive reﬂecting elements, an
+IRS can reconﬁgure the wireless propagation environment
+via intelligently controlled reﬂection [12]. By adjusting the
+reﬂecting coefﬁcients of reﬂecting elements, IRS can achieve
+ﬁne-grained three-dimensional (3D) passive beamforming to-
+ward the intended receiver. Based on the idea of passive
+beamforming, a new PLS technique is proposed for the RF
+systems with existence of eavesdroppers [13]-[16]. It has been
+proved that secrecy performance can be signiﬁcantly improved
+with the help of IRS by jointly optimizing the reﬂecting
+coefﬁcients. In the same spirit, the IRS can also provide
+new horizon for the design of PLS technique in VLC secure
+systems.
+In VLC systems, IRS can be implemented by programmable
+metasurfaces or by mirror arrays [17]. The phase gradient of
+each metasurface and the orientation of each mirror can be
+controlled intelligently to reﬂect the incident optical signal
+towards a receiver. Recently, the irradiance (power density)
+expressions of two types of reﬂectors are derived in [17] to
+characterize the focusing capability of IRS in the VLC system.
+According to the results in [17], the mirror array outperforms
+the metasurface in VLC system. Inspired by [17], in this
+paper, we propose an IRS aided secure VLC system to explore
+the secrecy improvement brought by IRS in VLC. The main
+contributions of this paper are summarized as follows.
+• Using an intelligent controllable mirror array as IRS, we
+model the reﬂected channel gain in a VLC system. We
+derive a lower bound on the achievable secrecy rate for
+the IRS-aided peak-constrained VLC system employing
+intensity-modulation/direct detection (IM/DD).
+• To enhance secrecy performance of the SISO VLC sys-
+tem, we use an optimized intelligent rotation scheme
+for the mirrors to enlarge the difference between the
+arXiv:2101.12390v1  [cs.IT]  29 Jan 2021
+PAGE 2
+/g40/g89/g72 
+/g48/g76/g85/g85/g82/g85/g3
+/g36/g85/g85/g68/g92 
+/g36/g51 
+sl
+sw
+sy sx sz
+mw
+mh
+dh
+/g37/g82/g69 y
+/g40/g89/g72 y
+/g37/g82/g69 /g40/g89/g72 x
+/g37/g82/g69 x
+/g37/g82/g69 瀠/g86/g3/g47/g82/g54/g3/g79/g76/g81/g78 
+/g40/g89/g72 瀠/g86/g3/g47/g82/g54/g3/g79/g76/g81/g78 
+/g37/g82/g69 瀠/g86/g3/g44/g53/g54/g3/g79/g76/g81/g78 
+/g40/g89/g72 瀠/g86/g3/g44/g53/g54/g3/g79/g76/g81/g78 
+/g19x
+rx
+ry
+rz
+Fig. 1. Mirror array aided indoor VLC IRS system.
+channel gain of the legitimate user and the eavesdropper.
+Hence, we treat the orientation of each mirror as the
+optimization variable and formulate an achievable secrecy
+rate maximization problem for the proposed IRS-based
+PLS technique.
+• Due to the sensitivity of mirrors’ orientations to the IRS
+channel gain, it is hard to ﬁnd the optimal combination
+of mirrors’ orientations. To handle this problem, we
+transform the orientations optimization problem into a
+reﬂected spot position ﬁnding problem. Since the max-
+imum IRS channel gain is achieved when the reﬂected
+spots of different mirrors focus on the same position, we
+just need to ﬁnd only one position of the reﬂected spot
+for the mirror array, which greatly reduce the complexity
+of the problem.
+The rest of this paper is organized as follows. The system
+model is introduced in Sec. II. The problem formulation and
+the solution are introduced in Sec. III. Simulation results and
+discussion are presented and discussed in Sec. IV. Finally, the
+paper is concluded in Sec. V.
+II. S YSTEM MODEL
+In this paper, we consider a typical indoor space, whose size
+isxr×yr×zr (m× m× m), as shown in Fig. 1. An extended
+planar source having uniform radiant emittance over its area
+ws×ls is deployed on the ceiling of the room and considered
+as an optical access point (AP). The system includes two users:
+a legitimate user (i.e. Bob) and an eavesdropper (i.e. Eve).
+A mirror array consisting of Nm×Nn identical rectangular
+mirrors is installed on the one wall. The size of each mirror
+is wm×hm. The orientation of each mirror can be rotated
+independently. The rotation angle of the mirror ( i,j ) includes
+yaw angle βi,j and roll angle αi,j, as shown in Fig. 2.
+A direct current (DC)-biased IM/DD scheme is considered,
+in which the LED is driven by a ﬁxed bias IDC. The optical
+transmitted signal s ∈ R is a zero-mean current signal
+superimposed on IDC to modulate the instantaneous optical
+power emitted from the LED, where R represents the set of
+real numbers. To avoid clipping distortion, the signal s needs
+/g15/g69i j 
+xy
+z
+/g15i j /g53
+(a)
+/g15/g68i j 
+/g10/g10 z/g10/g10 y
+/g10/g10 x
+/g15i j /g53 (b)
+Fig. 2. (a) The yaw rotation angle of the mirror in ith row and jth column.
+(b) The pitch rotation angle of the mirror in ith row and jth column.
+to satisfy the peak-power constraint characterized by |s|≤ A,
+where A is a constant [3].
+Due to the broadcast nature of visible light, Eve may
+wiretap the conﬁdential message of Bob transmitted by AP
+via both line-of-sight (LoS) links and IRS links 1. Therefore,
+the received signal of Bob and the wiretap signal of Eve are
+expressed as
+yBob = (hLoS, Bob +hIRS, Bob)s +nBob, (1)
+and
+yEve = (hLoS, Eve +hIRS, Eve)s +nEve, (2)
+respectively, where nBob∼N (0,σ 2) and nEve∼N (0,σ 2)
+represent the VLC noise of Bob and Eve, which contains
+shot noise and thermal noise. The VLC noise is regarded as
+additive white Gaussian noise with zero-mean and variance
+σ2 = N0B, where N0 ≈ 10−22 A2/Hz [19]. In addition,
+hLoS, Bob andhLoS, Eve represent the DC channel gain of LoS
+links of Bob and Eve, while hIRS, Bob andhIRS, Eve represent
+the IRS channel gain of LoS links of Bob and Eve.
+For a LoS link, the channel gain is expressed as [18]
+hLoS,k =
+∫ ws/2
+−ws/2
+∫ ls/2
+−ls/2
+η(La + 1)δϖT
+2πd2k(x,y ) g(ψLoS,ink (x,y ))
+cosLa (ψLoS,irk (x,y )) cos(ψLoS,ink (x,y ))dxdy,
+(3)
+where k ∈ {Bob, Eve}, dk(x,y ) is the distance between
+AP and the user k, La =− ln 2/ ln(cos(φ1/2)) denotes the
+order of Lambertian emission, φ1/2 is the semi-angle at half
+illumination of LEDs, δ is the physical area of the detector
+in a PD, ϖ is responsivity of a PD, η is the current-to-
+light conversion efﬁciency of the LED, T is the gain of the
+transimpedance ampliﬁer, ψLoS,ink (x,y ), and ψLoS,irk (x,y ) are
+the angle of incidence and irradiance between the AP and the
+user k, respectively. In addition, the function g(·) represents
+the gain of an optical concentrator, which is characterized by
+g(ψLoS,ink (x,y )) =
+{
+a2/sin2ϕc, if ψLoS,ink (x,y )≤ϕc,
+0, if ψLoS,ink (x,y )>ϕ c, (4)
+where a denotes the refractive index, and ϕc is half of FoV
+at a receiver.
+In this paper, our objective is using an optimized intelli-
+gent rotation scheme for the mirrors to improve the secrecy
+performance of the VLC wiretap channel in (1) and (2).
+1Since the channel gain of diffused light links are so light compared to the
+LoS links, the diffused light links are not considered in this paper [18].
+PAGE 3
+III. P ROBLEM FORMULATION AND SOLUTION
+A. IRS Channel gain
+For a VLC IRS system implemented by an intelligent mirror
+array, the IRS channel gain of user k is derived as
+hIRS,k (α,β) =
+all mirrors∑
+i=1,j=1
+ηϖδTE ki,j(α,β)g(θPkRi,j ) cos(θPkRi,j ),
+(5)
+where Eki,j(α,β) represents the irradiance at user k con-
+tributed by the mirror ( i,j ). Based on geometrical optics and
+trigonometric analysis, Eki,j(α,β) is expressed as [17]
+Eki,j(α,β)
+= (La+1)ρ2π ∫hm/2−hm/2∫wm/2−wm/2 cos(La)(θIRi,j )
+×
+eT3 (Pk−Ri,j ) ˆNTi,j (Pk−Ri,j )
+‖Pk−Ri,j‖42
+×I(eT1 S− ws2 ≤ eT1 I≤ eT1 S + ws2 ,
+eT2 S− ls2 ≤ eT2 I≤ eT2 S + ls2 )dx′′dz′′,
+(6)
+where ρ denotes the reﬂection efﬁciency, en(n∈{ 1, 2, 3})
+denotes the nth column in the 3× 3 identity matrix, ‖·‖2
+denotes the l2-norm, and I(·) denotes the binary indicator
+function. In addition, S, Pk, Ri,j and I represent the space
+coordinates of the center of AP, the position of the user k,
+the differential point of the mirror in the ith row jth column
+(i.e. the mirror ( i,j )), and the pre-reﬂection image of Pk in
+the source plane, respectively. According to [17], the local
+Cartesian coordinate system is deﬁned with the origin at the
+mirror center and the above space coordinates are given as
+Ri,j = Rri,j[x′′ 0 z′′]T,
+S =
+
+
+−
+(
+xs + wm2 + (j− 1)wm)
+ys
+−
+(
+zs + wm2 + (i− 1)hm)
+
+,
+Pk =
+
+
+xk−
+(
+xs + wm2 + (j− 1)wm)
+yk
+hd−
+(
+zs + wm2 + (i− 1)hm)
+
+,
+I =
+
+ eT1
+(
+Ri,j + eT3 (S−R)eT3 ˆRi,j I ˆRi,jI)
+eT2
+(
+Ri,j + eT3 (S−R)eT3 ˆRi,j I ˆRi,jI)
+eT3 S
+
+,
+(7)
+where Rri,j represents the rotation matrix between the coordi-
+nate system in Fig.2a and Fig.2b, xs, ys and zs represent the
+distance between the center of AP and the top left corner of
+the mirror array on x-axis y-axis and z-axis, respectively, xk,
+yk andhd represent the distance between the center of AP and
+the position of user k on x-axis y-axis and z-axis, respectively,
+as shown in Fig. 1.
+In (6), the binary indicator function I(·) is used to indicate
+that the pre-reﬂection image of Pk (i.e. the point I) locates
+within the boundaries of optical AP. In addition, ˆNi,j denotes
+the normal vector of the surface of the mirror ( i,j ) after
+rotation. According to Fig. 2, ˆNi,j can be expressed as
+ˆNi,j =
+
+
+sin(βi,j) cos(αi,j)
+cos(βi,j) cos(αi,j)
+sin(αi,j)
+
+. (8)
+Furthermore, ˆRi,jI represents a unit vector along Ri,jI, which
+can be calculated by
+ˆRi,jI = 2 cos(θ′)ˆNi,j− (Pk− Ri,j)/‖(Pk− Ri,j)‖2, (9)
+whereθ′ represents the angle between the vector ˆNi,j and the
+reﬂected light from Ri,j to Pk, which can be calculated by
+cos(θ′) = ˆNTi,j(Pk− Ri,j)/‖Pk− Ri,j‖2. Similarly, θIRi,j
+in (6) represents the angle between the vector e3 and the
+incident light from I to Ri,j, which can be calculated by
+θIRi,j = eT3 (Ri,j− I)/‖Ri,j− I‖2. In addition, θPkRi,j in
+(5) represents the the angle between the vector e3 and the
+reﬂected light from Ri,j to Pk, which can be calculated by
+θPkRi,j = eT3 (Ri,j− I)/‖Ri,j− Pk‖2.
+B. Secrecy rate maximization problem
+Considering the peak power constraint of the optical trans-
+mitted signal, a lower bound of the achievable secrecy rate is
+given by [3]
+Rsec(α,β) = 12 log
+6A2(hIRS, Bob(α,β)+hLoS, Bob)T (hIRS, Bob(α,β)+hLoS, Bob)+3πeσ 2
+πeA2(hIRS, Eve(α,β)+hLoS, Eve)T (hIRS, Eve(α,β)+hLoS, Eve)+3πeσ 2.
+(10)
+In this paper, we propose a novel PLS technique for the
+VLC system with the help of IRS. The key of the proposed
+PLS technique is how to intelligently control the orientation
+of each mirror to enhance the IRS channel gain of Bob
+while restricting the IRS channel gain of Eve simultaneously.
+Therefore, the ratio in (10) can be enlarged by IRS, which
+results in the improvement of the achievable secrecy rate.
+To maximize this improvement, we formulate the proposed
+IRS aided PLS into an achievable secrecy rate maximization
+problem, which is expressed as
+max
+α,β
+Rsec(α,β) (11a)
+subject to (s.t.) − π2≤αi,j≤ π2, (11b)
+− π2≤βi,j≤ π2, (11c)
+where the orientation matrices of the mirror array are treated
+as optimization variables.
+For an IRS VLC system withNm×Nn mirrors, the problem
+(11) is a non-convex problem with 2×Nm×Nn optimization
+variables. Since the reﬂected spot of the optical AP in the
+receive plane is sensitive to the orientation of the mirror, the
+IRS channel gain of the mirror ( i,j ) is sensitive to both αi,j
+and βi,j. Because the aim of the problem (11) is to ﬁnd the
+optimal combination of αi,j and βi,j for each mirror and
+ﬁnd the optimal combination of orientations of all mirrors
+in the mirror array, the sensitivity of the variables on the
+PAGE 4
+objective function makes the high dimensional problem (11)
+more intractable.
+Considering the combination of αi,j and βi,j has one-
+to-one correspondence to the position of the reﬂected spot
+in the receive plane, we propose a reﬂected spot ﬁnding
+(RSF) method to reduce the dimension of the optimization
+variables in problem (11). Instead of optimizing two angles of
+orientation of each mirror, we try to ﬁnd the optimal position
+of reﬂected spot in the receive plane.
+In the local Cartesian coordinate system with the origin at
+the mirror center Ri,j, the space coordinates of the center
+position of the reﬂected spot can be expressed as
+Q =
+
+
+xq−
+(
+xs + wm2 + (j− 1)wm)
+yq
+hq−
+(
+zs + wm2 + (i− 1)hm)
+
+, (12)
+wherexq,yq andhq represent the distance between the center
+of AP and the center position of the reﬂected spot on x-axis
+y-axis and z-axis, respectively. According to the Snell’s law
+of reﬂection, the reﬂected ray, the incident ray, and the normal
+vector of the surface of the mirror all lie in the same plane.
+In addition, the angle between the incident ray and the normal
+vector is equal to the angle between the reﬂected ray and
+the normal vector. Therefore, for a target center position of
+reﬂected spot Q, the normal vector of the surface of the mirror
+(i,j ) after rotation can be calculated as
+ˆNi,j = Ni,j‖Ni,j‖2, (13)
+where
+Ni,j = S− Ri,j‖S− Ri,j‖2 + Q− Ri,j‖Q− Ri,j‖2. (14)
+Furthermore, based on the obtained normal vector, the rotation
+angles can be calculated as
+
+
+
+βi,j = sin−1
+(
+ˆNTi,je3
+)
+αi,j = sin−1
+( ˆNTi,je1
+cos (βi,j)
+) (15)
+By substituting (13) into (6) and then substituting (6) into
+(5) and (10), we can obtain the achievable secrecy rate as a
+function of the center position of the reﬂected spot Q, i.e.
+Rsec(Q). Further, treating the function Rsec(Q) as a new
+objective function, we transform the problem (11) into
+max
+xq,yq,hq
+Rsec(Q) (16a)
+s.t. −x0 +xs≤xq≤xr−x0 +xs, (16b)
+0≤yq≤yr, (16c)
+hq =hd, (16d)
+where x0 denotes the distance between the left edge of the
+room and the left top corner of the mirror array on the x-axis,
+as shown in Fig. 1. The constraints (16b)-(16d) are used to
+limit the reﬂected spot locates within the boundaries of the
+receive plane.
+Since the maximum IRS channel gain is achieved when
+all the mirrors focus on the same reﬂected spot, we just
+need to ﬁnd one position of reﬂected spot for the mirror
+array in problem (16). In other words, just xq, yq and hq
+need to be optimized and then the coordinates of Q for each
+local Cartesian coordinate system can be obtained. Therefore,
+compared to problem (11), the dimension of optimization
+variables in the transformed problem by adopting the proposed
+RSF method is reduced from 2×Nm×Nn to 3.
+C. The modiﬁed PSO algorithm
+In this paper, the particle swarm optimization-initialization
+intervention (PSO-II) algorithm is leveraged to solve the non-
+convex problem (16) [20]. The PSO is a heuristic algorithm
+which imitates swarms behaviour in birds ﬂocking and ﬁsh
+schooling [21]. In this paper, the position of each particle
+represents a potential solution of the problem (16), which is
+a three-dimensional variable including xq, yq and hq. The
+ﬁtness of each particle is deﬁned to measure the optimality
+of potential solutions, which is calculated by the objective
+function (16a). Each particle searches for the maximum ﬁtness
+by iteratively updating its position and velocity as follows
+Vn+1λ =ζVnλ +c1r1(Wnλ,pbest−Wnλ )
++c2r2(Wngbest−Wnλ ), (17)
+Wn+1λ =Wnλ +Vn+1λ , (18)
+where Vnλ and Wnλ are the velocity and position of particle
+λ at the nth iteration, respectively. Furthermore,Wnλ,pbest and
+Pngbest are the best position record of particle λ and the entire
+swarm, respectively. In addition, ζ is the inertia weight, c1
+andc2 are the learning factors, r1 andr2 are random numbers
+uniformly distributed in the range [0, 1].
+Since the non-convex objective function is sensitive to the
+position of the reﬂected spot, the convergence of PSO is poor
+if the positions of particles are initialized purely randomly
+as the conventional PSO. Therefore, we adopt PSO-II to
+improve the convergence performance, in which we intervene
+the initialization by choosing the position of Bob as one of
+potential solution of problem (16). The pseudocode of the
+PSO-II algorithm is shown in Algorithm 1.
+IV. S IMULATIONS RESULTS AND DISCUSSION
+In this section, we present the simulation results to evaluate
+the secrecy performance of the IRS aided VLC system. The
+main system parameters are summarized in Table I. We
+calculate the integrals in (3) and (6) by a discretization method,
+and the area of each discrete element is 10−4× 10−4 m2.
+To show the improvement of secrecy performance by adding
+IRS in the VLC system, we present Fig. 3 and Fig. 4, in which
+we compare the following three mirror orientation control
+methods.
+• The proposed RSF method: We solve the problem (16)
+to obtain the optimal center position of the reﬂected spot
+and then determine rotation angles of mirrors by formula
+(15).
+PAGE 5
+Algorithm 1: The PSO-II Algorithm
+Input: Swarm size λmax, maximum iterations nmax;
+Initialization:
+Position of the 1st particle: W1 = [xBob,y Bob,hd];
+Position of the other particles: Wλ =
+[
+xq,λ,yq,λ,hd
+]
+, 2 ≤λ ≤λmax;
+Velocity of each particle: Vλ, 1 ≤λ ≤λmax;
+Particle’s best known position: Wλ,pbest =
+[
+xq,λ,pbest,yq,λ,pbest,hd
+]
+,
+1 ≤λ ≤λmax;
+Swarm’s best known position: Wλ,gbest =
+[
+xq,λ,gbest,yq,λ,gbest,hd
+]
+;
+While n ≤nmax
+For each particle
+Update the velocity and the position according to (17) and (18);
+Calculate the ﬁtness of each particle by (16a);
+If the ﬁtness value of Wnλ is lager than the ﬁtness value of Wn−1λ,pbest
+Update the particle’s best known position as Wnλ,pbest = Wnλ ;
+End if
+If the ﬁtness value of Wnλ is smaller than the ﬁtness value of Wn−1gbest
+Update the swarm’s best known position as Wngbest = Wnλ ;
+End if
+End for
+End while
+Output: x∗q,y∗q and h∗q in the swarm’s best known position Wnmaxgbest .
+TABLE I
+SIMULATION PARAMETERS
+Name of Parameter Value of Parameter
+Room size, xr ×yr ×zr 5 × 5 × 3 m 3
+AP size, ws ×ls 0.01 × 0.01 m 2
+The position of AP, (xs,ys,zs) (-0.26, 2.5, 0.5) m
+The position of Bob, (xBob,y Bob,hd) (0.2, 2, 3) m
+The position of mirror array, x0 2.24 m
+Peak power constraint, A 140 mA
+Refractive index of lens at a PD, a 1.5
+Physical area in a PD, δ 10−4 m2
+Semi-angle at half power, φ 1/2 70 deg.
+Gain of the transimpedance ampliﬁer, T 1 V/A
+Current-to-light conversion efﬁciency, η 0.44 W/A
+Responsivity of a PD, ϖ 0.54 A/W
+Reﬂection efﬁciency,ρ 0.8
+• Focus on Bob (FoB) method: We choose Bob’s position
+as the center position of the reﬂected spot, and then
+determine rotation angles of mirrors by formula (15).
+• Without IRS (w/o IRS): Only LoS links are considered
+in the system without IRS.
+Fig. 3 and Fig. 4 show the channel gain and the achievable
+secrecy rate for various positions of Eve, respectively, where
+the IRS contains 5× 5 mirrors and the size of each mirror is
+0.1× 0.1m2. The AP is installed in the center of the ceiling.
+Bob and Eve have the same coordinates on y-axis and z-axis,
+while on x-axis, the distance between AP and Bob (i.e. xBob)
+is 0.2 and the distance between AP and Eve (i.e.xEve) changes
+from -1 to 1.
+When there is no IRS in the VLC system, only LoS channel
+gains are considered. As shown in Fig. 3, Eve’s LoS channel
+gain ﬁrst increases then decreases when Eve ﬁrst comes
+close to AP then goes away from AP. In this case, since
+the difference of the channel gain between Bob and Eve is
+relatively small, the corresponding achievable secrecy rate is
+limited and equals to zero for −0.8 < xEve < 0.8, which
+means the insecure area is large, as shown in Fig. 4.
+When we add IRS in the VLC system and using FoB method
+−1 −0.8 −0.6 −0.4 −0.2 0 0.2 0.4 0.6 0.8 10
+5· 10−2
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+The distance between the center of AP and Eve on x-axis (m)
+Channel gain
+LoS gain of Bob LoS gain of Eve
+IRS gain of Bob, RSF IRS gain of Eve, RSF
+IRS gain of Bob, FoB IRS gain of Eve, FoB
+Sum gain of Bob, RSF Sum gain of Eve, RSF
+Sum gain of Bob, FoB Sum gain of Eve, FoB
+Fig. 3. The channel gains of the IRS aided VLC system obtained by different
+mirror orientation control scheme. The IRS contains 5 × 5 mirrors and the
+size of each mirror is 0.1 × 0.1m2.
+to control mirrors orientations, the IRS gain of Bob is positive
+while the IRS gain of Eve is zero for most cases except 0.1<
+xEve < 0.3. This is because we consider a light source with
+an area, which cannot be described as point source, and the
+reﬂected spot in the receive plane is also an area. When Eve is
+close to Bob, Eve can also receive the optical signal reﬂected
+by IRS. Therefore, the difference between the sum channel
+gain of Bob and Eve is enlarged by IRS in most of cases except
+0.1 < xEve < 0.3 and the corresponding achievable secrecy
+rate is improved, as shown in Fig. 3 and Fig. 4, respectively.
+Although the FoB method enhances the secrecy perfor-
+mance with low complexity, the insecure area still exists. If
+we optimize the center position of the reﬂected spot according
+to the proposed RSF method, the insecure area can be further
+reduced. As shown in Fig. 4, except the position of Bob and
+Eve are overlapped, the achievable secrecy rate is positive
+for all the cases. In other words, by controlling the mirrors’
+orientation more intelligently, Bob can always receive the
+reﬂected signal while Eve cannot. This is because by choosing
+an optimized center position of the reﬂected spot, we can make
+Bob still locate in the area of the reﬂected spot while Eve is
+removed out of the area of the reﬂected spot.
+Fig. 5 shows the impact of the size of the mirror array and
+the size of each mirror on the achievable secrecy rate when
+xeve = 0.1. Each mirror is a square. Since the eavesdropping
+channel is stronger than the legitimate communication channel
+in this ﬁgure, the VLC system without IRS is insecure and the
+achievable secrecy rate is zero. For an IRS VLC system using
+the FoB method, when the mirror size is small, the achievable
+secrecy rate increases with the size of mirror increasing. This
+is because a large size mirror can increase the effective receive
+area. When the area of the reﬂected spot is large enough and
+the center of the reﬂected spot still lies in Bob, Eve in the
+neighbourhood of Bob can also receive the reﬂected signal,
+PAGE 6
+−1 −0.8 −0.6 −0.4 −0.2 0 0.2 0.4 0.6 0.8 10
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+The distance between the center of AP and Eve on x-axis (m)
+Achievable secrecy rate (nat / channel use)
+RSF
+FoB
+w/o IRS
+Fig. 4. The achievable secrecy rate obtained by different mirror orientation
+control scheme. The IRS contains 5 × 5 mirrors and the size of each mirror
+is 0.1 × 0.1m2.
+4 5 6 7 8 9 10 11 120
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+The length of each square mirror (cm)
+Achievable secrecy rate (nat / channel use)
+4× 4 mirrors,RSF 4× 4 mirrors,FoB
+4× 4 mirrors,w/o IRS 5× 5 mirrors,RSF
+5× 5 mirrors,FoB 5× 5 mirrors,w/o IRS
+6× 6 mirrors,RSF 6× 6 mirrors,FoB
+6× 6 mirrors,w/o IRS
+Fig. 5. The achievable secrecy rate provided by different mirror orientation
+control schemes for various mirror size. The distance between AP and Eve is
+0.1.
+which leads to the achievable secrecy rate reduces to zero.
+In contrast, for the proposed RSF method, since the position
+of the reﬂected spot is optimized adaptively, the system can
+maintain secure all the time.
+V. C ONCLUSION
+In this paper, we proposed a novel PLS technique for VLC
+system with the help of IRS which is implemented by a
+mirror array. By intelligently controlling the orientation of
+each mirror, we enlarge the difference between the channel
+gain of Bob and Eve and improve the secrecy performance.
+This work is the ﬁrst step to explore the IRS in the secure
+VLC system. In the future, IRS aided PLS can be extend to
+more scenarios, such as multiple APs, multiple users, etc.
+ACKNOWLEDGMENT
+The research is supported in part by National Natural Sci-
+ence Foundation of China (No.61801191), Jilin Scientiﬁc and
+Technological Development Program (No.20180101040JC and
+No.20200401147GX), the China Scholarship Council under
+(No.201906170201), the Natural Sciences and Engineering
+Research Council of Canada (NSERC).
+REFERENCES
+[1] S. Chen, Y . Liang, S. Sun, S. Kang, W. Cheng, and M. Peng, “Vision,
+requirements, and technology trend of 6G: How to tackle the challenges
+of system coverage, capacity, user data-rate and movement speed,” IEEE
+Wireless Communications, vol. 27, no. 2, pp. 218–228, 2020.
+[2] S. Dang, O. Amin, and B. Shihada, “What should 6G be?” Natrue
+Electronic, vol. 3, p. 20–29, 2020.
+[3] A. Mostafa and L. Lampe, “Physical-layer security for MISO visible
+light communication channels,” IEEE J. Sel. Areas Commun. , vol. 33,
+no. 9, pp. 1806–1818, Sep. 2015.
+[4] J. Wang, C. Liu, J. Wang, Y . Wu, M. Lin, and J. Cheng, “Physical-
+layer security for indoor visible light communications: Secrecy capacity
+analysis,” IEEE Trans. Commun. , vol. 66, no. 12, pp. 6423–6436, Dec
+2018.
+[5] Z. Zhang, A. Chaaban, and L. Lampe, “Physical layer security of light
+ﬁdelity systems,” Philosophical Transactions of the Royal Society A:
+Mathematical, Physical and Engineering Sciences , vol. 378, no. 2169,
+p. 20190193, 2020.(Invited).
+[6] Z. Che, J. Fang, Z. L. Jiang, J. Li, S. Zhao, Y . Zhong, and Z. Chen, “A
+physical-layer secure coding scheme for indoor visible light communi-
+cation based on polar codes,” IEEE Photonics Journal , vol. 10, no. 5,
+pp. 1–13, Mar 2018.
+[7] S. Cho, G. Chen, and J. P. Coon, “Securing visible light communication
+systems by beamforming in the presence of randomly distributed eaves-
+droppers,” IEEE Trans. Wireless Commun. , vol. 17, no. 5, pp. 2918–
+2931, May 2018.
+[8] S. Ma, Z. Dong, H. Li, Z. Lu, and S. Li, “Optimal and robust secure
+beamformer for indoor MISO visible light communication,” J. Lightw.
+Technol., vol. 34, no. 21, pp. 4988–4998, Nov 2016.
+[9] A. Mostafa and L. Lampe, “Securing visible light communications via
+friendly jamming,” in 2014 IEEE Globecom Workshops (GC Wkshps) ,
+Dec 2014, pp. 524–529.
+[10] F. Wang, C. Liu, Q. Wang, J. Zhang, R. Zhang, L. Yang, and L. Hanzo,
+“Optical jamming enhances the secrecy performance of the generalized
+space-shift-keying-aided visible-light downlink,” IEEE Transactions on
+Communications, vol. 66, no. 9, pp. 4087–4102, 2018.
+[11] M. A. Arfaoui, H. Zaid, Z. Rezki, A. Ghrayeb, A. Chaaban, and
+M. Alouini, “Artiﬁcial noise-based beamforming for the MISO VLC
+wiretap channel,” IEEE Trans. Commun., vol. 67, no. 4, pp. 2866–2879,
+April 2019.
+[12] Q. Wu and R. Zhang, “Towards smart and reconﬁgurable environment:
+Intelligent reﬂecting surface aided wireless network,” IEEE Communi-
+cations Magazine, vol. 58, no. 1, pp. 106–112, 2020.
+[13] M. Cui, G. Zhang, and R. Zhang, “Secure wireless communication via
+intelligent reﬂecting surface,” IEEE Wireless Communications Letters ,
+vol. 8, no. 5, pp. 1410–1414, 2019.
+[14] H. Shen, W. Xu, S. Gong, Z. He, and C. Zhao, “Secrecy rate
+maximization for intelligent reﬂecting surface assisted multi-antenna
+communications,” IEEE Communications Letters , vol. 23, no. 9, pp.
+1488–1492, 2019.
+[15] L. Dong and H. Wang, “Secure MIMO transmission via intelligent
+reﬂecting surface,” IEEE Wireless Communications Letters, vol. 9, no. 6,
+pp. 787–790, 2020.
+[16] J. Chen, Y . Liang, Y . Pei, and H. Guo, “Intelligent reﬂecting surface: A
+programmable wireless environment for physical layer security,” IEEE
+Access, vol. 7, pp. 82 599–82 612, 2019.
+[17] A. M. Abdelhady, A. K. S. Salem, O. Amin, B. Shihada, and M. S.
+Alouini, “Visible light communications via intelligent reﬂecting sur-
+faces: Metasurfaces vs mirror arrays,” IEEE Open Journal of the
+Communications Society, vol. 2, pp. 1–20, 2021.
+[18] T. Komine and M. Nakagawa, “Fundamental analysis for visible-light
+communication system using LED lights,” IEEE Trans. Consum. Elec-
+tron., vol. 50, no. 1, pp. 100–107, Feb 2004.
+[19] J. Grubor, S. Randel, K. Langer, and J. W. Walewski, “Broadband
+information broadcasting using LED-based interior lighting,” J. Lightw.
+Technol., vol. 26, no. 24, pp. 3883–3892, Dec 2008.
+[20] L. Qian, X. Chi, and L. Zhao, “Hybrid access algorithm for eMBB
+terminals with heterogeneous qos in MPR aided VLC system,” in IEEE
+Global Communications Conference (GLOBECOM) , 2018, pp. 1–6.
+[21] Y . Shi and R. C. Eberhart, “Empirical study of particle swarm op-
+timization,” in Proceedings of the 1999 Congress on Evolutionary
+Computation-CEC99, vol. 3, July 1999, pp. 1945–1950 V ol. 3.

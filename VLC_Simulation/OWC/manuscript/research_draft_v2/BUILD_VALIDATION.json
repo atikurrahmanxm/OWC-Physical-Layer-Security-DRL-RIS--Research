@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-18",
+  "compiler": "Tectonic (XeTeX/BibTeX); see preserved main.log for build details",
+  "pages": 10,
+  "bibliography_entries": 7,
+  "missing_or_unused_citations": [],
+  "unresolved_reference_markers": 0,
+  "overfull_boxes": 0,
+  "underfull_box_warnings": 6,
+  "source_and_evidence_hashes_checked": 337,
+  "pdf_sha256": "e6aa5f4e72543791ba74afdf9c2df8154550f5bd54bd5dc75deae1543d52d522",
+  "source_package_sha256": "4d0dceac09aa9c60b79159902d8124d503bfdf3c887fa775b709b5f4616a724e",
+  "word_sha256": "8cc3b8cf17e5535be76ad812d59c3db956c6871512ddac5373f242ddd91feceb",
+  "expected_source_display_equations": 15,
+  "word_display_equations": 15,
+  "expected_source_figures": 8,
+  "word_figure_captions": 8,
+  "word_image_instances": 8,
+  "word_embedded_figures": 8,
+  "expected_source_tables": 5,
+  "word_tables": 5,
+  "word_table_captions": 5,
+  "authors": [
+    "Mahidul Ahasan",
+    "Atikur Rahman",
+    "Md Amit Hasan Robi",
+    "Md Samiur Rahman Tanim"
+  ],
+  "guide_separate": true,
+  "policy_replay": {
+    "source": "release_audit\\full_policy_replay.json",
+    "policies": 90,
+    "slots_per_policy": 1000,
+    "all_match": true,
+    "scope": "Saved-policy evaluation replay only; not original training replay or historical working-tree recovery."
+  },
+  "checks": "Source/data inventory, source-derived counts, citations, compiled log, Word structure/assets, PDF extraction and rendered pages. Scientific validity and visual inspection are separate checks."
+}

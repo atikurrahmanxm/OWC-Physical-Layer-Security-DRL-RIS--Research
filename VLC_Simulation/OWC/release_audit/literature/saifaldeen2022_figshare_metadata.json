@@ -1,0 +1,581 @@
+{
+  "files": [
+    {
+      "id": 48851128,
+      "name": "DRL-Based_IRS-Assisted_Secure_Visible_Light_Communications.pdf",
+      "size": 1596055,
+      "is_link_only": false,
+      "download_url": "https://ndownloader.figshare.com/files/48851128",
+      "supplied_md5": "9a173acab0fd178ed22e98f3ed2428b8",
+      "computed_md5": "9a173acab0fd178ed22e98f3ed2428b8",
+      "mimetype": "application/pdf"
+    }
+  ],
+  "folder_structure": {},
+  "authors": [
+    {
+      "id": 19498705,
+      "full_name": "Danya A. Saifaldeen",
+      "first_name": "Danya A.",
+      "last_name": "Saifaldeen",
+      "is_active": false,
+      "url_name": "_",
+      "orcid_id": ""
+    },
+    {
+      "id": 16904883,
+      "full_name": "Bekir S. Ciftler",
+      "first_name": "Bekir S.",
+      "last_name": "Ciftler",
+      "is_active": false,
+      "url_name": "_",
+      "orcid_id": ""
+    },
+    {
+      "id": 8476953,
+      "full_name": "Mohamed M. Abdallah",
+      "first_name": "Mohamed M.",
+      "last_name": "Abdallah",
+      "is_active": false,
+      "url_name": "_",
+      "orcid_id": ""
+    },
+    {
+      "id": 16904664,
+      "full_name": "Khalid A. Qaraqe",
+      "first_name": "Khalid A.",
+      "last_name": "Qaraqe",
+      "is_active": false,
+      "url_name": "_",
+      "orcid_id": ""
+    }
+  ],
+  "custom_fields": [
+    {
+      "name": "Language",
+      "value": [
+        "English"
+      ],
+      "settings": {
+        "default_value": [],
+        "placeholder": "Choose a language",
+        "is_multiple": true
+      },
+      "field_type": "dropdown_large_list",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Publisher",
+      "value": "IEEE",
+      "settings": {
+        "validations": {
+          "min_length": 1,
+          "max_length": 1000
+        },
+        "placeholder": "Enter publisher name"
+      },
+      "field_type": "textarea",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Publication Year",
+      "value": [
+        "2022"
+      ],
+      "settings": {
+        "options": [
+          "1970",
+          "1971",
+          "1972",
+          "1973",
+          "1974",
+          "1975",
+          "1976",
+          "1977",
+          "1978",
+          "1979",
+          "1980",
+          "1981",
+          "1982",
+          "1983",
+          "1984",
+          "1985",
+          "1986",
+          "1987",
+          "1988",
+          "1989",
+          "1990",
+          "1991",
+          "1992",
+          "1993",
+          "1994",
+          "1995",
+          "1996",
+          "1997",
+          "1998",
+          "1999",
+          "2000",
+          "2001",
+          "2002",
+          "2003",
+          "2004",
+          "2005",
+          "2006",
+          "2007",
+          "2008",
+          "2009",
+          "2010",
+          "2011",
+          "2012",
+          "2013",
+          "2014",
+          "2015",
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024",
+          "2025",
+          "2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030"
+        ],
+        "placeholder": "Choose a year",
+        "is_multiple": false
+      },
+      "field_type": "dropdown",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "License statement",
+      "value": "This Item is licensed under the Creative Commons Attribution 4.0 International License.",
+      "settings": {
+        "validations": {
+          "min_length": 1,
+          "max_length": 1000
+        },
+        "placeholder": "Enter license statement"
+      },
+      "field_type": "textarea",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Institution affiliated with",
+      "value": [
+        "Hamad Bin Khalifa University",
+        "College of Science and Engineering - HBKU",
+        "Texas A&M University at Qatar"
+      ],
+      "settings": {
+        "default_value": [],
+        "placeholder": "Select an institution",
+        "is_multiple": true
+      },
+      "field_type": "dropdown_large_list",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Methodology",
+      "value": "",
+      "settings": {
+        "validations": {
+          "min_length": 1,
+          "max_length": 5000
+        },
+        "placeholder": "Describe how the data were collected, created or derived."
+      },
+      "field_type": "textarea",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Methodology URL",
+      "value": [],
+      "settings": {
+        "placeholder": "Enter a URL",
+        "is_multiple": true
+      },
+      "field_type": "url",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Temporal coverage",
+      "value": "",
+      "settings": {
+        "validations": {
+          "min_length": 1,
+          "max_length": 1000
+        },
+        "placeholder": "Enter time period"
+      },
+      "field_type": "textarea",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Geographic coverage",
+      "value": "",
+      "settings": {
+        "validations": {
+          "min_length": 1,
+          "max_length": 1000
+        },
+        "placeholder": "Enter geographic coverage"
+      },
+      "field_type": "textarea",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Related Publications",
+      "value": "Saifaldeen, D. A., Al-Baseer, A. M., Ciftler, B. S., Abdallah, M. M., & Qaraqe, K. A. (2024). DRL-Based IRS-Assisted Secure Hybrid Visible Light and mmWave Communications. IEEE Open Journal of the Communications Society, 5, 3007\u20133020. https://doi.org/10.1109/ojcoms.2024.3395425",
+      "settings": {
+        "validations": {
+          "min_length": 1,
+          "max_length": 1000
+        },
+        "placeholder": "Enter citations of related publications here"
+      },
+      "field_type": "textarea",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Related Datasets",
+      "value": "",
+      "settings": {
+        "validations": {
+          "min_length": 1,
+          "max_length": 1000
+        },
+        "placeholder": "Enter citations of related datasets here"
+      },
+      "field_type": "textarea",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Alternative Title",
+      "value": "",
+      "settings": {
+        "validations": {
+          "min_length": 3,
+          "max_length": 250
+        },
+        "placeholder": "Enter alternative title here"
+      },
+      "field_type": "text",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Degree Date",
+      "value": [],
+      "settings": {
+        "options": [
+          "1970",
+          "1971",
+          "1972",
+          "1973",
+          "1974",
+          "1975",
+          "1976",
+          "1977",
+          "1978",
+          "1979",
+          "1980",
+          "1981",
+          "1982",
+          "1983",
+          "1984",
+          "1985",
+          "1986",
+          "1987",
+          "1988",
+          "1989",
+          "1990",
+          "1991",
+          "1992",
+          "1993",
+          "1994",
+          "1995",
+          "1996",
+          "1997",
+          "1998",
+          "1999",
+          "2000",
+          "2001",
+          "2002",
+          "2003",
+          "2004",
+          "2005",
+          "2006",
+          "2007",
+          "2008",
+          "2009",
+          "2010",
+          "2011",
+          "2012",
+          "2013",
+          "2014",
+          "2015",
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024",
+          "2025",
+          "2026",
+          "2027",
+          "2028",
+          "2029",
+          "2030",
+          "2031",
+          "2032",
+          "2033",
+          "2034",
+          "2035",
+          "2036",
+          "2037",
+          "2038",
+          "2039",
+          "2040"
+        ],
+        "placeholder": "Enter date of degree acquired here",
+        "is_multiple": false
+      },
+      "field_type": "dropdown",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Degree Type",
+      "value": [],
+      "settings": {
+        "options": [
+          "Bachelor\u2019s",
+          "Master's",
+          "Doctorate"
+        ],
+        "placeholder": "Choose a degree type",
+        "is_multiple": false
+      },
+      "field_type": "dropdown",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Advisors",
+      "value": "",
+      "settings": {
+        "validations": {
+          "min_length": 3,
+          "max_length": 250
+        },
+        "placeholder": "Enter your advisor names here"
+      },
+      "field_type": "text",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Committee Members",
+      "value": "",
+      "settings": {
+        "validations": {
+          "min_length": 3,
+          "max_length": 250
+        },
+        "placeholder": "Enter the Committee Members involved in your project"
+      },
+      "field_type": "text",
+      "order": null,
+      "is_mandatory": false
+    },
+    {
+      "name": "Department/Program",
+      "value": "",
+      "settings": {
+        "validations": {
+          "min_length": 3,
+          "max_length": 100
+        },
+        "placeholder": "Enter your Department/Program here"
+      },
+      "field_type": "text",
+      "order": null,
+      "is_mandatory": false
+    }
+  ],
+  "figshare_url": "https://manara.qnl.qa/articles/journal_contribution/DRL-Based_IRS-Assisted_Secure_Visible_Light_Communications/26862139",
+  "download_disabled": false,
+  "description": "<p dir=\"ltr\">In this paper, we develop a novel Physical Layer Security (PLS) technique for a Visible Light Communication (VLC) system composed of light fixtures assisted by mirror array sheets serving as Intelligent Reflecting Surfaces (IRS). Our objective is to optimize the Secrecy Capacity (SC) by finding the optimal beamforming (BF) weights equipped at the VLC fixtures and mirror orientations at the mirror array sheet. Due to many design parameters, including the beamforming weights, the mirror orientations, and the mobility of the users, conventional optimization techniques may not be practical to optimize the SC capacity. Therefore, we proposed a Deep Reinforcement Learning (DRL) solution based on Deep Deterministic Policy Gradient (DDPG) algorithm to solve the highly complex SC problem by adjusting the BF weights and mirror orientations. The DDPG-based algorithm provides an optimized solution that can adapt to the large size of design parameters and act fast to the channel variations due to users\u2019 mobility. Our results show that considering both mirror array sheet and BF vectors provide the highest SC for the system. Moreover, we show the effect of changing the mirror arrangements of the mirror array sheet on SC. We conclude that for a fixed mirror array sheet size, there exists a specific mirror arrangement (i.e., number of mirrors) that optimizes the SC. After this number, the performance of SC saturates. We also show the trade-off between the training complexity and SC performance considering different mirror arrangements in the mirror array sheet.</p><h2>Other Information</h2><p dir=\"ltr\">Published in: IEEE Photonics Journal<br>License: <a href=\"https://creativecommons.org/licenses/by/4.0\" target=\"_blank\">https://creativecommons.org/licenses/by/4.0</a><br>See article on publisher's website: <a href=\"https://dx.doi.org/10.1109/jphot.2022.3178852\" target=\"_blank\">https://dx.doi.org/10.1109/jphot.2022.3178852</a></p>",
+  "funding": "Qatar National Research Fund (NPRP13S-0201-200219), Secure Federated Edge Intelligence Framework for AI-driven 6G Applications.",
+  "funding_list": [
+    {
+      "id": 25860082,
+      "title": "Qatar National Research Fund (NPRP13S-0201-200219), Secure Federated Edge Intelligence Framework for AI-driven 6G Applications.",
+      "grant_code": "",
+      "funder_name": null,
+      "is_user_defined": 1
+    }
+  ],
+  "version": 1,
+  "status": "public",
+  "size": 1596055,
+  "created_date": "2024-08-29T04:26:34Z",
+  "modified_date": "2025-05-06T06:36:21Z",
+  "is_public": true,
+  "is_confidential": false,
+  "is_metadata_record": false,
+  "confidential_reason": "",
+  "metadata_reason": "",
+  "license": {
+    "value": 1,
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "tags": [
+    "Deep reinforcement learning",
+    "intelligent reflecting surfaces",
+    "physical layer security",
+    "secrecy capacity",
+    "visible light communications",
+    "Mirrors",
+    "Visible light communication",
+    "Fixtures",
+    "Radio frequency",
+    "Receivers",
+    "Security",
+    "Optimization"
+  ],
+  "keywords": [
+    "Deep reinforcement learning",
+    "intelligent reflecting surfaces",
+    "physical layer security",
+    "secrecy capacity",
+    "visible light communications",
+    "Mirrors",
+    "Visible light communication",
+    "Fixtures",
+    "Radio frequency",
+    "Receivers",
+    "Security",
+    "Optimization"
+  ],
+  "categories": [
+    {
+      "id": 32963,
+      "title": "Engineering",
+      "parent_id": 0,
+      "path": "/32963",
+      "source_id": "40",
+      "taxonomy_id": 102
+    },
+    {
+      "id": 33137,
+      "title": "Communications engineering",
+      "parent_id": 32963,
+      "path": "/32963/33137",
+      "source_id": "4006",
+      "taxonomy_id": 102
+    },
+    {
+      "id": 35549,
+      "title": "Information and computing sciences",
+      "parent_id": 0,
+      "path": "/35549",
+      "source_id": "46",
+      "taxonomy_id": 102
+    },
+    {
+      "id": 35903,
+      "title": "Machine learning",
+      "parent_id": 35549,
+      "path": "/35549/35903",
+      "source_id": "4611",
+      "taxonomy_id": 102
+    }
+  ],
+  "references": [
+    "https://doi.org/10.1109/jphot.2022.3178852",
+    "https://portal.issn.org/resource/ISSN/1943-0655",
+    "https://doi.org/10.1109/ojcoms.2024.3395425"
+  ],
+  "has_linked_file": false,
+  "citation": "Saifaldeen, Danya A.; Ciftler, Bekir S.; Abdallah, Mohamed M.; Qaraqe, Khalid A. (2022). DRL-Based IRS-Assisted Secure Visible Light Communications. Manara - Qatar Research Repository. Journal contribution. https://doi.org/10.1109/jphot.2022.3178852",
+  "related_materials": [
+    {
+      "id": 207000325,
+      "identifier": "10.1109/jphot.2022.3178852",
+      "title": "DRL-Based IRS-Assisted Secure Visible Light Communications",
+      "relation": "IsIdenticalTo",
+      "identifier_type": "DOI",
+      "is_linkout": true,
+      "link": "https://doi.org/10.1109/jphot.2022.3178852"
+    },
+    {
+      "id": 207000328,
+      "identifier": "1943-0655",
+      "title": "IEEE Photonics Journal",
+      "relation": "IsPublishedIn",
+      "identifier_type": "ISSN",
+      "is_linkout": false,
+      "link": "https://portal.issn.org/resource/ISSN/1943-0655"
+    },
+    {
+      "id": 216707132,
+      "identifier": "10.1109/ojcoms.2024.3395425",
+      "title": "DRL-Based IRS-Assisted Secure Hybrid Visible Light and mmWave Communications",
+      "relation": "IsReferencedBy",
+      "identifier_type": "DOI",
+      "is_linkout": false,
+      "link": "https://doi.org/10.1109/ojcoms.2024.3395425"
+    }
+  ],
+  "is_embargoed": false,
+  "embargo_date": null,
+  "embargo_type": null,
+  "embargo_title": "",
+  "embargo_reason": "",
+  "embargo_options": [],
+  "id": 26862139,
+  "title": "DRL-Based IRS-Assisted Secure Visible Light Communications",
+  "doi": "10.1109/jphot.2022.3178852",
+  "handle": "",
+  "url": "https://api.figshare.com/v2/articles/26862139",
+  "published_date": "2024-08-29T04:26:34Z",
+  "thumb": "https://s3-eu-west-1.amazonaws.com/figshare-production-eu-qnl-ror-previews4703-eu-west-1/48851128/thumb.png",
+  "defined_type": 6,
+  "defined_type_name": "journal contribution",
+  "group_id": 46261,
+  "url_private_api": "https://api.figshare.com/v2/account/articles/26862139",
+  "url_public_api": "https://api.figshare.com/v2/articles/26862139",
+  "url_private_html": "https://figshare.com/account/articles/26862139",
+  "url_public_html": "https://manara.qnl.qa/articles/journal_contribution/DRL-Based_IRS-Assisted_Secure_Visible_Light_Communications/26862139",
+  "timeline": {
+    "posted": "2024-08-29T04:26:34",
+    "publisherPublication": "2022-05-22T15:00:00",
+    "revision": "2025-05-06T06:36:20",
+    "submission": "2024-08-29T04:23:58",
+    "firstOnline": "2024-08-29"
+  },
+  "resource_title": null,
+  "resource_doi": null
+}

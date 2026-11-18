@@ -1,0 +1,38 @@
+[
+  {
+    "scheme": "baseline",
+    "seed": 42,
+    "budget": 10000,
+    "slots": 32,
+    "max_absolute_errors": {
+      "utility": 0.0,
+      "secrecy_rate": 0.0,
+      "ber": 0.0,
+      "energy": 0.0
+    }
+  },
+  {
+    "scheme": "fixed_ris",
+    "seed": 42,
+    "budget": 10000,
+    "slots": 32,
+    "max_absolute_errors": {
+      "utility": 0.0,
+      "secrecy_rate": 0.0,
+      "ber": 0.0,
+      "energy": 0.0
+    }
+  },
+  {
+    "scheme": "joint_ris",
+    "seed": 42,
+    "budget": 10000,
+    "slots": 32,
+    "max_absolute_errors": {
+      "utility": 0.0,
+      "secrecy_rate": 0.0,
+      "ber": 0.0,
+      "energy": 0.0
+    }
+  }
+]

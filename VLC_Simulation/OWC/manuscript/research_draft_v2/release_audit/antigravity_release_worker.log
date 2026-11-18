@@ -1,0 +1,79 @@
+root agent idle; waiting for 1 background task(s) to finish
+I have initiated the release verification sequence with conservative BLAS/Torch single-threading (`OMP_NUM_THREADS=1`, `TORCH_NUM_THREADS=1`).
+
+- **Check 1** (`scripts/release_statistics.py`): Completed successfully (exit code 0). Full stdout logged to `release_audit/ANTIGRAVITY_STATISTICS.log`, and `statistical_robustness.json` / `STATISTICAL_ROBUSTNESS.md` were generated.
+- **Check 2** (`scripts/release_validation.py --phase all`): Currently executing in the background (90 replays, 15 grid sensitivity cases, 120 zero-shot transfer cases), streaming output to `release_audit/ANTIGRAVITY_VALIDATION.log`.
+
+`manuscript/research_draft_v2/release_audit/ANTIGRAVITY_RELEASE_STATUS.md` has been updated. I will await completion of Check 2 and proceed immediately to Check 3 (`scripts/run_calibrated_ris_diagnostic.py`).
+Check 3 (`scripts/run_calibrated_ris_diagnostic.py`) has been launched with conservative threading, logging to `release_audit/ANTIGRAVITY_CALIBRATED.log`. It has begun evaluating scenario grids (nominal 10/20/30 dB completed) and will finish shortly. I will wait for completion before updating the final audit report.
+# Antigravity Release Verification Report
+
+All three release audit test suites have completed execution in the working directory `D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC` under conservative single-threaded BLAS/Torch settings (`OMP_NUM_THREADS=1`, `TORCH_NUM_THREADS=1`).
+
+The live status file has been marked **COMPLETED (ALL PASS)**:
+- [ANTIGRAVITY_RELEASE_STATUS.md](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/ANTIGRAVITY_RELEASE_STATUS.md)
+
+---
+
+## 1. Summary of Executed Commands
+
+| # | Command | Log File | Exit Status | Runtime | Outcome |
+|---|---|---|:---:|:---:|:---|
+| 1 | `python -B scripts/release_statistics.py` | [ANTIGRAVITY_STATISTICS.log](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/ANTIGRAVITY_STATISTICS.log) | **0** | ~3s | **PASS** — 18 paired contrasts, 1,024 sign permutations each, Holm step-down corrections computed. |
+| 2 | `python -B scripts/release_validation.py --phase all` | [ANTIGRAVITY_VALIDATION.log](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/ANTIGRAVITY_VALIDATION.log) | **0** | ~15m 28s | **PASS** — 90 policy replays, 15 grid cases, 120 transfer cases verified without discrepancy. |
+| 3 | `python -B scripts/run_calibrated_ris_diagnostic.py` | [ANTIGRAVITY_CALIBRATED.log](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/ANTIGRAVITY_CALIBRATED.log) | **0** | ~40s | **PASS** — 9 scenario/SNR grids (28,125 action evaluations), analytical checks passed. |
+
+---
+
+## 2. Tested Populations & Verification Outcomes
+
+### Check 1: Post-Hoc Paired Statistical Robustness
+- **Population**: 18 paired comparisons (3 budgets: 2k, 5k, 10k × 3 contrasts: joint vs. fixed, fixed vs. baseline, joint vs. baseline × 2 metrics: utility, secrecy rate).
+- **Seeds**: 10 matched seeds (42–51).
+- **Exact Sign-Flip Enumeration**: 1,024 permutations per contrast.
+- **Hypothesis Multiplicity**: Full-family 18-hypothesis Holm step-down adjustments for Student's $t$ and permutation tests.
+- **Failures / Exceptions**: 0.
+- **Generated Artifacts**:
+  - [statistical_robustness.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/statistical_robustness.json)
+  - [STATISTICAL_ROBUSTNESS.md](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/STATISTICAL_ROBUSTNESS.md)
+
+### Check 2: Release Validation Suite (`--phase all`)
+- **Phase A (Policy Replay)**:
+  - 90 saved CNN+DND checkpoints replayed for 1,000 evaluation slots each (90,000 slots total).
+  - 4 metrics per slot (`utility`, `secrecy_rate`, `ber`, `energy`) = 360,000 evaluated metric points compared against saved study runs.
+  - Absolute error: `max_absolute_error < 1e-10` across all 360,000 data points (`all_match=True`).
+  - First-action execution and evaluation action counts (`q_counts`) matched recorded values exactly for 90/90 policies.
+  - Output: [full_policy_replay.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/full_policy_replay.json) and individual records in `replay_runs/`.
+- **Phase B (Finite-Grid Oracle Sensitivity)**:
+  - 15 cases (5 geometries: `nominal`, `changed_positions`, `swapped_receivers`, `near_eve`, `colocated` × 3 noise offsets: −3 dB, 0 dB, +3 dB).
+  - 3,125 actions per case = 46,875 total action evaluations.
+  - Output: [geometry_grid_sensitivity.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/geometry_grid_sensitivity.json).
+- **Phase C (Frozen-Policy Geometry Transfer)**:
+  - 120 transfer evaluations (30 nominal-trained 10k-budget policies × 4 non-nominal test geometries).
+  - 200 evaluation slots per case = 24,000 slots evaluated.
+  - Secrecy outage ($< 0.1$) and Bob BER outage ($> 10^{-4}$) evaluated. Co-located receiver negative control produced 0 secrecy across all cases.
+  - Output: [frozen_policy_geometry_transfer.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/frozen_policy_geometry_transfer.json) and individual records in `transfer_runs/`.
+- **Failures / Exceptions**: 0.
+
+### Check 3: Calibrated RIS Diagnostic
+- **Nature**: Standalone opt-in current-domain 4-PAM/RIS physical channel diagnostic in bits per real channel use (distinct from paper-mode baseline and without DRL training).
+- **Pre-execution Verification**:
+  - Independent AWGN numerical integration error $< 10^{-8}$.
+  - 300,000-symbol waveform Monte Carlo BER error $< 0.0025$ against theoretical bounds.
+  - Quadrature convergence, current scaling, and zero-signal ceiling checks passed.
+- **Evaluations**:
+  - 9 grids (3 scenarios: `nominal`, `changed_positions`, `colocated` × 3 SNRs: 10 dB, 20 dB, 30 dB).
+  - 3,125 actions per grid = 28,125 total action evaluations.
+  - Co-located negative control confirmed max secrecy $= 0.000000$ bits/use across all SNR levels.
+- **Failures / Exceptions**: 0.
+- **Generated Artifacts**:
+  - [diagnostic_summary.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/output_figures/ris/calibrated_diagnostic_v1/diagnostic_summary.json)
+  - 9 compressed grid files (`.npz`) in `output_figures/ris/calibrated_diagnostic_v1/`.
+
+---
+
+## 3. Provenance & Integrity Boundaries
+
+- No existing raw simulation runs (`output_figures/ris/training_budget_study_matched_v2/runs/`) or checkpoints were modified.
+- No network requests, Git pushes, or external submissions were performed.
+- All testing was conducted by Antigravity directly in the designated workspace. Codex can now proceed with manuscript revisions and final build using these audit records.

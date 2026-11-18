@@ -1,0 +1,60 @@
+{
+  "checked_date": "2026-11-18",
+  "sources": [
+    {
+      "name": "saifaldeen2022_institution",
+      "url": "https://elmi.hbku.edu.qa/en/publications/drl-based-irs-assisted-secure-visible-light-communications/",
+      "status": 200,
+      "sha256": "45fdcf48b7f8a699308ceb983272ea73aa55303846212f12a18b42560bd27e9b",
+      "bytes": 56060,
+      "file": "saifaldeen2022_institution.html"
+    },
+    {
+      "name": "liu2026_institution",
+      "url": "https://scholars.cityu.edu.hk/en/publications/optical-reflecting-intelligent-surface-assisted-secure-visible-li/",
+      "status": 200,
+      "sha256": "90067ff38b42f4b869986a765c9962132610394f542aa9ec6401d6ea93bee150",
+      "bytes": 76618,
+      "file": "liu2026_institution.html"
+    },
+    {
+      "name": "oqe_scope",
+      "url": "https://link.springer.com/journal/11082/aims-and-scope",
+      "status": 200,
+      "sha256": "d54d41fa6dbcd077c5d2eab9ed0448b5abf7d3b1cfa786440a522c0b396ae1c2",
+      "bytes": 172458,
+      "file": "oqe_scope.html"
+    },
+    {
+      "name": "oqe_authors",
+      "url": "https://link.springer.com/journal/11082/submission-guidelines",
+      "status": 200,
+      "sha256": "668b00e760dd7c8f913bd473dff09bb5e5400ffd8a5ebf6a6e89e34c278e0898",
+      "bytes": 291486,
+      "file": "oqe_authors.html"
+    },
+    {
+      "name": "oqe_fees",
+      "url": "https://link.springer.com/journal/11082/how-to-publish-with-us",
+      "status": 200,
+      "sha256": "6b1d0ee53c75df37650d4af20483de11d1fa334aa4d550857906c800e64e101c",
+      "bytes": 183469,
+      "file": "oqe_fees.html"
+    },
+    {
+      "name": "photonics_scope",
+      "url": "https://www.mdpi.com/journal/photonics/about",
+      "error": "403 Client Error: Forbidden for url: https://www.mdpi.com/journal/photonics/about"
+    },
+    {
+      "name": "photonics_fees",
+      "url": "https://www.mdpi.com/journal/photonics/apc",
+      "error": "403 Client Error: Forbidden for url: https://www.mdpi.com/journal/photonics/apc"
+    },
+    {
+      "name": "photonics_authors",
+      "url": "https://www.mdpi.com/journal/photonics/instructions",
+      "error": "403 Client Error: Forbidden for url: https://www.mdpi.com/journal/photonics/instructions"
+    }
+  ]
+}

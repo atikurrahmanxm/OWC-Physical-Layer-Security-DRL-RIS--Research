@@ -1,0 +1,32 @@
+{
+  "run": "run_joint_ris_s44_b10000.json",
+  "scheme": "joint_ris",
+  "budget": 10000,
+  "seed": 44,
+  "slots": 1000,
+  "metrics_match": true,
+  "max_absolute_errors": {
+    "utility": 0.0,
+    "secrecy_rate": 0.0,
+    "ber": 0.0,
+    "energy": 0.0
+  },
+  "first_action_match": true,
+  "q_counts": {
+    "3": 1000
+  },
+  "recorded_q_counts": {
+    "3": 1000
+  },
+  "q_counts_match": true,
+  "recorded_chosen_q": 3,
+  "actual_modal_q": 3,
+  "metric_array_sha256": {
+    "utility": "fd980811f84e4ffe5751f4848da8dcf234743dba03f196d05fa6e6aece1d9da7",
+    "secrecy_rate": "678f70ea729577cad545d823a8a5364f64c12f27b5c4b4e80021c1a6a3c1a9ac",
+    "ber": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+    "energy": "768fcc99a69a89eabeb59476c09a4e6ae82b26cf73cd28648b7656186f4fc72a"
+  },
+  "elapsed_seconds": 10.387783899999704,
+  "source_run_sha256": "cbcd448241c42060ad49f3e03cab06c08fdc698d1aa8050430d35ed9534d2b0a"
+}

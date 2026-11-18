@@ -1,0 +1,1354 @@
+{
+  "checked_date": "2026-11-18",
+  "description": "Current-file SHA256; source hashes do not establish the exact uncommitted source state used in historical runs.",
+  "files": [
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s42_b10000.json",
+      "sha256": "5e0c2fbf7debb5eae00f271ad6d64d0919a9c1aa621870bd7c348466d1f37c1e"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s42_b2000.json",
+      "sha256": "20e351c09beaa80ac7bea228d82078e770483b364b61fa89921a0c6e512eee4b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s42_b5000.json",
+      "sha256": "00bd6e32484c972d69ffc88e4ed163db509d90e6dfd4c805742ef45202c08e0f"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s43_b10000.json",
+      "sha256": "e436024e08343b9079b35f2ab566e4882a9b4c12f7c3765d61a7db899f8f1bc6"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s43_b2000.json",
+      "sha256": "f3414582bb5a1f2d79739070d5be5cfbe54ff9b99ff1022cf114854821e7d620"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s43_b5000.json",
+      "sha256": "578171ca2a1e01f124fac2bccaa0939ffebb4a5386364ca6d66d97355063d61a"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s44_b10000.json",
+      "sha256": "effdff75ad70be48a6333aad8162ce4c6debe5b63e3b51984e26b44892948a00"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s44_b2000.json",
+      "sha256": "c1ffbe113b4d5d9715ef8b2171382ed53005acab25e8f8efb2d2a55c84e8c191"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s44_b5000.json",
+      "sha256": "c5cfe13e6f622ab00818c2694594b7952a98a99cf98d3cf3beb6447b9941a3cd"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s45_b10000.json",
+      "sha256": "34ba54a3e399a578e640edcae194219e4a9622b8c0dea5afda6aa6574d91fc17"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s45_b2000.json",
+      "sha256": "e43ac1770b8a7b33a0f616c94291abbc19efb08432a36029592ad113c3e87992"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s45_b5000.json",
+      "sha256": "9c5a38a09ef0bf493d03e226c9e1028adf8e99fba74ed66b7cc577e07f7518d8"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s46_b10000.json",
+      "sha256": "f18b6365d1cbc7b3ba300a72d16470cecea42efa349c54e4edb5d31e95ff32c9"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s46_b2000.json",
+      "sha256": "65ddfd99a91fcad5d2528d098e3a8edcd0b0f37b8250cd5258428d7c6297d651"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s46_b5000.json",
+      "sha256": "15517a1268803d262fa0bb777bfe59f91dbed308bd1e6275ecce5ebdc32d0da2"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s47_b10000.json",
+      "sha256": "31c1787e87dbefcce1f4186fefa46e039efbe00b738ddd8b854077d0af4968a3"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s47_b2000.json",
+      "sha256": "2c650d9b94e62cc41dc69c5a8ef9911bc39f23dbf99b7a59b80f692d9264c970"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s47_b5000.json",
+      "sha256": "085f6af0555dbb415cc3cbf820767be0417f207317fa470d29a8e5113c29cc01"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s48_b10000.json",
+      "sha256": "7c58caa576d77bb199149da053d4577cf7a2705ecb2741859022d93675bd624f"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s48_b2000.json",
+      "sha256": "2bc866a645daea86b936077b225ddd3afcd3056a3f5487e134801dc2bc2d06c7"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s48_b5000.json",
+      "sha256": "3cca9b9f5c42b3fc100514bfc3a79f8a9856d1fc6d07c3717101ab187f142b51"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s49_b10000.json",
+      "sha256": "1bbcedd5f937101aee4f0f0aeb9c18d5e9ef661d23507c92d10134caf29aa9eb"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s49_b2000.json",
+      "sha256": "3801fa81acc697e51a90219d9fb503faa6b1bddd8af9575804f1a49b6e20e1e4"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s49_b5000.json",
+      "sha256": "6e4ce6a32a74f8847f38931f8629b0004227c061952f57df22f857b4013e9a9e"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s50_b10000.json",
+      "sha256": "94e87262b78a4c008199048358c679f2fe0e65c21bf57a3b567fe61965dfd49d"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s50_b2000.json",
+      "sha256": "8284f66f3a4e6e4e3757a92e87aaa6eec5dfbd6c405bdd434ce0425eee565154"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s50_b5000.json",
+      "sha256": "96d0305eab8b931df83503a845453dbd95e5bc62aee1f18ee4a727e4182bd840"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s51_b10000.json",
+      "sha256": "efa31bce9d6eeb821426adf6e115a4cb2cbd7900aecdb298ca42857b2c5ac630"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s51_b2000.json",
+      "sha256": "3998577c06ba4ebc06b281b339b9f53b2ba20b0d2bdbb54de4a48ba72fb5b7b4"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_baseline_s51_b5000.json",
+      "sha256": "563ea396c5cb52cd6c7c7412d9c0bd96468881ea4db805ac7bafa3683e7db541"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s42_b10000.json",
+      "sha256": "8d41a8d9771fffb55e50b5da1908fa33335e0ce7c3a7acab430c97e98c316fdc"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s42_b2000.json",
+      "sha256": "5ab8cd6388583ad98bb5353358e924c0c9f7a65ba6cb2319c7c31fbda1548a97"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s42_b5000.json",
+      "sha256": "2e6ed5d2d042702b7cae188d785f745bc90b6ca606f1714b888a120f6a1c6b53"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s43_b10000.json",
+      "sha256": "8f04f92a2624d4bc9d1305dd8758de740e0bd9c9eb7d6cd9312120d34c3283fc"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s43_b2000.json",
+      "sha256": "296fc3aec707aa8fd37d368716420075fbde5d9c412e3956a47388906564541b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s43_b5000.json",
+      "sha256": "ec5e2dc73b48dee715d97132d655f3b5b89e3e45da63584aadea350a667ac41c"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s44_b10000.json",
+      "sha256": "c3aa8e9a7af0b1c2d1384c41b732e0784d7542cf430e3009890f880493dcd4ca"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s44_b2000.json",
+      "sha256": "14441cadfa4176d7d5ea4df64c6d58dbfc3882f876c5a35a428bf3f5c219261b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s44_b5000.json",
+      "sha256": "e44cad1f8cc3b398be2ba65a1edc99ffbd97c5adf8391cb4efb775d61d163c48"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s45_b10000.json",
+      "sha256": "449a307f1519cb2773f2a7a5476deb1265b5af0eeedba6e46aaf14b000e99556"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s45_b2000.json",
+      "sha256": "f2a1978fc7b9cdabeb933dba086cd653d5abc3e243ba6e5ccc831253737d521f"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s45_b5000.json",
+      "sha256": "52d7566d609efb47967ba6cbae13aa7c98e9d2e0fa08714631610114a49373f1"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s46_b10000.json",
+      "sha256": "9294edf4fdb6efaa47d16e9ba6e400f09eaa8ce821a8d22815184d9a3331d67e"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s46_b2000.json",
+      "sha256": "e6c637cc016b9d50440ee83476ec2402343ead372fd2423dfad66a3811bf2115"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s46_b5000.json",
+      "sha256": "b08203a847038b3c3785def65b8d5fada93539b83e182383d3ab5e0a5054559b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s47_b10000.json",
+      "sha256": "ad95c85378e5d1dcc77d51b5edca3a4c434ba196e7c1887a09abab9afa440202"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s47_b2000.json",
+      "sha256": "a5cdc860a2c22105cb6fe6e7c2f69e7a2d140a8c8277e317e967e836370ef7cc"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s47_b5000.json",
+      "sha256": "e4b7b55dc3c8beb2384ebd4b34fa583b7a03ae1a594c87c99cb7b594b701e636"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s48_b10000.json",
+      "sha256": "593cd2c3ba8178fc3a6b93e37925ddd880b11f09a7abc94f1c4890a68fca8805"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s48_b2000.json",
+      "sha256": "63d979761b7136956a82c68f3612855dd1b847e6236ff5a97a7535487160bc61"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s48_b5000.json",
+      "sha256": "59252e9f3d3ca6ae82b47c2b9ca294b573903fa4dc11b8fa3411ec7a7579ad35"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s49_b10000.json",
+      "sha256": "f7bc2e2c314dc909a48b81838070bac14c55db3a1e888cd6430e8c2d892e4e93"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s49_b2000.json",
+      "sha256": "aa8b8613eb407f4171683771f6755ade5240031d0aedb0cd1c0e55ab466c65fd"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s49_b5000.json",
+      "sha256": "f958c4c5413c38998cf4c945176f289f2f2004c99681bd3518bc556aba03a3dc"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s50_b10000.json",
+      "sha256": "7fe60f9ba2ab6b8c47e9b4bf429f11023690912ba63f5c8fcb183c0f932663ee"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s50_b2000.json",
+      "sha256": "8df3123b8fc298743198c2516dd862fc44d350c453e118355a4fac7b7a236669"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s50_b5000.json",
+      "sha256": "3fd77a9f2495dee41d488e8229dbc32a12baf135effd6313e0ce6ea5cdd364da"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s51_b10000.json",
+      "sha256": "9127742c531bbd877cffc58d86e11c33431b26b3377342ff13353a5d79d8bb4d"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s51_b2000.json",
+      "sha256": "2ca588929700bbdd505d41e9b0a888017cd6fdf84787acb1ab85d21ef3375f60"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_fixed_ris_s51_b5000.json",
+      "sha256": "ed0cd6142a190157baf46cb8a7d4a2575f1b484f132c2baca941d00dd17dc6a8"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s42_b10000.json",
+      "sha256": "47046c13435268597b4c420875a07a514313f7ca501d5de0dd70f4931fef635f"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s42_b2000.json",
+      "sha256": "66246a13b7e0ac7d787cf37a44d122c5405b5a9ac4691deb1c59d05d61d4a7d3"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s42_b5000.json",
+      "sha256": "24b795c1cde7b0fc61e1ec55deaca8a0ad702c54784acedc3c3a29e5bb18a563"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s43_b10000.json",
+      "sha256": "cf98bdb6ff09a0eb96c67a976c388a45a01ae1003b1f7f69e57516b083ff1ef6"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s43_b2000.json",
+      "sha256": "3ac7ae32b9b5564bb2d282da11a3d7f7c8c24e4442deb731d2a72bd1ef2c345b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s43_b5000.json",
+      "sha256": "a52a1b8b93021d7df6bb39d3284ae9fe29fecca93808a40324397b0d96b2ab3d"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s44_b10000.json",
+      "sha256": "cbcd448241c42060ad49f3e03cab06c08fdc698d1aa8050430d35ed9534d2b0a"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s44_b2000.json",
+      "sha256": "ac535e2c2e825ae23cb5ec23e56862e0a353fe51808723f863f0b1562b17a698"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s44_b5000.json",
+      "sha256": "ba714d9c00d39fadf9acacb4cea88193aedb2d0b9efc3e66625489f8ec071868"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s45_b10000.json",
+      "sha256": "a71073619e0955aa84668102d9e51305b7f0541a4404350d127a93ad1d98bca4"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s45_b2000.json",
+      "sha256": "e0fcbafb9faf8ea115d8aaf6c009fe32efb88c64db6ae793e0c7f8dbb9cb57fa"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s45_b5000.json",
+      "sha256": "51de6b01f2950b7a293354dbda15bda8466ef24a3f55584ff9f96cff70818259"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s46_b10000.json",
+      "sha256": "5a62b2f7e877b805763c9032863dc317fc3b6c1d157c3ac35eb5ed6936363c29"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s46_b2000.json",
+      "sha256": "231e91d6ca148bcfe0ad7f5182f3e7a60fa0275755198b59ec8cc8e279229ba2"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s46_b5000.json",
+      "sha256": "a428c654c1a434ae946cdd639f0c7d4aaeb842795eef32711f965314e81063ea"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s47_b10000.json",
+      "sha256": "4839e391ec42d299b76f26606a3f33c24f5983b76b5e9c3db679f567b3537f3c"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s47_b2000.json",
+      "sha256": "d073fa0162c37bfb707cc6b134a8c35de6c623ad4e396853daa2f3b262f773d6"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s47_b5000.json",
+      "sha256": "ea66140e068a1c1081f39ede29e21bd6cf0c5d8f7b94fc2cc8ac43027641c396"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s48_b10000.json",
+      "sha256": "72e983cd11b732c31fbd9046f7ce47254f4b0e3dd02a931a25508874c29d2dd9"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s48_b2000.json",
+      "sha256": "489ce363b60aef3ccd13d00ebd2ecd86e926a9f6d1da45cec319aceda6b9f862"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s48_b5000.json",
+      "sha256": "3dd41432d952e25382ba82103a2ca0179d04fc35f826052633269c38eef74c48"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s49_b10000.json",
+      "sha256": "77cbed15de075360fb694748ec48cd2384893d44808eeb7f2d51e62030ed0cd4"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s49_b2000.json",
+      "sha256": "8585f548051761493679351e5466b5f0d2d682fa5a830b581fc008879961fb26"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s49_b5000.json",
+      "sha256": "fd89f52305abec479a7e1e05d3af8603f89f2510ded119e6b07277e93424fbdb"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s50_b10000.json",
+      "sha256": "44a07abeafbdee021c568d040e5a275fc357c1e77e7f8c516304ca91e934d118"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s50_b2000.json",
+      "sha256": "a0e831d35446b523672855b76a84be69eb65079b3a8932b3dcf8d28fc5a61fe5"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s50_b5000.json",
+      "sha256": "5335f602a32b5fd468354d9e1a910c9c75c55ac3667e673ec37bc7a0839ac7ce"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s51_b10000.json",
+      "sha256": "c11db9ee7b30b8f7f88c87d45eec5ea3b1297bbc7aa2a412831c9eaad526e07b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s51_b2000.json",
+      "sha256": "ae69ebd19f3fafefadb59ee58862d08063991cf66ed23d6ae14d4698c1c102f8"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/runs/run_joint_ris_s51_b5000.json",
+      "sha256": "e2934e3190f3255a2177083c9d463ee2f78c100ac1047eb650ce5fa2d1724920"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s42_b10000.pt",
+      "sha256": "4a9e76e1c38e746970eb02994541180fce2cb92ceeb009276fd4e1edca237d84"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s42_b10000.json",
+      "sha256": "dd18567c6e6e13cc0aaedbc61fb7cd71014b85a5ac5bac3a1aadb93d287eed18"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s42_b2000.pt",
+      "sha256": "1d6ff5a557f9f7185f7b45f23898180c01877cf52812abfb8cb8d278a8c9f235"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s42_b2000.json",
+      "sha256": "59f3dcba13212890267b4e48030ac72960ba2dcdb29146e1f23380e4fc5a684e"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s42_b5000.pt",
+      "sha256": "e4c7f63285ccbcd27d4ee0a201eec297ff2fe7c7f17eeba10a1ff193267a4832"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s42_b5000.json",
+      "sha256": "31462d9510582cae0a1434b21f486104d3d89d7d8fc50857b42dd5eae5089352"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s43_b10000.pt",
+      "sha256": "29bd7307252cdb158de0d70d472831060a17ed0d9e7b828dddc5c20ef9c44db1"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s43_b10000.json",
+      "sha256": "97e662a258c568b7e69d61ebb1dff9107b1c2c9a4ca5f24dabc000dde86e1f39"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s43_b2000.pt",
+      "sha256": "97cca3b5d7c04b3be04a7bc4a3aa98f73c4ed30fd06e51208f6785ce5741e08b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s43_b2000.json",
+      "sha256": "2c872f2e3bea0abeec32d0a6f4dc3f8bee69131c95070179f04a53018e0b230e"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s43_b5000.pt",
+      "sha256": "e2c6db9999bdd4703235c8f5dcc13de1877d52b205ed027028e63a2fdaae58cc"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s43_b5000.json",
+      "sha256": "eb65a585b72b2d60a324f5085215da800a4cb673e57272c5a64d23d78db887bf"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s44_b10000.pt",
+      "sha256": "2c1b031bd1fb0559bdcb7def0484100b6ac9112c78c8734c6cce5668d8379c19"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s44_b10000.json",
+      "sha256": "10f483f777ab53358b96c77deb07868d21ff2b585b1e092d9e2b4b48a963bc8e"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s44_b2000.pt",
+      "sha256": "344d95b601ade2b33e58f966c018181ff28c8067b058bc7f6fe49523ca4edb38"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s44_b2000.json",
+      "sha256": "bb775653460eb08ef790625dba9b7f3a6b670fc9d6052ea9e3fc9a638435a936"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s44_b5000.pt",
+      "sha256": "f7ac27033bf8c531a4cef8877d8e729af3ce01fe796937ffbcc88b01409ec30c"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s44_b5000.json",
+      "sha256": "bee2384824e52318918b40b86446b553bcd2bc1be38a9e378eedbef5871f2031"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s45_b10000.pt",
+      "sha256": "dd0c01c1a37603ac03e2e43bff49eacb209b2ae2a8afd6f83ae1837b10173274"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s45_b10000.json",
+      "sha256": "14ca3a032cb944ca986a67ce78aebca36a162ca289283259aa3756f5e6145192"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s45_b2000.pt",
+      "sha256": "4e3d04c249a9577ab6484e7e50b1eb4a8ec4fa977c51ac7fdc1808ab530dd863"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s45_b2000.json",
+      "sha256": "bcfbecadc2810cccb1a92e575c33d1ac2ce96f731837a2399a652fb4dac11190"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s45_b5000.pt",
+      "sha256": "d14369ccdb75a19bc4201fea258038daa43b920db6ed68cebf521b59350bbdcd"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s45_b5000.json",
+      "sha256": "ea961e7c25e7d37b120707f5444db70be7a47e69d2beeb8ed1f926a1d1eedf8b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s46_b10000.pt",
+      "sha256": "d239fa827578137a70a1cd38dba3eb4a11c09e21fb30a72ae0fdd08c7cbf073d"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s46_b10000.json",
+      "sha256": "5c141fe005bab717b9e549f707bfb344035505dfcd0881b2d71f2d334190b32a"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s46_b2000.pt",
+      "sha256": "0785f99afa808b70619165de96993de4761bd6315198505e61dfbba93240509a"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s46_b2000.json",
+      "sha256": "3c35574f1862ff475a5d7e794a0581705339d59d308291ada742ff5aedb6dd3b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s46_b5000.pt",
+      "sha256": "0ce6fa8d34f5dd241c02b83ae1080707cfe00a8f271208e40d48854af97f150e"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s46_b5000.json",
+      "sha256": "7d341901ff859ad7b67054a17c4678695ca25189f2070c86dea8aed60bcf2e22"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s47_b10000.pt",
+      "sha256": "2f1d9351ef1901e03b5ee4d7d96a78ffda6082ccbdf002fabf895722e56ebd4b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s47_b10000.json",
+      "sha256": "5898f2c99fe788b17ba10855ef047c66b90dd563d189a99ee7d2386c4b86872a"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s47_b2000.pt",
+      "sha256": "4d1530b26dcc501bfcd9d8745249e2646f8572c3f1c4a759962d0c52f20fd513"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s47_b2000.json",
+      "sha256": "b81f67d83bfab35bcc716f502ae0f38bde851b9c4e9b0a4bfe0d0bcc83738390"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s47_b5000.pt",
+      "sha256": "56ccec8db0d7442da9dd19260363ffae35585a662e009ead95a71ba9e3299935"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s47_b5000.json",
+      "sha256": "c3d31b572191f0a64322faa3cec1e827b649e0eec99222a192a4433e8bfe44fd"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s48_b10000.pt",
+      "sha256": "82e59d4bae74f2f99e802f52ea14b981a9b812b2d6b9a0abb9e2cce184124b9a"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s48_b10000.json",
+      "sha256": "2730414613b59f4e5e5f3ec6eaa91fc6b12b7a2c029c6dae4198c70841392295"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s48_b2000.pt",
+      "sha256": "5676a1f4a25ae8bd33764bd4ef7d08091c0c2a55382c847949c98d68f72692cf"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s48_b2000.json",
+      "sha256": "d1d782dced7d5b7e5811d4d6df5438d9dfb021edf09c39882d8fcc977b8cf02c"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s48_b5000.pt",
+      "sha256": "dad73f9b24c29a9148d6d33443887850f2b51a59ca71f7b594697e93eb80533f"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s48_b5000.json",
+      "sha256": "8a7c156f47d2887508b8e87738929c3c573f195907e0d04d67e024d3ad23690d"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s49_b10000.pt",
+      "sha256": "74f58c17286e9ac44df303dac870fd8b84c73bdf55e75c607423d54f2490da3d"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s49_b10000.json",
+      "sha256": "df0aad3fbf2597f8cdd6eb87f10ad73899ed8966d351d5330557ea7421274ac8"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s49_b2000.pt",
+      "sha256": "3aab7ed81480306fe1cce56df592ea50bb6a532245915b220ef2a9df810e9a32"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s49_b2000.json",
+      "sha256": "b485cbbb4bbcacdf6a77361ccc5185a36ec7a3e0106bec8819b5b5bff0faac79"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s49_b5000.pt",
+      "sha256": "cead2b64c656b8289dbe0d0c060cc425eb179a1b184339af7174db61aee508a0"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s49_b5000.json",
+      "sha256": "9f0331e5ea8b8c95b0e16d525f808a708e30eef1e5b88126ccc05d8a21c0afc3"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s50_b10000.pt",
+      "sha256": "45f1d350c7ee41abd638f33ccc5a339f4f9547e069f80e15f31c5f10057b4a41"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s50_b10000.json",
+      "sha256": "524deb5bab624e9d9fb245e73c95c0e2ed491638b2a39ccadaa486547c2b88c0"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s50_b2000.pt",
+      "sha256": "cffd3e03685796ba18ea5fc08f47db62a4b6a235d2027ff8920d3fa61b818d29"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s50_b2000.json",
+      "sha256": "c05ceba5c55b8d3858346b2546ae433bd417369d11acfe2256c2879913a4b189"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s50_b5000.pt",
+      "sha256": "7bd04020e6047ee8a94353ec9b3ca2223237ef562982716e34cf8bbc6ebdfb20"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s50_b5000.json",
+      "sha256": "b02211ec1bece73dec5ab66240bc13cae4313a0de38ec2aa71177da417f4e18b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s51_b10000.pt",
+      "sha256": "a9df445fe4f74f71999a3057ae3c26c0d6ce1cdffd302b93d7dda4da50d55f91"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s51_b10000.json",
+      "sha256": "7ea2afb4f6ee000b5864be4deb03a615173925660a4af02d7a5dd47f2378577d"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s51_b2000.pt",
+      "sha256": "fd2bde9ba93ddfae228ce60eff972e8f3bf74ae076cb903c4da26e1867e4e320"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s51_b2000.json",
+      "sha256": "7e619834cbc7adc93e6c40c6894f3a062dc8eb0abf9becc8579cdc61e34e65f1"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s51_b5000.pt",
+      "sha256": "012a6c070be533ee1a6ef1e9e6e2e42574cee34c069ce8fd14a053327b69bee0"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s51_b5000.json",
+      "sha256": "1966af8ad81414ddfd09b9fe6682ec5e621b67256ba8d1f230e40aef68ba556a"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s42_b10000.pt",
+      "sha256": "80ba466095e2da2a39381117be4c53f4ee3ae3d0ae3d344aaac91524e81c3ebd"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s42_b10000.json",
+      "sha256": "cd2423acbd7c7f8cc8271f8093ecbd997783ce3f23bdfd9a91c23ef8c9c50806"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s42_b2000.pt",
+      "sha256": "6b072323c92e53d240a93c04756fd6308a5f8770d7ca830b731dc92d800b264e"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s42_b2000.json",
+      "sha256": "2fbeae2212165935b3cea94354273d7b7f5d966a4bba45de8f825d80b9d14721"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s42_b5000.pt",
+      "sha256": "15253242291c50ac9af049a22e59889bf43cdb585e1b1a3ed7262714affaff68"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s42_b5000.json",
+      "sha256": "e3cfe3a3204d5292d32234b88304048c3d2e8f076d3f3c8c5ebfec2ceb8f2a86"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s43_b10000.pt",
+      "sha256": "abbe50cf215cdfd276288fdf91b26f876a446ef1afdb595320f9ce706f77cd4a"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s43_b10000.json",
+      "sha256": "151d017b2c0cc1f685ede424d6c066a29927c89c57ad05fc9b41a78d7203c10f"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s43_b2000.pt",
+      "sha256": "8914dfd26325239aaccf3e0c24b81a9ba358f0b014f6cc02e4c6e456ef903cc4"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s43_b2000.json",
+      "sha256": "8e2e75c1bba94a1009f0d90284647e3b61b8bb7e5cdd1118c6d881e9c6099c62"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s43_b5000.pt",
+      "sha256": "2e2b1cc336bd9b494a574218aa21c3de27d20b043384c577eea71b4d904b66b3"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s43_b5000.json",
+      "sha256": "90b3dc51b56844c151c21f0b2adfab066124e36b9df689ae9dca6e98536f5add"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s44_b10000.pt",
+      "sha256": "c8048914786557a3e75cfc2b951c7ae26427783d14f2a035be7126d083a0f8b9"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s44_b10000.json",
+      "sha256": "208225e29f3d40f3358cf7560b98e9713b4864bf0c0206f1464e5ec90eb9fbfd"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s44_b2000.pt",
+      "sha256": "1656c948acbc1e300bd52634ead7c62855d7331ce2bcff674112db521444bc30"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s44_b2000.json",
+      "sha256": "cb94b465505d6bb4eed22420f288f94207b42b1ceca74c829dc7602e2ac3a7fe"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s44_b5000.pt",
+      "sha256": "74d85e9a9a349cbf6e7220bfe147b4077a405a2da8b31e37accbbb0c85d964e8"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s44_b5000.json",
+      "sha256": "21b659b3cf44efd079b45448c9be741d16f4496be7c054456603d1d1b3f6609a"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s45_b10000.pt",
+      "sha256": "0730ea8ab0000a309af520a3c29fefe5809d6dcc5261af3df13789e1e3b5cc0b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s45_b10000.json",
+      "sha256": "05a30ed77bf53465420b0cd1512b0cd2f0097dbf96017dc06272e211ce1aa0dd"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s45_b2000.pt",
+      "sha256": "d28530406d3df9442e9f0aa830f1e2b766276a63139ec5554b9977acdc7dfc58"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s45_b2000.json",
+      "sha256": "4c43b6f3b7b730749e94b5b7bc8f97a095fc7a71095267dc24772eed1105e3df"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s45_b5000.pt",
+      "sha256": "8fd96a15c35b5b7b06632a3d98035ecfdcb9b3a92cc02af6000485e1742d133b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s45_b5000.json",
+      "sha256": "64b3f0ba988250daf6e676df5fc9ab58676f21a41dc45dc01e4de8fb91659043"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s46_b10000.pt",
+      "sha256": "04d0d31c96d5c4cebb2a296c3c66401faeeb129560ecf6e8c00bb70024e7bf67"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s46_b10000.json",
+      "sha256": "4b7e536569830098c9372d9c3fff3109f6a0fa485c80cb6ce69b5d20f0e0506e"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s46_b2000.pt",
+      "sha256": "8cc9e045c2e713300e43095cd2fa870e4539c0207b16e684171569a15603ca0e"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s46_b2000.json",
+      "sha256": "3a67524d4cbcf961a136266711011746e00be348176164ef0dcd677e621fe589"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s46_b5000.pt",
+      "sha256": "ea003702e332c3d9845ddaa8a743e22ac9accfe71b8f1fc4416bbe2c9a39520e"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s46_b5000.json",
+      "sha256": "4c90ab28291fee401b3700ca26674db53adc165487265fd14c5681611d1439c2"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s47_b10000.pt",
+      "sha256": "fdfbd1f86b35304036b06d748428f53c4319015fc11988c2d922d2857a746cf4"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s47_b10000.json",
+      "sha256": "07a9ec3a8c0a06a16b373b9f897a417adb548ac2bad953e2eacda8ca17228586"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s47_b2000.pt",
+      "sha256": "6075ca649f28975d1cf6f81bb0dbb8d144b9491a1c9365f019e17760dee67f86"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s47_b2000.json",
+      "sha256": "1fa5a2eb413475b83f92871ee35d2682ad45f23c7c52f90d820a3a33c64ab89c"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s47_b5000.pt",
+      "sha256": "96508b72260fc161bc8f57ce880f65733b8e2a87d7f40cf419a8a90817b75a33"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s47_b5000.json",
+      "sha256": "0b51766df42f8aca24f054b90f0bc143696306c6ffbbb7d05da0dc3acb64cd18"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s48_b10000.pt",
+      "sha256": "701c34db8addb2522ee2c41b7189bf4d3c1ed83ace7272a3e87c4d210b406ed0"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s48_b10000.json",
+      "sha256": "f81a114982ca036604fa2583974c189ab91673ae53b78e36e58f0a4171537099"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s48_b2000.pt",
+      "sha256": "2e4d26a365bffed572dcc2ae4142e4c8029a496ea8c64a78e33866da87673daa"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s48_b2000.json",
+      "sha256": "f5642324778961b56e8bf6357887145b6f779768e4d9f537803435e43908c6d5"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s48_b5000.pt",
+      "sha256": "064e2b69dbce1c4c442da659915fbe8f65c298dbd6de896973c14f662936f05b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s48_b5000.json",
+      "sha256": "2fe87550d0dceae495ba8d9f383329b3f96aa6c9e81fd950ef213a347ed7a9f7"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s49_b10000.pt",
+      "sha256": "7c8f2a143feda1af26feccf58e9b9b944a4ada479ff0987aa0f1a80a10eccd8f"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s49_b10000.json",
+      "sha256": "cbd157a97b594d1376c9660fd666065dbf7d43eda46927e37d26fafaff1b4d73"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s49_b2000.pt",
+      "sha256": "da6a06603f1be2c3e807b72d53e7cae9b0f0a0d910656d95a1187d5683b38de6"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s49_b2000.json",
+      "sha256": "35074a414ecec9d000223a727117cac81559ee514718b56a711d171b10005670"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s49_b5000.pt",
+      "sha256": "ee1e85d987759d9aa452522a06c7944467ab52f18a6cf6b3a500bf268d3dccc5"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s49_b5000.json",
+      "sha256": "5575298366b2f95c1d790ab3ba8c86fa4da1e3b7215ace32121973b2a1b63db6"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s50_b10000.pt",
+      "sha256": "58c2b0e860ec5d9ba2480617e9213da1b2a461a4c23c2612279a99ab93cd4f3e"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s50_b10000.json",
+      "sha256": "5af954bc328141f56a0abd71d2fbd99150f2d29d40f315b2719d2ff9de84582f"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s50_b2000.pt",
+      "sha256": "e4b186fe2fdde2470bae46ebb72898730c16159660541041148d368c59f2b40c"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s50_b2000.json",
+      "sha256": "d25e5cbb618406a86bfe14f51e4b5d57764891b965d72be3084759b3627e154c"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s50_b5000.pt",
+      "sha256": "710457fdf63b7938076e4369fa3a31d982c8de1d2edec3e2f94e67d11bfdd427"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s50_b5000.json",
+      "sha256": "4f9e9f439a950f2ad2c567ceb63d03d8faba09e649d4810f9a1e99f6bc3b18ec"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s51_b10000.pt",
+      "sha256": "1c2be5e2cdd2a046f42286c18ddc3bce6576e7be286f253fb875bb841717c8ba"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s51_b10000.json",
+      "sha256": "3396126b9b4059356cdb8c530668b5dd32d0cfaa86263e151f13c07e2bc9a5aa"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s51_b2000.pt",
+      "sha256": "095478d425798642c0f7f158c338225ec5dd500a24ad1293f71ca085cd00bf1f"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s51_b2000.json",
+      "sha256": "a41fb0494a1c89af45a9000f41966d37cffc5738fcffc50cc54dd826b87baee7"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s51_b5000.pt",
+      "sha256": "d78aefb474a3d5dff8fd80db6bf8d5b019132b10eeb7a8de252aedc7958f0ab5"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s51_b5000.json",
+      "sha256": "346eb766088e2796cf4a3578a0388ab1c58d7f9e1e4c5705cfa832f45bd21420"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s42_b10000.pt",
+      "sha256": "7d7c14ae013862aad8564151090b863e8c119fb715446ebe8b3f01b6e36321e0"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s42_b10000.json",
+      "sha256": "520897ae0b515c4730fb0d5ee98b92e6277f930a3ddf16d13a541f028cb9792f"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s42_b2000.pt",
+      "sha256": "3208c22fdd0557e3a492295fbe34484ad62c6d2a52a6bf617431b74071370a11"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s42_b2000.json",
+      "sha256": "91ea9ef24b015087b3ea29508e6a3a91498319c96f6c9de7e3f670d9d41a092f"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s42_b5000.pt",
+      "sha256": "03d4ccab82bd564eba12b41422c73c3d31f5d83ff3ead7c92e9307169a8a74f8"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s42_b5000.json",
+      "sha256": "fe0e8251a53a70ed61469aa32466607e9cca2f6b4bdb50393bb5bf3fa33039d9"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s43_b10000.pt",
+      "sha256": "e4615b59e4de1513445fba0d6fa308a5908a17ef12b15dae1d94c4b10d9a4c5f"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s43_b10000.json",
+      "sha256": "7f52aeba679b86cfb4e2eb8141fa3646e721af0c6e292170e617278d615c80d7"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s43_b2000.pt",
+      "sha256": "3d24c34b91a51275453144d725cc51be17bca456171d9181bda74e5742f31261"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s43_b2000.json",
+      "sha256": "035be3f3c31cac1bab56e9ac62a71ff8f60f6be4ffbf69fb963c0a1f991ad311"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s43_b5000.pt",
+      "sha256": "8fc8d7c6c0135bc9de83201f66f9fa368613630ddad3912ac3dcadf530d159ec"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s43_b5000.json",
+      "sha256": "5908f2ae495f205dc586b5b968adf4753c68839523227c052eb0be7a21f304c5"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s44_b10000.pt",
+      "sha256": "9117766f1585a046652a589aa93f61c21fe21e01d5eed5d6717650d608f42330"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s44_b10000.json",
+      "sha256": "f83cef8a210b9416ca3d93f96ddd89508d1b5d53d8beb6f31918800d59b99446"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s44_b2000.pt",
+      "sha256": "6a6566b0fd105a02a8a5b8b506435899090002b90e44a8a4f8026814ab37647b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s44_b2000.json",
+      "sha256": "b84b1ca3f54a4426769c04debd029e939b6be4f9a76e2dc36b53ddc90bfd43ce"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s44_b5000.pt",
+      "sha256": "dd2d5415338a1f4c3e1230d713e168a78edc879c9ed7c519a4afb2881e292ab1"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s44_b5000.json",
+      "sha256": "dc5aaa8172f5bcb023daa669960402c232264a38bb9500205536886be3dbb7e6"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s45_b10000.pt",
+      "sha256": "2dec1579513e03b444cec3b5fa642f63b61f4ad13fb134ae352388f2aedb15c7"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s45_b10000.json",
+      "sha256": "5c778bdba6df5eb267b34cda1776e8e4b566f9ab36834e5f540903a75a6dbb48"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s45_b2000.pt",
+      "sha256": "bfe04789250531aad4b662533161d413ca02f60cd0fe42a6ff061256ba6d8db0"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s45_b2000.json",
+      "sha256": "895b9dedec40931dc044479c6751870906aea085e0b0e5a1b290bd84224a538b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s45_b5000.pt",
+      "sha256": "8106c0f58b09be747487894f749371520d865dc6b4c9b010fe336fd1687e73d0"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s45_b5000.json",
+      "sha256": "eba91d034d664155db7b4d92bdd9ab285ed74b90af24bb62b5a984ee7ec23ccd"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s46_b10000.pt",
+      "sha256": "84fcc847448d50328d015c170fb6ffd2dfc901dca25febac97b091071391d146"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s46_b10000.json",
+      "sha256": "c844dc609db70ca8d342be4472aacf3b75c99440c463e10463cc0c7ebc7fff87"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s46_b2000.pt",
+      "sha256": "fe9962d6a19570458c864b556d03310c3229f77cc509da31e65b563537ec9003"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s46_b2000.json",
+      "sha256": "22ff6885e4403fd98f284b4da32039b6bf904312b1fc20520e8b12f78ec74061"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s46_b5000.pt",
+      "sha256": "3c1dac0c771dc7c09165491112175e6ad355147f0ff33efee523ae4f320fedaf"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s46_b5000.json",
+      "sha256": "ab3acba49a47d440b103082d3633fd819dad21484355d606ae87bd96df144fcf"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s47_b10000.pt",
+      "sha256": "e51ff4bc666acb4ac844f7a497af15d81a9cae1c4f7ba89b2fcaba1dfba32c2e"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s47_b10000.json",
+      "sha256": "fa16d75f3b4a54ca66c7e11f931954cc9e1e6d4e9e4edca7c2d7b61fef1864ef"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s47_b2000.pt",
+      "sha256": "e96db12b0c11fce3cbbde8fdd3bc3c47ede431fe19817cbef7b62178dc9b449f"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s47_b2000.json",
+      "sha256": "04076ab5a2c6367095c5ecb598e1df36626bf0b0dd0f5666e96cc964541037fe"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s47_b5000.pt",
+      "sha256": "d4ec6e5665c74abdb5f4d4969b4c69649da994da20df5f984b4e0174ebf78382"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s47_b5000.json",
+      "sha256": "6b5f1dc4f566f3e329e849c38dfed7469ae0d679ce90a17398c51989809a6d73"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s48_b10000.pt",
+      "sha256": "a8c3cb639cb7335e20fd69f784175dd7e6b8189767ea7acadf286b3662531d19"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s48_b10000.json",
+      "sha256": "801271c567bf9dc8b86f57a400f7baf14a067a86e9a1e85440dec1ac3733ecd7"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s48_b2000.pt",
+      "sha256": "cd864d41cbd2955a683fae2091695a4ec8686240928e15e6aa312387783b2e15"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s48_b2000.json",
+      "sha256": "e33d4dc669a0c77f299103108868d28109bac7dfcb4566d5cb2e230e6c04e3ca"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s48_b5000.pt",
+      "sha256": "1c8765ca82f54bd3e0ae0233650bd91cfcd5068b7a5b1c6783e8acaff927c510"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s48_b5000.json",
+      "sha256": "901c783c4399e71e40717bc4910678081d6b88f84cdce79e014fc1febba40172"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s49_b10000.pt",
+      "sha256": "508d6454387b09c1bc3e08d8bc2948a0ea7e68c8497a7f26146c8cf7626d0b28"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s49_b10000.json",
+      "sha256": "16e121a3a2845fc52932505023708ce1f9b3f54d5241657f4aa712ea8e937d8b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s49_b2000.pt",
+      "sha256": "4513ee00dbfb338148787ee6ba60e1575c991f2bf196300f7d9a19e53aea617d"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s49_b2000.json",
+      "sha256": "bc1123a2fea86bed035ac99293fb9350e8a6c9aae9120337e418438119ffe526"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s49_b5000.pt",
+      "sha256": "559dbcb8bf7526637dceb00bcd9b9d33259c73ffe5474f11a8003b863cd7e138"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s49_b5000.json",
+      "sha256": "4bf491c07465d40f69c539140f37fc27b39dd4e5dc4ee50efb0c607b807ab8e7"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s50_b10000.pt",
+      "sha256": "acfd6a7d0dd677b6f0fd9f2df2fb898e8fafb869332dc7ab6c6a44b62f54dfd3"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s50_b10000.json",
+      "sha256": "9a684d4d3a6c72d535d5bff04e2b27ddf9328073a70854bdbbb6e2c9e05d91dc"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s50_b2000.pt",
+      "sha256": "b2a5c75d06ccec46a86da7ed7927372c0c537a262f08f089618d9df6abdc1228"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s50_b2000.json",
+      "sha256": "6012ecb7221100a1fe426e3b870a84612fac14252a7610685989dcf7a983b88b"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s50_b5000.pt",
+      "sha256": "0ce116359876e25fae87a959f50b9ce350a00a71af7ca25173ab1643a3c60be3"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s50_b5000.json",
+      "sha256": "3e7bebb5209a8b51a56e25a741442de19d03e62b711772dffbf24be577a8b36d"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s51_b10000.pt",
+      "sha256": "b48123e8532bf9141cd937fec42570a4b6ae6d93f35eca4ff1cc2c32cb79a610"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s51_b10000.json",
+      "sha256": "afa9d63467d3c37863e43b96b0ba9729d0920342320eccfc62b96457ccf2d838"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s51_b2000.pt",
+      "sha256": "91a826de7e2e9a4407ffe06ea68aeea410b6878b0c1549f52399c425484e4bc7"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s51_b2000.json",
+      "sha256": "511e8aa0eb1be76a3d9dfd7a8ddf29710a2561333a94d7070996abe4d98e5909"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s51_b5000.pt",
+      "sha256": "a720d3000ce9b1b5bbfc5a7a77d3e9f922b277b18b1e5792121fde9de8e0d39d"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s51_b5000.json",
+      "sha256": "7f4ef622272275f2ffd9fe037148632991b5e5db5d6f3acbef9bc86b3c826af5"
+    },
+    {
+      "path": "output_figures/ris/training_budget_study_matched_v2/manifest.json",
+      "sha256": "c290b31737da8c8da7b7a72eb69a18e057bb53b9c93a61797ba6f8a656eb7b76"
+    },
+    {
+      "path": "vlc/secrecy.py",
+      "sha256": "c47e5e95418b802429c647b61e7fb3e7bf570f78e3fd49a73f477dd174424d2b"
+    },
+    {
+      "path": "vlc/ris.py",
+      "sha256": "bbd0007d50f4bda00fc04c19928d27f573b43110b9e1c1508c31c6739f909954"
+    },
+    {
+      "path": "vlc/ris_environment.py",
+      "sha256": "c6dd9bdce4c3613afa4eba35026ddf93c999c619199c3c687d2f4b10c4742eb5"
+    },
+    {
+      "path": "vlc/channel.py",
+      "sha256": "01f0d84e1257dada697927b9765588166df750e3a0d272f6af3bfa4e62dfc2ef"
+    },
+    {
+      "path": "vlc/config.py",
+      "sha256": "95873ea00ecd3a8df9b09df20c28ea30dce106379cefa4add7b3dac2eb534104"
+    },
+    {
+      "path": "vlc/drl_fj.py",
+      "sha256": "14cc75934ba570808e51a7f7604cf1f9d334140a891b2b450b3f3fd1984e8635"
+    },
+    {
+      "path": "vlc/physical.py",
+      "sha256": "dc29ec5f39ebed2853c2253d511bf4e42d6ce5c56262aee4b87badfa74eae5c6"
+    },
+    {
+      "path": "simulations/sim_training_budget_study.py",
+      "sha256": "072075477171c11a8a83aa6d524a2197274940ff2003f21e0be8a1f8170c2aef"
+    },
+    {
+      "path": "manuscript/research_draft_v2/main.tex",
+      "sha256": "ac76296e700d019701db2daae2d2f202775ab48e829b1f0209d632cbe01041d0"
+    },
+    {
+      "path": "manuscript/research_draft_v2/references.bib",
+      "sha256": "9cbf216665dff3b3a9b7b0382f995823e916b42a90b5e8ac0dc0baeb03ad4343"
+    },
+    {
+      "path": "manuscript/research_draft_v2/results_rows.tex",
+      "sha256": "9fb8ba4eaf38cadbf211b8b4f03693eb35ae26ecb1877e07f1c77664242b43a2"
+    },
+    {
+      "path": "manuscript/research_draft_v2/paired_rows.tex",
+      "sha256": "6c99369c001700b6ae7f35393bce439e2a44ed5444911b46d60a876f41df1f50"
+    },
+    {
+      "path": "manuscript/research_draft_v2/release_statistics_rows.tex",
+      "sha256": "676c1f9e7b91b87724f3d613dc07c5be5d00482d3eac56bcda3d120fbf70739c"
+    },
+    {
+      "path": "manuscript/research_draft_v2/release_geometry_rows.tex",
+      "sha256": "c2f272671d6eec15b886ed3af8036eb6df6a95ce6774ef641db3d979a7102be3"
+    },
+    {
+      "path": "manuscript/research_draft_v2/release_calibrated_rows.tex",
+      "sha256": "4d74b4db0dbb4495b1ba15e0e15d6bf85738407c2df14b5c1a122115078cd612"
+    },
+    {
+      "path": "manuscript/research_draft_v2/figures/fig1_budget_convergence.pdf",
+      "sha256": "93129d9f8852db84e0aa6c89525e6d188d29940b7e1fa9ebdda8f4c7b497a2a5"
+    },
+    {
+      "path": "manuscript/research_draft_v2/figures/fig2_budget_paired_differences.pdf",
+      "sha256": "fb7a49388fcaa2be887bf7b7e441e125a65742c84a04128f02618e9839ece354"
+    },
+    {
+      "path": "manuscript/research_draft_v2/figures/fig3_budget_coverage_and_q.pdf",
+      "sha256": "0f029551bc547e18505b31edcd29e65edc6a8b11d6e7fcb73ee4f3c5dbea7377"
+    },
+    {
+      "path": "manuscript/research_draft_v2/figures/fig4_computational_scaling.pdf",
+      "sha256": "0b177e2f48b63d749f36b8ddc18d5e6b1f68796c52b0b3eb71b13407a1d886e2"
+    },
+    {
+      "path": "manuscript/research_draft_v2/figures/fig_control_workflow.pdf",
+      "sha256": "9a01e6ede1cdab5ebabb707b52275feb12ba8c1e21f55e1940631b0c30c18174"
+    },
+    {
+      "path": "manuscript/research_draft_v2/figures/fig_release_calibrated.pdf",
+      "sha256": "2174c5ad8adc566b9acf14fd97f880ad659060dc64ab5102e27ac7e738da26e6"
+    },
+    {
+      "path": "manuscript/research_draft_v2/figures/fig_release_geometry_transfer.pdf",
+      "sha256": "02b585572fd09ee6565a40edc4bcb87eb6f578ca38d0c0fc7e5026933bdbd4a0"
+    },
+    {
+      "path": "manuscript/research_draft_v2/figures/fig_system_model.pdf",
+      "sha256": "410bdc031fd82160f10d655c643995f23b2f659e6447e8349b9b6528ca4349b5"
+    },
+    {
+      "path": "manuscript/research_draft_v2/verification/10.1038_nature14236.json",
+      "sha256": "553288dce2565b858b1c94f566742333f938a7538b541e85f9da735cebd68fb9"
+    },
+    {
+      "path": "manuscript/research_draft_v2/verification/10.1109_COMST.2015.2476474.json",
+      "sha256": "cbfba6d123c6d460f636243d5c50e7313b79a8e521edb3c9d9bca3e4cef08ad4"
+    },
+    {
+      "path": "manuscript/research_draft_v2/verification/10.1109_ICC42927.2021.9500409.json",
+      "sha256": "91cb6155c1d67b5a214d59dda55cf048d930025bce14225b74d39e3aae247631"
+    },
+    {
+      "path": "manuscript/research_draft_v2/verification/10.1109_ISIT.2006.261612.json",
+      "sha256": "f6cdd9d9c50043c86f0e60de2d08a3e28636bf9cc67724894c7f1452e5c1d538"
+    },
+    {
+      "path": "manuscript/research_draft_v2/verification/10.1109_JPHOT.2022.3178852.json",
+      "sha256": "6cccb3c17e7ba701020dd10537ec7b092108df3eb0dbf70539f947c93fff4353"
+    },
+    {
+      "path": "manuscript/research_draft_v2/verification/10.1109_TIT.2008.921908.json",
+      "sha256": "aa1c488f09cbe766742b0b91ac78a731de6d026bb36a4f4931f5d2579776fdc6"
+    },
+    {
+      "path": "manuscript/research_draft_v2/verification/10.1109_TWC.2024.3458046.json",
+      "sha256": "aa152d76ed53b031bc8885ebf69355d0e83066b853acaf365cc43bd18283d996"
+    },
+    {
+      "path": "manuscript/research_draft_v2/verification/10.1109_TWC.2026.3708130.json",
+      "sha256": "f66ab54691cbefc6eb65b761394668e1636752dcb48bcd1527baaf82fe5c58cb"
+    },
+    {
+      "path": "manuscript/research_draft_v2/verification/docx_structure.json",
+      "sha256": "d23fe27db96bd667be7323783d27bc6eeb3ae7515fb278418721064982373c34"
+    },
+    {
+      "path": "manuscript/research_draft_v2/verification/replay_seed42_budget10000_slots1000.json",
+      "sha256": "88f126a3046a21ad05353b5d5616241231d75c17e6c6880fbf8c739c6e921e8b"
+    },
+    {
+      "path": "manuscript/research_draft_v2/verification/replay_seed42_budget10000_slots32.json",
+      "sha256": "ea6b7691376cc7b049fc865e1fddabe8068c915208bbd31b9c7c9a70ddd1ecfd"
+    },
+    {
+      "path": "scripts/revise_manuscript_evidence.py",
+      "sha256": "ee610ba48d647398a649fe148b1805157d290180835c1c4c75a77ba442c306cb"
+    },
+    {
+      "path": "scripts/build_manuscript_sources.py",
+      "sha256": "9fe2d6268ffbff6251bf817959a664428d4dd766e27ebd7006257ae8d0fd9f8f"
+    },
+    {
+      "path": "scripts/audit_saved_policy_replay.py",
+      "sha256": "185d9f57ba87c26f8ebb1950bebf1be93b0f51b42335dce2fc05487ea694c0f1"
+    },
+    {
+      "path": "scripts/create_manuscript_system_figures.py",
+      "sha256": "ae9fc3fa3b58905eb3774cd3b941e67ed2195d62d8bfe0f1cddd0c0dff754b3a"
+    },
+    {
+      "path": "scripts/build_manuscript_docx.py",
+      "sha256": "07bed33d48e3ba7c997911542639c8d9cbf78587871e566da9c8d3841b4c11cd"
+    },
+    {
+      "path": "scripts/validate_manuscript_build.py",
+      "sha256": "6d2a33f2d662b2d7cbe01bda93586e89b7dcc4f3c55bd0398ac615ce56945437"
+    },
+    {
+      "path": "scripts/release_statistics.py",
+      "sha256": "92049d379e304b509bad07bd49983326730fbc2e0aaeb31b47a774210924c6fa"
+    },
+    {
+      "path": "scripts/release_validation.py",
+      "sha256": "2d70f1fd1fa59678512738a12f57a809e2873bc6beae3fb9f6a04923f59549cd"
+    },
+    {
+      "path": "scripts/run_calibrated_ris_diagnostic.py",
+      "sha256": "2dad160cc5cd49906be96ebbf5ff90639196535ab7fce628bb50b0d9185e386a"
+    },
+    {
+      "path": "scripts/assemble_release_evidence.py",
+      "sha256": "edd8c086924e0b7c2c49fa14876c4b75dcb565cadf2a8249bc67e23e6621f4cc"
+    },
+    {
+      "path": "scripts/package_research_release.py",
+      "sha256": "925054cd171496f7a5175a18b14a945df6d029b9b43129114f69cfadfc4a6dc6"
+    },
+    {
+      "path": "manuscript/research_draft_v2/release_audit/statistical_robustness.json",
+      "sha256": "c90bff6ded8b15657a338aab7335c59af0c33ece68e6759d583f397c1276c4f2"
+    },
+    {
+      "path": "manuscript/research_draft_v2/release_audit/full_policy_replay.json",
+      "sha256": "8be68636a2710c4b4ad1abae997d70804b29269c4b01a92813d6a2ac96659a01"
+    },
+    {
+      "path": "manuscript/research_draft_v2/release_audit/geometry_grid_sensitivity.json",
+      "sha256": "dcbc2c068455bd997e2b05cc4d473609534787b5d9baf222dc9ddc12a2e94b15"
+    },
+    {
+      "path": "manuscript/research_draft_v2/release_audit/frozen_policy_geometry_transfer.json",
+      "sha256": "1e7266ead73aeb1e45354ac4dc17d8137cd60b77cd96be6be8692b9f411366d2"
+    },
+    {
+      "path": "manuscript/research_draft_v2/release_audit/release_evidence_summary.json",
+      "sha256": "1c993faea8ab60f5e4f77dd2fc9685fc05116fa6fa56125f267affdae287a4dd"
+    },
+    {
+      "path": "manuscript/research_draft_v2/release_audit/validation_protocol.json",
+      "sha256": "1a73c6eda89223af831b767ae7d4634d5b2833c9b61165c06f3bb0459e649862"
+    },
+    {
+      "path": "manuscript/research_draft_v2/release_audit/ANTIGRAVITY_UNIT_TESTS.log",
+      "sha256": "b1933db4d6189d24d5d69c523f9ef342126b8b55d74a77a776a672807fb63914"
+    },
+    {
+      "path": "manuscript/research_draft_v2/release_audit/ANTIGRAVITY_STATISTICS.log",
+      "sha256": "93574f3a995fbfec051a7695e140954bf2a342f23e0ba9c6002b5b0bac9b0185"
+    },
+    {
+      "path": "manuscript/research_draft_v2/release_audit/ANTIGRAVITY_VALIDATION.log",
+      "sha256": "ae6d07f2f96b18ce0d0191eafc41a821e1f143aa0e5bb72b1999bf79b3caba8e"
+    },
+    {
+      "path": "manuscript/research_draft_v2/release_audit/ANTIGRAVITY_CALIBRATED.log",
+      "sha256": "5c96c7156286ccab01e14cf61e6241209d3ed224272edcbc1d493ff956df213e"
+    },
+    {
+      "path": "output_figures/ris/calibrated_diagnostic_v1/diagnostic_summary.json",
+      "sha256": "021c6acdd24de22ccf683884c0795cce3ac2f1e7efd5b3055db167dd6f6910bc"
+    },
+    {
+      "path": "output_figures/ris/calibrated_diagnostic_v1/changed_positions_snr10.npz",
+      "sha256": "2d58e2ddb782aecd63cacd22d1f8771599679af20c737a69d3ff3d945302547c"
+    },
+    {
+      "path": "output_figures/ris/calibrated_diagnostic_v1/changed_positions_snr20.npz",
+      "sha256": "f8c43260dd1f9be0ad59e6c0fd9b9ff5541d95cd500b9c1b5ca4d12fb98b51f2"
+    },
+    {
+      "path": "output_figures/ris/calibrated_diagnostic_v1/changed_positions_snr30.npz",
+      "sha256": "6d63b6bb1c919d84b3c62098f2ba0760f5336a25c23eeb8cf732808b779347e9"
+    },
+    {
+      "path": "output_figures/ris/calibrated_diagnostic_v1/colocated_snr10.npz",
+      "sha256": "59f2f62eb88a561cd2b0605d02b608da816c1c4ea3794b09349fd01ed22995df"
+    },
+    {
+      "path": "output_figures/ris/calibrated_diagnostic_v1/colocated_snr20.npz",
+      "sha256": "f1a4fa68dedf0a3996155dd7f924d48f860f5e35108f1f66bf3e440502dc7cb7"
+    },
+    {
+      "path": "output_figures/ris/calibrated_diagnostic_v1/colocated_snr30.npz",
+      "sha256": "07dbc550955e7e0d3e073748b8fb5ade4e462e0ae6c1dfe719fe03a038c5d4cb"
+    },
+    {
+      "path": "output_figures/ris/calibrated_diagnostic_v1/nominal_snr10.npz",
+      "sha256": "2d205b274bf48267ef0a78235fdb8940a8051abfe801657e3169f5f58ecdc248"
+    },
+    {
+      "path": "output_figures/ris/calibrated_diagnostic_v1/nominal_snr20.npz",
+      "sha256": "7a5a0ff4de3f4146b4fb545b86b1b6c433ff04a394809047095fd6329dae9687"
+    },
+    {
+      "path": "output_figures/ris/calibrated_diagnostic_v1/nominal_snr30.npz",
+      "sha256": "4e092f44e0a44797169e26a1095a033ac007ed2f291004a2117f99b5068e23bb"
+    },
+    {
+      "path": "manuscript/research_draft_v2/main.docx",
+      "sha256": "8cc3b8cf17e5535be76ad812d59c3db956c6871512ddac5373f242ddd91feceb"
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "protocol": "Saved nominal L1 study: 10 seeds (42\u201351), 30 matched runs; 2,000 training + 1,000 frozen evaluation slots per run.",
+  "source": "output_figures\\ris\\final_evaluation\\ris_study_summary.json",
+  "source_sha256": "7948189a9ca87ff5c1e60f387ee64b2fc59424c6b42e8525b83ec934f37968c1",
+  "groups": [
+    {
+      "scheme": "baseline",
+      "rate": {
+        "n": 10,
+        "mean": 1.3205214713359323,
+        "sample_std": 0.1281052705426346,
+        "standard_error": 0.040510443518679974,
+        "ci95": [
+          1.2288804813620182,
+          1.4121624613098465
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "outage": {
+        "n": 10,
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "standard_error": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      }
+    },
+    {
+      "scheme": "fixed_ris",
+      "rate": {
+        "n": 10,
+        "mean": 1.4977986701651385,
+        "sample_std": 0.2507897113399847,
+        "standard_error": 0.07930667015705099,
+        "ci95": [
+          1.318394518211691,
+          1.677202822118586
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "outage": {
+        "n": 10,
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "standard_error": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      }
+    },
+    {
+      "scheme": "joint_ris",
+      "rate": {
+        "n": 10,
+        "mean": 1.456450206695536,
+        "sample_std": 0.19092730444933026,
+        "standard_error": 0.060376514957628385,
+        "ci95": [
+          1.319869040919344,
+          1.593031372471728
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "outage": {
+        "n": 10,
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "standard_error": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      }
+    }
+  ],
+  "paired": [
+    {
+      "comparison": "fixed_ris minus baseline",
+      "rate": {
+        "n": 10,
+        "mean": 0.17727719882920578,
+        "sample_std": 0.1949116271782875,
+        "standard_error": 0.06163646843329665,
+        "ci95": [
+          0.03784582027323832,
+          0.3167085773851732
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      }
+    },
+    {
+      "comparison": "joint_ris minus baseline",
+      "rate": {
+        "n": 10,
+        "mean": 0.13592873535960354,
+        "sample_std": 0.25150146203681756,
+        "standard_error": 0.07953174548987138,
+        "ci95": [
+          -0.043984572370152825,
+          0.3158420430893599
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      }
+    },
+    {
+      "comparison": "joint_ris minus fixed_ris",
+      "rate": {
+        "n": 10,
+        "mean": -0.041348463469602234,
+        "sample_std": 0.3160171463562471,
+        "standard_error": 0.09993339621525213,
+        "ci95": [
+          -0.2674135115206859,
+          0.18471658458148138
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      }
+    }
+  ]
+}

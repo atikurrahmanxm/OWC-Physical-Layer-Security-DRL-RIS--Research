@@ -1,0 +1,13 @@
+﻿{
+    "status":  "RUNNING_REVIEW_CORRECTIONS",
+    "launcher_pid":  29432,
+    "started_IST":  "2026-11-18T10:49:34.188637+05:30",
+    "handoff":  "antigravity_report/COMPLETE_RELEASE_AUTONOMOUSLY.md",
+    "stdout_log":  "release_audit/antigravity_master_worker.log",
+    "antigravity_pid":  30696,
+    "exit_code":  0,
+    "ended_IST":  "2026-11-18T11:06:24.579958+05:30",
+    "final_report_exists":  true,
+    "previous_release_pid":  25900,
+    "correction_log":  "release_audit/antigravity_review_corrections_worker.log"
+}

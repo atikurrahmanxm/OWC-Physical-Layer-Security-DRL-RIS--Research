@@ -1,0 +1,42 @@
+% Supplementary section draft. No numerical results are asserted here.
+% Uses modern braced math-font commands for LaTeX-to-Word conversion.
+\section{Separate Current-Domain Consistency Diagnostic}
+\label{sec:currentdiagnostic}
+The historical matched-budget study retains its implemented paper-equation reward. To examine whether its conclusions depend on that metric convention, a separate diagnostic uses one explicit current-domain channel for both information and error calculations. This diagnostic does not change the historical training runs, reinterpret their learned rewards, or establish exact numerical reproduction of the 2024 paper. It evaluates the same direct and finite-aperture reflected gains and the same discrete jammer/RIS actions under the channel law specified below.
+
+Let $A=\alpha I_D$ denote the transmitter modulation-current peak. The information symbol $X$ is equiprobable on $A\{-1,-1/3,1/3,1\}$ with Gray labels $00,01,11,10$. A scalar friendly-jammer waveform $J$ is uniform on $[-A,A]$ and independent of $X$. Fixture $i$ transmits the modulation component $w_iJ$ around its positive DC bias; all fixtures share this waveform, as in the baseline beamforming formulation. The received AC current is $Y_r=h_{Ar}X+(\mathbf{h}_{Jr}^{T}\mathbf{w})J+N_r$, for $r\in\{B,E\}$. Here $N_r$ is an independent zero-mean Gaussian receiver current with variance $\sigma_r^2$ in A$^2$. Electrical channel gains already include $R_{\mathrm{PD}}\eta$, so detector responsivity is not applied a second time.
+
+Write $b_r=A|\mathbf{h}_{Jr}^{T}\mathbf{w}|$. Conditional on an information symbol $x$, the disturbance is the convolution of a uniform current and a Gaussian current. Its density is
+\begin{equation}
+p_r(y\mid x)=
+\begin{cases}
+\displaystyle\frac{\Phi\!\left(\frac{y-h_{Ar}x+b_r}{\sigma_r}\right)-\Phi\!\left(\frac{y-h_{Ar}x-b_r}{\sigma_r}\right)}{2b_r}, & b_r>0,\\[6pt]
+\displaystyle\frac{1}{\sigma_r}\varphi\!\left(\frac{y-h_{Ar}x}{\sigma_r}\right), & b_r=0,
+\end{cases}
+\label{eq:diagnosticdensity}
+\end{equation}
+where $\Phi$ and $\varphi$ are the standard normal CDF and density. This distribution is unchanged by an overall sign reversal of $\mathbf{w}$. Thus the diagnostic's information and error calculations have the sign symmetry required by the declared independent symmetric jammer law. By contrast, adding the jammer channel inside a signal-amplitude square does not generally preserve that law; the diagnostic therefore computes error probabilities from \eqref{eq:diagnosticdensity} directly.
+
+The information statistic is the positive difference of the two fixed-input mutual informations:
+\begin{equation}
+\begin{aligned}
+I_r&=\frac14\sum_{m=0}^{3}\int_{-\infty}^{\infty}
+p_r(y\mid x_m)\log_2\frac{p_r(y\mid x_m)}{\frac14\sum_{n=0}^{3}p_r(y\mid x_n)}\,dy,\\
+R_{\mathrm{diag}}&=\max\{0,I_B-I_E\}.
+\end{aligned}
+\label{eq:diagnosticinformation}
+\end{equation}
+It is reported in bits per real channel use, not as general secrecy capacity or an uncalibrated bps/Hz rate. The interpretation assumes Eve lacks the instantaneous jammer realization as side information. The four-symbol input bounds each mutual information, and hence $R_{\mathrm{diag}}$, by two bits per use. No packet-decoding success or finite-blocklength secrecy guarantee follows from this statistic alone.
+
+Bob uses fixed midpoint symbol decisions. For ordered symbols $x_m$ and Gray labels $\boldsymbol{\beta}_m$, let the thresholds be $\tau_0=-\infty$, $\tau_1=-2h_{AB}A/3$, $\tau_2=0$, $\tau_3=2h_{AB}A/3$, and $\tau_4=\infty$. The corresponding uncoded bit-error probability is
+\begin{equation}
+P_{b,B}=\frac18\sum_{m=0}^{3}\sum_{n=0}^{3}
+d_H(\boldsymbol{\beta}_m,\boldsymbol{\beta}_n)
+\int_{\tau_n}^{\tau_{n+1}}p_B(y\mid x_m)\,dy,
+\label{eq:diagnosticber}
+\end{equation}
+where $d_H$ counts differing label bits. The factor $1/8$ accounts for four equiprobable symbols and two bits per symbol. These decision-region integrals are evaluated through the same uniform--Gaussian channel distribution. They define the BER of this specified midpoint receiver; they do not claim that midpoint decisions minimize BER in every interference regime. Mutual information in \eqref{eq:diagnosticinformation} is computed before those hard decisions.
+
+Noise is specified through an explicit reference SNR rather than an inferred load for the baseline paper's dBm entry. Let $h_{AB,\mathrm{ref}}^{\mathrm{dir}}$ be the nominal direct Alice--Bob gain, with the RIS inactive. The reference received-symbol variance is $V_{\mathrm{ref}}=(5/9)(h_{AB,\mathrm{ref}}^{\mathrm{dir}}A)^2$. At reference SNR $s\in\{10,20,30\}$ dB, both receivers use $\sigma_B^2=\sigma_E^2=V_{\mathrm{ref}}10^{-s/10}$. This current variance is held fixed across no-RIS, fixed-RIS and joint action sets and across receiver geometries at the chosen SNR. In particular, it is not recomputed after adding RIS gain or moving Bob, which would normalize away part of the physical comparison. This convention defines a reproducible diagnostic; it does not recover an unspecified receiver impedance or the original authors' SNR convention.
+
+The diagnostic enumerates the available action grids in the nominal, changed-position and colocated-receiver scenarios. It records the largest $R_{\mathrm{diag}}$ and the largest value subject to $P_{b,B}\leq10^{-3}$, reporting infeasibility explicitly if no action meets the threshold. These are finite-grid oracle comparisons, not the performance of retrained DRL policies. The recorded L1 amplitude cost is not presented as joules or total system energy. Numerical conclusions should be added only after the diagnostic's independent integration, waveform Monte Carlo, quadrature-convergence and physical-invariant checks have run successfully and their execution evidence has been retained.

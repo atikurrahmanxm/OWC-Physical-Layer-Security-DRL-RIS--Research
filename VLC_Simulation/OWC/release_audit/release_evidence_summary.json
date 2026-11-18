@@ -1,0 +1,1058 @@
+{
+  "replayed_policies": 90,
+  "compared_metric_values": 360000,
+  "geometry_grid_cases": 15,
+  "geometry_action_evaluations": 46875,
+  "transfer_cases": 120,
+  "transfer_slots": 24000,
+  "calibrated_cases": 9,
+  "calibrated_action_evaluations": 28125,
+  "transfer_summary": [
+    {
+      "geometry": "nominal",
+      "scheme": "baseline",
+      "utility": 0.5005214713359323,
+      "se": 0.03831471250823241,
+      "secrecy": 1.3205214713359323,
+      "oracle_utility": 0.711867873043929,
+      "gap": 0.21134640170799668
+    },
+    {
+      "geometry": "nominal",
+      "scheme": "fixed_ris",
+      "utility": 0.7055974994267932,
+      "se": 0.06316861173912494,
+      "secrecy": 1.5655974994267932,
+      "oracle_utility": 0.9959137938580995,
+      "gap": 0.29031629443130635
+    },
+    {
+      "geometry": "nominal",
+      "scheme": "joint_ris",
+      "utility": 0.723898083603707,
+      "se": 0.07839300809606956,
+      "secrecy": 1.483898083603707,
+      "oracle_utility": 0.9959137938580995,
+      "gap": 0.27201571025439253
+    },
+    {
+      "geometry": "changed_positions",
+      "scheme": "baseline",
+      "utility": -0.6451110673328607,
+      "se": 0.11004077418349638,
+      "secrecy": 0.17488893266715805,
+      "oracle_utility": 0.9550002600844687,
+      "gap": 1.6001113274173293
+    },
+    {
+      "geometry": "changed_positions",
+      "scheme": "fixed_ris",
+      "utility": -0.7875762519220413,
+      "se": 0.06440293997995986,
+      "secrecy": 0.07242374807795868,
+      "oracle_utility": 1.0417507802673238,
+      "gap": 1.829327032189365
+    },
+    {
+      "geometry": "changed_positions",
+      "scheme": "joint_ris",
+      "utility": -0.5608363094083627,
+      "se": 0.15137114691474687,
+      "secrecy": 0.19916369059163735,
+      "oracle_utility": 1.0417507802673238,
+      "gap": 1.6025870896756866
+    },
+    {
+      "geometry": "swapped_receivers",
+      "scheme": "baseline",
+      "utility": -0.8200000000000001,
+      "se": 0.04666666666666666,
+      "secrecy": 0.0,
+      "oracle_utility": 0.7118678730439298,
+      "gap": 1.53186787304393
+    },
+    {
+      "geometry": "swapped_receivers",
+      "scheme": "fixed_ris",
+      "utility": -0.8600000000000001,
+      "se": 0.04268749491621898,
+      "secrecy": 0.0,
+      "oracle_utility": 0.7408716521613239,
+      "gap": 1.600871652161324
+    },
+    {
+      "geometry": "swapped_receivers",
+      "scheme": "joint_ris",
+      "utility": -0.76,
+      "se": 0.05811865258054235,
+      "secrecy": 0.0,
+      "oracle_utility": 0.771929894677915,
+      "gap": 1.531929894677915
+    },
+    {
+      "geometry": "near_eve",
+      "scheme": "baseline",
+      "utility": -0.8200000000000001,
+      "se": 0.04666666666666666,
+      "secrecy": 0.0,
+      "oracle_utility": 0.0,
+      "gap": 0.8200000000000001
+    },
+    {
+      "geometry": "near_eve",
+      "scheme": "fixed_ris",
+      "utility": -0.8600000000000001,
+      "se": 0.04268749491621898,
+      "secrecy": 0.0,
+      "oracle_utility": 0.0,
+      "gap": 0.8600000000000001
+    },
+    {
+      "geometry": "near_eve",
+      "scheme": "joint_ris",
+      "utility": -0.76,
+      "se": 0.058118652580542315,
+      "secrecy": 0.0,
+      "oracle_utility": 0.0,
+      "gap": 0.76
+    },
+    {
+      "geometry": "colocated",
+      "scheme": "baseline",
+      "utility": -0.8200000000000001,
+      "se": 0.04666666666666666,
+      "secrecy": 0.0,
+      "oracle_utility": 0.0,
+      "gap": 0.8200000000000001
+    },
+    {
+      "geometry": "colocated",
+      "scheme": "fixed_ris",
+      "utility": -0.8600000000000001,
+      "se": 0.04268749491621898,
+      "secrecy": 0.0,
+      "oracle_utility": 0.0,
+      "gap": 0.8600000000000001
+    },
+    {
+      "geometry": "colocated",
+      "scheme": "joint_ris",
+      "utility": -0.76,
+      "se": 0.058118652580542315,
+      "secrecy": 0.0,
+      "oracle_utility": 0.0,
+      "gap": 0.76
+    }
+  ],
+  "calibrated_results": [
+    {
+      "scenario": "nominal",
+      "bob_position_m": [
+        1.8,
+        1.6,
+        0.85
+      ],
+      "eve_position_m": [
+        3.2,
+        3.4,
+        0.85
+      ],
+      "reference_snr_db": 10.0,
+      "receiver_current_noise_variance_A2": 4.1049826258960973e-13,
+      "schemes": {
+        "no_ris": {
+          "actions": 625,
+          "qos_feasible_actions": 0,
+          "maximum_secrecy": {
+            "q": 0,
+            "jammer_weights": [
+              -0.5,
+              1.0,
+              0.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.581933508702027,
+            "eve_mi_bits_per_use": 0.33093343848937884,
+            "secrecy_difference_bits_per_use": 1.251000070212648,
+            "bob_ber": 0.05899863976862331,
+            "l1_amplitude_cost": 2.5
+          },
+          "maximum_secrecy_subject_to_bob_ber": null
+        },
+        "fixed_ris_q1": {
+          "actions": 625,
+          "qos_feasible_actions": 0,
+          "maximum_secrecy": {
+            "q": 1,
+            "jammer_weights": [
+              -0.5,
+              1.0,
+              0.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.7738770982055327,
+            "eve_mi_bits_per_use": 0.33093343848937884,
+            "secrecy_difference_bits_per_use": 1.4429436597161538,
+            "bob_ber": 0.030382511582313202,
+            "l1_amplitude_cost": 2.5
+          },
+          "maximum_secrecy_subject_to_bob_ber": null
+        },
+        "joint_ris_oracle": {
+          "actions": 3125,
+          "qos_feasible_actions": 0,
+          "maximum_secrecy": {
+            "q": 1,
+            "jammer_weights": [
+              -0.5,
+              1.0,
+              0.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.7738770982055327,
+            "eve_mi_bits_per_use": 0.33093343848937884,
+            "secrecy_difference_bits_per_use": 1.4429436597161538,
+            "bob_ber": 0.030382511582313202,
+            "l1_amplitude_cost": 2.5
+          },
+          "maximum_secrecy_subject_to_bob_ber": null
+        }
+      },
+      "raw_grid_file": "nominal_snr10.npz"
+    },
+    {
+      "scenario": "nominal",
+      "bob_position_m": [
+        1.8,
+        1.6,
+        0.85
+      ],
+      "eve_position_m": [
+        3.2,
+        3.4,
+        0.85
+      ],
+      "reference_snr_db": 20.0,
+      "receiver_current_noise_variance_A2": 4.104982625896097e-14,
+      "schemes": {
+        "no_ris": {
+          "actions": 625,
+          "qos_feasible_actions": 57,
+          "maximum_secrecy": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.9946770083890093,
+            "eve_mi_bits_per_use": 0.33606465147824727,
+            "secrecy_difference_bits_per_use": 1.658612356910762,
+            "bob_ber": 0.0006550929141767258,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.9946770083890093,
+            "eve_mi_bits_per_use": 0.33606465147824727,
+            "secrecy_difference_bits_per_use": 1.658612356910762,
+            "bob_ber": 0.0006550929141767258,
+            "l1_amplitude_cost": 4.0
+          }
+        },
+        "fixed_ris_q1": {
+          "actions": 625,
+          "qos_feasible_actions": 85,
+          "maximum_secrecy": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.9998361876426434,
+            "eve_mi_bits_per_use": 0.33606465147824727,
+            "secrecy_difference_bits_per_use": 1.663771536164396,
+            "bob_ber": 1.938349787058667e-05,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.9998361876426434,
+            "eve_mi_bits_per_use": 0.33606465147824727,
+            "secrecy_difference_bits_per_use": 1.663771536164396,
+            "bob_ber": 1.938349787058667e-05,
+            "l1_amplitude_cost": 4.0
+          }
+        },
+        "joint_ris_oracle": {
+          "actions": 3125,
+          "qos_feasible_actions": 333,
+          "maximum_secrecy": {
+            "q": 3,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.999385643570109,
+            "eve_mi_bits_per_use": 0.3320893910318752,
+            "secrecy_difference_bits_per_use": 1.6672962525382338,
+            "bob_ber": 7.351335842747247e-05,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 3,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.999385643570109,
+            "eve_mi_bits_per_use": 0.3320893910318752,
+            "secrecy_difference_bits_per_use": 1.6672962525382338,
+            "bob_ber": 7.351335842747247e-05,
+            "l1_amplitude_cost": 4.0
+          }
+        }
+      },
+      "raw_grid_file": "nominal_snr20.npz"
+    },
+    {
+      "scenario": "nominal",
+      "bob_position_m": [
+        1.8,
+        1.6,
+        0.85
+      ],
+      "eve_position_m": [
+        3.2,
+        3.4,
+        0.85
+      ],
+      "reference_snr_db": 30.0,
+      "receiver_current_noise_variance_A2": 4.104982625896097e-15,
+      "schemes": {
+        "no_ris": {
+          "actions": 625,
+          "qos_feasible_actions": 93,
+          "maximum_secrecy": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.999999999999984,
+            "eve_mi_bits_per_use": 0.3537348138935771,
+            "secrecy_difference_bits_per_use": 1.6462651861064068,
+            "bob_ber": 1.781542768343778e-15,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.999999999999984,
+            "eve_mi_bits_per_use": 0.3537348138935771,
+            "secrecy_difference_bits_per_use": 1.6462651861064068,
+            "bob_ber": 1.781542768343778e-15,
+            "l1_amplitude_cost": 4.0
+          }
+        },
+        "fixed_ris_q1": {
+          "actions": 625,
+          "qos_feasible_actions": 121,
+          "maximum_secrecy": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.9999999999999998,
+            "eve_mi_bits_per_use": 0.3537348138935771,
+            "secrecy_difference_bits_per_use": 1.6462651861064228,
+            "bob_ber": 1.5237861863678812e-28,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.9999999999999998,
+            "eve_mi_bits_per_use": 0.3537348138935771,
+            "secrecy_difference_bits_per_use": 1.6462651861064228,
+            "bob_ber": 1.5237861863678812e-28,
+            "l1_amplitude_cost": 4.0
+          }
+        },
+        "joint_ris_oracle": {
+          "actions": 3125,
+          "qos_feasible_actions": 513,
+          "maximum_secrecy": {
+            "q": 3,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.9999999999999996,
+            "eve_mi_bits_per_use": 0.34955053563643046,
+            "secrecy_difference_bits_per_use": 1.650449464363569,
+            "bob_ber": 1.8024784872830902e-23,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 3,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.9999999999999996,
+            "eve_mi_bits_per_use": 0.34955053563643046,
+            "secrecy_difference_bits_per_use": 1.650449464363569,
+            "bob_ber": 1.8024784872830902e-23,
+            "l1_amplitude_cost": 4.0
+          }
+        }
+      },
+      "raw_grid_file": "nominal_snr30.npz"
+    },
+    {
+      "scenario": "changed_positions",
+      "bob_position_m": [
+        2.0,
+        3.0,
+        0.85
+      ],
+      "eve_position_m": [
+        3.5,
+        1.5,
+        0.85
+      ],
+      "reference_snr_db": 10.0,
+      "receiver_current_noise_variance_A2": 4.1049826258960973e-13,
+      "schemes": {
+        "no_ris": {
+          "actions": 625,
+          "qos_feasible_actions": 0,
+          "maximum_secrecy": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 1.8031460241419675,
+            "eve_mi_bits_per_use": 0.23816316501793322,
+            "secrecy_difference_bits_per_use": 1.5649828591240342,
+            "bob_ber": 0.026264262740964568,
+            "l1_amplitude_cost": 3.5
+          },
+          "maximum_secrecy_subject_to_bob_ber": null
+        },
+        "fixed_ris_q1": {
+          "actions": 625,
+          "qos_feasible_actions": 0,
+          "maximum_secrecy": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 1.8479046671852934,
+            "eve_mi_bits_per_use": 0.23816316501793322,
+            "secrecy_difference_bits_per_use": 1.6097415021673602,
+            "bob_ber": 0.02001532138366465,
+            "l1_amplitude_cost": 3.5
+          },
+          "maximum_secrecy_subject_to_bob_ber": null
+        },
+        "joint_ris_oracle": {
+          "actions": 3125,
+          "qos_feasible_actions": 0,
+          "maximum_secrecy": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 1.8479046671852934,
+            "eve_mi_bits_per_use": 0.23816316501793322,
+            "secrecy_difference_bits_per_use": 1.6097415021673602,
+            "bob_ber": 0.02001532138366465,
+            "l1_amplitude_cost": 3.5
+          },
+          "maximum_secrecy_subject_to_bob_ber": null
+        }
+      },
+      "raw_grid_file": "changed_positions_snr10.npz"
+    },
+    {
+      "scenario": "changed_positions",
+      "bob_position_m": [
+        2.0,
+        3.0,
+        0.85
+      ],
+      "eve_position_m": [
+        3.5,
+        1.5,
+        0.85
+      ],
+      "reference_snr_db": 20.0,
+      "receiver_current_noise_variance_A2": 4.104982625896097e-14,
+      "schemes": {
+        "no_ris": {
+          "actions": 625,
+          "qos_feasible_actions": 115,
+          "maximum_secrecy": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 1.9999970655346488,
+            "eve_mi_bits_per_use": 0.29906150775263873,
+            "secrecy_difference_bits_per_use": 1.7009355577820102,
+            "bob_ber": 3.3968239556822775e-07,
+            "l1_amplitude_cost": 3.5
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 1.9999970655346488,
+            "eve_mi_bits_per_use": 0.29906150775263873,
+            "secrecy_difference_bits_per_use": 1.7009355577820102,
+            "bob_ber": 3.3968239556822775e-07,
+            "l1_amplitude_cost": 3.5
+          }
+        },
+        "fixed_ris_q1": {
+          "actions": 625,
+          "qos_feasible_actions": 123,
+          "maximum_secrecy": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 1.9999995806519024,
+            "eve_mi_bits_per_use": 0.29906150775263873,
+            "secrecy_difference_bits_per_use": 1.7009380728992638,
+            "bob_ber": 4.825037209512144e-08,
+            "l1_amplitude_cost": 3.5
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 1.9999995806519024,
+            "eve_mi_bits_per_use": 0.29906150775263873,
+            "secrecy_difference_bits_per_use": 1.7009380728992638,
+            "bob_ber": 4.825037209512144e-08,
+            "l1_amplitude_cost": 3.5
+          }
+        },
+        "joint_ris_oracle": {
+          "actions": 3125,
+          "qos_feasible_actions": 583,
+          "maximum_secrecy": {
+            "q": 2,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 1.9999970655346488,
+            "eve_mi_bits_per_use": 0.2685176743537754,
+            "secrecy_difference_bits_per_use": 1.7314793911808735,
+            "bob_ber": 3.3968239556822775e-07,
+            "l1_amplitude_cost": 3.5
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 2,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 1.9999970655346488,
+            "eve_mi_bits_per_use": 0.2685176743537754,
+            "secrecy_difference_bits_per_use": 1.7314793911808735,
+            "bob_ber": 3.3968239556822775e-07,
+            "l1_amplitude_cost": 3.5
+          }
+        }
+      },
+      "raw_grid_file": "changed_positions_snr20.npz"
+    },
+    {
+      "scenario": "changed_positions",
+      "bob_position_m": [
+        2.0,
+        3.0,
+        0.85
+      ],
+      "eve_position_m": [
+        3.5,
+        1.5,
+        0.85
+      ],
+      "reference_snr_db": 30.0,
+      "receiver_current_noise_variance_A2": 4.104982625896097e-15,
+      "schemes": {
+        "no_ris": {
+          "actions": 625,
+          "qos_feasible_actions": 143,
+          "maximum_secrecy": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 2.0,
+            "eve_mi_bits_per_use": 0.31910873638577486,
+            "secrecy_difference_bits_per_use": 1.680891263614225,
+            "bob_ber": 1.6791260117586414e-45,
+            "l1_amplitude_cost": 3.5
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 2.0,
+            "eve_mi_bits_per_use": 0.31910873638577486,
+            "secrecy_difference_bits_per_use": 1.680891263614225,
+            "bob_ber": 1.6791260117586414e-45,
+            "l1_amplitude_cost": 3.5
+          }
+        },
+        "fixed_ris_q1": {
+          "actions": 625,
+          "qos_feasible_actions": 165,
+          "maximum_secrecy": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 2.0,
+            "eve_mi_bits_per_use": 0.31910873638577486,
+            "secrecy_difference_bits_per_use": 1.680891263614225,
+            "bob_ber": 2.2264942062509613e-53,
+            "l1_amplitude_cost": 3.5
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 2.0,
+            "eve_mi_bits_per_use": 0.31910873638577486,
+            "secrecy_difference_bits_per_use": 1.680891263614225,
+            "bob_ber": 2.2264942062509613e-53,
+            "l1_amplitude_cost": 3.5
+          }
+        },
+        "joint_ris_oracle": {
+          "actions": 3125,
+          "qos_feasible_actions": 747,
+          "maximum_secrecy": {
+            "q": 2,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 2.0,
+            "eve_mi_bits_per_use": 0.2865174338355628,
+            "secrecy_difference_bits_per_use": 1.7134825661644373,
+            "bob_ber": 1.6791260117586414e-45,
+            "l1_amplitude_cost": 3.5
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 2,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              -1.0,
+              -0.5
+            ],
+            "bob_mi_bits_per_use": 2.0,
+            "eve_mi_bits_per_use": 0.2865174338355628,
+            "secrecy_difference_bits_per_use": 1.7134825661644373,
+            "bob_ber": 1.6791260117586414e-45,
+            "l1_amplitude_cost": 3.5
+          }
+        }
+      },
+      "raw_grid_file": "changed_positions_snr30.npz"
+    },
+    {
+      "scenario": "colocated",
+      "bob_position_m": [
+        1.8,
+        1.6,
+        0.85
+      ],
+      "eve_position_m": [
+        1.8,
+        1.6,
+        0.85
+      ],
+      "reference_snr_db": 10.0,
+      "receiver_current_noise_variance_A2": 4.1049826258960973e-13,
+      "schemes": {
+        "no_ris": {
+          "actions": 625,
+          "qos_feasible_actions": 0,
+          "maximum_secrecy": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              -1.0,
+              -1.0,
+              -1.0
+            ],
+            "bob_mi_bits_per_use": 0.2275545362040422,
+            "eve_mi_bits_per_use": 0.2275545362040422,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 0.4441197197141903,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": null
+        },
+        "fixed_ris_q1": {
+          "actions": 625,
+          "qos_feasible_actions": 0,
+          "maximum_secrecy": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              -1.0,
+              -1.0,
+              -1.0
+            ],
+            "bob_mi_bits_per_use": 0.29560863775093066,
+            "eve_mi_bits_per_use": 0.29560863775093066,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 0.43105448902405397,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": null
+        },
+        "joint_ris_oracle": {
+          "actions": 3125,
+          "qos_feasible_actions": 0,
+          "maximum_secrecy": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              -1.0,
+              -1.0,
+              -1.0
+            ],
+            "bob_mi_bits_per_use": 0.2275545362040422,
+            "eve_mi_bits_per_use": 0.2275545362040422,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 0.4441197197141903,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": null
+        }
+      },
+      "raw_grid_file": "colocated_snr10.npz"
+    },
+    {
+      "scenario": "colocated",
+      "bob_position_m": [
+        1.8,
+        1.6,
+        0.85
+      ],
+      "eve_position_m": [
+        1.8,
+        1.6,
+        0.85
+      ],
+      "reference_snr_db": 20.0,
+      "receiver_current_noise_variance_A2": 4.104982625896097e-14,
+      "schemes": {
+        "no_ris": {
+          "actions": 625,
+          "qos_feasible_actions": 57,
+          "maximum_secrecy": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              -1.0,
+              -1.0,
+              -1.0
+            ],
+            "bob_mi_bits_per_use": 0.2721694909167561,
+            "eve_mi_bits_per_use": 0.2721694909167561,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 0.4441197197339509,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.9946770083890093,
+            "eve_mi_bits_per_use": 1.9946770083890093,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 0.0006550929141767258,
+            "l1_amplitude_cost": 4.0
+          }
+        },
+        "fixed_ris_q1": {
+          "actions": 625,
+          "qos_feasible_actions": 85,
+          "maximum_secrecy": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              -1.0,
+              -1.0,
+              -1.0
+            ],
+            "bob_mi_bits_per_use": 0.34069759122581067,
+            "eve_mi_bits_per_use": 0.34069759122581067,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 0.43105458522296214,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.9998361876426434,
+            "eve_mi_bits_per_use": 1.9998361876426434,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 1.938349787058667e-05,
+            "l1_amplitude_cost": 4.0
+          }
+        },
+        "joint_ris_oracle": {
+          "actions": 3125,
+          "qos_feasible_actions": 321,
+          "maximum_secrecy": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              -1.0,
+              -1.0,
+              -1.0
+            ],
+            "bob_mi_bits_per_use": 0.2721694909167561,
+            "eve_mi_bits_per_use": 0.2721694909167561,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 0.4441197197339509,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.9946770083890093,
+            "eve_mi_bits_per_use": 1.9946770083890093,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 0.0006550929141767258,
+            "l1_amplitude_cost": 4.0
+          }
+        }
+      },
+      "raw_grid_file": "colocated_snr20.npz"
+    },
+    {
+      "scenario": "colocated",
+      "bob_position_m": [
+        1.8,
+        1.6,
+        0.85
+      ],
+      "eve_position_m": [
+        1.8,
+        1.6,
+        0.85
+      ],
+      "reference_snr_db": 30.0,
+      "receiver_current_noise_variance_A2": 4.104982625896097e-15,
+      "schemes": {
+        "no_ris": {
+          "actions": 625,
+          "qos_feasible_actions": 93,
+          "maximum_secrecy": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              -1.0,
+              -1.0,
+              -1.0
+            ],
+            "bob_mi_bits_per_use": 0.28648006802697035,
+            "eve_mi_bits_per_use": 0.28648006802697035,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 0.4441197197339509,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.999999999999984,
+            "eve_mi_bits_per_use": 1.999999999999984,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 1.781542768343778e-15,
+            "l1_amplitude_cost": 4.0
+          }
+        },
+        "fixed_ris_q1": {
+          "actions": 625,
+          "qos_feasible_actions": 121,
+          "maximum_secrecy": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              -1.0,
+              -1.0,
+              -1.0
+            ],
+            "bob_mi_bits_per_use": 0.3550081683364732,
+            "eve_mi_bits_per_use": 0.3550081683364732,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 0.4310545852229621,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 1,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              0.5
+            ],
+            "bob_mi_bits_per_use": 1.9999998413918811,
+            "eve_mi_bits_per_use": 1.9999998413918811,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 1.8315879992676846e-08,
+            "l1_amplitude_cost": 3.5
+          }
+        },
+        "joint_ris_oracle": {
+          "actions": 3125,
+          "qos_feasible_actions": 495,
+          "maximum_secrecy": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              -1.0,
+              -1.0,
+              -1.0
+            ],
+            "bob_mi_bits_per_use": 0.28648006802697035,
+            "eve_mi_bits_per_use": 0.28648006802697035,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 0.4441197197339509,
+            "l1_amplitude_cost": 4.0
+          },
+          "maximum_secrecy_subject_to_bob_ber": {
+            "q": 0,
+            "jammer_weights": [
+              -1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "bob_mi_bits_per_use": 1.999999999999984,
+            "eve_mi_bits_per_use": 1.999999999999984,
+            "secrecy_difference_bits_per_use": 0.0,
+            "bob_ber": 1.781542768343778e-15,
+            "l1_amplitude_cost": 4.0
+          }
+        }
+      },
+      "raw_grid_file": "colocated_snr30.npz"
+    }
+  ]
+}

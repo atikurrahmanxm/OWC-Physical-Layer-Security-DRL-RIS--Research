@@ -1,0 +1,1164 @@
+1
+Fixed and Joint Optical RIS–Friendly Jamming
+Control for Secure Visible Light Communication: A
+Matched Training-Budget Study
+Mahidul Ahasan, Atikur Rahman, Md Amit Hasan Robi,
+and Md Samiur Rahman Tanim
+Abstract—An optical reconﬁgurable intelligent surface (RIS)
+directs reﬂected light in visible light communication (VLC),
+but joint RIS and friendly-jamming (FJ) control substantially
+expands the reinforcement-learning action space. We evaluate
+this trade-off by extending an established DRL-FJ simulator with
+a six-facet specular RIS. We compare no RIS, ﬁxed alignment
+toward the legitimate receiver (Bob), and joint control over 625
+jammer weight vectors and ﬁve discrete mirror conﬁgurations.
+The empirical study analyzes 90 matched training runs across
+three schemes, ten random seeds, and budgets of 2,000, 5,000,
+and 10,000 slots, followed by 1,000-slot frozen policy evaluations.
+At 10,000 slots, joint-minus-ﬁxed utility is +0.0183 (95% CI
+[−0.1677, 0.2043], p = 0.8289), and mean secrecy metrics are
+1.5656 bps/Hz for ﬁxed RIS and 1.4839 bps/Hz for joint control;
+their paired contrast is statistically inconclusive (p = 0.4182).
+Full-family 18-contrast Holm adjustments show that secondary
+comparisons are sensitive to multiplicity (ﬁxed secrecy Holm-
+t p = 0.0696; joint utility Holm-t p = 0.3166; ﬁxed utility
+Holm sign-ﬂip p = 0.0703). Supplemental evaluations across
+ﬁve geometries show that zero-shot transfer of nominal-trained
+policies incurs utility gaps of 0.76 to 1.83 in the four changed
+geometries relative to same-geometry oracles without retraining.
+A consistent current-domain 4-PAM diagnostic conﬁrms that
+positive secrecy (1.65–1.73 bits/channel use) is QoS-feasible at
+20–30 dB reference SNR, whereas colocated eavesdropping yields
+identically zero secrecy. The nominal comparison detects no
+statistically signiﬁcant advantage from joint discrete control
+within the tested budgets and delineates the limits of nominal-
+geometry policies.
+Index
+Terms—Visible
+light
+communication,
+optical
+RIS,
+friendly jamming, deep reinforcement learning, empirical com-
+parison.
+I. INTRODUCTION
+V
+ISIBLE light communication (VLC) carries data through
+modulated light from lighting ﬁxtures. A receiver within
+the illuminated area may also observe that signal, so a useful
+indoor link does not by itself establish conﬁdentiality [1], [2].
+Friendly jamming introduces controlled interference from ad-
+ditional ﬁxtures to reduce the usefulness of Eve’s observation
+while limiting the cost to Bob, the intended receiver. Physical-
+layer security addresses this channel-level problem; it does not
+replace authentication or encryption [3].
+An optical reconﬁgurable intelligent surface (RIS) adds
+another control variable: the direction of reﬂected light. A
+mirror array changes facet orientations rather than radio-
+frequency phase shifts. A facet aimed from Alice toward
+Project team: Ruposhi Bytes, Assam down town University, Guwahati,
+India.
+Bob may increase Bob’s channel gain, but can also reﬂect
+other ﬁxtures. All sources must therefore be evaluated using
+the same installed facet normals, rather than separate ideal
+reﬂections for each source–receiver pair.
+Additional control is not automatically useful to a ﬁnite-
+budget learner. Here, four jammer weights produce 625 actions.
+Adding ﬁve RIS conﬁgurations increases this to 3,125. The
+joint set contains the ﬁxed-alignment actions, so its best
+available utility cannot be lower. A learned policy, however,
+may fail to ﬁnd those actions. We ask whether joint control
+improves evaluated performance over ﬁxed alignment when
+feature-network dimensions and training budgets are matched.
+We address this question in a stationary room using a
+CNN and differentiable neural dictionary (DND) controller
+adapted from the DRL-friendly-jamming framework of Liu et
+al. [2]. The contribution is a documented comparison within
+that implementation: a ﬁnite-aperture optical reﬂection model,
+enumeration of available discrete actions, and 90 matched
+training/evaluation runs. We do not claim that combining
+optical RIS and DRL is new, or that this implementation
+reproduces the 2024 paper’s published curves. The results
+concern a speciﬁed simulator and geometry.
+II. RELATED WORK AND SCOPE
+Liu et al. [2] study secure VLC with multiple friendly
+jammers and use convolutional features with a DND to learn
+jamming decisions. Neural episodic control provides an earlier
+example of an action-indexed dictionary of feature keys and
+values [4]. We retain the implemented friendly-jamming rate
+and BER expressions when adding reﬂected channels, rather
+than substituting a Gaussian-capacity model.
+Optical reﬂecting surfaces have already been studied for
+VLC security. Qian et al. [5] optimize reﬂected-spot positions
+using particle swarm optimization and compare the result
+with a ﬁxed focus-on-Bob alignment and no IRS. Thus ﬁxed-
+versus-adaptive reﬂection is itself an established comparison.
+Saifaldeen et al. [6] jointly control ﬁxture weights and mirror
+orientations using continuous-action DDPG with known user
+positions; their experiments include mobile users and approx-
+imately 100,000 training iterations. Our static discrete-action
+results at 2,000–10,000 slots cannot refute those continuous-
+control or mobility ﬁndings. Liu et al. [7] subsequently report
+model-driven optical-RIS control for a secrecy, BER and
+energy utility. The latter description is supported by its primary
+abstract; the full text was not available for this review.
+
+2
+Our narrower comparison separates the best action available
+in a ﬁnite codebook from the performance obtained by one
+implemented learner. We do not reproduce those prior RIS
+controllers or claim better performance than them. Their mod-
+els and decision spaces differ. Benchmarking against current
+alternatives and a broader literature assessment would be
+needed for a state-of-the-art claim.
+III. SYSTEM AND THREAT MODEL
+Figure 1 shows the simulated room and representative
+optical paths. The controller workﬂow is shown in Fig. 2.
+A. Room and assumptions
+The room measures 5 × 5 × 3 m. Alice is at (2.5, 2.5, 3)
+m, Bob at (1.8, 1.6, 0.85) m, and Eve at (3.2, 3.4, 0.85) m.
+Four jammers occupy (1.5, 1.5, 3), (1.5, 3.5, 3), (3.5, 1.5, 3),
+and (3.5, 3.5, 3) m. Each ﬁxture represents four downward-
+facing LEDs; both receivers face upward. The RIS is centered
+at (2.5, 0.25, 2.6) m with nominal normal +y.
+Eve is a passive receiver with a known position supplied
+to the simulator. Her presence does not block a path, change
+the room, or transmit interference. This study does not test
+protection against a moving person, an active attacker, or
+unknown Eve positions. The controller receives a four-value
+observation, but codebook construction uses exact scenario
+geometry, including Eve’s position.
+B. Direct and effective gains
+Let Gsr denote optical path gain from ﬁxture s to receiver
+r. For a front-facing path inside the receiver ﬁeld of view,
+Gdir
+sr = NL
+(m + 1)AP
+2πd2sr
+cosm ϕsr cos ψsr gc,
+(1)
+and it is zero otherwise. Each ﬁxture uses NL = 4 LEDs. The
+Lambertian order is m = −ln 2/ ln(cos Φ1/2), with Φ1/2 =
+60◦. Detector area is AP = 10−4 m2. The concentrator factor
+is gc = n2
+0/ sin2 Ψc, with n0 = 1.5 and Ψc = 60◦. Filter
+transmission is unity. Electrical gain is
+hsr = RPDηGsr,
+RPD = 0.54 A/W,
+η = 1 W/A. (2)
+Responsivity and conversion efﬁciency are applied once. A
+corresponding current-domain signal notation is yr = hArxA+
+(hT
+Jrw)z + nr, with transmitter drive signals xA, z. The
+electrical gain is not multiplied by responsivity again. This
+notation identiﬁes the gains; the experimental rate and BER
+metrics are speciﬁed separately below.
+For conﬁguration q, effective gains are
+hsr(q) = hdir
+sr + RPDη
+6
+∑
+k=1
+GRIS
+srk (q).
+(3)
+This scalar DC model adds received optical power contribu-
+tions before electrical conversion. It does not model coherent
+optical phase cancellation, delay spread, or intersymbol inter-
+ference.
+C. Inherited secrecy and BER metrics
+The following equations specify the simulator used for the
+runs, following its literal paper-mode implementation of the
+2024 baseline expressions [2]. Let b = hT
+JBw, eJ = |hT
+JEw|,
+and a = αID, with α = 0.1 and ID = PT /η = 1 A. The gain
+calculation sums four identical LEDs per ﬁxture receiving the
+same drive, so PT is the per-LED optical bias parameter in
+this convention. The Bob term is
+B = 1
+2 log2
+(
+1 +
+2hAB(q)2a2
+πe(σ2
+B + 2b2a2)
+)
+.
+(4)
+For hAE > 0 and eJ > 0, deﬁne ℓ= log2
+√e and
+LE = min
+{
+log2
+hAE
+eJ
++ eJ
+hAE
+ℓ,
+hAE
+eJ
+ℓ
+}
+.
+(5)
+The secrecy metric is Rs = max(0, B −LE), reported in
+bps/Hz using the baseline convention. When hAE = 0, the
+implementation returns B; when hAE > 0 and eJ = 0, it re-
+turns zero. This no-jamming boundary convention is inherited
+from the implementation, not a general wiretap-channel result.
+The implemented Bob error metric is
+pB = 3
+4 erfc
+(√
+2PT (hAB + b)2
+5σ2
+B
+)
+,
+PT = 1.
+(6)
+Its signed jammer term is added inside an amplitude square.
+This must not be interpreted as a separately validated BER for
+arbitrary independent optical interference. Equations (4)–(6)
+are retained for a consistent simulator comparison, not derived
+here as a new uniﬁed physical channel model.
+The noise parameter is the numeric baseline conversion
+10(−98.79−30)/10 = 1.3213×10−13. Paper mode uses this watt-
+valued number directly as σ2
+B, without a speciﬁed impedance
+conversion to current variance. This normalization remains
+unresolved. A separate current-domain diagnostic mode exists
+in the code but was not used in these RIS runs. The reported
+metrics are therefore not calibrated hardware predictions or an
+exact reproduction of the baseline paper’s numerical ﬁgures.
+D. Actions and utility
+Each jammer weight belongs to {−1, −0.5, 0, 0.5, 1}, giv-
+ing 54 = 625 vectors. Negative weights represent signed
+modulation about a positive drive bias, not negative optical
+power. Utility is
+U = Rs −3.5pB −0.4E,
+E =
+4
+∑
+i=1
+|wi|.
+(7)
+E is a nonnegative amplitude cost, not energy in joules. This
+explicit L1 interpretation avoids rewarding negative signed
+sums. The study preserves the baseline rate/BER implemen-
+tation while documenting its cost interpretation; it does not
+claim that every baseline convention is uniquely speciﬁed by
+the paper. RIS switching energy and settling time are excluded.
+The reward imposes no hard Bob-service constraint.
+
+3
+0.0
+2.5
+5.0
+x (m)
+0.0
+2.5
+5.0
+y (m)
+0.00
+0.85
+3.00
+z (m)
+Alice
+Bob
+Eve
+J1
+J2
+J3
+J4
+Optical RIS
+Nominal room
+5 × 5 × 3 m
+Four ceiling jammers
+Upward-facing receivers
+—
+Alice → Bob
+--
+Alice → Eve
+—
+Alice → RIS → Bob
+···
+Jammer paths
+Six facets; ρ = 0.85
+Panel center:
+(2.5, 0.25, 2.6) m
+Representative paths only; facet orientation is schematic.
+Fig. 1.
+Nominal VLC system with Alice, Bob, passive Eve, four ceiling jammers, and a six-facet optical RIS. Coordinates match the study geometry.
+Representative direct and Alice–RIS–Bob paths are illustrated; jammer paths are shown for one ﬁxture to avoid clutter. The numerical channel model evaluates
+every source–receiver link. Facet orientations are schematic, not a rendered codebook conﬁguration.
+IV. FINITE-APERTURE OPTICAL RIS
+A. Geometry and reﬂection calculation
+Six square facets occupy a 2 × 3 grid within a 1 × 0.5
+m panel envelope. The pitches are 1/3 and 0.25 m. Facet
+side is 0.9 min(1/3, 0.25)/
+√
+2 = 0.15910 m, allowing rotation
+clearance; total reﬂecting area is 0.151875 m2, rather than the
+full envelope area. Reﬂectivity is ρ = 0.85. Tilt from +y is
+limited to 85◦.
+For source S, facet center Mk, and unit normal nk, the
+image source is
+S′
+k = S −2[(S −Mk) · nk]nk.
+(8)
+The LED axis is reﬂected by the same operation. Both source
+and receiver must lie in front of the facet. Rays from S′
+k
+through its corners form a polygon on the receiver’s horizontal
+plane. Backward, parallel, or degenerate projections contribute
+zero. The polygon is clipped against a square effective entrance
+aperture of area AP gc centered on the receiver. This aperture
+is a geometric approximation, not a wave-optical lens model.
+Let Csrk be that clipped polygon and Tk the mirror square.
+Deﬁne
+Jsrk =
+∫
+Csrk
+m + 1
+2πL2 cosm ϕ′ cos ψ′ 1FOV dA,
+(9)
+where L is the image-source distance to the integration point.
+Non-emitting or back-facing directions contribute zero. The
+power fraction intercepted from one LED is
+Fsk =
+∫
+Tk
+m + 1
+2πd2 cosm ϕ [cos θ]+ dA,
+(10)
+again excluding non-emitting directions. The implemented
+gain is
+GRIS
+srk = ρNL min(Jsrk, Fsk).
+(11)
+Clipped polygons are triangulated and evaluated with a sym-
+metric three-point triangle rule. The intercepted fraction uses a
+3×3 Gauss–Legendre rule. The cap bounds each receiver path
+by the facet’s reﬂected intercepted power; it does not establish
+a global power-allocation proof for arbitrary collections of
+receivers. These equations specify the numerical geometric-
+optics model used in the experiment.
+B. Five conﬁgurations
+The inactive reference q = 0 gives exactly zero reﬂected
+gain by deﬁnition. At q = 1, all facets aim Alice toward Bob.
+At q = 2, facets are assigned round-robin to the four jammers
+and aimed toward Eve. At q = 3, the ﬁrst three aim Alice
+toward Bob and the remaining three use jammer-to-Eve targets.
+At q = 4, all normals remain along +y. An ideal target normal
+bisects the source and receiver unit directions from the facet
+center, subject to the tilt limit.
+
+4
+Observation + 11-step history
+Previous BER, secrecy, cost;
+installed Alice–Bob gain
+CNN feature extractor
+11 × 11 padded input
+180-value feature key
+Action-indexed DND
+Estimate Q; ε-greedy in training
+Greedy in frozen evaluation
+Selected action
+Four jammer weights w
+Joint only: RIS index q
+Optical environment
+Direct + reflected gains
+Shared facet normals
+Metric calculation
+Secrecy, Bob BER, L1 cost
+Utility U and next observation
+next state
+Utility / replay updates during training only
+Known scenario geometry defines the RIS codebook before each run
+Fig. 2. Implemented control loop. The joint action combines jammer weights and a RIS conﬁguration; no-RIS and ﬁxed-RIS schemes keep the conﬁguration
+ﬁxed. The CNN and action-indexed DND learn from utility during training. Evaluation freezes both and selects actions greedily. Exact scenario geometry is
+an input to codebook construction.
+Every source–receiver path is evaluated with the same six
+installed normals. A facet targeted at one source may still
+reﬂect another if geometry permits. There is no independent
+per-link orientation. The codebook is constructed for the
+supplied positions and remains ﬁxed during each run.
+V. LEARNING AND EXPERIMENTAL PROTOCOL
+A. Matched controller
+No RIS ﬁxes q = 0; ﬁxed RIS ﬁxes q = 1. Both learn among
+625 jammer vectors. Joint RIS/FJ selects from their Cartesian
+product with ﬁve conﬁgurations. Matching the CNN does not
+match action-indexed DND size or occupancy; that difference
+is part of the comparison.
+The pre-action observation is
+st = [pB,t−1, Rs,t−1, hAB(qt−1), Et−1]T .
+(12)
+It includes the installed channel, not the gain of a subsequently
+selected conﬁguration. Eleven prior state–action pairs and the
+current state form the history. Baseline and ﬁxed histories
+contain 92 values; joint histories add the normalized codebook
+coordinate q/2 −1 and contain 103. Both are zero-padded to
+an 11 × 11 input.
+The CNN uses 20 ﬁlters of size 3×3, then 40 of size 2×2,
+both with unit stride, followed by dense layers 2560 →180 →
+180. All schemes have 497,000 CNN parameters. An action-
+speciﬁc DND uses normalized Gaussian weights exp(−∥k −
+kj∥2/2); an empty dictionary returns zero. The DND update
+uses Q-learning step size 0.5 and discount factor 0.5. SGD
+updates the CNN using learning rate 0.01, a replay minibatch
+of four, and squared temporal-difference residuals.
+The ﬁrst eleven actions initialize history randomly. Later
+decisions are epsilon-greedy, starting at 0.15, decaying by
+0.998 per slot, with ﬂoor 0.02. A shared seed initializes
+matched schemes, but their different action sets produce differ-
+ent stochastic paths. Matching seeds is a blocking convention,
+not identical exploratory decisions.
+B. Runs and statistical unit
+We analyze 90 completed protocol-v2 records: three
+schemes, seeds 42–51, and budgets of 2,000, 5,000, and
+10,000 slots. Each budget starts a fresh training run, not
+continuation from a shorter checkpoint. Geometry, L1 cost,
+CNN dimensions, and noise parameter are shared. Legacy
+records with unmatched CNN dimensions are excluded.
+Evaluation resets the environment and history, then uses
+1,000 greedy slots with an evaluation-mode CNN and frozen
+DND. No evaluation experience updates the policy. Each run
+supplies one evaluation mean, giving ten seed-level replicates.
+The 1,000 slots are not independent room realizations and are
+not treated as the statistical sample size.
+Means are reported with seed-level standard errors and
+two-sided Student-t intervals. Contrasts use ten within-seed
+differences and nine degrees of freedom. The study manifest
+identiﬁes joint-minus-ﬁxed utility at 10,000 slots as primary;
+this is not a claim of prospective public preregistration. Other
+comparisons are exploratory. We retain their unadjusted values
+for transparency and add a post-hoc Holm sensitivity cor-
+rection across all 18 reported contrasts: three budgets, three
+scheme comparisons and two metrics. We also enumerate all
+1,024 sign patterns of each ten-seed difference vector. That
+sign-ﬂip analysis assumes symmetry under the null; it is not a
+randomized-treatment causal test. All intervals are pointwise.
+These analyses describe seed variation in this protocol, not
+performance across a population of rooms.
+
+5
+TABLE I
+FROZEN EVALUATION MEANS ± SEED-LEVEL STANDARD ERROR (n = 10). COVERAGE IS MEAN DISTINCT TRAINING ACTIONS DIVIDED BY EACH
+SCHEME’S ACTION COUNT. RECORDED ELAPSED TRAINING TIME EXCLUDES EVALUATION.
+Slots
+Scheme
+Utility
+Secrecy metric (bps/Hz)
+Coverage (%)
+Time (s)
+2,000
+No RIS
+0.5005 ± 0.0383
+1.3205 ± 0.0405
+28.59
+37.2
+2,000
+Fixed RIS
+0.6178 ± 0.0888
+1.4978 ± 0.0793
+23.58
+41.3
+2,000
+Joint RIS/FJ
+0.6565 ± 0.0813
+1.4565 ± 0.0604
+4.26
+47.4
+5,000
+No RIS
+0.5005 ± 0.0383
+1.3205 ± 0.0405
+34.94
+209.2
+5,000
+Fixed RIS
+0.6396 ± 0.0797
+1.4996 ± 0.0786
+30.43
+207.8
+5,000
+Joint RIS/FJ
+0.6565 ± 0.0813
+1.4565 ± 0.0604
+6.12
+280.4
+10,000
+No RIS
+0.5005 ± 0.0383
+1.3205 ± 0.0405
+45.36
+1781.7
+10,000
+Fixed RIS
+0.7056 ± 0.0632
+1.5656 ± 0.0766
+41.30
+1608.2
+10,000
+Joint RIS/FJ
+0.7239 ± 0.0784
+1.4839 ± 0.0598
+9.11
+1632.2
+2000
+5000
+10000
+Training slots
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+Evaluation utility
+No RIS
+Fixed RIS
+Joint RIS/FJ
+2000
+5000
+10000
+Training slots
+1.3
+1.4
+1.5
+1.6
+1.7
+Secrecy metric (bps/Hz)
+Fig. 3.
+Frozen evaluation performance against budget. Bars are 95% conﬁdence intervals across ten seeds. Lines connect budget summaries; they are not
+within-run training trajectories.
+VI. RESULTS
+A. Joint versus ﬁxed RIS
+At 10,000 slots, utility means are 0.7056 for ﬁxed RIS and
+0.7239 for joint RIS/FJ (Table I). The paired difference is
++0.0183, with 95% CI [−0.1677, 0.2043] and p = 0.8289.
+The interval includes differences favoring either scheme. It
+establishes neither equivalence nor the absence of a beneﬁt at
+larger budgets or in other geometries.
+The mean secrecy metric is 1.5656 bps/Hz for ﬁxed RIS
+and 1.4839 bps/Hz for joint control. Their paired difference
+is −0.0817 bps/Hz (95% CI [−0.2996, 0.1362], p = 0.4182).
+The numerical ordering favors ﬁxed RIS, but the uncertainty
+does not support a superiority claim. Utility and secrecy
+orderings differ because of the cost term: mean amplitude costs
+are 2.15 and 1.90 for ﬁxed and joint control, respectively.
+B. Comparison with no RIS
+At 10,000 slots, ﬁxed RIS improves utility over no RIS
+by +0.2051 (95% CI [0.1220, 0.2881], unadjusted p
+=
+0.00034). Its secrecy improvement is +0.2451 bps/Hz (95%
+CI [0.0999, 0.3902], p = 0.00409). These are improvements
+within the speciﬁed metric model and geometry.
+Joint control improves utility over no RIS by +0.2234
+(95% CI [0.0394, 0.4074], p = 0.02261). Its secrecy dif-
+ference is +0.1634 bps/Hz, but the interval includes zero
+([−0.0226, 0.3494], p = 0.07818). The ﬁxed-RIS statistic
+must not be used as evidence that both schemes improve
+both metrics. Baseline and joint means also remain unchanged
+between 2,000 and 5,000 slots; more training did not improve
+every policy.
+C. Multiplicity and distributional sensitivity
+The ﬁxed-minus-no-RIS utility contrast has Holm-adjusted
+t-test p = 0.00614 across the full 18-comparison family. The
+corresponding secrecy contrast has adjusted p = 0.06956.
+For joint minus no RIS, the adjusted values are 0.31661 for
+utility and 1.00000 for secrecy. The ﬁxed utility contrast also
+has an unadjusted sign-ﬂip p = 0.00391, which becomes
+0.07031 after the same full-family correction. Consequently,
+the apparent strength of secondary ﬁndings depends on the test-
+ing assumptions and multiplicity treatment. Higher observed
+means should not be described as universal or conﬁrmatory
+security gains.
+D. Finite-grid ceiling and exploration
+Enumeration evaluates all 3,125 joint actions using the same
+channel and utility functions. Maximum utility is 0.995914 at
+q = 1. Maximum secrecy is 1.841295 bps/Hz, also at q =
+
+6
+TABLE II
+PAIRED CONTRASTS AT 10,000 SLOTS (n = 10, df = 9). ALL p-VALUES ARE TWO-SIDED AND UNADJUSTED. ONLY JOINT-MINUS-FIXED UTILITY IS
+PRIMARY.
+Contrast
+Metric
+Mean difference
+95% conﬁdence interval
+p
+Joint RIS/FJ −Fixed RIS
+U
++0.0183
+[−0.1677, +0.2043]
+0.82887
+Joint RIS/FJ −Fixed RIS
+Rs
+−0.0817
+[−0.2996, +0.1362]
+0.41825
+Fixed RIS −No RIS
+U
++0.2051
+[+0.1220, +0.2881]
+0.00034
+Fixed RIS −No RIS
+Rs
++0.2451
+[+0.0999, +0.3902]
+0.00409
+Joint RIS/FJ −No RIS
+U
++0.2234
+[+0.0394, +0.4074]
+0.02261
+Joint RIS/FJ −No RIS
+Rs
++0.1634
+[−0.0226, +0.3494]
+0.07818
+2000
+5000
+10000
+Training slots
+−0.2
+−0.1
+0.0
+0.1
+0.2
+0.3
+Joint minus fixed utility
+2000
+5000
+10000
+Training slots
+−0.3
+−0.2
+−0.1
+0.0
+0.1
+0.2
+Joint minus fixed secrecy (bps/Hz)
+Fig. 4. Joint-minus-ﬁxed mean contrasts with 95% conﬁdence intervals from ten paired seed differences. None excludes zero at the tested budgets.
+TABLE III
+POST-HOC STATISTICAL SENSITIVITY AT 10,000 TRAINING SLOTS. HOLM CORRECTIONS COVER ALL 18 CONTRASTS ACROSS THREE BUDGETS, NOT
+ONLY THESE SIX ROWS. SIGN-FLIP VALUES ENUMERATE 1,024 PATTERNS AND REQUIRE A SYMMETRIC NULL DISTRIBUTION.
+Contrast
+Metric
+t-test p
+Holm p
+Sign-ﬂip p
+Holm sign-ﬂip p
+Joint −Fixed
+U
+0.82887
+1.00000
+0.83594
+1.00000
+Joint −Fixed
+Rs
+0.41825
+1.00000
+0.41992
+1.00000
+Fixed −None
+U
+0.00034
+0.00614
+0.00391
+0.07031
+Fixed −None
+Rs
+0.00409
+0.06956
+0.00781
+0.13281
+Joint −None
+U
+0.02261
+0.31661
+0.02539
+0.38086
+Joint −None
+Rs
+0.07818
+1.00000
+0.08789
+0.99023
+1, though not necessarily for the same jammer vector. Fixed
+RIS therefore contains an action attaining each joint ﬁnite-
+grid maximum. This is not an upper bound over continuous
+orientations or other geometries.
+Mean distinct joint actions visited increase from 133.0 to
+191.4 and 284.8 across the three budgets: 4.26%, 6.12%, and
+9.11% of 3,125 actions. At 10,000 slots, no RIS and ﬁxed
+RIS cover 45.36% and 41.30% of their smaller sets. Low
+fractional coverage is consistent with an exploration burden,
+but exhaustive coverage is not required for a good policy.
+Coverage alone does not identify the cause of the measured
+performance.
+At 10,000 slots, six joint runs have modal evaluation con-
+ﬁguration q = 1; four use q = 2, 3, or 4. This describes the
+measured horizon, not permanent trapping or proof that each
+other conﬁguration is always inferior. A targeted exploration
+ablation would be needed to attribute the outcome speciﬁcally
+to action-set expansion.
+E. Recorded computational cost
+Mean elapsed training times at 10,000 slots are 1,781.7 s for
+no RIS, 1,608.2 s for ﬁxed RIS, and 1,632.2 s for joint control.
+These are original execution measurements, not controlled
+hardware benchmarks. Worker-pool execution shares machine
+resources; memory occupancy and host load can affect time.
+The records do not support a blanket computational-superiority
+claim. Mechanical actuation time is not included.
+
+7
+2000
+5000
+10000
+Training slots
+10
+20
+30
+40
+Distinct actions visited (%)
+No RIS
+Fixed RIS
+Joint RIS/FJ
+2,000
+5,000
+10,000
+Training slots
+0
+2
+4
+6
+8
+10
+Joint evaluation modal q (seeds)
+q=0
+q=1
+q=2
+q=3
+q=4
+Fig. 5. Training action coverage and modal evaluation conﬁguration for joint control. The right panel counts ten runs per budget, not individual slots.
+2000
+5000
+10000
+Training slots
+0
+500
+1000
+1500
+Recorded elapsed training time (s)
+No RIS
+Fixed RIS
+Joint RIS/FJ
+Fig. 6. Recorded mean elapsed training time. Concurrent execution and incom-
+pletely logged host conﬁguration limit hardware-performance interpretation.
+VII. SUPPLEMENTARY GEOMETRY AND CHANNEL
+CHECKS
+A. Finite-grid sensitivity and frozen-policy transfer
+The supplemental protocol ﬁxes ﬁve geometries before
+evaluating their outcomes: nominal; Bob (2, 3, 0.85) and Eve
+(3.5, 1.5, 0.85); swapped nominal Bob/Eve coordinates; Eve
+moved to (1.9, 1.7, 0.85) near nominal Bob; and receivers
+colocated at nominal Bob. We enumerate 3,125 actions in
+each geometry at noise offsets of −3, 0 and +3 dB relative
+to the historical numeric noise parameter. These 15 cases are
+sensitivity analyses of the implemented metric, not a physical
+calibration of that parameter.
+We also evaluate the 30 nominal-trained 10,000-slot policies
+in the four changed geometries, using 200 frozen slots per
+policy and geometry. The resulting 120 cases are zero-shot
+policy transfers. The mirror codebook is reconstructed from
+exact new positions before evaluation, so this is not unknown-
+CSI testing, learned tracking or a moving-user experiment.
+Nominal results in Fig. 7 use the original 1,000-slot evaluation;
+changed geometries use the separate 200-slot transfer protocol.
+Means and standard errors use ten seeds, and each policy is
+compared with the oracle of its own action set in the same
+geometry.
+Figure 7 and Table IV quantify the sensitivity of the learned
+and oracle policies to geometric displacement. In the nominal
+geometry, the ﬁnite-grid oracle achieves utility 0.7119 (no
+RIS) and 0.9959 (both ﬁxed and joint RIS), leaving modest
+gaps of 0.2113, 0.2903, and 0.2720 for the respective learned
+policies. When user positions are altered without policy retrain-
+ing, performance degrades sharply. In the changed-positions
+geometry, all three nominal-trained policies yield negative
+mean utilities (−0.6451 baseline, −0.7876 ﬁxed RIS, and
+−0.5608 joint control), producing optimality gaps exceeding
+1.6 against oracles that attain positive utility (0.9550–1.0418).
+When receiver locations are swapped, all frozen policies suffer
+complete secrecy collapse (Rs = 0.0, utility ≤−0.76),
+whereas the geometry-aware oracle maintains positive utility
+(0.7119–0.7719) by selecting conﬁguration q = 2 to direct
+reﬂections toward Eve. In the nearby-Eve and colocated ge-
+ometries, both the frozen policies and the discrete oracles yield
+zero secrecy. Oracle utility is zero, while the frozen policies
+retain mean utilities of −0.82 (no RIS), −0.86 (ﬁxed RIS), and
+−0.76 (joint control) because they continue to incur jamming
+costs. The colocated case functions as an empirical negative
+control, verifying that no controller can manufacture physical-
+layer secrecy when spatial channel differentiation is absent.
+These outcomes conﬁrm that nominal DRL policies fail to
+generalize zero-shot to altered room geometries, even when
+mirror codebooks are updated with exact coordinates.
+B. A consistent current-domain diagnostic
+The historical reward is retained for the learner comparison,
+but its literal BER convention is not a general independent-
+jamming model. With a symmetric jammer independent of
+the information signal, reversing all weights leaves the dis-
+turbance distribution unchanged. Equation (6), containing
+(hAB + hT
+JBw)2, does not generally preserve that symmetry.
+Selecting a different positive noise scaling cannot repair this
+structural difference.
+
+8
+TABLE IV
+FINITE-GRID ORACLE UTILITY AT THE HISTORICAL NOISE PARAMETER. THE JOINT MAXIMUM IS OVER ALL FIVE CONFIGURATIONS; THE LAST COLUMN
+IS ONE MAXIMIZING CONFIGURATION. THESE ARE ATTAINABLE DISCRETE OPTIMA, NOT LEARNED-POLICY RESULTS.
+Geometry
+No RIS
+Fixed RIS
+Joint oracle
+Joint q∗
+Nominal
+0.7119
+0.9959
+0.9959
+1
+Changed positions
+0.9550
+1.0418
+1.0418
+1
+Swapped receivers
+0.7119
+0.7409
+0.7719
+2
+Nearby Eve
+0.0000
+0.0000
+0.0000
+0
+Colocated
+0.0000
+0.0000
+0.0000
+0
+Nominal
+Changed
+Swapped
+Near Eve
+Colocated
+−0.75
+−0.50
+−0.25
+0.00
+0.25
+0.50
+0.75
+Frozen policy utility (mean ± SE)
+No RIS
+Fixed RIS
+Joint RIS/FJ
+Nominal
+Changed
+Swapped
+Near Eve
+Colocated
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+1.8
+Same-action-set oracle utility minus mean
+Fig. 7. Nominal evaluation and zero-shot geometry transfer of nominal-trained 10,000-slot policies. Left: utility mean and seed-level standard error. Right:
+gap to the same-action-set ﬁnite-grid oracle. The oracle codebook uses the new exact positions; the learner is not retrained.
+We therefore evaluate a separate channel with equiprobable
+Gray-labelled 4-PAM symbols X ∈A{−1, −1/3, 1/3, 1},
+a shared jammer J ∼U[−A, A] independent of X, and
+independent Gaussian receiver-current noise. Here A = αID.
+Fixture i transmits wiJ about its DC bias. With br = A|hT
+Jrw|,
+the conditional density for br > 0 is
+pr(y | x) =
+1
+2brσr
+∫br
+−br
+φ
+(y −hArx −u
+σr
+)
+du,
+(13)
+where φ is the standard normal density. At br = 0, it reduces to
+the Gaussian density with mean hArx and variance σ2
+r. Both
+receivers use this same channel law. Eve is assumed not to
+know the instantaneous jammer realization.
+The information statistic uses the stated input distribution:
+Ir = 1
+4
+3
+∑
+m=0
+∫
+pr(y | xm) log2
+pr(y | xm)
+pr(y)
+dy,
+pr(y) = 1
+4
+3
+∑
+m=0
+pr(y | xm),
+Rdiag = [IB −IE]+.
+(14)
+Rdiag is measured in bits per real channel use and is bounded
+by two. It is not a general secrecy-capacity computation or
+a bps/Hz conversion. For Bob’s midpoint decisions, with
+ordered thresholds (−∞, −2hABA/3, 0, 2hABA/3, ∞) and
+Gray labels βm, the uncoded BER is
+Pb,B = 1
+8
+3
+∑
+m,n=0
+dH(βm, βn)
+∫τn+1
+τn
+pB(y | xm) dy.
+(15)
+This is the BER of a speciﬁed midpoint receiver, not a claim
+that it is optimal for every interference distribution. Mutual
+information is evaluated before those hard decisions.
+Noise is declared in A2, using nominal direct-Bob symbol
+variance Vref = (5/9)(hdir
+AB,refA)2. At reference SNR s =
+10, 20 or 30 dB, both receivers have σ2
+r = Vref10−s/10. The
+current variance is ﬁxed across schemes and geometries at
+each SNR, rather than renormalized after RIS gain or Bob
+movement. This convention does not infer the baseline authors’
+unspeciﬁed impedance or SNR normalization.
+The diagnostic enumerates the nominal, changed-position
+and colocated geometries, yielding nine scenario/SNR grids.
+Table V reports the largest information difference subject to
+modeled Bob BER at most 10−3; infeasibility is shown ex-
+plicitly. These are ﬁnite-grid oracle results under the declared
+physical alternative, not DRL training results or a replacement
+of historical rewards.
+As shown in Table V and Fig. 8, QoS feasibility and
+secrecy under the consistent 4-PAM model depend heavily
+
+9
+TABLE V
+CURRENT-DOMAIN FINITE-GRID MAXIMUM Rdiag IN BITS/USE SUBJECT TO Pb,B ≤10−3. A DASH DENOTES NO FEASIBLE ACTION. SNR USES THE
+SAME NOMINAL-DIRECT REFERENCE ACROSS ALL GEOMETRIES AND SCHEMES.
+Geometry
+Reference SNR (dB)
+No RIS
+Fixed q = 1
+Joint oracle
+Nominal
+10
+–
+–
+–
+Nominal
+20
+1.6586
+1.6638
+1.6673
+Nominal
+30
+1.6463
+1.6463
+1.6504
+Changed
+10
+–
+–
+–
+Changed
+20
+1.7009
+1.7009
+1.7315
+Changed
+30
+1.6809
+1.6809
+1.7135
+Colocated
+10
+–
+–
+–
+Colocated
+20
+0.0000
+0.0000
+0.0000
+Colocated
+30
+0.0000
+0.0000
+0.0000
+10
+20
+30
+Reference SNR (dB)
+0.00
+0.25
+0.50
+0.75
+1.00
+1.25
+1.50
+1.75
+QoS-feasible oracle MI difference (bits/use)
+Nominal
+No RIS
+Fixed RIS
+Joint RIS/FJ
+10
+20
+30
+Reference SNR (dB)
+Changed positions
+10
+20
+30
+Reference SNR (dB)
+Colocated
+Fig. 8. QoS-feasible current-domain ﬁnite-grid optima, not learned-policy performance. Missing points denote infeasible BER constraints. The ﬁxed-input
+information difference uses bits/channel use and must not be pooled with the historical paper-equation rate.
+on receiver SNR. At 10 dB reference SNR, no discrete
+action meets the Bob BER threshold of 10−3 across any
+geometry; the QoS-constrained secrecy difference is therefore
+empty. At 20 dB and 30 dB SNR, feasible actions emerge. In
+the nominal geometry at 20 dB, the maximum QoS-feasible
+information difference is 1.6586 bits/use without RIS, 1.6638
+bits/use under ﬁxed RIS (q = 1), and 1.6673 bits/use under
+the joint oracle. In the changed-positions scenario, the joint
+oracle achieves 1.7315 bits/use at 20 dB compared to 1.7009
+bits/use for both no-RIS and ﬁxed-RIS baselines. At 30 dB,
+the joint optima decrease to 1.6504 bits/use nominally and
+1.7135 bits/use in changed positions. Within each geometry,
+the maximizing jammer weights and their L1 amplitude cost
+are unchanged from 20 dB. In the colocated setting, the
+information difference is identically 0.0000 bits/use at all
+SNR levels, matching theoretical expectation. Crucially, these
+values represent discrete exhaustive optima under the alterna-
+tive 4-PAM physical model, not trained DRL performance or
+evidence of reinforcement learning convergence.
+VIII. LIMITATIONS AND REPRODUCIBILITY
+Learning is performed in one stationary nominal geometry
+with one oracle codebook and one learner. The added sensi-
+tivity and zero-shot evaluations broaden the test conditions,
+but they do not supply independently trained learners in those
+geometries or validate continuous mobility. Fixed q = 1 bene-
+ﬁts from known geometry and happens to contain the nominal
+best ﬁnite-grid actions. Earlier scenario-speciﬁc project runs
+are not pooled here because their protocols and budgets differ.
+Continuous-action prior controllers were not reimplemented,
+so no state-of-the-art comparison is claimed.
+Neither a soft reward nor a positive secrecy metric guar-
+antees uninterrupted service or prevents all decoding by Eve.
+The study does not transmit packets or test coding, hardware,
+movement, blockage, or cryptographic security. Near-zero
+modeled BER can follow from the inherited expression and
+scaling; it does not demonstrate measured error-free reception.
+The unresolved noise normalization and literal BER conven-
+tion limit physical interpretation. The 2024 paper’s published
+numerical curves have not been reproduced exactly.
+The evidence includes 90 raw run records, a protocol man-
+ifest and saved CNN/DND artifacts. Antigravity executed the
+98-test implementation suite and a fresh reload of all 90 saved
+policies. Every policy was evaluated for 1,000 slots, comparing
+360,000 stored metric values across utility, secrecy, BER and
+amplitude cost at absolute tolerance 10−10. The replay also
+
+10
+checks ﬁrst actions and full RIS-conﬁguration counts. These
+are implementation and inference-replay checks, not a proof
+of hardware validity. Training records preserve summaries and
+coverage counts rather than a complete exported slot trajectory.
+Run Git identiﬁers do not uniquely identify uncommitted
+code used during execution. Current ﬁle hashes support later
+auditing but do not retroactively prove the original training
+working-tree state.
+IX. CONCLUSION
+Adding an optical RIS changes the friendly-jamming sim-
+ulator’s channels and available decisions. In 90 architecture-
+matched runs, joint control has a slightly higher utility mean
+than ﬁxed RIS, but the paired interval includes zero; their
+secrecy comparison is also inconclusive. Fixed RIS has higher
+observed nominal utility and secrecy than no RIS, although the
+strength of secondary evidence depends on distributional as-
+sumptions and multiplicity correction. Enumeration separates
+the best available action from the policy found by learning.
+The current-domain diagnostic also separates physically con-
+sistent information/error calculations from inherited reward
+conventions. These distinctions are necessary before attribut-
+ing a beneﬁt to joint control. Continuous mobility, uncertain
+channel information and retraining under the consistent ﬁnite-
+alphabet model remain outside this study.
+DATA, CODE AND AI ASSISTANCE
+The accompanying reproducibility package contains run
+records, analysis code, supplementary grid data, test logs
+and source manifests. Full saved-policy payloads are kept
+separately from the compact manuscript package and identiﬁed
+by hashes. A ﬁnal public archival location must be assigned
+when the authors deposit the release. Codex and Antigravity
+assisted code development, computational orchestration and
+manuscript drafting/revision. Execution logs identify the com-
+putational checks; ﬁnal methodological and authorship review
+remains the responsibility of the authors.
+PROJECT GUIDE
+Dr. Rima Deka, Assistant Professor, Department of Electron-
+ics, Assam down town University, supervised this project.
+REFERENCES
+[1] P. H. Pathak, X. Feng, P. Hu, and P. Mohapatra, “Visible Light Commu-
+nication, Networking, and Sensing: A Survey, Potential and Challenges,”
+IEEE Communications Surveys & Tutorials, vol. 17, no. 4, pp. 2047–2077,
+2015.
+[2] S. Liu, X. Liu, X. Du, and M. Guizani, “Smart Jamming for Secrecy: Deep
+Reinforcement Learning Enabled Secure Visible Light Communication,”
+IEEE Transactions on Wireless Communications, vol. 23, no. 12, pp.
+17 915–17 928, 2024.
+[3] M. Bloch, J. Barros, M. R. D. Rodrigues, and S. W. McLaughlin, “Wire-
+less Information-Theoretic Security,” IEEE Transactions on Information
+Theory, vol. 54, no. 6, pp. 2515–2534, 2008.
+[4] A. Pritzel, B. Uria, S. Srinivasan, A. Puigdomènech Badia, O. Vinyals,
+D. Hassabis, D. Wierstra, and C. Blundell, “Neural episodic control,”
+in Proceedings of the 34th International Conference on Machine
+Learning, ser. Proceedings of Machine Learning Research, vol. 70,
+2017, pp. 2827–2836. [Online]. Available: https://proceedings.mlr.press/
+v70/pritzel17a.html
+[5] L. Qian, X. Chi, L. Zhao, and A. Chaaban, “Secure Visible Light
+Communications via Intelligent Reﬂecting Surfaces,” in ICC 2021 - IEEE
+International Conference on Communications, 2021, pp. 1–6.
+[6] D. A. Saifaldeen, B. S. Ciftler, M. M. Abdallah, and K. A. Qaraqe,
+“DRL-Based IRS-Assisted Secure Visible Light Communications,” IEEE
+Photonics Journal, vol. 14, no. 6, pp. 1–9, 2022.
+[7] S. Liu, H. Zhang, L. Song, and Z. Han, “Optical Reﬂecting Intelligent
+Surface-Assisted Secure Visible Light Communication: An Inverse Pre-
+Reﬂection Model-Driven Deep Reinforcement Learning Approach,” IEEE
+Transactions on Wireless Communications, vol. 25, pp. 19 162–19 178,
+2026.

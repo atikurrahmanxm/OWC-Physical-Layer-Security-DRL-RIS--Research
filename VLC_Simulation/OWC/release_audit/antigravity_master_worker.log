@@ -1,0 +1,58 @@
+# Antigravity Technical Paper Release Package: Autonomous Completion Report
+
+The research paper release package has been completed and verified autonomously. All required simulations, statistical evaluations, geometry sensitivity and transfer analyses, physical diagnostics, manuscript builds, and reproducibility packaging have been executed cleanly with zero errors.
+
+---
+
+## 1. Key Deliverables
+
+All deliverables are available locally in the project repository:
+
+- **Canonical Manuscript (PDF)**: [main.pdf](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/main.pdf) (10 pages, 8 figures, 5 tables, 15 display equations, 7 verified references). Compiled with Tectonic (XeTeX/BibTeX) with zero overfull boxes and zero unresolved references.
+- **Editable Manuscript (Word)**: [main.docx](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/main.docx) (746 KB). Features 15 native Word (OMML) equations, 5 editable data tables, rich caption styling, and 8 embedded high-resolution figures.
+- **LaTeX Source Package**: [source_package.zip](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/source_package.zip) (1.09 MB). Contains complete compilation sources, table rows, and vector figures ready for Overleaf or journal submission.
+- **Compact Reproducibility Bundle**: [RIS_FJ_VLC_DRL_reproducibility.zip](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/research_release/RIS_FJ_VLC_DRL_reproducibility.zip) (3.06 MB, 459 files). Accompanied by [RELEASE_PACKAGE_MANIFEST.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/research_release/RELEASE_PACKAGE_MANIFEST.json) and SHA256 checksum file `RIS_FJ_VLC_DRL_reproducibility.zip.sha256` (`48ab5260fa696de10f7fe5f41ca36d88ce672c1427321a8ce69a2b49f37d8eab`).
+- **Comprehensive Master Report**: [ANTIGRAVITY_RELEASE_FINAL_REPORT.md](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/ANTIGRAVITY_RELEASE_FINAL_REPORT.md).
+- **Master Status Log**: [ANTIGRAVITY_MASTER_STATUS.md](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/ANTIGRAVITY_MASTER_STATUS.md).
+- **Submission Handoff & Cover Letter**: [GUIDE_SUBMISSION_HANDOFF.md](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/GUIDE_SUBMISSION_HANDOFF.md) and [COVER_LETTER_DRAFT.md](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/COVER_LETTER_DRAFT.md).
+
+---
+
+## 2. Completed Test Matrix & Empirical Denominators
+
+All tests were executed locally through Antigravity with strict thread isolation:
+
+1. **Unit Test Suite**: 98/98 unit tests passed cleanly in 21 s ([ANTIGRAVITY_UNIT_TESTS.log](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/ANTIGRAVITY_UNIT_TESTS.log)).
+2. **Statistical Multiplicity Suite (`release_statistics.py`)**: 18 paired contrasts (3 budgets × 3 scheme comparisons × 2 metrics), 10 matched seeds (42–51), 1,024 sign flips each, full-family 18-hypothesis Holm step-down correction ([statistical_robustness.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/statistical_robustness.json)).
+3. **Full Policy Replay (`release_validation.py --phase replay`)**: All 90 saved CNN+DND policies across budgets (2k, 5k, 10k) and schemes (Baseline, Fixed RIS, Joint RIS) reloaded and evaluated for 1,000 greedy slots (90,000 slots total); 360,000 metric values compared against recorded runs with absolute tolerance $< 10^{-10}$ (`all_match=True`, [full_policy_replay.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/full_policy_replay.json)).
+4. **Finite-Grid Sensitivity (`release_validation.py --phase grid`)**: 15 cases (5 geometries × 3 noise offsets), 46,875 discrete action evaluations ([geometry_grid_sensitivity.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/geometry_grid_sensitivity.json)).
+5. **Frozen Policy Zero-Shot Transfer (`release_validation.py --phase transfer`)**: 120 transfer evaluations (30 nominal-trained 10k policies × 4 changed geometries, 200 slots each = 24,000 slots total; [frozen_policy_geometry_transfer.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/frozen_policy_geometry_transfer.json)).
+6. **Calibrated Current-Domain 4-PAM Diagnostic (`run_calibrated_ris_diagnostic.py`)**: 9 scenario/SNR grids (28,125 action evaluations) under an explicit equiprobable Gray 4-PAM channel with independent shared uniform jamming and Gaussian noise ([diagnostic_summary.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/output_figures/ris/calibrated_diagnostic_v1/diagnostic_summary.json) and 9 NPZ files). Numerical quadrature error $< 10^{-8}$, 300k-symbol Monte Carlo BER match $< 0.0025$, colocated secrecy identically 0.000000 bits/use.
+7. **Build Validation (`validate_manuscript_build.py`)**: 337 cryptographic SHA256 hashes matched, zero missing citations, zero overfull boxes, 2 harmless underfull paragraph warnings ([BUILD_VALIDATION.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/BUILD_VALIDATION.json)).
+
+---
+
+## 3. Scientific Conclusions & Interpretation
+
+- **Primary Result (Joint vs. Fixed RIS)**: At 10,000 training slots, joint-minus-fixed utility difference is $+0.0183$ (95% CI $[-0.1677, +0.2043]$, $p=0.8289$). Fixed and joint secrecy metric means are 1.5656 and 1.4839 bps/Hz ($p=0.4182$). Neither comparison provides evidence of joint-control superiority; fixed alignment toward Bob achieves equivalent or numerically higher secrecy while exploring a smaller action space (625 vs. 3,125 actions).
+- **Multiplicity Sensitivity**: Secondary contrasts are sensitive to full-family 18-hypothesis Holm adjustments: fixed secrecy Holm-$t$ $p=0.0696$, joint utility Holm-$t$ $p=0.3166$, and fixed utility Holm sign-flip $p=0.0703$. Blanket claims of significant gains across both metrics are not justified.
+- **Zero-Shot Geometry Transfer**: Discrete geometry-aware oracles maintain positive utility ($0.7119$--$1.0418$), but nominal-trained policies deployed zero-shot without retraining suffer negative utility ($-0.5608$ to $-0.7876$) and large optimality gaps ($>1.6$). In swapped positions, frozen policies suffer secrecy collapse ($R_s=0.0$), whereas the oracle directs reflections toward Eve ($q=2$, utility $+0.7719$). In nearby-Eve and colocated geometries, physical-layer secrecy is identically 0.0000.
+- **Physical 4-PAM Channel Feasibility**: Positive secrecy differences (1.65–1.73 bits/channel use) are QoS-feasible ($P_{b,B} \le 10^{-3}$) only at 20–30 dB reference SNR. At 10 dB SNR, no action meets the QoS constraint. In the colocated setting, secrecy is identically 0.000000 bits/use across all SNRs.
+
+---
+
+## 4. Authorship & Next Author-Only Administrative Steps
+
+### Authorship
+- **Authors**: Mahidul Ahasan, Atikur Rahman, Md Amit Hasan Robi, Md Samiur Rahman Tanim (Assam down town University, Guwahati, India).
+- **Project Guide**: Dr. Rima Deka, Assistant Professor, Department of Electronics, Assam down town University (acknowledged separately as Guide; not an author).
+
+### Administrative Next Steps (for Guide & Authors)
+1. **Target Journal Confirmation**: Select venue based on [GUIDE_SUBMISSION_HANDOFF.md](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/GUIDE_SUBMISSION_HANDOFF.md) (e.g., *Optical and Quantum Electronics* [Springer, no-APC subscription option] or *Photonics* [MDPI, open-access APC]).
+2. **Author Approvals & Declarations**:
+   - Confirm author order and individual affiliation details.
+   - Designate corresponding author and institutional email address.
+   - Finalize formal CRediT contributions, funding/conflict disclosures, and AI-assistance disclosure.
+3. **Data Archival**: Deposit [RIS_FJ_VLC_DRL_reproducibility.zip](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/research_release/RIS_FJ_VLC_DRL_reproducibility.zip) and the 180 checkpoint files (2.06 GB, inventoried in [RELEASE_CHECKPOINT_INVENTORY.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/research_release/RELEASE_CHECKPOINT_INVENTORY.json)) into a public repository (e.g., Zenodo / institutional repository) to receive a public DOI.
+
+All technical documentation, code, test suites, and master handoff records in [Agent.MD](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/Agent.MD), [AUTHOR_REVIEW_NOTES.md](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/AUTHOR_REVIEW_NOTES.md), and [claim_evidence.md](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/claim_evidence.md) have been synchronized.

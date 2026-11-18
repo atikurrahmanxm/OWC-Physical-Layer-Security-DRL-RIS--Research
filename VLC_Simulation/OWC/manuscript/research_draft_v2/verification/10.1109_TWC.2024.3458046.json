@@ -1,0 +1,592 @@
+{
+  "indexed": {
+    "date-parts": [
+      [
+        2026,
+        11,
+        6
+      ]
+    ],
+    "date-time": "2026-11-06T12:57:44Z",
+    "timestamp": 1793969864486,
+    "version": "4.8.0"
+  },
+  "reference-count": 45,
+  "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+  "issue": "12",
+  "license": [
+    {
+      "start": {
+        "date-parts": [
+          [
+            2024,
+            12,
+            1
+          ]
+        ],
+        "date-time": "2024-12-01T00:00:00Z",
+        "timestamp": 1733011200000
+      },
+      "content-version": "vor",
+      "delay-in-days": 0,
+      "URL": "https://ieeexplore.ieee.org/Xplorehelp/downloads/license-information/IEEE.html"
+    },
+    {
+      "start": {
+        "date-parts": [
+          [
+            2024,
+            12,
+            1
+          ]
+        ],
+        "date-time": "2024-12-01T00:00:00Z",
+        "timestamp": 1733011200000
+      },
+      "content-version": "stm-asf",
+      "delay-in-days": 0,
+      "URL": "https://doi.org/10.15223/policy-029"
+    },
+    {
+      "start": {
+        "date-parts": [
+          [
+            2024,
+            12,
+            1
+          ]
+        ],
+        "date-time": "2024-12-01T00:00:00Z",
+        "timestamp": 1733011200000
+      },
+      "content-version": "stm-asf",
+      "delay-in-days": 0,
+      "URL": "https://doi.org/10.15223/policy-037"
+    }
+  ],
+  "funder": [
+    {
+      "DOI": "10.13039/501100001809",
+      "name": "National Natural Science Foundation of China",
+      "doi-asserted-by": "publisher",
+      "award": [
+        "62471414"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "62471414"
+          ]
+        }
+      ],
+      "id": [
+        {
+          "id": "10.13039/501100001809",
+          "id-type": "DOI",
+          "asserted-by": "publisher"
+        }
+      ]
+    },
+    {
+      "DOI": "10.13039/501100001809",
+      "name": "National Natural Science Foundation of China",
+      "doi-asserted-by": "publisher",
+      "award": [
+        "62077040"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "62077040"
+          ]
+        }
+      ],
+      "id": [
+        {
+          "id": "10.13039/501100001809",
+          "id-type": "DOI",
+          "asserted-by": "publisher"
+        }
+      ]
+    },
+    {
+      "DOI": "10.13039/501100021171",
+      "name": "Basic and Applied Basic Research Foundation of Guangdong Province",
+      "doi-asserted-by": "publisher",
+      "award": [
+        "2024A1515030150"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "2024A1515030150"
+          ]
+        }
+      ],
+      "id": [
+        {
+          "id": "10.13039/501100021171",
+          "id-type": "DOI",
+          "asserted-by": "publisher"
+        }
+      ]
+    },
+    {
+      "name": "Natural Science Foundation of Fujian Province of China",
+      "award": [
+        "2023J01001"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "2023J01001"
+          ]
+        }
+      ]
+    },
+    {
+      "DOI": "10.13039/100017357",
+      "name": "Science and Technology Key Project of Fujian Province, China",
+      "doi-asserted-by": "publisher",
+      "award": [
+        "2021HZ021004"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "2021HZ021004"
+          ]
+        }
+      ],
+      "id": [
+        {
+          "id": "10.13039/100017357",
+          "id-type": "DOI",
+          "asserted-by": "publisher"
+        }
+      ]
+    },
+    {
+      "name": "Science and Technology Planning Project of Fujian Province",
+      "award": [
+        "2022I0001"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "2022I0001"
+          ]
+        }
+      ]
+    }
+  ],
+  "content-domain": {
+    "domain": [],
+    "crossmark-restriction": false
+  },
+  "short-container-title": [
+    "IEEE Trans. Wireless Commun."
+  ],
+  "published-print": {
+    "date-parts": [
+      [
+        2024,
+        12
+      ]
+    ]
+  },
+  "DOI": "10.1109/twc.2024.3458046",
+  "type": "journal-article",
+  "created": {
+    "date-parts": [
+      [
+        2024,
+        9,
+        18
+      ]
+    ],
+    "date-time": "2024-09-18T14:04:47Z",
+    "timestamp": 1726668287000
+  },
+  "page": "17915-17928",
+  "source": "Crossref",
+  "is-referenced-by-count": 15,
+  "title": [
+    "Smart Jamming for Secrecy: Deep Reinforcement Learning Enabled Secure Visible Light Communication"
+  ],
+  "prefix": "10.1109",
+  "volume": "23",
+  "author": [
+    {
+      "ORCID": "https://orcid.org/0000-0002-5710-0446",
+      "authenticated-orcid": false,
+      "given": "Sicong",
+      "family": "Liu",
+      "sequence": "first",
+      "affiliation": [
+        {
+          "name": "Department of Information and Communication Engineering, School of Informatics, Xiamen University, Xiamen, China"
+        }
+      ],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Xianbin",
+      "family": "Liu",
+      "sequence": "additional",
+      "affiliation": [
+        {
+          "name": "Department of Information and Communication Engineering, School of Informatics, Xiamen University, Xiamen, China"
+        }
+      ],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "ORCID": "https://orcid.org/0000-0003-4235-9671",
+      "authenticated-orcid": false,
+      "given": "Xiaojiang",
+      "family": "Du",
+      "sequence": "additional",
+      "affiliation": [
+        {
+          "name": "Department of Electrical and Computer Engineering, Stevens Institute of Technology, Hoboken, NJ, USA"
+        }
+      ],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "ORCID": "https://orcid.org/0000-0002-8972-8094",
+      "authenticated-orcid": false,
+      "given": "Mohsen",
+      "family": "Guizani",
+      "sequence": "additional",
+      "affiliation": [
+        {
+          "name": "Department of Machine Learning, Mohamed bin Zayed University of Artificial Intelligence, Abu Dhabi, United Arab Emirates"
+        }
+      ],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    }
+  ],
+  "member": "263",
+  "reference": [
+    {
+      "key": "ref1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.23919/ICN.2021.0017"
+    },
+    {
+      "key": "ref2",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/COMST.2020.2988615"
+    },
+    {
+      "key": "ref3",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JLT.2015.2510021"
+    },
+    {
+      "key": "ref4",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSAC.2017.2774429"
+    },
+    {
+      "key": "ref5",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TWC.2020.2986964"
+    },
+    {
+      "key": "ref6",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSAC.2022.3145818"
+    },
+    {
+      "key": "ref7",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/COMST.2015.2476474"
+    },
+    {
+      "key": "ref8",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1364/OE.26.000311"
+    },
+    {
+      "key": "ref9",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOMW.2014.7063485"
+    },
+    {
+      "key": "ref10",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2660267.2660358"
+    },
+    {
+      "key": "ref11",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/SURV.2011.122211.00162"
+    },
+    {
+      "key": "ref12",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/SURV.2014.012314.00178"
+    },
+    {
+      "key": "ref13",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/MWC.2012.6155875"
+    },
+    {
+      "key": "ref14",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSAC.2013.130917"
+    },
+    {
+      "key": "ref15",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GlobalSIP.2015.7418381"
+    },
+    {
+      "key": "ref16",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JPHOT.2021.3060974"
+    },
+    {
+      "key": "ref17",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TCOMM.2018.2831687"
+    },
+    {
+      "key": "ref18",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSAC.2015.2432513"
+    },
+    {
+      "key": "ref19",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JPHOT.2016.2598684"
+    },
+    {
+      "key": "ref20",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TCOMM.2019.2930247"
+    },
+    {
+      "key": "ref21",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TNN.1998.712192"
+    },
+    {
+      "key": "ref22",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JIOT.2020.3040957"
+    },
+    {
+      "key": "ref23",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSAC.2020.3000416"
+    },
+    {
+      "key": "ref24",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSAC.2022.3142348"
+    },
+    {
+      "key": "ref25",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSAC.2019.2904366"
+    },
+    {
+      "key": "ref26",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JPHOT.2022.3178852"
+    },
+    {
+      "key": "ref27",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TII.2019.2933867"
+    },
+    {
+      "key": "ref28",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JPHOT.2021.3139678"
+    },
+    {
+      "key": "ref29",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TCOMM.2022.3211083"
+    },
+    {
+      "key": "ref30",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/OJCOMS.2022.3219014"
+    },
+    {
+      "key": "ref31",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JIOT.2023.3279925"
+    },
+    {
+      "key": "ref32",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TWC.2015.2510643"
+    },
+    {
+      "key": "ref33",
+      "first-page": "2827",
+      "article-title": "Neural episodic control",
+      "volume-title": "Proc. Int. Conf. Mach. Learn.",
+      "volume": "70",
+      "author": "Pritzel"
+    },
+    {
+      "key": "ref34",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICC45855.2022.9838520"
+    },
+    {
+      "key": "ref35",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JPHOT.2017.2768435"
+    },
+    {
+      "key": "ref36",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSAC.2009.091215"
+    },
+    {
+      "key": "ref37",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TCE.2004.1277847"
+    },
+    {
+      "key": "ref38",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1038/nature14236"
+    },
+    {
+      "key": "ref39",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TWC.2019.2945951"
+    },
+    {
+      "key": "ref40",
+      "first-page": "4868",
+      "article-title": "Is Q-learning provably efficient?",
+      "volume-title": "Proc. Adv. Neural Inf. Process. Syst. (NeurIPS)",
+      "author": "Jin"
+    },
+    {
+      "key": "ref41",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICRA.2016.7487486"
+    },
+    {
+      "key": "ref42",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TCOMM.2018.2817222"
+    },
+    {
+      "key": "ref43",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TIFS.2019.2904440"
+    },
+    {
+      "key": "ref44",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1162/neco.1994.6.6.1185"
+    },
+    {
+      "key": "ref45",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/CVPR.2015.7299173"
+    }
+  ],
+  "container-title": [
+    "IEEE Transactions on Wireless Communications"
+  ],
+  "original-title": [],
+  "link": [
+    {
+      "URL": "http://xplorestaging.ieee.org/ielx8/7693/10794197/10684100.pdf?arnumber=10684100",
+      "content-type": "unspecified",
+      "content-version": "vor",
+      "intended-application": "similarity-checking"
+    }
+  ],
+  "deposited": {
+    "date-parts": [
+      [
+        2024,
+        12,
+        12
+      ]
+    ],
+    "date-time": "2024-12-12T14:28:43Z",
+    "timestamp": 1734013723000
+  },
+  "score": 1,
+  "resource": {
+    "primary": {
+      "URL": "https://ieeexplore.ieee.org/document/10684100/"
+    }
+  },
+  "subtitle": [],
+  "short-title": [],
+  "issued": {
+    "date-parts": [
+      [
+        2024,
+        12
+      ]
+    ]
+  },
+  "references-count": 45,
+  "journal-issue": {
+    "issue": "12"
+  },
+  "URL": "https://doi.org/10.1109/twc.2024.3458046",
+  "relation": {},
+  "ISSN": [
+    "1536-1276",
+    "1558-2248"
+  ],
+  "issn-type": [
+    {
+      "value": "1536-1276",
+      "type": "print"
+    },
+    {
+      "value": "1558-2248",
+      "type": "electronic"
+    }
+  ],
+  "subject": [],
+  "published": {
+    "date-parts": [
+      [
+        2024,
+        12
+      ]
+    ]
+  }
+}

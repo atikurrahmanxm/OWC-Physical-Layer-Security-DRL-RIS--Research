@@ -1,0 +1,53 @@
+warning: --mode auto is not available for this account; continuing in the default mode.
+root agent idle; waiting for 1 background task(s) to finish
+I have launched the full unit test discovery suite (`python -B -m unittest discover -s tests -v`) with single-threaded PyTorch/BLAS execution configured. The execution is running in the background, and exact command details, duration, exit code, and complete test output will be captured directly in `manuscript/research_draft_v2/release_audit/ANTIGRAVITY_UNIT_TESTS.log`. Once complete, I will verify the results and write `ANTIGRAVITY_TEST_STATUS.md`.
+Running the clean Python subprocess unit test discovery suite to capture the raw unformatted stream in `ANTIGRAVITY_UNIT_TESTS.log`. Waiting for execution to complete.
+# Antigravity Release Testing — First Task Execution Report
+
+The full existing unit test discovery suite has been executed from the project root (`D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC`) under strict single-threaded BLAS/PyTorch execution constraints.
+
+---
+
+### Execution Details & Results
+
+- **Command**: `python -B -m unittest discover -s tests -v`
+- **Concurrency**: Single-threaded (`OMP_NUM_THREADS=1`, `MKL_NUM_THREADS=1`, `OPENBLAS_NUM_THREADS=1`, `TORCH_NUM_THREADS=1`)
+- **Exit Status**: `0`
+- **Duration**: `30.058 s` (unittest discovery runtime: `25.326 s`)
+- **Total Tests Executed**: **98**
+- **Passed**: **98** (`OK`)
+- **Failures**: `0`
+- **Errors**: `0`
+- **Tracebacks**: None
+
+---
+
+### Test Suite Breakdown (98 Tests across 9 Modules)
+
+1. [test_matched_budget_runner.py](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/tests/test_matched_budget_runner.py) (**4 tests**):
+   - Verified atomic execution, checkpoint serialization (`.pt` weights and `.json` DND memory), runtime manifest derivation ($z = 2.6\text{ m}$), and identical feature extraction architecture across Baseline, Fixed RIS, and Joint RIS (`cnn_m0=11`, 2,560 features, 497,000 parameters).
+2. [test_paper_regressions.py](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/tests/test_paper_regressions.py) (**16 tests**):
+   - Verified action/noise validation, batched DND lookups, BER channel squaring parity, deterministic action recording, L1 energy penalty bounds, Zero-Forcing orthogonal nulling, and bound coverage.
+3. [test_physical_model.py](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/tests/test_physical_model.py) (**14 tests**):
+   - Verified Gray PAM Gaussian BER, AWGN mutual information integration, current unit consistency ($A^2/\Omega$), and physical parameter sanity.
+4. [test_published_targets.py](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/tests/test_published_targets.py) (**6 tests**):
+   - Verified published vector target metrics, noise round-trip invariants, and non-certification boundaries.
+5. [test_ris_environment.py](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/tests/test_ris_environment.py) (**11 tests**):
+   - Verified zero secrecy for colocated Bob/Eve, dry evaluation immutability, discrete categorical joint action encoding ($|\mathcal{A}|=3,125$), and exact paper reduction when RIS is off.
+6. [test_ris_optics.py](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/tests/test_ris_optics.py) (**13 tests**):
+   - Verified finite mirror integration, FoV cutoff geometry, specular normal vector consistency, mirror tile subdivision gain conservation, and energy bounds.
+7. [test_ris_study.py](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/tests/test_ris_study.py) (**7 tests**):
+   - Verified evaluation determinism, paired difference calculations, Student-$t$ confidence intervals, and exploration/outage accounting.
+8. [test_supervisor_demo.py](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/tests/test_supervisor_demo.py) (**5 tests**):
+   - Verified demo service endpoints, cross-origin protection, and dynamic JSON binding routes.
+9. [test_vlc_paper.py](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/tests/test_vlc_paper.py) (**21 tests**):
+   - Verified paper equations 1, 4, 5, 6, 7, 8, 9, 10–12, 14–15, 16, Corollary 1, and FeatureCNN forward propagation.
+
+---
+
+### Artifacts Delivered
+
+- **Raw Execution Log**: [ANTIGRAVITY_UNIT_TESTS.log](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/ANTIGRAVITY_UNIT_TESTS.log)
+- **Status Summary**: [ANTIGRAVITY_TEST_STATUS.md](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/ANTIGRAVITY_TEST_STATUS.md)
+
+No simulator code, raw simulation records, or manuscript texts were modified. No long retraining was initiated, and no Git commits or external pushes were performed. Ready for further release-validation tasks as coordinated.

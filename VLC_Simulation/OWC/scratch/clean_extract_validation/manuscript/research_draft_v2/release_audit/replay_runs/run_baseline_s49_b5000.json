@@ -1,0 +1,32 @@
+{
+  "run": "run_baseline_s49_b5000.json",
+  "scheme": "baseline",
+  "budget": 5000,
+  "seed": 49,
+  "slots": 1000,
+  "metrics_match": true,
+  "max_absolute_errors": {
+    "utility": 0.0,
+    "secrecy_rate": 0.0,
+    "ber": 0.0,
+    "energy": 0.0
+  },
+  "first_action_match": true,
+  "q_counts": {
+    "0": 1000
+  },
+  "recorded_q_counts": {
+    "0": 1000
+  },
+  "q_counts_match": true,
+  "recorded_chosen_q": 0,
+  "actual_modal_q": 0,
+  "metric_array_sha256": {
+    "utility": "d84f76169f44e70720f603a91717925adb5c923e24a52639d33b4220d7087390",
+    "secrecy_rate": "5f4c2c11222b8e7908fe4850c03d7524602cdf9248334b4c2843e4568d011ad1",
+    "ber": "668946bab9868b28489bb906205ee1026045c8bcd3ca62a1bdf733c65491351b",
+    "energy": "cc79b7bdf67813ed07b4760dee539c0968ba3be81ad3af8d62785ef6a345a6da"
+  },
+  "elapsed_seconds": 5.33187899999939,
+  "source_run_sha256": "6e4ce6a32a74f8847f38931f8629b0004227c061952f57df22f857b4013e9a9e"
+}

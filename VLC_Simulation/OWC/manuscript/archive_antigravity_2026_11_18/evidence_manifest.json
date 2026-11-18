@@ -1,0 +1,41 @@
+{
+  "study_name": "Controlled Matched Training-Budget Empirical Study (Protocol v2)",
+  "git_commit": "a6d4304192cb9e6a2881aa4649ea436d2d81d8d2",
+  "total_runs": 90,
+  "policy_checkpoints": 90,
+  "dnd_checkpoints": 90,
+  "architecture_invariants": {
+    "cnn_m0": 11,
+    "in_fc1": 2560,
+    "feature_cnn_params": 497000,
+    "energy_model": "l1"
+  },
+  "runtime_geometry": {
+    "room": [
+      5.0,
+      5.0,
+      3.0
+    ],
+    "alice": [
+      2.5,
+      2.5,
+      3.0
+    ],
+    "bob": [
+      1.8,
+      1.6,
+      0.85
+    ],
+    "eve": [
+      3.2,
+      3.4,
+      0.85
+    ],
+    "ris_center": [
+      2.5,
+      0.25,
+      2.6
+    ]
+  },
+  "verification_timestamp": "2026-11-18 04:50:23 +05:30"
+}

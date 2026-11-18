@@ -1,0 +1,1240 @@
+{
+  "indexed": {
+    "date-parts": [
+      [
+        2026,
+        11,
+        14
+      ]
+    ],
+    "date-time": "2026-11-14T03:27:33Z",
+    "timestamp": 1794626853161,
+    "version": "4.9.1"
+  },
+  "reference-count": 197,
+  "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+  "issue": "4",
+  "license": [
+    {
+      "start": {
+        "date-parts": [
+          [
+            2015,
+            1,
+            1
+          ]
+        ],
+        "date-time": "2015-01-01T00:00:00Z",
+        "timestamp": 1420070400000
+      },
+      "content-version": "vor",
+      "delay-in-days": 0,
+      "URL": "https://ieeexplore.ieee.org/Xplorehelp/downloads/license-information/IEEE.html"
+    }
+  ],
+  "content-domain": {
+    "domain": [],
+    "crossmark-restriction": false
+  },
+  "short-container-title": [
+    "IEEE Commun. Surv. Tutorials"
+  ],
+  "published-print": {
+    "date-parts": [
+      [
+        2015
+      ]
+    ]
+  },
+  "DOI": "10.1109/comst.2015.2476474",
+  "type": "journal-article",
+  "created": {
+    "date-parts": [
+      [
+        2015,
+        9,
+        3
+      ]
+    ],
+    "date-time": "2015-09-03T14:40:10Z",
+    "timestamp": 1441291210000
+  },
+  "page": "2047-2077",
+  "source": "Crossref",
+  "is-referenced-by-count": 1458,
+  "title": [
+    "Visible Light Communication, Networking, and Sensing: A Survey, Potential and Challenges"
+  ],
+  "prefix": "10.1109",
+  "volume": "17",
+  "author": [
+    {
+      "given": "Parth H.",
+      "family": "Pathak",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Xiaotao",
+      "family": "Feng",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Pengfei",
+      "family": "Hu",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "given": "Prasant",
+      "family": "Mohapatra",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    }
+  ],
+  "member": "263",
+  "reference": [
+    {
+      "key": "ref170",
+      "first-page": "1103",
+      "article-title": "Modeling vehicle-to-vehicle visible light communication link duration with empirical data",
+      "author": "wu",
+      "year": "0",
+      "journal-title": "Proc IEEE GC Wkshps"
+    },
+    {
+      "key": "ref172",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/MCOM.2013.6685757"
+    },
+    {
+      "key": "ref171",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2462456.2465707"
+    },
+    {
+      "key": "ref174",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/MCOM.2014.6852088"
+    },
+    {
+      "key": "ref173",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JPHOT.2013.2277881"
+    },
+    {
+      "key": "ref176",
+      "first-page": "303",
+      "article-title": "Bringing gesture recognition to all devices",
+      "author": "kellogg",
+      "year": "0",
+      "journal-title": "Proc 11th USENIX Symp NSDI"
+    },
+    {
+      "key": "ref175",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2643614.2643620"
+    },
+    {
+      "key": "ref178",
+      "year": "0"
+    },
+    {
+      "key": "ref177",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2619239.2626330"
+    },
+    {
+      "key": "ref168",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TVT.2011.2168836"
+    },
+    {
+      "key": "ref169",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2030698.2030705"
+    },
+    {
+      "key": "ref39",
+      "first-page": "1",
+      "article-title": "230 Mbit/s via a wireless visible-light link based on OOK modulation of phosphorescent white LEDs",
+      "author": "vucic",
+      "year": "0",
+      "journal-title": "Proc Conf OFC/NFOEC"
+    },
+    {
+      "key": "ref38",
+      "first-page": "1",
+      "article-title": "125 Mbit/s over 5 m wireless distance by use of OOK-Modulated phosphorescent white LEDs",
+      "author": "vucic",
+      "year": "0",
+      "journal-title": "Proc 35th ECOC"
+    },
+    {
+      "key": "ref33",
+      "author": "rea",
+      "year": "2000",
+      "journal-title": "The IESNA Lighting Handbook Reference & Application"
+    },
+    {
+      "key": "ref32",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ISWCS.2004.1407204"
+    },
+    {
+      "key": "ref31",
+      "author": "ghassemlooy",
+      "year": "2012",
+      "journal-title": "Optical Wireless Communications System and Channel Modelling with MATLAB"
+    },
+    {
+      "key": "ref30",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1155/2014/905916"
+    },
+    {
+      "key": "ref37",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/LPT.2008.926030"
+    },
+    {
+      "key": "ref36",
+      "first-page": "311",
+      "article-title": "Information broadcasting system based on visible light signboard",
+      "author": "park",
+      "year": "2007",
+      "journal-title": "Optical Wireless Communication"
+    },
+    {
+      "key": "ref35",
+      "first-page": "1",
+      "article-title": "Wireless high-speed data transmission with phosphorescent white-light LEDs",
+      "author": "grubor",
+      "year": "0",
+      "journal-title": "Proc 33rd Eur Conf Exhib Opt Commun &#x2014;Post-Deadline Papers (published 2008)"
+    },
+    {
+      "key": "ref34",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1097/00006324-199108000-00012"
+    },
+    {
+      "key": "ref181",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2380116.2380166"
+    },
+    {
+      "key": "ref180",
+      "first-page": "175",
+      "volume": "2864",
+      "author": "dietz",
+      "year": "0",
+      "journal-title": "Proc UbiComp"
+    },
+    {
+      "key": "ref185",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2801073.2801078"
+    },
+    {
+      "key": "ref184",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2789168.2790110"
+    },
+    {
+      "key": "ref183",
+      "first-page": "55",
+      "article-title": "Visible light networking and sensing",
+      "author": "zhou",
+      "year": "0",
+      "journal-title": "Proc 1st ACM Workshop HotWireless"
+    },
+    {
+      "key": "ref182",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2789168.2790115"
+    },
+    {
+      "key": "ref189",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/MASS.2014.76"
+    },
+    {
+      "key": "ref188",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOMW.2011.6162563"
+    },
+    {
+      "key": "ref187",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/IIT.2007.4430363"
+    },
+    {
+      "key": "ref186",
+      "first-page": "291",
+      "article-title": "Integration of indoor visible light and power line communication systems",
+      "author": "ma",
+      "year": "0",
+      "journal-title": "Proc 17th IEEE ISPLC"
+    },
+    {
+      "key": "ref28",
+      "author": "cui",
+      "year": "2012",
+      "journal-title": "Physical Layer Characteristics and Techniques for Visible Light Communications"
+    },
+    {
+      "key": "ref27",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/LCOMM.2011.010411.101945"
+    },
+    {
+      "key": "ref179",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2030112.2030122"
+    },
+    {
+      "key": "ref29",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1186/1687-1499-2012-370"
+    },
+    {
+      "key": "ref20",
+      "author": "wyszecki",
+      "year": "2000",
+      "journal-title": "Color Science Concepts and Methods Quantitative Data and Formulae"
+    },
+    {
+      "key": "ref22",
+      "year": "0"
+    },
+    {
+      "key": "ref21",
+      "year": "0"
+    },
+    {
+      "key": "ref24",
+      "first-page": "621",
+      "article-title": "Line-of-sight visible light communication system design and demonstration",
+      "author": "cui",
+      "year": "0",
+      "journal-title": "Proc 7th Int Symp CSNDSP"
+    },
+    {
+      "key": "ref23",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TCE.2004.1277847"
+    },
+    {
+      "key": "ref26",
+      "article-title": "LIPS: A light intensity based positioning system for indoor environments",
+      "author": "xie",
+      "year": "2014",
+      "journal-title": "arXiv preprint arXiv 1403 2331"
+    },
+    {
+      "key": "ref25",
+      "year": "0",
+      "journal-title": "Spectral Response of a Photodiode"
+    },
+    {
+      "key": "ref50",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOM.1998.775725"
+    },
+    {
+      "key": "ref51",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/4234.824755"
+    },
+    {
+      "key": "ref154",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JLT.2014.2327623"
+    },
+    {
+      "key": "ref153",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOM.2012.6503631"
+    },
+    {
+      "key": "ref156",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/1859995.1860008"
+    },
+    {
+      "key": "ref155",
+      "year": "0",
+      "journal-title": "Bytelight&#x2014;Scalable Indoor Localization with LED"
+    },
+    {
+      "key": "ref150",
+      "first-page": "331",
+      "article-title": "Epsilon: A visible light based positioning system",
+      "author": "li",
+      "year": "0",
+      "journal-title": "Proc 11th USENIX Symp NSDI"
+    },
+    {
+      "key": "ref152",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/IPSN.2014.6846757"
+    },
+    {
+      "key": "ref151",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2639108.2639109"
+    },
+    {
+      "key": "ref146",
+      "first-page": "1",
+      "article-title": "Demonstration of a software defined visible light communication system",
+      "author": "rahaim",
+      "year": "0",
+      "journal-title": "Proc 17th Annu Int Conf Mobicom"
+    },
+    {
+      "key": "ref147",
+      "first-page": "1",
+      "article-title": "Software defined visible light communication",
+      "author": "rahaim",
+      "year": "0",
+      "journal-title": "Proc WInnComm SDR"
+    },
+    {
+      "key": "ref148",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/1859995.1860016"
+    },
+    {
+      "key": "ref149",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2462456.2464463"
+    },
+    {
+      "key": "ref59",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/18.21255"
+    },
+    {
+      "key": "ref58",
+      "first-page": "1133",
+      "article-title": "Error performance of overlapping multi-pulse pulse position modulation (OMPPM) and trellis coded OMPPM in optical direct-detection channel",
+      "volume": "77",
+      "author": "ohtsuki",
+      "year": "1994",
+      "journal-title": "IEICE Trans Commun"
+    },
+    {
+      "key": "ref57",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICC.1994.368798"
+    },
+    {
+      "key": "ref56",
+      "first-page": "1298",
+      "article-title": "Capacity and cutoff rate of overlapping multi-pulse pulse position modulation (OMPPM) in optical direct-detection channel: Quantum-limited case",
+      "volume": "77",
+      "author": "ohtsuki",
+      "year": "1994",
+      "journal-title": "IEICE Trans Fundam Electron Commun Comput Sci"
+    },
+    {
+      "key": "ref55",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ISIT.1994.394890"
+    },
+    {
+      "key": "ref54",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICC.1993.397452"
+    },
+    {
+      "key": "ref53",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/50.16882"
+    },
+    {
+      "key": "ref52",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/WOCC.2010.5510410"
+    },
+    {
+      "key": "ref40",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1364/NFOEC.2013.JTh2A.73"
+    },
+    {
+      "key": "ref167",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/CCNC.2014.6866634"
+    },
+    {
+      "key": "ref166",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/VETECF.2007.456"
+    },
+    {
+      "key": "ref165",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/INFOCOM.2014.6848214"
+    },
+    {
+      "key": "ref164",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2639108.2639132"
+    },
+    {
+      "key": "ref163",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2639108.2639135"
+    },
+    {
+      "key": "ref162",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2721896.2721910"
+    },
+    {
+      "key": "ref161",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2643164.2643169"
+    },
+    {
+      "key": "ref160",
+      "first-page": "15",
+      "article-title": "Lightsync: Unsynchronized visual communication over screen-camera links",
+      "author": "hu",
+      "year": "0",
+      "journal-title": "Proc 19th Annu Int Conf Mobile Comput Netw"
+    },
+    {
+      "key": "ref4",
+      "year": "0"
+    },
+    {
+      "key": "ref3",
+      "year": "0"
+    },
+    {
+      "key": "ref6",
+      "year": "0"
+    },
+    {
+      "key": "ref5",
+      "year": "0"
+    },
+    {
+      "key": "ref8",
+      "year": "2011"
+    },
+    {
+      "key": "ref159",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2307636.2307645"
+    },
+    {
+      "key": "ref7",
+      "year": "0"
+    },
+    {
+      "key": "ref49",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/VETEC.1996.504015"
+    },
+    {
+      "key": "ref157",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/PerCom.2014.6813951"
+    },
+    {
+      "key": "ref9",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/COMST.2015.2417576"
+    },
+    {
+      "key": "ref158",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/1859995.1860012"
+    },
+    {
+      "key": "ref46",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JLT.2010.2089602"
+    },
+    {
+      "key": "ref45",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICWMC.2007.26"
+    },
+    {
+      "key": "ref48",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/26.780456"
+    },
+    {
+      "key": "ref47",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/18.333850"
+    },
+    {
+      "key": "ref42",
+      "author": "kaur",
+      "year": "0",
+      "journal-title": "VLC dimming support IEEE 802 15-09-0641-00-0007"
+    },
+    {
+      "key": "ref41",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/IAS.2003.1257549"
+    },
+    {
+      "key": "ref44",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1364/JOCN.3.000056"
+    },
+    {
+      "key": "ref43",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/LPT.2010.2062498"
+    },
+    {
+      "key": "ref73",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JPHOT.2012.2210397"
+    },
+    {
+      "key": "ref72",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/OECC.2012.6276607"
+    },
+    {
+      "key": "ref71",
+      "first-page": "25",
+      "article-title": "Practical considerations for indoor wireless optical system implementation using OFDM",
+      "author": "elgala",
+      "year": "0",
+      "journal-title": "Proc 10th ConTEL"
+    },
+    {
+      "key": "ref70",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/WOCN.2009.5010576"
+    },
+    {
+      "key": "ref76",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOMW.2012.6477755"
+    },
+    {
+      "key": "ref77",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JLT.2014.2314358"
+    },
+    {
+      "key": "ref74",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/LPT.2013.2297621"
+    },
+    {
+      "key": "ref75",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOMW.2010.5700472"
+    },
+    {
+      "key": "ref78",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JLT.2014.2328866"
+    },
+    {
+      "key": "ref79",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/MCOM.2012.6163585"
+    },
+    {
+      "key": "ref60",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICC.1994.368797"
+    },
+    {
+      "key": "ref62",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JLT.2013.2293341"
+    },
+    {
+      "key": "ref61",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/LCOMM.2012.042512.120457"
+    },
+    {
+      "key": "ref63",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOM.2012.6503562"
+    },
+    {
+      "key": "ref64",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TRIDNT.2006.1649137"
+    },
+    {
+      "key": "ref65",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1049/el:20063636"
+    },
+    {
+      "key": "ref66",
+      "first-page": "2185",
+      "article-title": "OFDM visible light wireless communication based on white LEDs",
+      "author": "elgala",
+      "year": "0",
+      "journal-title": "Proc IEEE 65th VTC-Spring"
+    },
+    {
+      "key": "ref67",
+      "first-page": "2440",
+      "article-title": "Indoor visible light data transmission system utilizing white LED lights",
+      "volume": "86",
+      "author": "tanaka",
+      "year": "2003",
+      "journal-title": "IEICE Trans Commun"
+    },
+    {
+      "key": "ref68",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/WCNC.2012.6213920"
+    },
+    {
+      "key": "ref69",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/MCOM.2014.6852089"
+    },
+    {
+      "key": "ref197",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2801073.2801075"
+    },
+    {
+      "key": "ref193",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/PIMRC.2008.4699964"
+    },
+    {
+      "key": "ref194",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1007/978-1-4020-5979-7_32"
+    },
+    {
+      "key": "ref195",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/HICSS.2003.1174876"
+    },
+    {
+      "key": "ref196",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/35.917505"
+    },
+    {
+      "key": "ref95",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOM.2011.6133552"
+    },
+    {
+      "key": "ref94",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOM.2012.6503746"
+    },
+    {
+      "key": "ref190",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1117/12.2025386"
+    },
+    {
+      "key": "ref93",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1364/JOCN.3.000234"
+    },
+    {
+      "key": "ref191",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICTON.2007.4296267"
+    },
+    {
+      "key": "ref92",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/VTC.2001.956483"
+    },
+    {
+      "key": "ref192",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2643164.2643166"
+    },
+    {
+      "key": "ref91",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1093/ietcom/e89-b.4.1364"
+    },
+    {
+      "key": "ref90",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICC.2005.1494491"
+    },
+    {
+      "key": "ref98",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/WSA.2010.5456378"
+    },
+    {
+      "key": "ref99",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/WCNC.2014.6952042"
+    },
+    {
+      "key": "ref96",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/WCNC.2014.6952040"
+    },
+    {
+      "key": "ref97",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOMW.2010.5700474"
+    },
+    {
+      "key": "ref82",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1364/OFC.2011.OWB6"
+    },
+    {
+      "key": "ref81",
+      "year": "0",
+      "journal-title": "CIE 1931 Chromaticity diagram"
+    },
+    {
+      "key": "ref84",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSAC.2009.091215"
+    },
+    {
+      "key": "ref83",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1364/OFC.2013.OTh1G.4"
+    },
+    {
+      "key": "ref80",
+      "author": "yokoi",
+      "year": "0",
+      "journal-title": "CSK Constellation in All Color Band Combinations"
+    },
+    {
+      "key": "ref89",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOM.2004.1378096"
+    },
+    {
+      "key": "ref85",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ACSSC.2009.5470195"
+    },
+    {
+      "key": "ref86",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/VTCSpring.2013.6692720"
+    },
+    {
+      "key": "ref87",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2643164.2643172"
+    },
+    {
+      "key": "ref88",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TCOMM.2012.120512.110578"
+    },
+    {
+      "key": "ref101",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/CSNDSP.2012.6292784"
+    },
+    {
+      "key": "ref100",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TCOMM.2010.091710.090598"
+    },
+    {
+      "key": "ref127",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICCChina.2014.7008259"
+    },
+    {
+      "key": "ref126",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JPHOT.2013.2274766"
+    },
+    {
+      "key": "ref125",
+      "first-page": "541",
+      "article-title": "Performance of precoding multi-user MIMO indoor visible light communications",
+      "author": "chen",
+      "year": "0",
+      "journal-title": "Proc IEEE IPC"
+    },
+    {
+      "key": "ref124",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICASSP.2013.6638582"
+    },
+    {
+      "key": "ref129",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1364/OE.20.004564"
+    },
+    {
+      "key": "ref128",
+      "author": "haas",
+      "year": "0",
+      "journal-title": "PureLiFi Attocell"
+    },
+    {
+      "key": "ref130",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1364/OE.20.004564"
+    },
+    {
+      "key": "ref133",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1186/1687-1499-2012-131"
+    },
+    {
+      "key": "ref134",
+      "first-page": "15",
+      "article-title": "OpenVLC: Software-defined visible light embedded networks",
+      "author": "wang",
+      "year": "0",
+      "journal-title": "Proc 1st ACM MobiCom Workshop VLCS"
+    },
+    {
+      "key": "ref131",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICWMC.2010.67"
+    },
+    {
+      "key": "ref132",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOM.1996.591910"
+    },
+    {
+      "key": "ref136",
+      "author": "klaver",
+      "year": "2014",
+      "journal-title": "Design of a network stack for directional visible light communication"
+    },
+    {
+      "key": "ref135",
+      "year": "0",
+      "journal-title": "Beaglebone Black"
+    },
+    {
+      "key": "ref138",
+      "year": "0"
+    },
+    {
+      "key": "ref137",
+      "year": "0"
+    },
+    {
+      "key": "ref139",
+      "year": "0"
+    },
+    {
+      "key": "ref140",
+      "year": "0"
+    },
+    {
+      "key": "ref141",
+      "first-page": "2434",
+      "article-title": "Dancing with light: Predictive in-frame rate selection for visible light networks",
+      "author": "wang",
+      "year": "0",
+      "journal-title": "Proc IEEE InfoCom"
+    },
+    {
+      "key": "ref142",
+      "first-page": "2434",
+      "article-title": "A software-defined visible light communications system with WARP",
+      "author": "knightly",
+      "year": "0",
+      "journal-title": "Proc 1st ACM Workshop Visible Light Commun Syst"
+    },
+    {
+      "key": "ref143",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/MWC.2015.7096291"
+    },
+    {
+      "key": "ref2",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/PIMRC.2000.881634"
+    },
+    {
+      "key": "ref144",
+      "year": "0"
+    },
+    {
+      "key": "ref1",
+      "year": "0",
+      "journal-title": "Energy Savings Forecast of Solid-State Lighting in General Illumination Applications"
+    },
+    {
+      "key": "ref145",
+      "year": "0"
+    },
+    {
+      "key": "ref109",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOMW.2013.6825144"
+    },
+    {
+      "key": "ref108",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JLT.2014.2308282"
+    },
+    {
+      "key": "ref107",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/WCSP.2012.6542858"
+    },
+    {
+      "key": "ref106",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2674005.2675000"
+    },
+    {
+      "key": "ref105",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1145/2491288.2491293"
+    },
+    {
+      "key": "ref104",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1007/s11277-014-1774-3"
+    },
+    {
+      "key": "ref103",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICUFN.2013.6614842"
+    },
+    {
+      "key": "ref102",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICC.2007.407"
+    },
+    {
+      "key": "ref111",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/26.31182"
+    },
+    {
+      "key": "ref112",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1049/el.2011.4035"
+    },
+    {
+      "key": "ref110",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/26.31181"
+    },
+    {
+      "key": "ref10",
+      "article-title": "Light fidelity (Li-Fi): Towards all-optical networking",
+      "author": "tsonev",
+      "year": "0",
+      "journal-title": "Proc SPIE OPTO"
+    },
+    {
+      "key": "ref11",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/SURV.2013.032713.00150"
+    },
+    {
+      "key": "ref12",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/COMST.2014.2329501"
+    },
+    {
+      "key": "ref13",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/CNSR.2011.38"
+    },
+    {
+      "key": "ref14",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.3923/jeasci.2010.296.307"
+    },
+    {
+      "key": "ref15",
+      "year": "0",
+      "journal-title": "Deviant Art"
+    },
+    {
+      "key": "ref16",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOMW.2012.6477759"
+    },
+    {
+      "key": "ref118",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1364/JOCN.4.000989"
+    },
+    {
+      "key": "ref17",
+      "author": "zukauskas",
+      "year": "2002",
+      "journal-title": "Introduction to Solid-State Lighting"
+    },
+    {
+      "key": "ref117",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/WTS.2011.5960840"
+    },
+    {
+      "key": "ref18",
+      "year": "1931",
+      "journal-title": "Commission Internationale de lEclairage Proc"
+    },
+    {
+      "key": "ref19",
+      "year": "0",
+      "journal-title": "Cree XLamp XP-E High-Efficiency White"
+    },
+    {
+      "key": "ref119",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ACSSC.2014.7094763"
+    },
+    {
+      "key": "ref114",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JLT.2013.2295512"
+    },
+    {
+      "key": "ref113",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOM.2006.40"
+    },
+    {
+      "key": "ref116",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1049/iet-com.2008.0408"
+    },
+    {
+      "key": "ref115",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/GLOCOM.2013.6831439"
+    },
+    {
+      "key": "ref120",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JPHOT.2014.2374612"
+    },
+    {
+      "key": "ref121",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/IWOBI.2014.6913949"
+    },
+    {
+      "key": "ref122",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1016/j.optcom.2014.09.072"
+    },
+    {
+      "key": "ref123",
+      "author": "hanzo",
+      "year": "2005",
+      "journal-title": "OFDM and MC-CDMA for Broadband Multi-User Communications WLANs and Broadcasting"
+    }
+  ],
+  "container-title": [
+    "IEEE Communications Surveys &amp; Tutorials"
+  ],
+  "original-title": [],
+  "link": [
+    {
+      "URL": "http://xplorestaging.ieee.org/ielx7/9739/7331734/07239528.pdf?arnumber=7239528",
+      "content-type": "unspecified",
+      "content-version": "vor",
+      "intended-application": "similarity-checking"
+    }
+  ],
+  "deposited": {
+    "date-parts": [
+      [
+        2022,
+        1,
+        12
+      ]
+    ],
+    "date-time": "2022-01-12T11:45:38Z",
+    "timestamp": 1641987938000
+  },
+  "score": 1,
+  "resource": {
+    "primary": {
+      "URL": "http://ieeexplore.ieee.org/document/7239528/"
+    }
+  },
+  "subtitle": [],
+  "short-title": [],
+  "issued": {
+    "date-parts": [
+      [
+        2015
+      ]
+    ]
+  },
+  "references-count": 197,
+  "journal-issue": {
+    "issue": "4"
+  },
+  "URL": "https://doi.org/10.1109/comst.2015.2476474",
+  "relation": {},
+  "ISSN": [
+    "1553-877X"
+  ],
+  "issn-type": [
+    {
+      "value": "1553-877X",
+      "type": "electronic"
+    }
+  ],
+  "subject": [],
+  "published": {
+    "date-parts": [
+      [
+        2015
+      ]
+    ]
+  }
+}

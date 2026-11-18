@@ -1,0 +1,48 @@
+The build and validation pipeline for the six Codex release corrections has completed successfully.
+
+### 1. Build and Validation Pipeline Execution
+
+All six commands were executed in sequence from the project root:
+
+1. `python -B scripts/build_manuscript_sources.py`
+   - Generated verified bibliography (7 primary-source verified entries) and updated [draft.md](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/draft.md).
+2. `python -B scripts/build_manuscript_docx.py`
+   - Built native Word companion [main.docx](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/main.docx) with 15 native OMML display equations, 239 inline math expressions, 8 embedded figures, and 5 editable tables.
+3. `python -B scripts/revise_manuscript_evidence.py`
+   - Validated 90 protocol-v2 run records and 180 CNN/DND checkpoints; derived modal configuration from `evaluation.q_counts`; updated evidence manifest and generated figures.
+4. `.tools/tectonic/tectonic.exe --keep-logs --keep-intermediates manuscript/research_draft_v2/main.tex`
+   - Compiled canonical LaTeX to ten-page [main.pdf](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/main.pdf) with 0 overfull boxes and 0 unresolved reference markers.
+5. `python -B scripts/validate_manuscript_build.py`
+   - Verified 337 cryptographic SHA256 hashes against [evidence_manifest.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/evidence_manifest.json) (0 mismatches), confirmed all source/Word structural counts, and generated [source_package.zip](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/source_package.zip) and [BUILD_VALIDATION.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/BUILD_VALIDATION.json).
+6. `python -B scripts/package_research_release.py --overwrite`
+   - Packaged standalone reproducibility archive [RIS_FJ_VLC_DRL_reproducibility.zip](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/research_release/RIS_FJ_VLC_DRL_reproducibility.zip) (3,411,035 bytes, 472 inventoried files) and generated [RELEASE_PACKAGE_MANIFEST.json](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/research_release/RELEASE_PACKAGE_MANIFEST.json).
+
+---
+
+### 2. Clean-Extraction Reproducibility Test
+
+The package archive was clean-extracted into an isolated workspace directory ([scratch/clean_extract_validation/](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/scratch/clean_extract_validation/)) and unit test discovery was executed with `PYTHONPATH` explicitly removed from the process environment:
+
+- **Command:** `python -B -m unittest discover -s tests -v`
+- **Tests Discovered:** **98**
+- **Tests Passed:** **92**
+- **Tests Skipped:** **6**
+  - All 6 skips occurred within `test_published_targets.PublishedTargetTests` with the honest skip reason:
+    `"Separately obtained copyrighted '19 Sep 2024.pdf' is absent; skipping published PDF extraction and calibration tests."`
+- **Failures / Errors:** **0** (Exit code `0`)
+- **Execution Time:** 20.387 s
+- **Log Saved:** [ANTIGRAVITY_CLEAN_EXTRACT_TESTS.log](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/manuscript/research_draft_v2/release_audit/ANTIGRAVITY_CLEAN_EXTRACT_TESTS.log)
+
+*In the full local repository containing the reference PDF, all **98 / 98** tests pass cleanly (Log: [ANTIGRAVITY_UNIT_TESTS.log](file:///D:/SCRIPTS/GitHub/OWC-Physical-Layer-Security-DRL-RIS--Research/VLC_Simulation/OWC/release_audit/ANTIGRAVITY_UNIT_TESTS.log)).*
+
+Clean extraction reproduction scripts also executed without error:
+- `python -B scripts/release_statistics.py`: Code 0 (all 18 family-wise contrasts, Holm adjustments, and 1,024 sign-flip permutations verified).
+- `python -B scripts/run_calibrated_ris_diagnostic.py`: Code 0 (all 9 scenario/SNR grids, 28,125 action evaluations, quadrature error $< 10^{-8}$, colocated secrecy $= 0.000000$ bits/use verified).
+
+---
+
+### 3. Summary of Resolved Findings
+
+1. **Frozen Policy Utility Claim (`main.tex:265`):** Text corrected to reflect that discrete oracle utility is zero while frozen policies incur negative mean utilities of $-0.82$ (no RIS), $-0.86$ (fixed RIS), and $-0.76$ (joint control) due to continued jammer cost expenditure.
+2. **Calibrated 30 dB Mechanism (`main.tex:317`):** Removed unsupported "lower jammer power" attribution; maximizing jammer weights and L1 amplitude cost ($4.0$ nominal, $3.5$ changed) are unchanged between 20 dB and 30 dB.
+3. **Abstract Formatting & Non-Inferiority (`main.

@@ -1,0 +1,1321 @@
+{
+  "metadata": {
+    "config": {
+      "model": "paper",
+      "receiver_resistance_ohm": 1.0,
+      "jammer_resistance_ohm": 1.0,
+      "slot_duration_s": 1.0,
+      "symbol_rate_per_hz": 1.0,
+      "eve_noise_ratio": 1.0,
+      "room_size": [
+        5.0,
+        5.0,
+        3.0
+      ],
+      "alice_pos": [
+        2.5,
+        2.5,
+        3.0
+      ],
+      "jammer_positions": [
+        [
+          1.5,
+          1.5,
+          3.0
+        ],
+        [
+          1.5,
+          3.5,
+          3.0
+        ],
+        [
+          3.5,
+          1.5,
+          3.0
+        ],
+        [
+          3.5,
+          3.5,
+          3.0
+        ]
+      ],
+      "bob_pos": [
+        1.8,
+        1.6,
+        0.85
+      ],
+      "eve_pos": [
+        3.2,
+        3.4,
+        0.85
+      ],
+      "num_leds_per_fixture": 4,
+      "led_avg_power": 1.0,
+      "modulation_index": 0.1,
+      "phi_half_deg": 60.0,
+      "fov_deg": 60.0,
+      "n0": 1.5,
+      "noise_power_dbm": -98.79,
+      "detector_area": 0.0001,
+      "pd_responsivity": 0.54,
+      "eta": 1.0,
+      "id_bias": 1.0,
+      "delta1": 3.5,
+      "delta2": 0.4,
+      "unit_jamming_cost": 1.0,
+      "energy_model": "l1",
+      "snr_definition": "eq4",
+      "seed": 42,
+      "cnn_learning_rate": 0.01,
+      "dnd_match_threshold": 0.0,
+      "learning_rate": 0.5,
+      "discount_factor": 0.5,
+      "sliding_window_m": 11,
+      "minibatch_size": 4,
+      "cnn_f1": 20,
+      "cnn_f2": 40,
+      "cnn_m1": 3,
+      "cnn_m2": 2,
+      "cnn_s1": 1,
+      "cnn_s2": 1,
+      "cnn_n1": 180,
+      "cnn_n2": 180,
+      "cnn_m0": 11,
+      "action_lx": 2,
+      "epsilon_start": 0.15,
+      "epsilon_min": 0.02,
+      "epsilon_decay": 0.998
+    },
+    "model_interpretation": {
+      "rate": "Printed Eq. (4), continuous-input expression",
+      "BER": "Printed Eq. (14)",
+      "noise_variance_unit": "Legacy numeric Table I watts; impedance convention unresolved",
+      "energy_unit": "Normalized cost; selected interpretation recorded in config"
+    },
+    "numpy": "2.5.4",
+    "torch": "2.14.1+cpu",
+    "paper_sha256": "a9d941f77074ea744eeb0e1df6fb15274be9f65fecbf6c58d6f6efa887740b39",
+    "reproduction_verified": false,
+    "unresolved": [
+      "Author SNR normalization and raw traces unavailable",
+      "L1 energy interprets ambiguous Eq. (16); opt-in paper_signed can reward negative energy",
+      "Base-2 Eqs. (20)/(23) conflict; conditional Eq. (21) is not a global bound",
+      "Custom comparison baselines do not implement references [20], [42], [43]"
+    ],
+    "experiment": "Matched optical RIS + FJ + CNN/DND DRL study",
+    "slots_per_run": 2000,
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "stationarity": "Independent static receiver-position scenarios",
+    "observation_assumption": "Perfect initial receiver geometry for a fixed scenario codebook; no Eve detector is modeled",
+    "cnn_input_adaptation": "m0=max(11, baseline m0) for ALL schemes; joint action adds normalized RIS code index",
+    "aggregation": "All training slots include warmup and exploration; final-window means are separately labeled",
+    "references_used_for_training": false,
+    "paper_reproduction_verified": false
+  },
+  "settings": {
+    "scenarios": [
+      {
+        "name": "nominal",
+        "bob": [
+          1.8,
+          1.6,
+          0.85
+        ],
+        "eve": [
+          3.2,
+          3.4,
+          0.85
+        ],
+        "snr_db": null,
+        "sigma_B_sq": null
+      }
+    ],
+    "energy_models": [
+      "l1"
+    ],
+    "ris_config": {
+      "enabled": true,
+      "panel_center": [
+        2.5,
+        0.25,
+        2.6
+      ],
+      "panel_width_m": 1.0,
+      "panel_height_m": 0.5,
+      "rows": 2,
+      "cols": 3,
+      "reflectivity": 0.85,
+      "max_tilt_deg": 85.0
+    },
+    "fixed_configuration": 1,
+    "qos_ber_max": null,
+    "qos_penalty": 0.0,
+    "secrecy_target": 0.1,
+    "final_window": 500,
+    "eval_slots": 1000
+  },
+  "complete": true,
+  "elapsed_seconds": 1407.719256299999,
+  "aggregates": [
+    {
+      "scenario": "nominal",
+      "energy_model": "l1",
+      "scheme": "baseline",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "all_slots": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 1.1911681391233393,
+          "sample_std": 0.15614237197131586,
+          "standard_error": 0.049376553469059344,
+          "ci95": [
+            1.079470615019018,
+            1.3028656632276605
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 0.0005152337357886836,
+          "sample_std": 0.00035967640284963735,
+          "standard_error": 0.00011373966536211305,
+          "ci95": [
+            0.00025793673709550866,
+            0.0007725307344818586
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": 2.0923,
+          "sample_std": 0.3393827689923118,
+          "standard_error": 0.10732225486304732,
+          "ci95": [
+            1.8495201924339029,
+            2.335079807566097
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.35244482104807884,
+          "sample_std": 0.15786305733623335,
+          "standard_error": 0.04992068195802507,
+          "ci95": [
+            0.2395163927849613,
+            0.4653732493111964
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "final_window": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 1.2964202460145313,
+          "sample_std": 0.12585667142065846,
+          "standard_error": 0.039799374041670034,
+          "ci95": [
+            1.2063878069512826,
+            1.38645268507778
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 9.554516550856025e-05,
+          "sample_std": 0.00020325734008394374,
+          "standard_error": 6.427561458127021e-05,
+          "ci95": [
+            -4.9856376409716904e-05,
+            0.0002409467074268374
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": 2.0561999999999996,
+          "sample_std": 0.36199502759015906,
+          "standard_error": 0.1144728788840396,
+          "ci95": [
+            1.797244357086338,
+            2.3151556429136613
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.4736058379352509,
+          "sample_std": 0.11535577128388225,
+          "standard_error": 0.03647869785025139,
+          "ci95": [
+            0.3910852903037533,
+            0.5561263855667485
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "secrecy_outage": {
+        "n": 10,
+        "mean": 0.09190000000000001,
+        "sample_std": 0.04554106815709189,
+        "standard_error": 0.014401350245337723,
+        "ci95": [
+          0.05932188238854359,
+          0.12447811761145643
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "bob_qos_outage_1e3": {
+        "n": 10,
+        "mean": 0.0041,
+        "sample_std": 0.0027467152099270218,
+        "standard_error": 0.0008685876147196921,
+        "ci95": [
+          0.002135118305844041,
+          0.0060648816941559595
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "bob_qos_outage_1e4": {
+        "n": 10,
+        "mean": 0.0041,
+        "sample_std": 0.0027467152099270218,
+        "standard_error": 0.0008685876147196921,
+        "ci95": [
+          0.002135118305844041,
+          0.0060648816941559595
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "bob_qos_outage": null,
+      "evaluation": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 1.3205214713359323,
+          "sample_std": 0.1281052705426346,
+          "standard_error": 0.040510443518679974,
+          "ci95": [
+            1.2288804813620182,
+            1.4121624613098465
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 0.0,
+          "sample_std": 0.0,
+          "standard_error": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": 2.05,
+          "sample_std": 0.3689323936863109,
+          "standard_error": 0.11666666666666665,
+          "ci95": [
+            1.7860816643402093,
+            2.3139183356597903
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.5005214713359323,
+          "sample_std": 0.12116175942055733,
+          "standard_error": 0.03831471250823241,
+          "ci95": [
+            0.41384756999488037,
+            0.5871953726769842
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "evaluation_secrecy_outage": {
+        "n": 10,
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "standard_error": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "evaluation_qos_outage_1e3": {
+        "n": 10,
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "standard_error": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "evaluation_qos_outage_1e4": {
+        "n": 10,
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "standard_error": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      }
+    },
+    {
+      "scenario": "nominal",
+      "energy_model": "l1",
+      "scheme": "fixed_ris",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "all_slots": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 1.3684453204915887,
+          "sample_std": 0.23200872036207693,
+          "standard_error": 0.07336759933652484,
+          "ci95": [
+            1.2024762801351603,
+            1.5344143608480172
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 0.0007232117494573351,
+          "sample_std": 0.0006428199464598336,
+          "standard_error": 0.00020327751562005652,
+          "ci95": [
+            0.0002633660614616003,
+            0.00118305743745307
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": 2.230225,
+          "sample_std": 0.3293512024926178,
+          "standard_error": 0.10414999499919975,
+          "ci95": [
+            1.994621342807163,
+            2.4658286571928367
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.47382407936848797,
+          "sample_std": 0.26762111686162426,
+          "standard_error": 0.08462922792408255,
+          "ci95": [
+            0.2823794652379428,
+            0.6652686934990332
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "final_window": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 1.4709851021898663,
+          "sample_std": 0.2440968342574454,
+          "standard_error": 0.07719019658901431,
+          "ci95": [
+            1.296368746078226,
+            1.6456014583015066
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 2.252211391919853e-05,
+          "sample_std": 4.806940358995598e-05,
+          "standard_error": 1.5200880111013548e-05,
+          "ci95": [
+            -1.1864665904767539e-05,
+            5.69088937431646e-05
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": 2.2022,
+          "sample_std": 0.34455762298279746,
+          "standard_error": 0.10895868737992193,
+          "ci95": [
+            1.9557183248944192,
+            2.448681675105581
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.5900262747911491,
+          "sample_std": 0.27457675754300853,
+          "standard_error": 0.08682879463797254,
+          "ci95": [
+            0.3936058950637252,
+            0.7864466545185731
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "secrecy_outage": {
+        "n": 10,
+        "mean": 0.0738,
+        "sample_std": 0.04320185181216194,
+        "standard_error": 0.013661625086350451,
+        "ci95": [
+          0.042895256955448685,
+          0.10470474304455132
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "bob_qos_outage_1e3": {
+        "n": 10,
+        "mean": 0.0026000000000000003,
+        "sample_std": 0.0020248456731316584,
+        "standard_error": 0.0006403124237432848,
+        "ci95": [
+          0.0011515126642004493,
+          0.004048487335799551
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "bob_qos_outage_1e4": {
+        "n": 10,
+        "mean": 0.0032999999999999995,
+        "sample_std": 0.0025948667274704753,
+        "standard_error": 0.0008205689083394113,
+        "ci95": [
+          0.0014437441664304966,
+          0.005156255833569503
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "bob_qos_outage": null,
+      "evaluation": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 1.4977986701651385,
+          "sample_std": 0.2507897113399847,
+          "standard_error": 0.07930667015705099,
+          "ci95": [
+            1.318394518211691,
+            1.677202822118586
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 0.0,
+          "sample_std": 0.0,
+          "standard_error": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": 2.2,
+          "sample_std": 0.34960294939005054,
+          "standard_error": 0.11055415967851333,
+          "ci95": [
+            1.9499091158061148,
+            2.4500908841938855
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.6177986701651383,
+          "sample_std": 0.28087249537559805,
+          "standard_error": 0.08881968174820001,
+          "ci95": [
+            0.41687459090099066,
+            0.818722749429286
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "evaluation_secrecy_outage": {
+        "n": 10,
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "standard_error": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "evaluation_qos_outage_1e3": {
+        "n": 10,
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "standard_error": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "evaluation_qos_outage_1e4": {
+        "n": 10,
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "standard_error": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      }
+    },
+    {
+      "scenario": "nominal",
+      "energy_model": "l1",
+      "scheme": "joint_ris",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "all_slots": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 1.3190986062464758,
+          "sample_std": 0.21923676109333232,
+          "standard_error": 0.06932875118931169,
+          "ci95": [
+            1.16226607515572,
+            1.4759311373372317
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 0.00028522915156024446,
+          "sample_std": 0.000312055355806816,
+          "standard_error": 9.868056804037892e-05,
+          "ci95": [
+            6.199819773870568e-05,
+            0.0005084601053817832
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": 2.012875,
+          "sample_std": 0.4237092040342449,
+          "standard_error": 0.13398861503252182,
+          "ci95": [
+            1.7097716947707697,
+            2.3159783052292306
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.5129503042160148,
+          "sample_std": 0.2876319650651647,
+          "standard_error": 0.0909572137475902,
+          "ci95": [
+            0.3071907916287363,
+            0.7187098168032934
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "final_window": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 1.4302531558303309,
+          "sample_std": 0.18663297182536917,
+          "standard_error": 0.05901852774541994,
+          "ci95": [
+            1.2967439705532247,
+            1.563762341107437
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 6.437816529190663e-05,
+          "sample_std": 0.00013991195994767167,
+          "standard_error": 4.4244046533289515e-05,
+          "ci95": [
+            -3.570882148455134e-05,
+            0.0001644651520683646
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": 2.0074,
+          "sample_std": 0.46223159178537815,
+          "standard_error": 0.1461704636526971,
+          "ci95": [
+            1.6767394386585166,
+            2.3380605613414835
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.627067832251809,
+          "sample_std": 0.25280289019688806,
+          "standard_error": 0.07994329320956188,
+          "ci95": [
+            0.44622353890012145,
+            0.8079121256034965
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "secrecy_outage": {
+        "n": 10,
+        "mean": 0.0623,
+        "sample_std": 0.033343498450056026,
+        "standard_error": 0.010544140026047115,
+        "ci95": [
+          0.03844749811453027,
+          0.08615250188546973
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "bob_qos_outage_1e3": {
+        "n": 10,
+        "mean": 0.0020000000000000005,
+        "sample_std": 0.0020816659994661326,
+        "standard_error": 0.0006582805886043832,
+        "ci95": [
+          0.0005108658513575766,
+          0.0034891341486424244
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "bob_qos_outage_1e4": {
+        "n": 10,
+        "mean": 0.00205,
+        "sample_std": 0.0020876621693495653,
+        "standard_error": 0.0006601767440112785,
+        "ci95": [
+          0.0005565764498220895,
+          0.0035434235501779106
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "bob_qos_outage": null,
+      "evaluation": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 1.456450206695536,
+          "sample_std": 0.19092730444933026,
+          "standard_error": 0.060376514957628385,
+          "ci95": [
+            1.319869040919344,
+            1.593031372471728
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 0.0,
+          "sample_std": 0.0,
+          "standard_error": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": 2.0,
+          "sample_std": 0.4714045207910317,
+          "standard_error": 0.14907119849998596,
+          "ci95": [
+            1.6627775205463438,
+            2.337222479453656
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.656450206695536,
+          "sample_std": 0.2572468638730726,
+          "standard_error": 0.08134860107741936,
+          "ci95": [
+            0.472426886084638,
+            0.840473527306434
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "evaluation_secrecy_outage": {
+        "n": 10,
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "standard_error": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "evaluation_qos_outage_1e3": {
+        "n": 10,
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "standard_error": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      },
+      "evaluation_qos_outage_1e4": {
+        "n": 10,
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "standard_error": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci_method": "Two-sided Student-t interval across seeds"
+      }
+    }
+  ],
+  "paired_seed_comparisons": [
+    {
+      "scenario": "nominal",
+      "energy_model": "l1",
+      "comparison": "fixed_ris minus baseline",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "all_slots": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 0.17727718136824913,
+          "sample_std": 0.16033692055110904,
+          "standard_error": 0.05070298619589644,
+          "ci95": [
+            0.06257905796994348,
+            0.29197530476655476
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 0.00020797801366865144,
+          "sample_std": 0.0005232660192734635,
+          "standard_error": 0.000165471244307371,
+          "ci95": [
+            -0.00016634394687839958,
+            0.0005822999742157025
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": 0.13792500000000008,
+          "sample_std": 0.3687145284257486,
+          "standard_error": 0.11659777162202635,
+          "ci95": [
+            -0.1258374842410761,
+            0.40168748424107625
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.12137925832040912,
+          "sample_std": 0.2419496281098476,
+          "standard_error": 0.07651119038578184,
+          "ci95": [
+            -0.051701079045004414,
+            0.29445959568582264
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "final_window": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 0.1745648561753353,
+          "sample_std": 0.19068082023643435,
+          "standard_error": 0.06029856980562589,
+          "ci95": [
+            0.03816001458305113,
+            0.31096969776761946
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": -7.30230515893617e-05,
+          "sample_std": 0.00021976041085379445,
+          "standard_error": 6.949434378323788e-05,
+          "ci95": [
+            -0.00023023017915257417,
+            8.418407597385077e-05
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": 0.146,
+          "sample_std": 0.40381293799095747,
+          "standard_error": 0.12769686326957638,
+          "ci95": [
+            -0.14287037391213522,
+            0.43487037391213523
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.11642043685589824,
+          "sample_std": 0.2665848027438615,
+          "standard_error": 0.08430151662573072,
+          "ci95": [
+            -0.07428284281375046,
+            0.30712371652554693
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "evaluation": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 0.17727719882920578,
+          "sample_std": 0.1949116271782875,
+          "standard_error": 0.06163646843329665,
+          "ci95": [
+            0.03784582027323832,
+            0.3167085773851732
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 0.0,
+          "sample_std": 0.0,
+          "standard_error": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": 0.15,
+          "sample_std": 0.4116363011742823,
+          "standard_error": 0.13017082793177756,
+          "ci95": [
+            -0.14446687079324325,
+            0.4444668707932432
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.1172771988292061,
+          "sample_std": 0.2730500306049827,
+          "standard_error": 0.0863460011890429,
+          "ci95": [
+            -0.0780510262395696,
+            0.3126054238979818
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      }
+    },
+    {
+      "scenario": "nominal",
+      "energy_model": "l1",
+      "comparison": "joint_ris minus baseline",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "all_slots": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 0.12793046712313635,
+          "sample_std": 0.2904211887125938,
+          "standard_error": 0.09183924371053805,
+          "ci95": [
+            -0.07982433586262727,
+            0.3356852701089
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": -0.00023000458422843922,
+          "sample_std": 0.0003358346879423921,
+          "standard_error": 0.00010620025311898455,
+          "ci95": [
+            -0.0004702462475125325,
+            1.0237079055654076e-05
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": -0.07942500000000005,
+          "sample_std": 0.532546321016095,
+          "standard_error": 0.16840593339540555,
+          "ci95": [
+            -0.4603856884881341,
+            0.30153568848813406
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.16050548316793603,
+          "sample_std": 0.2855243056750057,
+          "standard_error": 0.0902907133271158,
+          "ci95": [
+            -0.043746300719158304,
+            0.36475726705503037
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "final_window": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 0.13383290981579976,
+          "sample_std": 0.24548639442060882,
+          "standard_error": 0.07762961409515746,
+          "ci95": [
+            -0.041777477754821185,
+            0.30944329738642073
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": -3.116700021665363e-05,
+          "sample_std": 0.00027305279349197213,
+          "standard_error": 8.634687489062333e-05,
+          "ci95": [
+            -0.00022649720173571766,
+            0.00016416320130241042
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": -0.04879999999999991,
+          "sample_std": 0.5401908716164852,
+          "standard_error": 0.1708233525539696,
+          "ci95": [
+            -0.4352292705531653,
+            0.3376292705531655
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.1534619943165582,
+          "sample_std": 0.24279106853330928,
+          "standard_error": 0.07677727721112938,
+          "ci95": [
+            -0.02022027326674153,
+            0.3271442618998579
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "evaluation": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": 0.13592873535960354,
+          "sample_std": 0.25150146203681756,
+          "standard_error": 0.07953174548987138,
+          "ci95": [
+            -0.043984572370152825,
+            0.3158420430893599
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 0.0,
+          "sample_std": 0.0,
+          "standard_error": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": -0.05,
+          "sample_std": 0.5502524673073059,
+          "standard_error": 0.1740051084818425,
+          "ci95": [
+            -0.44362690251567866,
+            0.3436269025156787
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.15592873535960378,
+          "sample_std": 0.24788470227909945,
+          "standard_error": 0.07838802563146859,
+          "ci95": [
+            -0.021397298300232154,
+            0.33325476901943973
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      }
+    },
+    {
+      "scenario": "nominal",
+      "energy_model": "l1",
+      "comparison": "joint_ris minus fixed_ris",
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "all_slots": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": -0.04934671424511276,
+          "sample_std": 0.3085204043516013,
+          "standard_error": 0.09756271823871838,
+          "ci95": [
+            -0.2700489161308926,
+            0.1713554876406671
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": -0.0004379825978970906,
+          "sample_std": 0.0006468233297461853,
+          "standard_error": 0.00020454349657320867,
+          "ci95": [
+            -0.0009006921337739647,
+            2.472693797978345e-05
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": -0.21735000000000015,
+          "sample_std": 0.6722527240554701,
+          "standard_error": 0.2125849771267951,
+          "ci95": [
+            -0.6982506287106722,
+            0.263550628710672
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.03912622484752692,
+          "sample_std": 0.3644547761622895,
+          "standard_error": 0.11525071967996751,
+          "ci95": [
+            -0.2215890161941596,
+            0.29984146588921345
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "final_window": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": -0.04073194635953552,
+          "sample_std": 0.30900040177517996,
+          "standard_error": 0.09771450675167051,
+          "ci95": [
+            -0.2617775177171205,
+            0.18031362499804948
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 4.185605137270808e-05,
+          "sample_std": 0.00015845430804422537,
+          "standard_error": 5.0107651848569256e-05,
+          "ci95": [
+            -7.149533216753158e-05,
+            0.00015520743491294773
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": -0.19479999999999992,
+          "sample_std": 0.7013196766731196,
+          "standard_error": 0.22177675461799168,
+          "ci95": [
+            -0.6964938740012296,
+            0.30689387400122986
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.03704155746065994,
+          "sample_std": 0.3582582913682484,
+          "standard_error": 0.11329121913639059,
+          "ci95": [
+            -0.2192409853908671,
+            0.293324100312187
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      },
+      "evaluation": {
+        "secrecy_rate": {
+          "n": 10,
+          "mean": -0.041348463469602234,
+          "sample_std": 0.3160171463562471,
+          "standard_error": 0.09993339621525213,
+          "ci95": [
+            -0.2674135115206859,
+            0.18471658458148138
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "ber": {
+          "n": 10,
+          "mean": 0.0,
+          "sample_std": 0.0,
+          "standard_error": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "energy": {
+          "n": 10,
+          "mean": -0.2,
+          "sample_std": 0.7149203529842405,
+          "standard_error": 0.22607766610417557,
+          "ci95": [
+            -0.7114232117262618,
+            0.3114232117262617
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        },
+        "utility": {
+          "n": 10,
+          "mean": 0.038651536530397664,
+          "sample_std": 0.3664061803432917,
+          "standard_error": 0.11586780786472177,
+          "ci95": [
+            -0.2234596549685089,
+            0.3007627280293042
+          ],
+          "ci_method": "Two-sided Student-t interval across seeds"
+        }
+      }
+    }
+  ],
+  "source_sha256": {
+    "vlc\\benchmarks.py": "1cb0048f1fedffab45f578c0c33143ce7c09ee8888874c2f686e73893a281a75",
+    "vlc\\bounds.py": "bb62eab031b405eb166e5ea9b995343cbc17684e1926e1991a8efc4a22e50580",
+    "vlc\\channel.py": "01f0d84e1257dada697927b9765588166df750e3a0d272f6af3bfa4e62dfc2ef",
+    "vlc\\config.py": "95873ea00ecd3a8df9b09df20c28ea30dce106379cefa4add7b3dac2eb534104",
+    "vlc\\drl_fj.py": "14cc75934ba570808e51a7f7604cf1f9d334140a891b2b450b3f3fd1984e8635",
+    "vlc\\environment.py": "a326c1241b9b2399e806f80e32b885ecf3d64e24b102255897824b2aa9c6202f",
+    "vlc\\experiments.py": "8db24b907ca6da560691f66ac1c9eef1ecab11932b5a595fbf89c72858425029",
+    "vlc\\physical.py": "dc29ec5f39ebed2853c2253d511bf4e42d6ce5c56262aee4b87badfa74eae5c6",
+    "vlc\\ris.py": "bbd0007d50f4bda00fc04c19928d27f573b43110b9e1c1508c31c6739f909954",
+    "vlc\\ris_environment.py": "c6dd9bdce4c3613afa4eba35026ddf93c999c619199c3c687d2f4b10c4742eb5",
+    "vlc\\ris_experiments.py": "6813488e4022562600263a5ea7ec40ce0a7c279b607d35297394589072ce8dba",
+    "vlc\\rl_fj.py": "f3bf1649268f46b8f7c190ce9c6937a62bf96865c0550cc93dc33657f475406b",
+    "vlc\\secrecy.py": "c47e5e95418b802429c647b61e7fb3e7bf570f78e3fd49a73f477dd174424d2b",
+    "vlc\\__init__.py": "338ab877c81dc2905fa3982418e095873a91015d81c27113a4b9f6deb2dd8e3c"
+  }
+}

@@ -1,4 +1,5 @@
 """Counterexamples to false numerical-reproduction success."""
+from pathlib import Path
 import unittest
 import numpy as np
 from vlc import VLCConfig, VLCChannel, VLCEnvironment
@@ -6,7 +7,14 @@ from vlc.secrecy import compute_bob_ber
 from paper_audit.published_targets import (
     extract_published_curves, compare_value, assess_published_targets, noise_compatibility)
 
+PDF_PATH = Path(__file__).resolve().parents[1] / '19 Sep 2024.pdf'
+PDF_ABSENT_REASON = (
+    "Separately obtained copyrighted '19 Sep 2024.pdf' is absent; "
+    "skipping published PDF extraction and calibration tests."
+)
 
+
+@unittest.skipIf(not PDF_PATH.is_file(), PDF_ABSENT_REASON)
 class PublishedTargetTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

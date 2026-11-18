@@ -1,0 +1,649 @@
+{
+  "indexed": {
+    "date-parts": [
+      [
+        2026,
+        7,
+        8
+      ]
+    ],
+    "date-time": "2026-07-08T20:27:27Z",
+    "timestamp": 1783542447720,
+    "version": "3.55.0"
+  },
+  "reference-count": 48,
+  "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+  "license": [
+    {
+      "start": {
+        "date-parts": [
+          [
+            2026,
+            1,
+            1
+          ]
+        ],
+        "date-time": "2026-01-01T00:00:00Z",
+        "timestamp": 1767225600000
+      },
+      "content-version": "vor",
+      "delay-in-days": 0,
+      "URL": "https://ieeexplore.ieee.org/Xplorehelp/downloads/license-information/IEEE.html"
+    },
+    {
+      "start": {
+        "date-parts": [
+          [
+            2026,
+            1,
+            1
+          ]
+        ],
+        "date-time": "2026-01-01T00:00:00Z",
+        "timestamp": 1767225600000
+      },
+      "content-version": "am",
+      "delay-in-days": 0,
+      "URL": "https://ieeexplore.ieee.org/Xplorehelp/downloads/license-information/IEEE.html"
+    },
+    {
+      "start": {
+        "date-parts": [
+          [
+            2026,
+            1,
+            1
+          ]
+        ],
+        "date-time": "2026-01-01T00:00:00Z",
+        "timestamp": 1767225600000
+      },
+      "content-version": "stm-asf",
+      "delay-in-days": 0,
+      "URL": "https://doi.org/10.15223/policy-029"
+    },
+    {
+      "start": {
+        "date-parts": [
+          [
+            2026,
+            1,
+            1
+          ]
+        ],
+        "date-time": "2026-01-01T00:00:00Z",
+        "timestamp": 1767225600000
+      },
+      "content-version": "stm-asf",
+      "delay-in-days": 0,
+      "URL": "https://doi.org/10.15223/policy-037"
+    }
+  ],
+  "funder": [
+    {
+      "DOI": "10.13039/501100001809",
+      "name": "National Natural Science Foundation of China",
+      "doi-asserted-by": "publisher",
+      "award": [
+        "62471414"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "62471414"
+          ]
+        }
+      ],
+      "id": [
+        {
+          "id": "10.13039/501100001809",
+          "id-type": "DOI",
+          "asserted-by": "publisher"
+        }
+      ]
+    },
+    {
+      "DOI": "10.13039/501100021171",
+      "name": "Basic and Applied Basic Research Foundation of Guangdong Province",
+      "doi-asserted-by": "publisher",
+      "award": [
+        "2024A1515030150"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "2024A1515030150"
+          ]
+        }
+      ],
+      "id": [
+        {
+          "id": "10.13039/501100021171",
+          "id-type": "DOI",
+          "asserted-by": "publisher"
+        }
+      ]
+    },
+    {
+      "name": "Shenzhen Science and Technology Program",
+      "award": [
+        "JCYJ20250604123034005"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "JCYJ20250604123034005"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2025 Software Key RDI Project, IIT Department of Fujian Province, China"
+    },
+    {
+      "name": "Research Grants Council of Hong Kong, SAR",
+      "award": [
+        "GRF 11217823"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "GRF 11217823"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Research Grants Council of Hong Kong, SAR",
+      "award": [
+        "11216225"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "11216225"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "NSF",
+      "award": [
+        "ECCS-2302469"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "ECCS-2302469"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Japan Science and Technology Agency Adopting Sustainable Partnerships for Innovative Research Ecosystem",
+      "award": [
+        "JPMJAP2326"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "JPMJAP2326"
+          ]
+        }
+      ]
+    },
+    {
+      "DOI": "10.13039/100007144",
+      "name": "University of Houston",
+      "doi-asserted-by": "publisher",
+      "award": [
+        "JPMJAP2326"
+      ],
+      "award-info": [
+        {
+          "award-number": [
+            "JPMJAP2326"
+          ]
+        }
+      ],
+      "id": [
+        {
+          "id": "10.13039/100007144",
+          "id-type": "DOI",
+          "asserted-by": "publisher"
+        }
+      ]
+    },
+    {
+      "name": "University of Houston."
+    }
+  ],
+  "content-domain": {
+    "domain": [],
+    "crossmark-restriction": false
+  },
+  "short-container-title": [
+    "IEEE Trans. Wireless Commun."
+  ],
+  "published-print": {
+    "date-parts": [
+      [
+        2026
+      ]
+    ]
+  },
+  "DOI": "10.1109/twc.2026.3708130",
+  "type": "journal-article",
+  "created": {
+    "date-parts": [
+      [
+        2026,
+        7,
+        2
+      ]
+    ],
+    "date-time": "2026-07-02T19:47:27Z",
+    "timestamp": 1783021647000
+  },
+  "page": "19162-19178",
+  "source": "Crossref",
+  "is-referenced-by-count": 0,
+  "title": [
+    "Optical Reflecting Intelligent Surface-Assisted Secure Visible Light Communication: An Inverse Pre-Reflection Model-Driven Deep Reinforcement Learning Approach"
+  ],
+  "prefix": "10.1109",
+  "volume": "25",
+  "author": [
+    {
+      "ORCID": "https://orcid.org/0000-0002-5710-0446",
+      "authenticated-orcid": false,
+      "given": "Sicong",
+      "family": "Liu",
+      "sequence": "first",
+      "affiliation": [
+        {
+          "name": "School of Informatics and the National-Local Joint Engineering Research Center of Navigation and Location Services, Xiamen University, Xiamen, China"
+        }
+      ],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "ORCID": "https://orcid.org/0009-0000-5268-3323",
+      "authenticated-orcid": false,
+      "given": "Hong",
+      "family": "Zhang",
+      "sequence": "additional",
+      "affiliation": [
+        {
+          "name": "School of Informatics and the National-Local Joint Engineering Research Center of Navigation and Location Services, Xiamen University, Xiamen, China"
+        }
+      ],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "ORCID": "https://orcid.org/0000-0003-2756-4984",
+      "authenticated-orcid": false,
+      "given": "Linqi",
+      "family": "Song",
+      "sequence": "additional",
+      "affiliation": [
+        {
+          "name": "Department of Computer Science, City University of Hong Kong, Hong Kong, China"
+        }
+      ],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    },
+    {
+      "ORCID": "https://orcid.org/0000-0002-6606-5822",
+      "authenticated-orcid": false,
+      "given": "Zhu",
+      "family": "Han",
+      "sequence": "additional",
+      "affiliation": [
+        {
+          "name": "Department of Electrical and Computer Engineering, University of Houston, Houston, TX, USA"
+        }
+      ],
+      "role": [
+        {
+          "vocabulary": "crossref",
+          "role": "author"
+        }
+      ]
+    }
+  ],
+  "member": "263",
+  "reference": [
+    {
+      "key": "ref1",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/COMST.2019.2913348"
+    },
+    {
+      "key": "ref2",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/COMST.2015.2417576"
+    },
+    {
+      "key": "ref3",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/MCOM.001.1900107"
+    },
+    {
+      "key": "ref4",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/LCOMM.2021.3114594"
+    },
+    {
+      "key": "ref5",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/COMST.2022.3225859"
+    },
+    {
+      "key": "ref6",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/OJCOMS.2020.3041930"
+    },
+    {
+      "key": "ref7",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TCOMM.2022.3143142"
+    },
+    {
+      "key": "ref8",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TCOMM.2021.3084637"
+    },
+    {
+      "key": "ref9",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/MCOM.001.2100406"
+    },
+    {
+      "key": "ref10",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/MVT.2021.3127869"
+    },
+    {
+      "key": "ref11",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/MVT.2021.3121647"
+    },
+    {
+      "key": "ref12",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1016/j.phycom.2019.04.003"
+    },
+    {
+      "key": "ref13",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TSP.2010.2078810"
+    },
+    {
+      "key": "ref14",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TCOMM.2024.3351359"
+    },
+    {
+      "key": "ref15",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSAC.2015.2432513"
+    },
+    {
+      "key": "ref16",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TWC.2018.2804390"
+    },
+    {
+      "key": "ref17",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TWC.2019.2936025"
+    },
+    {
+      "key": "ref18",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICC42927.2021.9500409"
+    },
+    {
+      "key": "ref19",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/LWC.2022.3167108"
+    },
+    {
+      "key": "ref20",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JIOT.2024.3493858"
+    },
+    {
+      "key": "ref21",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TWC.2019.2930193"
+    },
+    {
+      "key": "ref22",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TCOMM.2019.2930247"
+    },
+    {
+      "key": "ref23",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TWC.2024.3458046"
+    },
+    {
+      "key": "ref24",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JPHOT.2022.3178852"
+    },
+    {
+      "key": "ref25",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TWC.2022.3150021"
+    },
+    {
+      "key": "ref26",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TWC.2023.3236811"
+    },
+    {
+      "key": "ref27",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TWC.2018.2871055"
+    },
+    {
+      "key": "ref28",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TCOMM.2018.2831687"
+    },
+    {
+      "key": "ref29",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSAC.2018.2824598"
+    },
+    {
+      "key": "ref30",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSAC.2020.3000835"
+    },
+    {
+      "key": "ref31",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TWC.2020.3024860"
+    },
+    {
+      "key": "ref32",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TMLCN.2023.3328501"
+    },
+    {
+      "key": "ref33",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JIOT.2024.3412430"
+    },
+    {
+      "key": "ref34",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TWC.2025.3553843"
+    },
+    {
+      "key": "ref35",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/ICWOC65853.2025.11151152"
+    },
+    {
+      "key": "ref36",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JPHOT.2017.2767576"
+    },
+    {
+      "key": "ref37",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/COMST.2015.2476474"
+    },
+    {
+      "key": "ref38",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JSAC.2015.2432515"
+    },
+    {
+      "key": "ref39",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TWC.2023.3295793"
+    },
+    {
+      "key": "ref40",
+      "first-page": "2587",
+      "article-title": "Addressing function approximation error in actor-critic methods",
+      "volume-title": "Proc. 35th Int. Conf. Mach. Learn. (ICML)",
+      "volume": "4",
+      "author": "Fujimoto"
+    },
+    {
+      "key": "ref41",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TIT.2009.2027522"
+    },
+    {
+      "key": "ref42",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.21236/ADA276517"
+    },
+    {
+      "key": "ref43",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/COASE.2017.8256303"
+    },
+    {
+      "issue": "11",
+      "key": "ref44",
+      "first-page": "4868",
+      "article-title": "Is Q-learning provably efficient?",
+      "volume-title": "32nd Int. Conf. Neural Inf. Process. Syst. (NIPS)",
+      "volume": "31",
+      "author": "Jin"
+    },
+    {
+      "key": "ref45",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/LCOMM.2021.3109285"
+    },
+    {
+      "key": "ref46",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/LCOMM.2019.2901685"
+    },
+    {
+      "key": "ref47",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/JIOT.2023.3304480"
+    },
+    {
+      "key": "ref48",
+      "doi-asserted-by": "publisher",
+      "DOI": "10.1109/TAI.2021.3111142"
+    }
+  ],
+  "container-title": [
+    "IEEE Transactions on Wireless Communications"
+  ],
+  "original-title": [],
+  "link": [
+    {
+      "URL": "https://ieeexplore.ieee.org/ielam/7693/11298242/11594001-aam.pdf",
+      "content-type": "application/pdf",
+      "content-version": "am",
+      "intended-application": "syndication"
+    },
+    {
+      "URL": "http://xplorestaging.ieee.org/ielx8/7693/11298242/11594001.pdf?arnumber=11594001",
+      "content-type": "unspecified",
+      "content-version": "vor",
+      "intended-application": "similarity-checking"
+    }
+  ],
+  "deposited": {
+    "date-parts": [
+      [
+        2026,
+        7,
+        8
+      ]
+    ],
+    "date-time": "2026-07-08T19:45:00Z",
+    "timestamp": 1783539900000
+  },
+  "score": 1,
+  "resource": {
+    "primary": {
+      "URL": "https://ieeexplore.ieee.org/document/11594001/"
+    }
+  },
+  "subtitle": [],
+  "short-title": [],
+  "issued": {
+    "date-parts": [
+      [
+        2026
+      ]
+    ]
+  },
+  "references-count": 48,
+  "URL": "https://doi.org/10.1109/twc.2026.3708130",
+  "relation": {},
+  "ISSN": [
+    "1536-1276",
+    "1558-2248"
+  ],
+  "issn-type": [
+    {
+      "value": "1536-1276",
+      "type": "print"
+    },
+    {
+      "value": "1558-2248",
+      "type": "electronic"
+    }
+  ],
+  "subject": [],
+  "published": {
+    "date-parts": [
+      [
+        2026
+      ]
+    ]
+  }
+}

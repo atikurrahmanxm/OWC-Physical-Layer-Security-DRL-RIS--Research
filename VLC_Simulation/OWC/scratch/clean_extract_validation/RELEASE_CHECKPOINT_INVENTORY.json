@@ -1,0 +1,1802 @@
+[
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s42_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991959,
+    "sha256": "4a9e76e1c38e746970eb02994541180fce2cb92ceeb009276fd4e1edca237d84",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 42,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s42_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 38818648,
+    "sha256": "dd18567c6e6e13cc0aaedbc61fb7cd71014b85a5ac5bac3a1aadb93d287eed18",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 42,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s42_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "1d6ff5a557f9f7185f7b45f23898180c01877cf52812abfb8cb8d278a8c9f235",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 42,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s42_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7901187,
+    "sha256": "59f3dcba13212890267b4e48030ac72960ba2dcdb29146e1f23380e4fc5a684e",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 42,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s42_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "e4c7f63285ccbcd27d4ee0a201eec297ff2fe7c7f17eeba10a1ff193267a4832",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 42,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s42_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19639850,
+    "sha256": "31462d9510582cae0a1434b21f486104d3d89d7d8fc50857b42dd5eae5089352",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 42,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s43_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991959,
+    "sha256": "29bd7307252cdb158de0d70d472831060a17ed0d9e7b828dddc5c20ef9c44db1",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 43,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s43_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 38596014,
+    "sha256": "97e662a258c568b7e69d61ebb1dff9107b1c2c9a4ca5f24dabc000dde86e1f39",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 43,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s43_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "97cca3b5d7c04b3be04a7bc4a3aa98f73c4ed30fd06e51208f6785ce5741e08b",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 43,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s43_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7921685,
+    "sha256": "2c872f2e3bea0abeec32d0a6f4dc3f8bee69131c95070179f04a53018e0b230e",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 43,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s43_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "e2c6db9999bdd4703235c8f5dcc13de1877d52b205ed027028e63a2fdaae58cc",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 43,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s43_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19554323,
+    "sha256": "eb65a585b72b2d60a324f5085215da800a4cb673e57272c5a64d23d78db887bf",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 43,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s44_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991959,
+    "sha256": "2c1b031bd1fb0559bdcb7def0484100b6ac9112c78c8734c6cce5668d8379c19",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 44,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s44_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 38504144,
+    "sha256": "10f483f777ab53358b96c77deb07868d21ff2b585b1e092d9e2b4b48a963bc8e",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 44,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s44_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "344d95b601ade2b33e58f966c018181ff28c8067b058bc7f6fe49523ca4edb38",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 44,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s44_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7883762,
+    "sha256": "bb775653460eb08ef790625dba9b7f3a6b670fc9d6052ea9e3fc9a638435a936",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 44,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s44_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "f7ac27033bf8c531a4cef8877d8e729af3ce01fe796937ffbcc88b01409ec30c",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 44,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s44_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19527028,
+    "sha256": "bee2384824e52318918b40b86446b553bcd2bc1be38a9e378eedbef5871f2031",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 44,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s45_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991959,
+    "sha256": "dd0c01c1a37603ac03e2e43bff49eacb209b2ae2a8afd6f83ae1837b10173274",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 45,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s45_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 38145057,
+    "sha256": "14ca3a032cb944ca986a67ce78aebca36a162ca289283259aa3756f5e6145192",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 45,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s45_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "4e3d04c249a9577ab6484e7e50b1eb4a8ec4fa977c51ac7fdc1808ab530dd863",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 45,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s45_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7803042,
+    "sha256": "bcfbecadc2810cccb1a92e575c33d1ac2ce96f731837a2399a652fb4dac11190",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 45,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s45_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "d14369ccdb75a19bc4201fea258038daa43b920db6ed68cebf521b59350bbdcd",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 45,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s45_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19240540,
+    "sha256": "ea961e7c25e7d37b120707f5444db70be7a47e69d2beeb8ed1f926a1d1eedf8b",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 45,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s46_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991959,
+    "sha256": "d239fa827578137a70a1cd38dba3eb4a11c09e21fb30a72ae0fdd08c7cbf073d",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 46,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s46_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 39383705,
+    "sha256": "5c141fe005bab717b9e549f707bfb344035505dfcd0881b2d71f2d334190b32a",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 46,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s46_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "0785f99afa808b70619165de96993de4761bd6315198505e61dfbba93240509a",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 46,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s46_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7850210,
+    "sha256": "3c35574f1862ff475a5d7e794a0581705339d59d308291ada742ff5aedb6dd3b",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 46,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s46_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "0ce6fa8d34f5dd241c02b83ae1080707cfe00a8f271208e40d48854af97f150e",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 46,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s46_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19700757,
+    "sha256": "7d341901ff859ad7b67054a17c4678695ca25189f2070c86dea8aed60bcf2e22",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 46,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s47_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991959,
+    "sha256": "2f1d9351ef1901e03b5ee4d7d96a78ffda6082ccbdf002fabf895722e56ebd4b",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 47,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s47_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 39594178,
+    "sha256": "5898f2c99fe788b17ba10855ef047c66b90dd563d189a99ee7d2386c4b86872a",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 47,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s47_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "4d1530b26dcc501bfcd9d8745249e2646f8572c3f1c4a759962d0c52f20fd513",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 47,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s47_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7873443,
+    "sha256": "b81f67d83bfab35bcc716f502ae0f38bde851b9c4e9b0a4bfe0d0bcc83738390",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 47,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s47_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "56ccec8db0d7442da9dd19260363ffae35585a662e009ead95a71ba9e3299935",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 47,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s47_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19765973,
+    "sha256": "c3d31b572191f0a64322faa3cec1e827b649e0eec99222a192a4433e8bfe44fd",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 47,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s48_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991959,
+    "sha256": "82e59d4bae74f2f99e802f52ea14b981a9b812b2d6b9a0abb9e2cce184124b9a",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 48,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s48_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 39462448,
+    "sha256": "2730414613b59f4e5e5f3ec6eaa91fc6b12b7a2c029c6dae4198c70841392295",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 48,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s48_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "5676a1f4a25ae8bd33764bd4ef7d08091c0c2a55382c847949c98d68f72692cf",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 48,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s48_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7906812,
+    "sha256": "d1d782dced7d5b7e5811d4d6df5438d9dfb021edf09c39882d8fcc977b8cf02c",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 48,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s48_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "dad73f9b24c29a9148d6d33443887850f2b51a59ca71f7b594697e93eb80533f",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 48,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s48_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19755811,
+    "sha256": "8a7c156f47d2887508b8e87738929c3c573f195907e0d04d67e024d3ad23690d",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 48,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s49_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991959,
+    "sha256": "74f58c17286e9ac44df303dac870fd8b84c73bdf55e75c607423d54f2490da3d",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 49,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s49_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 38880862,
+    "sha256": "df0aad3fbf2597f8cdd6eb87f10ad73899ed8966d351d5330557ea7421274ac8",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 49,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s49_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "3aab7ed81480306fe1cce56df592ea50bb6a532245915b220ef2a9df810e9a32",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 49,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s49_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7858353,
+    "sha256": "b485cbbb4bbcacdf6a77361ccc5185a36ec7a3e0106bec8819b5b5bff0faac79",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 49,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s49_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "cead2b64c656b8289dbe0d0c060cc425eb179a1b184339af7174db61aee508a0",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 49,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s49_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19606148,
+    "sha256": "9f0331e5ea8b8c95b0e16d525f808a708e30eef1e5b88126ccc05d8a21c0afc3",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 49,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s50_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991959,
+    "sha256": "45f1d350c7ee41abd638f33ccc5a339f4f9547e069f80e15f31c5f10057b4a41",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 50,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s50_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 39079194,
+    "sha256": "524deb5bab624e9d9fb245e73c95c0e2ed491638b2a39ccadaa486547c2b88c0",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 50,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s50_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "cffd3e03685796ba18ea5fc08f47db62a4b6a235d2027ff8920d3fa61b818d29",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 50,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s50_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7835009,
+    "sha256": "c05ceba5c55b8d3858346b2546ae433bd417369d11acfe2256c2879913a4b189",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 50,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s50_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "7bd04020e6047ee8a94353ec9b3ca2223237ef562982716e34cf8bbc6ebdfb20",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 50,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s50_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19630546,
+    "sha256": "b02211ec1bece73dec5ab66240bc13cae4313a0de38ec2aa71177da417f4e18b",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 50,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s51_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991959,
+    "sha256": "a9df445fe4f74f71999a3057ae3c26c0d6ce1cdffd302b93d7dda4da50d55f91",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 51,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s51_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 39519856,
+    "sha256": "7ea2afb4f6ee000b5864be4deb03a615173925660a4af02d7a5dd47f2378577d",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 51,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s51_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "fd2bde9ba93ddfae228ce60eff972e8f3bf74ae076cb903c4da26e1867e4e320",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 51,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s51_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7858405,
+    "sha256": "7e619834cbc7adc93e6c40c6894f3a062dc8eb0abf9becc8579cdc61e34e65f1",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 51,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_baseline_s51_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1991945,
+    "sha256": "012a6c070be533ee1a6ef1e9e6e2e42574cee34c069ce8fd14a053327b69bee0",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 51,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_baseline_s51_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19757797,
+    "sha256": "1966af8ad81414ddfd09b9fe6682ec5e621b67256ba8d1f230e40aef68ba556a",
+    "included_in_zip": false,
+    "scheme": "baseline",
+    "seed": 51,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s42_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "80ba466095e2da2a39381117be4c53f4ee3ae3d0ae3d344aaac91524e81c3ebd",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 42,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s42_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 38205779,
+    "sha256": "cd2423acbd7c7f8cc8271f8093ecbd997783ce3f23bdfd9a91c23ef8c9c50806",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 42,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s42_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "6b072323c92e53d240a93c04756fd6308a5f8770d7ca830b731dc92d800b264e",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 42,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s42_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7840603,
+    "sha256": "2fbeae2212165935b3cea94354273d7b7f5d966a4bba45de8f825d80b9d14721",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 42,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s42_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "15253242291c50ac9af049a22e59889bf43cdb585e1b1a3ed7262714affaff68",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 42,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s42_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19274257,
+    "sha256": "e3cfe3a3204d5292d32234b88304048c3d2e8f076d3f3c8c5ebfec2ceb8f2a86",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 42,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s43_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "abbe50cf215cdfd276288fdf91b26f876a446ef1afdb595320f9ce706f77cd4a",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 43,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s43_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 37969102,
+    "sha256": "151d017b2c0cc1f685ede424d6c066a29927c89c57ad05fc9b41a78d7203c10f",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 43,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s43_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "8914dfd26325239aaccf3e0c24b81a9ba358f0b014f6cc02e4c6e456ef903cc4",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 43,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s43_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7732690,
+    "sha256": "8e2e75c1bba94a1009f0d90284647e3b61b8bb7e5cdd1118c6d881e9c6099c62",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 43,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s43_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "2e2b1cc336bd9b494a574218aa21c3de27d20b043384c577eea71b4d904b66b3",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 43,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s43_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19104271,
+    "sha256": "90b3dc51b56844c151c21f0b2adfab066124e36b9df689ae9dca6e98536f5add",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 43,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s44_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "c8048914786557a3e75cfc2b951c7ae26427783d14f2a035be7126d083a0f8b9",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 44,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s44_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 39461768,
+    "sha256": "208225e29f3d40f3358cf7560b98e9713b4864bf0c0206f1464e5ec90eb9fbfd",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 44,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s44_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "1656c948acbc1e300bd52634ead7c62855d7331ce2bcff674112db521444bc30",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 44,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s44_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7935661,
+    "sha256": "cb94b465505d6bb4eed22420f288f94207b42b1ceca74c829dc7602e2ac3a7fe",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 44,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s44_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "74d85e9a9a349cbf6e7220bfe147b4077a405a2da8b31e37accbbb0c85d964e8",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 44,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s44_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19836345,
+    "sha256": "21b659b3cf44efd079b45448c9be741d16f4496be7c054456603d1d1b3f6609a",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 44,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s45_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "0730ea8ab0000a309af520a3c29fefe5809d6dcc5261af3df13789e1e3b5cc0b",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 45,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s45_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 37628521,
+    "sha256": "05a30ed77bf53465420b0cd1512b0cd2f0097dbf96017dc06272e211ce1aa0dd",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 45,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s45_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "d28530406d3df9442e9f0aa830f1e2b766276a63139ec5554b9977acdc7dfc58",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 45,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s45_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7644488,
+    "sha256": "4c43b6f3b7b730749e94b5b7bc8f97a095fc7a71095267dc24772eed1105e3df",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 45,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s45_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "8fd96a15c35b5b7b06632a3d98035ecfdcb9b3a92cc02af6000485e1742d133b",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 45,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s45_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 18931454,
+    "sha256": "64b3f0ba988250daf6e676df5fc9ab58676f21a41dc45dc01e4de8fb91659043",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 45,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s46_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "04d0d31c96d5c4cebb2a296c3c66401faeeb129560ecf6e8c00bb70024e7bf67",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 46,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s46_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 39361841,
+    "sha256": "4b7e536569830098c9372d9c3fff3109f6a0fa485c80cb6ce69b5d20f0e0506e",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 46,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s46_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "8cc9e045c2e713300e43095cd2fa870e4539c0207b16e684171569a15603ca0e",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 46,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s46_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7891158,
+    "sha256": "3a67524d4cbcf961a136266711011746e00be348176164ef0dcd677e621fe589",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 46,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s46_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "ea003702e332c3d9845ddaa8a743e22ac9accfe71b8f1fc4416bbe2c9a39520e",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 46,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s46_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19735608,
+    "sha256": "4c90ab28291fee401b3700ca26674db53adc165487265fd14c5681611d1439c2",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 46,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s47_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "fdfbd1f86b35304036b06d748428f53c4319015fc11988c2d922d2857a746cf4",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 47,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s47_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 39656911,
+    "sha256": "07a9ec3a8c0a06a16b373b9f897a417adb548ac2bad953e2eacda8ca17228586",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 47,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s47_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "6075ca649f28975d1cf6f81bb0dbb8d144b9491a1c9365f019e17760dee67f86",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 47,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s47_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7932726,
+    "sha256": "1fa5a2eb413475b83f92871ee35d2682ad45f23c7c52f90d820a3a33c64ab89c",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 47,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s47_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "96508b72260fc161bc8f57ce880f65733b8e2a87d7f40cf419a8a90817b75a33",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 47,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s47_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19842579,
+    "sha256": "0b51766df42f8aca24f054b90f0bc143696306c6ffbbb7d05da0dc3acb64cd18",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 47,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s48_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "701c34db8addb2522ee2c41b7189bf4d3c1ed83ace7272a3e87c4d210b406ed0",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 48,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s48_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 39467824,
+    "sha256": "f81a114982ca036604fa2583974c189ab91673ae53b78e36e58f0a4171537099",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 48,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s48_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "2e4d26a365bffed572dcc2ae4142e4c8029a496ea8c64a78e33866da87673daa",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 48,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s48_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7915296,
+    "sha256": "f5642324778961b56e8bf6357887145b6f779768e4d9f537803435e43908c6d5",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 48,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s48_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "064e2b69dbce1c4c442da659915fbe8f65c298dbd6de896973c14f662936f05b",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 48,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s48_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19766063,
+    "sha256": "2fe87550d0dceae495ba8d9f383329b3f96aa6c9e81fd950ef213a347ed7a9f7",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 48,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s49_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "7c8f2a143feda1af26feccf58e9b9b944a4ada479ff0987aa0f1a80a10eccd8f",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 49,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s49_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 38084726,
+    "sha256": "cbd157a97b594d1376c9660fd666065dbf7d43eda46927e37d26fafaff1b4d73",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 49,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s49_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "da6a06603f1be2c3e807b72d53e7cae9b0f0a0d910656d95a1187d5683b38de6",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 49,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s49_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7777467,
+    "sha256": "35074a414ecec9d000223a727117cac81559ee514718b56a711d171b10005670",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 49,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s49_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "ee1e85d987759d9aa452522a06c7944467ab52f18a6cf6b3a500bf268d3dccc5",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 49,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s49_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19186500,
+    "sha256": "5575298366b2f95c1d790ab3ba8c86fa4da1e3b7215ace32121973b2a1b63db6",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 49,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s50_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "58c2b0e860ec5d9ba2480617e9213da1b2a461a4c23c2612279a99ab93cd4f3e",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 50,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s50_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 38192786,
+    "sha256": "5af954bc328141f56a0abd71d2fbd99150f2d29d40f315b2719d2ff9de84582f",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 50,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s50_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "e4b186fe2fdde2470bae46ebb72898730c16159660541041148d368c59f2b40c",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 50,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s50_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7787433,
+    "sha256": "d25e5cbb618406a86bfe14f51e4b5d57764891b965d72be3084759b3627e154c",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 50,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s50_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "710457fdf63b7938076e4369fa3a31d982c8de1d2edec3e2f94e67d11bfdd427",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 50,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s50_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19238367,
+    "sha256": "4f9e9f439a950f2ad2c567ceb63d03d8faba09e649d4810f9a1e99f6bc3b18ec",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 50,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s51_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "1c2be5e2cdd2a046f42286c18ddc3bce6576e7be286f253fb875bb841717c8ba",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 51,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s51_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 39026163,
+    "sha256": "3396126b9b4059356cdb8c530668b5dd32d0cfaa86263e151f13c07e2bc9a5aa",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 51,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s51_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "095478d425798642c0f7f158c338225ec5dd500a24ad1293f71ca085cd00bf1f",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 51,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s51_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7838636,
+    "sha256": "a41fb0494a1c89af45a9000f41966d37cffc5738fcffc50cc54dd826b87baee7",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 51,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_fixed_ris_s51_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "d78aefb474a3d5dff8fd80db6bf8d5b019132b10eeb7a8de252aedc7958f0ab5",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 51,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_fixed_ris_s51_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19678036,
+    "sha256": "346eb766088e2796cf4a3578a0388ab1c58d7f9e1e4c5705cfa832f45bd21420",
+    "included_in_zip": false,
+    "scheme": "fixed_ris",
+    "seed": 51,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s42_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "7d7c14ae013862aad8564151090b863e8c119fb715446ebe8b3f01b6e36321e0",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 42,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s42_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 39688626,
+    "sha256": "520897ae0b515c4730fb0d5ee98b92e6277f930a3ddf16d13a541f028cb9792f",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 42,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s42_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "3208c22fdd0557e3a492295fbe34484ad62c6d2a52a6bf617431b74071370a11",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 42,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s42_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7922490,
+    "sha256": "91ea9ef24b015087b3ea29508e6a3a91498319c96f6c9de7e3f670d9d41a092f",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 42,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s42_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "03d4ccab82bd564eba12b41422c73c3d31f5d83ff3ead7c92e9307169a8a74f8",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 42,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s42_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19832414,
+    "sha256": "fe0e8251a53a70ed61469aa32466607e9cca2f6b4bdb50393bb5bf3fa33039d9",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 42,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s43_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "e4615b59e4de1513445fba0d6fa308a5908a17ef12b15dae1d94c4b10d9a4c5f",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 43,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s43_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 37993181,
+    "sha256": "7f52aeba679b86cfb4e2eb8141fa3646e721af0c6e292170e617278d615c80d7",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 43,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s43_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "3d24c34b91a51275453144d725cc51be17bca456171d9181bda74e5742f31261",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 43,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s43_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7718351,
+    "sha256": "035be3f3c31cac1bab56e9ac62a71ff8f60f6be4ffbf69fb963c0a1f991ad311",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 43,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s43_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "8fc8d7c6c0135bc9de83201f66f9fa368613630ddad3912ac3dcadf530d159ec",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 43,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s43_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19100042,
+    "sha256": "5908f2ae495f205dc586b5b968adf4753c68839523227c052eb0be7a21f304c5",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 43,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s44_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "9117766f1585a046652a589aa93f61c21fe21e01d5eed5d6717650d608f42330",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 44,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s44_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 38133602,
+    "sha256": "f83cef8a210b9416ca3d93f96ddd89508d1b5d53d8beb6f31918800d59b99446",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 44,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s44_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "6a6566b0fd105a02a8a5b8b506435899090002b90e44a8a4f8026814ab37647b",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 44,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s44_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7775974,
+    "sha256": "b84b1ca3f54a4426769c04debd029e939b6be4f9a76e2dc36b53ddc90bfd43ce",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 44,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s44_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "dd2d5415338a1f4c3e1230d713e168a78edc879c9ed7c519a4afb2881e292ab1",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 44,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s44_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19195785,
+    "sha256": "dc5aaa8172f5bcb023daa669960402c232264a38bb9500205536886be3dbb7e6",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 44,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s45_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "2dec1579513e03b444cec3b5fa642f63b61f4ad13fb134ae352388f2aedb15c7",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 45,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s45_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 38799566,
+    "sha256": "5c778bdba6df5eb267b34cda1776e8e4b566f9ab36834e5f540903a75a6dbb48",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 45,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s45_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "bfe04789250531aad4b662533161d413ca02f60cd0fe42a6ff061256ba6d8db0",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 45,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s45_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7917318,
+    "sha256": "895b9dedec40931dc044479c6751870906aea085e0b0e5a1b290bd84224a538b",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 45,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s45_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "8106c0f58b09be747487894f749371520d865dc6b4c9b010fe336fd1687e73d0",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 45,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s45_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19681100,
+    "sha256": "eba91d034d664155db7b4d92bdd9ab285ed74b90af24bb62b5a984ee7ec23ccd",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 45,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s46_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "84fcc847448d50328d015c170fb6ffd2dfc901dca25febac97b091071391d146",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 46,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s46_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 39440687,
+    "sha256": "c844dc609db70ca8d342be4472aacf3b75c99440c463e10463cc0c7ebc7fff87",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 46,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s46_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "fe9962d6a19570458c864b556d03310c3229f77cc509da31e65b563537ec9003",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 46,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s46_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7828280,
+    "sha256": "22ff6885e4403fd98f284b4da32039b6bf904312b1fc20520e8b12f78ec74061",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 46,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s46_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "3c1dac0c771dc7c09165491112175e6ad355147f0ff33efee523ae4f320fedaf",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 46,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s46_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19697627,
+    "sha256": "ab3acba49a47d440b103082d3633fd819dad21484355d606ae87bd96df144fcf",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 46,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s47_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "e51ff4bc666acb4ac844f7a497af15d81a9cae1c4f7ba89b2fcaba1dfba32c2e",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 47,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s47_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 38537361,
+    "sha256": "fa16d75f3b4a54ca66c7e11f931954cc9e1e6d4e9e4edca7c2d7b61fef1864ef",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 47,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s47_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "e96db12b0c11fce3cbbde8fdd3bc3c47ede431fe19817cbef7b62178dc9b449f",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 47,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s47_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7924579,
+    "sha256": "04076ab5a2c6367095c5ecb598e1df36626bf0b0dd0f5666e96cc964541037fe",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 47,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s47_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "d4ec6e5665c74abdb5f4d4969b4c69649da994da20df5f984b4e0174ebf78382",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 47,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s47_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19522368,
+    "sha256": "6b5f1dc4f566f3e329e849c38dfed7469ae0d679ce90a17398c51989809a6d73",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 47,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s48_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "a8c3cb639cb7335e20fd69f784175dd7e6b8189767ea7acadf286b3662531d19",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 48,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s48_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 38895418,
+    "sha256": "801271c567bf9dc8b86f57a400f7baf14a067a86e9a1e85440dec1ac3733ecd7",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 48,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s48_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "cd864d41cbd2955a683fae2091695a4ec8686240928e15e6aa312387783b2e15",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 48,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s48_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7886889,
+    "sha256": "e33d4dc669a0c77f299103108868d28109bac7dfcb4566d5cb2e230e6c04e3ca",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 48,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s48_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "1c8765ca82f54bd3e0ae0233650bd91cfcd5068b7a5b1c6783e8acaff927c510",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 48,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s48_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19647604,
+    "sha256": "901c783c4399e71e40717bc4910678081d6b88f84cdce79e014fc1febba40172",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 48,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s49_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "508d6454387b09c1bc3e08d8bc2948a0ea7e68c8497a7f26146c8cf7626d0b28",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 49,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s49_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 39154701,
+    "sha256": "16e121a3a2845fc52932505023708ce1f9b3f54d5241657f4aa712ea8e937d8b",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 49,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s49_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "4513ee00dbfb338148787ee6ba60e1575c991f2bf196300f7d9a19e53aea617d",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 49,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s49_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7893272,
+    "sha256": "bc1123a2fea86bed035ac99293fb9350e8a6c9aae9120337e418438119ffe526",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 49,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s49_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "559dbcb8bf7526637dceb00bcd9b9d33259c73ffe5474f11a8003b863cd7e138",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 49,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s49_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19712525,
+    "sha256": "4bf491c07465d40f69c539140f37fc27b39dd4e5dc4ee50efb0c607b807ab8e7",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 49,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s50_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "acfd6a7d0dd677b6f0fd9f2df2fb898e8fafb869332dc7ab6c6a44b62f54dfd3",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 50,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s50_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 38115495,
+    "sha256": "9a684d4d3a6c72d535d5bff04e2b27ddf9328073a70854bdbbb6e2c9e05d91dc",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 50,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s50_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "b2a5c75d06ccec46a86da7ed7927372c0c537a262f08f089618d9df6abdc1228",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 50,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s50_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7729696,
+    "sha256": "6012ecb7221100a1fe426e3b870a84612fac14252a7610685989dcf7a983b88b",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 50,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s50_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "0ce116359876e25fae87a959f50b9ce350a00a71af7ca25173ab1643a3c60be3",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 50,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s50_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19185710,
+    "sha256": "3e7bebb5209a8b51a56e25a741442de19d03e62b711772dffbf24be577a8b36d",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 50,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s51_b10000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992037,
+    "sha256": "b48123e8532bf9141cd937fec42570a4b6ae6d93f35eca4ff1cc2c32cb79a610",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 51,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s51_b10000.json",
+    "kind": "dnd_memory",
+    "bytes": 37972963,
+    "sha256": "afa9d63467d3c37863e43b96b0ba9729d0920342320eccfc62b96457ccf2d838",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 51,
+    "budget": 10000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s51_b2000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "91a826de7e2e9a4407ffe06ea68aeea410b6878b0c1549f52399c425484e4bc7",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 51,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s51_b2000.json",
+    "kind": "dnd_memory",
+    "bytes": 7813844,
+    "sha256": "511e8aa0eb1be76a3d9dfd7a8ddf29710a2561333a94d7070996abe4d98e5909",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 51,
+    "budget": 2000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/policy_joint_ris_s51_b5000.pt",
+    "kind": "policy_cnn",
+    "bytes": 1992023,
+    "sha256": "a720d3000ce9b1b5bbfc5a7a77d3e9f922b277b18b1e5792121fde9de8e0d39d",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 51,
+    "budget": 5000
+  },
+  {
+    "path": "output_figures/ris/training_budget_study_matched_v2/checkpoints/dnd_joint_ris_s51_b5000.json",
+    "kind": "dnd_memory",
+    "bytes": 19166937,
+    "sha256": "7f4ef622272275f2ffd9fe037148632991b5e5db5d6f3acbef9bc86b3c826af5",
+    "included_in_zip": false,
+    "scheme": "joint_ris",
+    "seed": 51,
+    "budget": 5000
+  }
+]

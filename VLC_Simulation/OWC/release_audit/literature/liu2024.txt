@@ -1,0 +1,1844 @@
+PAGE 1
+Smart Jamming for Secrecy: Deep Reinforcement
+Learning Enabled Secure Visible Light
+Communication
+Sicong Liu, Senior Member, IEEE, Xianbin Liu, Xiaojiang Du, Fellow, IEEE, and Mohsen Guizani, Fellow, IEEE
+Abstract—As one of the indoor communication technologies,
+visible light communication (VLC) has drawn great attention
+for its advantages such as ultra-wide unlicensed spectrum,
+power saving and low complexity. The nature of the visible
+light propagation is an open channel, which is vulnerable to
+wiretapping. This paper investigates a secure VLC mechanism
+enabled by multiple light ﬁxtures acting as friendly jammers.
+The goal of the friendly jammers is to diminish the capability
+of the eavesdropper to infer the undisclosed information, on the
+premise of causing minimal impact on the legitimate receiver.
+For this reason, an algorithm based on reinforcement learning
+is proposed to dynamically optimize the friendly jamming policy
+in realistic nonstationary environments. In order to resolve the
+difﬁcult problem of the dimensional curse and to effectively
+represent the continuous state and action spaces, an algorithm
+based on deep reinforcement learning is devised, which utilizes
+deep convolutional neural networks to accelerate the convergence
+rate of the learning process. A differentiable neural dictionary
+is introduced to make full use of the experiences in similar
+anti-eavesdropping scenarios to improve the learning capability.
+Simulation results demonstrate that, the proposed schemes can
+achieve a higher secrecy rate and a lower bit error rate than
+some state-of-the-art schemes.
+Index Terms —Visible light communication, anti-
+eavesdropping, friendly jamming, deep reinforcement learning,
+multiple-input multiple-output.
+I. I NTRODUCTION
+Among the various technologies for indoor broadband com-
+munications, visible light communication (VLC) is one of
+the key technologies that have drawn great attention from
+both academia and industry [1]. VLC is operated in the
+ultra-wide unlicensed visible light spectrum, which naturally
+This work is supported in part by National Natural Science Foundation
+of China (No. 62471414 and 62077040), in part by Guangdong Basic and
+Applied Basic Research Foundation (No. 2024A1515030150), in part by the
+Natural Science Foundation of Fujian Province of China (No. 2023J01001),
+in part by the Science and Technology Key Project of Fujian Province, China
+(No. 2021HZ021004), and in part by the Science and Technology Planning
+Project of Fujian Province (No. 2022I0001). ( Corresponding Author: Sicong
+Liu).
+S. Liu and X. Liu are with the Department of Information and Communica-
+tion Engineering, School of Informatics, Xiamen University, Xiamen 361005,
+China, and also with Shenzhen Research Institute of Xiamen University,
+Shenzhen 518057, China (E-mail: liusc@xmu.edu.cn).
+X. Du is with the Department of Electrical and Computer Engineer-
+ing, Stevens Institute of Technology, Hoboken, NJ 07030 USA (E-mail:
+dxj@ieee.org).
+Mohsen Guizani is with Mohamed Bin Zayed University of Artiﬁcial
+Intelligence, Abu Dhabi, United Arab Emirates (E-mail: mguizani@ieee.org).
+integrates information transfer with existing illumination in-
+frastructure. Energy efﬁcient and cost-effective light-emitting
+diodes (LEDs) that are widely applied for illumination are
+commonly adopted as a good choice of light signal source.
+Compared with traditional radio-frequency (RF) technologies
+[2], VLC enjoys many advantages such as license-free, high
+transmission rate, cost-effective implementation, and low en-
+ergy consumption [3]–[5]. This makes VLC very suitable to
+be applied in various indoor and outdoor scenarios, such as
+high-capacity hotspots, ultra-dense networks, and high-rate
+underwater communications [6]–[8].
+Due to the broadcast, unstable and open characteristics of
+visible light channels, the secrecy of the transmission between
+the transmitter and the legitimate user within the range of light
+exposure is threatened by eavesdropping, which is particu-
+larly prevalent in indoor scenarios such as ofﬁces, libraries,
+museums, and hotels [9]. It is also possible for the secrecy
+information to be wiretapped from outside the room through
+large windows [10]. Therefore, it is crucial to investigate
+effective anti-eavesdropping technologies while maintaining
+satisfactory transmission performance of the legitimate users.
+With the ever enhancement of the deciphering ability of
+the eavesdroppers, the traditional secrecy protection scheme is
+more difﬁcult to meet the security requirements, which is still
+a vital issue restricting the development of VLC techniques
+[11]–[14]. Recently, the technique of friendly jamming has
+attracted increasing attention as one of the physical layer
+security methods for secrecy protection [15]–[17]. A friendly
+jamming based cooperative communication scheme as pro-
+posed in [9] can degrade the signal quality received by an
+eavesdropper over the visible light wiretap channel, which is
+further extended to the multiple-input single-output (MISO)
+visible light channel in [18]. An artiﬁcial noise injection based
+technique can improve the secrecy performance of the free-
+space optical communication system [16]. An optical interfer-
+ence assisted secrecy enhancement method is introduced for
+a generalized space shift keying modulated VLC transmission
+over a Gaussian wiretap channel [17]. An efﬁcient iterative al-
+gorithm based on transmit beamforming and friendly jamming
+techniques developed in [19] enhances the communication
+secrecy of MISO VLC systems with multiple eavesdroppers. A
+MISO VLC beamforming scheme was proposed in [20], which
+tried to ﬁnd a strategy to reduce the receiving power of the
+eavesdropper through iterative learning process. However, the
+receiving power of the eavesdropper and the receiving power
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 
+PAGE 2
+of the legitimate user are positively correlated since the signal
+is generated by the same transmitter, and thus the receiving
+power of legitimate users is constrained by eavesdroppers and
+the performance of the legitimate user is limited. This results
+in an inevitable tradeoff between the reception performance
+of the legitimate user and the secrecy protection ability of the
+system.
+It is worth noting that, for common VLC systems, due
+to the non-symmetrical physical property of the visible light
+based downlink channel and the radio frequency or infrared
+based wireless uplink channel, and considering the incoherent
+nature of the IM/DD-based VLC transmission, many existing
+security mechanisms for classical wireless communications are
+not directly applicable to VLC systems [18]. Besides, realistic
+complex wiretapping environments tend to be temporally
+and spatially nonstationary due to dynamic changes, such as
+the blockage by clutters, human activities, and the mobility
+of the eavesdropper, making the wiretapping channel time-
+variant and complicated. Thus, it is very difﬁcult to design
+a closed-form and continuously optimal policy of friendly
+jamming under the condition of realistic time-varying channels
+and complex dynamic environments. This makes it necessary
+to conceive an approach more adaptive to spatiotemporally
+nonstationary environments to improve the traditional friendly
+jamming schemes. Moreover, apart from deteriorating the abil-
+ity of the wiretapper, some metrics concerning the legitimate
+user, such as the bit error rate (BER) that reﬂects the receive
+quality, can also be taken into consideration in the approach
+of friendly jamming, which might further improve the overall
+secrecy performance of the system.
+To this end, we devise a smart friendly jamming approach
+in this paper inspired by the recently emerging technique of
+reinforcement learning (RL), which obtains optimal strategies
+by dynamically interacting with the environment modeled as a
+Markov decision process (MDP) [21]. As a subﬁeld of artiﬁcial
+intelligence, the RL technology has been investigated in some
+telecommunication applications, including power control, anti-
+jamming, and relay selection [22]–[25], etc. By incorporat-
+ing deep neural networks with RL, the deep reinforcement
+learning (DRL) technique is employed to ﬁnd better strategies
+from more complex environments and accelerate the learning
+process [26]–[31]. Hence, in order to deal with the great
+challenge of secrecy protection in realistic spatiotemporally
+nonstationary environments, an RL-based friendly jamming
+(i.e., RL-FJ) scheme is proposed in this paper.
+Speciﬁcally, multiple light ﬁxtures acting as intelligent
+friendly jammers are controlled by the RL-FJ scheme to trans-
+mit friendly jamming signals to prevent the potential eaves-
+dropper from inferring the private information, and meanwhile
+maintaining the quality of reception for legitimate users.
+Different from the scheme in [20], more degrees of freedom
+have been introduced by friendly jamming to search for the
+optimal anti-eavesdropping strategy in the solution space.
+The legitimate reception performance can be improved by
+increasing the receiving power of the legitimate user, which is
+not constrained by the eavesdropper. The proposed RL-based
+scheme searches for the best jamming policy that maximizes
+the jamming power on the eavesdropper, thereby improving
+the secrecy rate of the system. During the communication
+process, the proposed intelligent friendly jammers determine
+the friendly jamming policy, via Q-learning according to the
+state information such as the BER, secrecy rate and energy
+consumption. To determine the jamming policy is to determine
+the jamming beamformers for the multiple LED light ﬁxtures,
+i.e., the friendly jammers. Thus, a multiple-input single-output
+(MISO) channel is formed between the multiple jammers and
+the legitimate user or eavesdropper.
+Furthermore, it should be noted that Q-learning algorithms
+have only asymptotical optimality guarantee [32], i.e. converge
+to an optimal solution as the number of data samples tends
+to inﬁnity, which might limit the learning performance. More
+importantly, in realistic complex VLC environments, the dif-
+ﬁculty of effective representation of the continuous state and
+action spaces and the problem of dimensional curse, that is, the
+difﬁculties encountered by algorithms in model training due
+to the high dimensionality of data, still remain to be resolved.
+Meanwhile, the convergence rate of the learning process
+should be further accelerated in this complicated circumstance
+to ensure satisfactory quality-of-service. To this end, we pro-
+pose a DRL-based friendly jamming (DRL-FJ) scheme that
+employs deep convolutional neural networks (CNNs) to extract
+the complex environmental features and effectively represent
+the continuous state and action spaces. Accompanied with
+the DRL-FJ scheme, a memory module called differentiable
+neural dictionary (DND) [33] is utilized to make full use
+of the experiences in similar anti-eavesdropping scenarios to
+further accelerate the learning process. To summarize, our
+contributions are listed as below.
+• An RL-based scheme, i.e., RL-FJ, is proposed, which dy-
+namically determines the optimal friendly jamming poli-
+cy via Q-learning, to adaptively improve the performance
+of secure VLC transmission in realistic spatiotemporally
+nonstationary environments 1.
+• A DRL-based scheme, i.e., DRL-FJ, is proposed, which
+utilizes deep CNNs to effectively represent the complex
+and continuous state and action spaces, and resolve the
+problem of the dimensional curse.
+• A DND is introduced to make full use of the previous
+similar anti-eavesdropping experiences, which further ac-
+celerates the learning process.
+• The performance of the proposed schemes are theoret-
+ically analyzed in terms of the receive quality of the
+legitimate user and the overall system utility, and the
+computational complexity of the proposed algorithms are
+derived.
+The remainder of this paper is organized as follows. The
+1Part of this work, i.e., part of the ﬁrst contribution on Q-learning
+based algorithm, has been presented in IEEE International Conference on
+Communications (IEEE ICC) 2022 [34]. Compared with the conference
+version, this article has extensively extended the technical content, theoretical
+analysis and experimental results. A DRL-FJ algorithm is proposed to deal
+with the problem of high-dimensional curse and quantization error. A DND
+is introduced to further improve the learning performance and efﬁciency.
+Theoretical analysis of the performance of the proposed schemes as well
+as, the computational complexity are derived. More extensive and thorough
+simulations have been conducted and reported, and more benchmark schemes
+are compared.
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 
+PAGE 3
+visible light channel model and the VLC wiretapping model
+are described in Section II. In Section III and Section IV ,
+the proposed RL-FJ and DRL-FJ schemes are introduced,
+respectively. The theoretical performance of the proposed
+algorithms are evaluated in Section V . In Section VI, the
+simulation results are reported with discussions, followed by
+the conclusions in Section VII.
+II. S YSTEM MODEL
+A. Visible Light Channel Model
+In this paper, a VLC system using pulse amplitude modu-
+lation (PAM) with a direct current (DC) bias is considered,
+where the transmitter is composed of multiple LED light
+ﬁxtures driven by a ﬁxed bias ID and the receiver at the user
+terminal is equipped with a single photodiode (PD). The total
+electric current Ie driving the LED is the superposition of the
+DC biasID and the signal componentx conveying the informa-
+tion to send. To avoid severe clipping distortion and maintain
+satisfactory linearity in optical conversion, and meanwhile to
+satisfy the illumination requirements, it is required that the
+total electric current Ie should not exceed a speciﬁc range
+[35]. This imposes a speciﬁc constraint on the amplitude of
+the information signal x, i.e.,|x|≤ αID, where α∈ [0, 1] can
+be regarded as the modulation index. The electric current Ie is
+then converted to the instantaneous transmit optical power PT
+in the LED to radiate light via an electro-optical converter, i.e.,
+PT =ηIe, where η is the electro-optical conversion efﬁciency.
+At the legitimate receiver of the user terminal, a PD receives
+the incident optical power represented by PR =GPT with G
+denoting the path gain of the channel, and converts the optical
+power to the received electrical signal y via optic-electrical
+conversion with the PD responsivity of R and after the DC
+bias removal.
+The LEDs are commonly assumed to have a Lambertian
+radiation pattern [36], [37], where the path gain of the visible
+light channel G is given by
+G =
+
+
+
+n20AP(log cosφ1/2−log 2)
+2πd2 sin2(ϕF) log cosφ1/2 cos
+− log 2
+log cosφ1/2 (φ) cos(ϕ), |ϕ|≤ ϕF,
+0, |ϕ|>ϕ F,
+(1)
+where the parameters are deﬁned as follows: n0 is the optical
+concentrator refractive index; AP is the PD detector area; φ
+is the angle of irradiance relative to the LED optical axis;
+φ1/2 is the LED half irradiation intensity semi-angle; ϕ is the
+angle of incidence relative to the PD optical axis; ϕF is the
+PD ﬁeld-of-view (FoV); d is the distance from the LED to the
+PD.
+B. VLC Wiretapping Model
+A typical indoor VLC framework against eavesdropping
+assisted by friendly jamming is shown in Fig. 1. An LED light
+ﬁxture acting as the transmitter (Alice) is sending private in-
+formation to the receiver of the legitimate user (Bob) equipped
+with a PD via the VLC link. An eavesdropper (Eve) in this
+environment is attempting to wiretap the private information
+from the VLC signal that reaches the PD of its receiver. The
+friendly jammers are composed of NJ LED light ﬁxtures that
+Friendly jammer Friendly jammer 
+Alice 
+Legitimate receiver Bob Eavesdropper Eve 
+Private VLC signal 
+Friendly jamming 
+Friendly jammer Friendly jammer 
+JB h JE h
+AE hAB h
+Fig. 1. A typical indoor VLC framework against eavesdropping, including
+an LED light ﬁxture acting as the transmitter (Alice), the legitimate receiver
+(Bob), an eavesdropper (Eve), and the friendly jammers composed of several
+LED light ﬁxtures.
+are transmitting jamming signals with a speciﬁcally designed
+beamforming pattern in order to prevent Eve from effective
+wiretapping.
+Based on the visible light channel model, the received
+electrical signals of Bob and Eve are respectively given by
+yB =hABx + hTJBj +nB, (2a)
+yE =hAEx + hTJEj +nE, (2b)
+where hAB and hAE represent the channel gains from Alice
+to Bob and Eve, respectively, with hAB = RηGAB and
+hAE = RηGAE, where GAB and GAE represent the path
+gain from Alice to Bob and Eve respectively; x ∈ R
+represents the transmit information signal with zero mean;
+The vectors hJB, hJE ∈ RNJ denote the channel gain
+vectors from the NJ friendly jammers to Bob and Eve,
+respectively, where hJB = Rη[G1B,G 2B,··· ,GNJB]T and
+hJE = Rη[G1E,G 2E,··· ,GNJE]T, with GiB and GiE, i =
+1, 2,··· ,N J, denoting the gains of the propagation links
+from the i-th friendly jammer to the legitimate user and the
+wiretapper, respectively; The vector j∈ RNJ represents the
+jamming signal transmitted by the NJ friendly jammers; The
+background noise at Bob and Eve is represented bynB andnE,
+which can be modelled by zero-mean additive white Gaussian
+noise (AWGN) with the variance of σ2B and σ2E, respectively.
+As previously mentioned, subject to the constraint of the
+dynamic range of the LED driving current due to nonlinearity
+distortion and the requirements of illumination purpose, the
+amplitude of both the information signal and the jamming
+signals should satisfy a certain constraint. Speciﬁcally, it is
+satisﬁed that |x|≤ αID and|j|≼ 1αID, where 1 is an all-
+one vector, and the operator≼ denotes elementwise inequality
+between two vectors, i.e., the absolute value of each element
+in the jamming signal j is no greater than αID.
+The jamming signal j can be equivalently rewritten in
+a format of MIMO beamforming for the purpose of sim-
+plifying the representation of the jamming strategy to be
+determined by the proposed learning scheme. Speciﬁcally, a
+jamming beamforming vector, i.e., the jamming beamformer
+w = [w1,w 2,··· ,wNJ]T subject to|w|≼ 1, can be allocatedto the NJ friendly jammers to determine the jamming signals
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 
+PAGE 4
+VLC 
+transmitter 
+(Alice) 
+and 
+friendly 
+jammer 
+(Jammer) 
+Determine the utility u(k)
+Assemble current state 
+ 
+Update the Q-function Select the jamming beamformer                  with  ε-greedy 
+Obtain current BER      , 
+Estimate the secrecy rate ĉs(k) ,   
+Measure the energy consumption 
+Obtain previous BER        , 
+Obtain secrecy rate ĉs(k-1) ,
+Get previous energy consumption         , 
+Get present channel         of legitimate 
+user 
+Perform selected 
+action 
+Feedback information 
+from environment 
+Legitimate 
+receiver 
+ (Bob) 
+and 
+eavesdropper 
+ (Eve) 
+( ) ˆ kep
+( 1) ˆ kep /g16
+( ) kE
+( -1) kE
+Feedback information 
+from environment 
+( ) ( 1) ( 1) ( ) ( 1) 
+AB ˆ ˆ [ , , ] ,k k k k k e s Ep c h /g16 /g16 /g16 /g32s
+( ) 
+AB 
+kh
+( ) kwEnvironment: 
+Fig. 2. Proposed RL-based friendly jamming beamforming scheme.
+to transmit. Then, the jamming signals can be rewritten as
+j = wj, where the amplitude variable j is zero-mean and
+subject to |j|≤ αID. Thus, the received electrical signals in
+equation (2) is simpliﬁed as
+yB =hABx + hTJBwj +nB, (3a)
+yE =hAEx + hTJEwj +nE. (3b)
+III. RL-B ASED FRIENDLY JAMMING BEAMFORMING
+SCHEME AGAINST EAVESDROPPING
+Assuming that the amplitude of the transmit and received
+information signals, i.e., x and j, is uniformly distributed
+within [−αID,αI D], the achievable secrecy ratecs of the VLC
+system in the wiretap channel [9] is given by
+cs = 12 log
+
+1 + 2h2ABα2I 2D
+πe
+(
+σ2B + 2|hTJBw|2α2I 2D
+)
+
+
+− min
+(
+log hAE
+|hTJEw| +
+⏐⏐hTJEw⏐⏐
+hAE
+log√e, hAE
+|hTJEw| log√e
+)
+.
+(4)
+The objective of the VLC system should be to maximize
+the secrecy rate cs as given in (4), i.e., arg maxw cs. Thisis, however, an intractable problem that is difﬁcult to ﬁnd a
+closed-form solution [9]. As a tractable alternative solution,
+a suboptimal jamming beamformer w0 that tries to maximize
+the secrecy rate in (4) based on zero-forcing can be obtained
+by
+w0 = arg maxw cs,
+s.t. hTJBw = 0, |w|≼ 1. (5)
+The solution to the above problem is to force the jamming
+power applied by the friendly jammer on Bob to be zero, i.e.
+hTJBw = 0. It should be noted that this zero-forcing solution
+can be suboptimal. It is intuitively understandable that the
+jamming beamformer w is conﬁned in the null-space of hTJB in
+the zero-forcing solution, so all possible solutions of w can not
+be traversed. Thus, only a local optima within the zero-forcing
+subspace can be found, while the globally optimal solution of
+the jamming beamformer policy that maximizes cs cannot be
+achieved. For example, it is possible that in a certain case the
+jamming power on Bob is a small value but not strictly zero,
+but the jamming power on Eve might be larger than the case
+where Bob receives zero jamming, which results in a higher
+secrecy rate than the zero-forcing case.
+Besides, the optimization problem in (5) only considers
+the ability to degrade the wiretapping performance of the
+eavesdropper, but the receive quality of the legitimate user,
+which is reﬂected by some metrics such as the BER, is not
+guaranteed, which might have a severe impact on the quality-
+of-service of Bob and limit the overall system utility. Hence,
+it is necessary to design an efﬁcient scheme to tackle this
+problem.
+In order to take both the secrecy rate and the receive quality
+of the legitimate user into account in realistic spatiotemporally
+nonstationary environments, an RL-based friendly jamming
+(RL-FJ) beamforming method is devised, which aims to im-
+prove the overall system utility through an online iterative
+learning process, and fully explore the solution space of the
+problem in (4) to dynamically update the optimal policy of
+friendly jamming. The system utility adopted in the learning
+process can be carefully devised to thoroughly consider the
+secrecy rate performance, the receive quality of the legitimate
+user, and in addition, the energy consumption, which will be
+described later this section.
+Speciﬁcally, during the VLC transmission process com-
+posed of a series of time slots indexed by k, the intelligent
+friendly jammers dynamically determine the optimal jamming
+beamformer by interacting with the spatiotemporally nonsta-
+tionary environment. Consequently, an MDP is formulated to
+select the optimal policy, in which the state, action, and reward
+are elaborated as follows.
+State: As depicted in Fig. 2, the friendly jammers receive
+the feedback information from the communication environ-
+ment, including the legitimate channel gain h(k)AB and the
+previous BER ˆp(k−1)e . The achievable rate ˆc(k−1)s at previous
+time slot is calculated according to (4), in which the channel
+state information (CSI) of hAB and hJB can be obtained from
+the feedback information from Bob, while the CSI of hJE and
+hAE can be estimated by roughly predicting Eve’s possible
+location with the aid of some prior information, such as the
+geometric information of the indoor environment, the furniture
+layout, the obstruction, etc. The energy consumption E(k−1)
+of the transmitter and the friendly jammers at the previous slot
+is also obtained. Thus, the current state s(k) of the system can
+be expressed as
+s(k) =[ˆp(k−1)e , ˆc(k−1)s ,h (k)AB,E (k−1)]∈ Λ, (6)
+where Λ denotes the state space consisting of all the possible
+states.
+Action: The jamming beamformer w is selected as the
+action, which determines the jamming power transmitted by
+the NJ intelligent friendly jammers as in (3). The jamming
+beamformer w(k) of time slot k is selected from the action
+space W, i.e. w(k) = [w(k)1 ,...,w (k)NJ ]T∈ W with|w(k)|≼ 1.
+Reward: The reward to be optimized in the MDP is
+regarded as the utility function of the system. In order to ensure
+the receive quality of the legitimate user, the BER of Bob
+should be taken into consideration in the design of the utility
+function. After obtaining the feedback information from the
+environment, the BER of Bob ˆp(k)e and energy cost E(k) are
+obtained, and secrecy rate ˆc(k)s is estimated. Thus, the utility
+function u(k) is deﬁned as
+u(k) = ˆc(k)s −δ1ˆp(k)e −δ2E(k), (7)
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 
+PAGE 5
+where the coefﬁcients of δ1 and δ2 play the role of balancing
+the contribution of the BER, energy consumption and secrecy
+rate to the overall utility, which can provide an appropriate
+tradeoff among them. The second penalty term in the utility
+function is introduced to evaluate the energy consumed by the
+friendly jammers and the transmitter, which drives the agent
+to search for an optimal solution that considers both beneﬁts
+and costs. In the dynamic interaction with the time-varying
+channel, maximizing the utility given in (7) is regarded as an
+optimization objective by the RL-FJ scheme, i.e. ﬁnding an
+optimal jamming strategy that maximizes u(k), so not only
+the secrecy rate but also the receive quality of Bob and the
+energy consumption are considered thoroughly in the scheme,
+which leads to a better overall system performance.
+To deal with the dynamic MDP in the complex environment,
+RL-based algorithms such as Q-learning can be adopted thanks
+to the capability of learning sophisticated strategy out of
+dynamic environments. In this regard, the friendly jammers act
+as the smart RL agent that determines the optimal jamming
+beamformer according to the current state and Q-function to
+maximize the utility function. The Q-function therein denot-
+ed by Q(s, w) represents the expectation of the cumulative
+discount reward of the friendly jammers performing action
+w in the current state s. The actions taken by the friendly
+jammers will have an impact on the next state, thus further
+inﬂuencing the future actions and rewards. To facilitate the
+online iterative Q-learning processing, each element of the
+jamming beamformer is quantized to 2Lx + 1 equally spaced
+discrete values, i.e., w(k)i ∈{ lLx|l =−Lx,··· ,Lx,l ∈ N},where Lx can be chosen to realize a proper tradeoff between
+learning accuracy and computational complexity. To avoid
+being stuck in local optima and achieve a compromise between
+exploitation and exploration for the RL scheme, the jamming
+beamformer w(k) is selected based on the ε-greedy method as
+given by
+Pr
+(
+w(k) = ˜w) =
+
+
+
+1−ε, ˜w = arg max
+w′∈WQ
+(
+s(k), w′)
+ε
+|W|−1, o.w.
+(8)
+where ˜w is the jamming beamformer that the friendly jammers
+tend to choose in state s(k) with a large probability 1−ε,
+and ε is a very small value representing the low probability
+of new exploration in the action space. In this way, the
+friendly jammers would most likely exploit the Q-function
+to determine the action, while also possibly explore another
+random jamming beamformer with a small probability to
+effectively prevent falling into a local optimum.
+The pseudo-code of the proposed RL-FJ scheme is sum-
+marized in Algorithm 1 . Speciﬁcally, the friendly jammers
+observe the current state s(k) and employ the optimal jam-
+ming beamformer w(k) selected based on the ε-greedy policy
+deﬁned in (8). Then the reward u(k) determined by (7) is
+obtained, and the environment turns to the next state s(k+1).
+The Q-function is updated based on the iterative Bellman
+Algorithm 1 RL-based friendly jamming (RL-FJ) algorithm
+1: Initialize: λ, β, Q = 0 and V = 0
+2: fork = 1, 2,... do
+3: Obtain previous BER of Bob ˆp(k−1)e via feedback
+4: Estimate the secrecy rate at (k− 1)-th time slot ˆc(k−1)s
+5: Obtain the channel gain of legitimate user at k-th time
+slot h(k)AB
+6: Measure the energy consumption at (k−1)-th time slot
+E(k−1)
+7: Formulate the system state
+s(k) =[ˆp(k−1)e , ˆc(k−1)s ,h (k)AB,E (k−1)]
+8: Select the jamming beamformer w(k) based onε-greedy
+given in (8)
+9: Transmit friendly jamming signals using the selected
+action, i.e., the jamming beamformer, w(k)
+10: Obtain the BER at k-th time slot ˆp(k)e
+11: Calculate the secrecy rate at k-th time slot ˆc(k)s
+12: Measure the energy consumption at k-th time slot E(k)
+13: Determine the utility u(k) via (7)
+14: Update the Q-function via (9)
+15: end for
+equation as given by
+Q
+(
+s(k), w(k)
+)
+← (1−λ)Q
+(
+s(k), w(k)
+)
++λ
+(
+u(k) +β max
+w′∈WQ
+(
+s(k+1), w′
+))
+,
+(9)
+where λ∈ [0, 1] is the learning rate indicating the extent to
+which the new information overrides the previous information,
+and the discount factor β valued between zero and one reﬂects
+the contribution by the long-term rewards. To be more speciﬁc,
+the core idea of the Q-learning algorithm is an iterative update
+of the weighted average of the previous information and
+the new information of the reward: Q(s(k), w(k)) represents
+the previous Q-values; u(k) represents the immediate reward
+obtained in the transition from the current state to the next
+state; A value function V
+(
+s(k+1)) = max
+w′∈WQ
+(
+s(k+1), w′) is
+deﬁned to represent the maximum future reward that can be
+obtained based on all feasible actions in state s(k+1); Thus,
+the new information is a weighted average of the immediate
+reward and the discounted estimated long-term reward.
+IV. DRL-B ASED FRIENDLY JAMMING BEAMFORMING
+SCHEME AGAINST EAVESDROPPING
+In this section, a DRL-FJ beamforming scheme is further
+proposed, which employs deep CNNs to extract the complex
+environmental features and effectively represent the contin-
+uous state and action spaces, and resolve the problem of
+the dimensional curse therein. Accompanied with the DRL-
+FJ scheme, a memory module called differentiable neural
+dictionary (DND) is utilized to store the previous similar anti-
+eavesdropping experiences to be used in the future learning
+process, which further accelerates the convergence in non-
+stationary environments. Speciﬁcally, the friendly jammers
+select the jamming beamformer w ∈ W according to the
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 
+PAGE 6
+Algorithm 2 DRL-based friendly jamming (DRL-FJ) algorith-
+m
+1: Initialize: λ, β,θ, T , and M
+2: fork = 1, 2,... do
+3: Obtain previous BER of Bob ˆp(k−1)e via feedback
+4: Estimate the secrecy rate at (k− 1)-th time slot ˆc(k−1)s
+5: Obtain the channel gain of legitimate user at k-th time
+slot h(k)AB
+6: Measure the energy consumption at (k−1)-th time slot
+E(k−1)
+7: Formulate the system state
+s(k) = [ˆp(k−1)e , ˆc(k−1)s ,h (k)AB,E (k−1)]
+8: if k≤M then
+9: Select a jamming beamformer w(k) randomly
+10: else
+11: Assemble state-action sequence
+ϕ(k) ={s(k−M ), w(k−M ),··· , w(k−1), s(k)}
+12: Feedϕ(k) into the CNN as input
+13: Obtain CNN output and use it as look-up key ˆh in
+the DND Dw for each action w∈ W
+14: Generate weight ωj via (10)
+15: Estimate the corresponding Q-functionQ(s(k), w) for
+each action w via (12)
+16: Collect all estimated Q-values Q(s(k), w), w∈ W to
+update the overall Q-function
+17: Select jamming beamformer w(k) via (8)
+18: Append a new entry (ˆh,Q (s(k), w(k))) to the DND
+memory Dw(k) for selected action w(k)
+19: end if
+20: Perform friendly jamming using the selected action
+w(k)
+21: Obtain the BER at k-th time slot ˆp(k)e
+22: Calculate the secrecy rate at k-th time slot ˆc(k)s
+23: Measure the energy consumption at k-th time slot E(k)
+24: Determine the system utility u(k) via (7)
+25: Append jamming experience
+{
+ϕ(k), w(k),u (k),ϕ(k+1)}
+toB
+26: fort = 1, 2,...,T do
+27: Choose an experience e(t)∈B randomly
+28: end for
+29: Set up an experience mini-batch T =
+{
+e(t)}1≤t≤T
+30: Update the weights θ(k) of the CNN via (13)
+31: end for
+Q-function determined by the mapping entries stored in a
+DND memory corresponding to the action w, which is denoted
+as Dw = (Kw,Vw). Each mapping entry in the DND Dw
+contains a look-up key array Kw and a Q-value array Vw,
+in which the look-up keys ˆh ∈ R|W| for query and the
+corresponding estimated Q-values are stored, respectively. The
+look-up key ˆh used to query the estimated Q-value is obtained
+from the output of the preceding CNN, which can be regarded
+as extracted high-level features corresponding to current state
+s(k).
+The framework of the proposed DRL-FJ beamforming
+scheme is illustrated in Fig. 3, whose pseudo-code is sum-
+marized in Algorithm 2 . Speciﬁcally, the friendly jammers
+observe the current VLC system state s(k) as given in (6).
+A series of previous states and actions, along with the cur-
+rent state, are stacked to formulate a state-action sequence
+ϕ(k) ={s(k−M ), w(k−M ), s(k−M−1),
+w(k−M−1),··· , w(k−1), s(k)}, including the state-action pairs
+of the previousM time slots and the current VLC system state
+s(k). Using the state-action sequence, the temporal correlation
+between different system states can be strengthened and ex-
+ploited over the learning process. The state-action sequence
+ϕ(k) is reshaped into an m0×m0 matrix as the input to the
+CNN with two convolutional (Conv) layers followed by two
+fully connected (FC) layers. The l-th Conv layer has fl ﬁlters
+of size ml×ml and stride of sl, followed by a rectiﬁed linear
+unit (ReLU) with fl feature maps as the output for l = 1, 2.
+The feature maps in the second Conv layer are fed into the
+ﬁrst FC layer with n1 neurons. The second FC layer outputs
+a length-n2 vector ˆh, which is used as the look-up key in
+the subsequent DNDs. For the convenience of notations, the
+parameters of the CNNs are assembled as a hyper-parameter
+vector F = [f1,f 2,m 1,m 2,s 1,s 2,n 1,n 2].
+For each feasible action in the action space w ∈ W, a
+corresponding DND memory Dw = (Kw,Vw) is maintained
+for query purpose. Speciﬁcally, the friendly jammers use the
+look-up key ˆh, which is the output of the preceding CNN
+module, to query the corresponding estimated Q-values stored
+in the DND Dw for each action w. During the query in the
+DNDDw, a weight ωj for the j-th entry of the Q-value array
+Vw is generated as given by
+ωj = Ker(ˆh,hj)ζ∑
+p=1
+Ker(ˆh,hp)
+, (10)
+where 1 ≤ j ≤ ζ, ζ ≤ k means that the total number
+of mapping entries accumulated in the previous k time slots
+does not exceed k;hj is the j-th entry stored in the look-up
+key array Kw, and Ker(ˆh,hj) represents a Gaussian kernel
+function between the look-up keys of ˆh andhj, which returns
+the vector distance between the two keys as given by
+Ker(ˆh,hj) = exp
+(
+−12‖‖‖ˆh−hj‖‖‖22). (11)
+After performing the look-up operation on the DND Dw
+for a speciﬁc action w, an estimate of the corresponding Q-
+function Q(s(k), w) for the given action w at the current state
+s(k) is returned, which is given by
+Q(s(k), w) =
+ζ∑
+j=1
+ωjvj, (12)
+where vj is the estimated Q-value stored in the j-th entry of
+the Q-value array Vw. It is noted that the Q-function obtained
+in (12) is a weighted sum of the Q-values stored in the array
+Vw of the DND Dw, whose weights are determined by the
+normalization kernel between the look-up key ˆh to be queried
+and each look-up key hj in the array Kw.
+This estimation process is repeated for each action w∈ W,
+and in this way, the estimated Q-values for all the actions are
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 
+PAGE 7
+Training 
+Inference 
+Training 
+Inference 
+Minibatch 
+Calculate loss and update the CNN weights by SGD 
+Update /g84/g3(k)
+/g77(k) = ( s(k-M ), w(k-M ), Ăs(k- 1) , w(k-1) , s(k) ) 
+/g77(k)
+/g77(t/g14/g20 )
+w(t), u(t), /g77(t)
+Collect all 
+Q(s(k) , w), 
+wę W
+Experience pool 
+e(1)  = ( /g77(1) , w(1) , u(1) ,  /g77(2) )
+e(k- 1)  = ( /g77(k- 1) , w(k-1) , u(k-1) ,  /g77(k))
+Conv1 Conv2 
+FC1 FC2 
+··· 
+CNN 
+··· 
+Perform selected action 
+Obtain previous BER       , 
+Estimate the previous secrecy rate ĉs(k-1) ,
+Obtain the previous energy consumption 
+       , 
+Obtain current channel gain       of 
+legitimate user 
+Feedback information 
+from environment 
+Reshaped 
+input 
+VLC transmitter 
+(Alice)  and 
+friendly jammer 
+(Jammer) 
+Formulate the current state 
+Obtain current BER      , 
+Estimate the secrecy rate      , 
+Measure the energy consumption 
+Determine the utility         
+Select the jamming 
+beamformer w(k) via  
+ε-greedy method 
+...
+Q(s(k) , W)
+w1 Q1
+w2 Q2
+w|W| Q|W|
+...
+( ) ˆ kep ( 1) ˆ kep /g16
+( ) kE
+( -1) kE
+1 1 1 f m m /g117
+(9) 
+)
+AB 
+(kh
+22 2f m m /g117
+1n
+ˆh
+( ) ˆ ksc
+( ) ku
+ 
+Environment: 
+Feedback information 
+from environment 
+( ) ( 1) ( 1) ( ) ( 1) 
+AB ˆ ˆ [ , , ] ,k k k k k e s Ep c h /g16 /g16 /g16 /g32s
+2n
+DND Dw
+(10) (12) Q(s(k) , w)
+Kw Vw
+h1
+h2
+v1
+v2
+ω1
+ω2
+ωζ vζhζ
+ˆh ˆv
+wę W
+DND   Dw(k)
+Legitimate receiver (Bob)  and eavesdropper (Eve) 
+(    , Q(s(k) , w(k))) ˆh
+Fig. 3. DRL-based friendly jamming beamforming scheme for the friendly jammers to dynamically and rapidly determine the optimal jamming beamformer
+adaptively in spatiotemporally nonstationary complex environments.
+collected to update the overall Q-function, i.e.,Q(s(k), w), w∈
+W. Using the updated Q-function, the friendly jammers can
+determine the jamming beamformer w(k) for the current time
+slot based on the ε-greedy method, and then the selected
+friendly jamming beamforming action is performed.
+Afterwards, a new mapping entry (ˆh,Q (s(k), w(k))) is
+recorded and appended to the end of the DND memory Dw(k)
+for the selected action w(k), whereQ(s(k), w(k)) is the updated
+Q-value for w(k) in the updated Q-function. In the case where
+the look-up key ˆh already exists in the memory Dw(k), its
+corresponding Q-value is updated to Q(s(k), w(k)).
+After performing the friendly jamming action, the friendly
+jammers obtain the feedback information from the environ-
+ment. The BER ˆp(k)e is obtained, the energy consumption E(k)
+is measured, and the secrecy rate ˆc(k)s is estimated. Then the
+current utility u(k) is obtained, and the system turns to the
+next s(k+1).
+To memorize the jamming experiences for exploitation, the
+friendly jammers formulate the current jamming experience
+e(k) = {ϕ(k), w(k),u (k),ϕ(k+1)}, and save it in the expe-
+rience pool B =
+{
+e(k)}. A jamming experience consists of
+the current state-action sequence ϕ(k), the next state-action
+sequence ϕ(k+1), the jamming beamformer w(k), and the
+utilityu(k). Then, a technology named experience relay can be
+performed, in which a proportion of the experiences denoted as
+T are randomly selected from the experience poolB, to update
+the weights θ(k) of the CNN via stochastic gradient descent
+(SGD) [38]. Note that it is necessary to disrupt the order of
+the sampling sequence over time to improve the generalization
+of the model. Thus, the friendly jammers randomly select T
+jamming experiences fromB to formulate an experience mini-
+batch sequenceT =
+{
+e(t)}1≤t≤T , where e(t) represents thet-
+th selected jamming experience. Then, using the SGD method,
+the weights θ(k) of the CNN are updated by minimizing the
+loss function overT , i.e., the squared error between the output
+of the network and the target Q-value, as given by
+θ(k) = arg min
+θ
+ET
+[(
+u−Q
+(
+ϕ, w;θ(k)
+)
++
+β max
+w′
+Q
+(
+ϕ′, w′;θ(k−1)
+))2]
+,
+(13)
+where E is the expectation operator; the experience
+(ϕ, w,u,ϕ′) ∈ T; β is the discount factor deﬁned in (9);
+w′ is the next jamming beamformer selected by the friendly
+jammers;ϕ′ is the next state-action sequence in the jamming
+experience fromT .
+V. P ERFORMANCE EVALUATIONS
+The performance of the proposed friendly jamming beam-
+forming scheme for secure VLC is theoretically analyzed in
+terms of the overall VLC system utility and the receive quality
+of the legitimate user. The receive quality is evaluated via
+Bob’s BER. The theoretically optimal overall utility, which is
+concerned with secrecy rate, energy consumption, and BER,
+is derived. Apart from that, the computational complexity of
+the proposed RL-FJ and DRL-FJ schemes are evaluated.
+For simplicity, it is assumed that 4PAM is used as the
+modulation scheme, while the proposed approach works for
+other higher-order modulation schemes. Thus, the BER of the
+legitimate user is given by
+pe = 34 erfc
+
+
+√
+2PT (wThJB +hAB)(hAB + hTJBw)
+5σB2
+
+, (14)
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 
+PAGE 8
+where erfc(x) represents the complementary error function as
+shown below
+erfc(x) = 2√π∫ ∞x e−z2dz. (15)
+According to the literature [39], the energy consumption E is
+given by
+E =ϱs
+NJ∑
+i=1
+wi, (16)
+whereϱs denotes the unit jamming cost and wi, 1≤i≤NJ is
+the friendly jamming beamformer for theNJ friendly jammers.
+For a given current state and friendly jamming policy,
+the future state observed by the friendly jammers, which is
+composed of BER, secrecy rate, channel gain and energy
+consumption, is independent of the previous states. Thus,
+the decision process of the friendly jamming policy in the
+replicated interactions between the friendly jammers and the
+spatiotemporally nonstationary environment can be regarded
+as an MDP. The theoretical performance of the proposed
+friendly jamming beamforming algorithms is derived as given
+by the following corollary.
+Corollary 1. The proposed RL-FJ scheme as in Algorithm 1
+and DRL-FJ scheme as in Algorithm 2 will reach the optimal
+friendly jamming beamformer w∗ as given by
+w∗ = arg max
+w
+u, (17)
+where the optimal utility u∗ of the VLC system is achieved,
+which is given by
+u∗ =12 log(1 + 2h2ABα2I 2Dπeσ 2B )
+− min
+(
+log hAE⏐⏐hTJEw∗⏐⏐ +
+⏐⏐hTJEw∗⏐⏐
+hAE
+log√e, hAE⏐⏐hTJEw∗⏐⏐ log√e
+)
+− 34δ1 erfc
+(√
+2ηIeh2AB
+5σ2B
+)
+−δ2ϱs
+NJ∑
+i=1
+wi,
+(18)
+if the channel state information (CSI) of the legitimate user is
+known at the friendly jammers, and
+hTJBw = 0, |w|≼ 1; (19)
+In particular, if
+⏐⏐hTJEw⏐⏐
+hAE
+≤ 1, (20)
+holds, the closed-form expression of the achievable secrecy
+rate cs and the optimal utility u∗ can be further derived as
+cs = 12 log(1 + 2h2ABα2I 2Dπeσ 2B )− (log(log√e) + 1), (21)
+and
+u∗ =12 log(1 + 2h2ABα2I 2Dπeσ 2B )− (log(log√e) + 1)
+− 34δ1 erfc
+(√
+2ηIeh2AB
+5σ2B
+)
+−δ2ϱs
+NJ∑
+i=1
+wi.
+(22)
+Proof: See Appendix A.
+Remark I: If the channel state information of the legitimate
+user is known at the friendly jammers, the optimal jamming
+beamformer as given by w∗ = arg max
+w
+u that maximizes the
+system utility is selected, which takes the energy consumption
+of the transmitter and the friendly jammers, the system secrecy
+rate, and the receive quality of Bob into account and the best
+tradeoff between these factors is achieved. The constraint in
+(20) means that the jamming power imposed on the eavesdrop-
+per is no greater than the channel gain from the transmitter to
+the eavesdropper. In this case, according to (35) in the proof
+in Appendix A, the friendly jammers will keep optimizing
+the jamming power imposed on the eavesdropper and after
+sufﬁcient interactions with the environment, it will converge
+to
+hTJEw∗ = hAElog√e. (23)
+Next, consider the computational complexity of the pro-
+posed scheme. LetO (Γ1) andO (Γ2) denote the computation-
+al complexity of Algorithm 1 and Algorithm 2, respectively.
+The total number of steps to ﬁnally reach the optimal jamming
+beamformer largely determinesO (Γ1) [40]. For simplicity, the
+number of steps to reach the optimal jamming beamformer
+in an interaction between the friendly jammers and the spa-
+tiotemporally nonstationary environment is denoted as K, and
+the number of interactions is denoted as ZF. The complexity
+of the CNN module is the main source of O (Γ2). Let f0
+represent the number of input channels of the CNN, and let
+cl represent the spatial size of the output feature maps of the
+l-th Conv layer. The size of the feature maps that are output
+from the two convolutional layers is c1 = (m0−m1)/s1 + 1
+and c2 = (m0−m1)/(s1s2)− (m2− 1)/s2 + 1 [41], respec-
+tively. Then, the computational complexity of the proposed
+algorithms is derived in the following corollary.
+Corollary 2. The computational complexity of the proposed
+RL-FJ algorithm is given by
+O (Γ1) =O(KZ F), (24)
+if
+KZ F≥ poly{[|Λ|,|W|,K ]}, (25)
+where poly{v} function can ﬁnd the characteristic polynomial
+of equations or square matrices with the vector v as the
+solution; The computational complexity of the proposed DRL-
+FJ algorithm is given by
+O (Γ2) =O
+(
+f1m22f2
+(m0−m1
+s1s2
+− m2− 1s2 + 1)2),
+(26)
+if
+f0 = 1. (27)
+Proof: See Appendix B.
+Remark II: The computational complexity of the proposed
+RL-FJ algorithm increases with totally number of steps to
+ﬁnally reach the optimal jamming beamformer. In order to
+reduce the computational complexity, transfer learning tech-
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 
+PAGE 9
+-DPPHU 
+-DPPHU 
+-DPPHU 
+-DPPHU 
+(YH 
+ 
+%RE 
+ 
+ 
+&HLOLQJ 
+xP 
+zP 
+yP 
+$OLFH 
+ 
+ 
+ 
+9/&GRZQOLQN 
+ 
+ 
+ 
+Fig. 4. Experimental simulation scenario setup for evaluating the secure VLC
+system against eavesdropping, including four down-facing LED light ﬁxtures
+deployed on the top acting as the friendly jammers, an LED light ﬁxture as
+the transmitter (Alice), a legitimate user (Bob) and a wiretapper (Eve) both
+equipped with VLC receivers located in random positions.
+niques such as hot-booting can be utilized to obtain the initial
+Q-table for the RL-based algorithm, so that the overhead of
+initial random exploration can be greatly reduced. The size
+of the CNN input, along with the number, size, and stride of
+the ﬁlters in each Conv layer, determine the computational
+complexity of the proposed DRL-FJ algorithm. With the
+increase of the number of ﬁlters and the size of the CNN input,
+the learning capacity of the CNN module might improve, but
+a higher computational complexity is introduced. Thus, it is
+necessary to properly conﬁgure the CNN parameters to make
+a good tradeoff between the anti-eavesdropping capability and
+the computational complexity. In realistic applications, for
+user terminals with limited computing resource, the RL-FJ
+algorithm with lower computational complexity can be chosen
+to achieve moderate system performance; On the other hand,
+the DRL-FJ algorithm is a better choice for user terminals
+equipped with sufﬁcient computational resource if the task
+requires high-quality secrecy communication in complex and
+nonstationary environments.
+VI. S IMULATION RESULTS AND DISCUSSIONS
+Extensive simulation experiments are carried out to evaluate
+the performance and validate the effectiveness of the proposed
+RL-FJ and DRL-FJ beamforming schemes for secure indoor
+VLC. A diagram of the experimental simulation environment
+setup for the secure VLC system is illustrated in Fig. 4, and
+the main transmission parameters set according to [18] are
+listed in Table I. The size of the room is 5× 5× 3 m3 with
+ﬁve downward LED light ﬁxtures on the ceiling, each quipped
+with four LEDs. The transmitter (Alice) sending private VLC
+signals is a light ﬁxture located in the center of the ceiling,
+while the other four light ﬁxtures deployed around act as the
+intelligent friendly jammers. The speciﬁc locations of them in
+the indoor three-dimensional coordinate system are marked in
+Fig. 4.
+Some parameters related to the learning schemes are set as
+follows: The coefﬁcientsδ1 andδ2 in the utility function in (7)
+are set as 3.5 and 0.4, respectively; The learning rate λ and the
+discount factor β in the Q-function update in (9) are both set
+as 0.5; the size of the sliding window M for the state-action
+TABLE I
+PARAMETER CONFIGURATION FOR VLC T RANSMISSION
+Parameters Value
+LED average power 1 W
+Modulation index α 10%
+Half irradiation intensity semi-angle φ1/2 60◦
+FoVϕF of the receiver PD 60◦
+Optical concentrator refractive index n0 1.5
+Background noise power σ2B of Bob −98.79 dBm
+PD detector area AP 1 cm2
+PD responsivity R 0.54 A/W
+0
+5
+1
+4
+2Secrecy rate (bps/Hz)
+3
+3
+y (m)
+5
+4
+2 4
+5
+x (m)
+31 2
+10 0
+(a) Secrecy rate distribution with respect to the location of the
+eavesdropper Eve, while the location of the legitimate user Bob
+is ﬁxed at (1.8, 1.6, 0.85) m.
+5
+0
+1
+4
+2Secrecy rate (bps/Hz)
+3
+y (m)
+3
+52 4
+4
+x (m)
+31 2
+10 0
+(b) Secrecy rate distribution with respect to the location of the
+legitimate user Bob, while the wiretapper is located in (3.2, 3.4,
+0.85) m.
+Fig. 5. Spatial distribution of secrecy rate with respect to locations of the
+legitimate user and wiretapper.
+sequence ϕ(k) is set to 11; The size of the experience mini-
+batch T is set as 4; We determine the hyper-parameter vector
+of the CNN using random search, which involves randomly
+sampling combinations of hyper-parameters to ﬁnd the opti-
+mal hyper-parameter that strike a good balance between the
+secrecy performance and the computational complexity. Thus,
+the hyper-parameter vector of the CNN parameters is set as
+F = [20, 40, 3, 2, 1, 1, 180, 180]. As a benchmark, the state-
+of-the-art robust beamforming scheme [42] and simultaneous
+beamforming and jamming for VLC (SBJ-VLC) scheme [43]
+are evaluated in the same simulation setup for comparison.
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 
+PAGE 10
+We ﬁrst investigate the spatial distribution of the achievable
+secrecy rate by changing the geometric locations of Bob or
+Eve. As shown in Fig. 5(a) where Bob’s location is ﬁxed,
+as Eve moves closer towards Bob, the secrecy rate decreases
+rapidly and ﬁnally reaches the global minimum at the location
+of Bob, i.e., (1.8, 1.6, 0.85) m. In Fig. 5(b) where Eve’s
+location is ﬁxed, it is observed that the secrecy rate reaches
+the minimum value when Bob arrives at the location of Eve.
+The reason therein is that, when Eve and Bob are getting
+closer, it is difﬁcult for the friendly jammers to ﬁnd a jamming
+beamformer to separately impose different levels of jamming
+power on Eve and Bob. In fact, if the receive quality of Bob
+should be guaranteed, the jamming power imposed on the
+location of Bob (note that it is located close to Eve) should be
+sufﬁciently small, which makes it also easy for Eve to wiretap
+the private signal, thus resulting in signiﬁcant degradation in
+secrecy rate. On the other hand, when the distance between
+Bob and Eve reaches a certain level, it is much likely that the
+intelligent friendly jammers can gradually learn and converge
+to the optimal jamming beamformer that greatly diminishes
+the capability of Eve to infer the private information, so the
+secrecy rate can be maintained at a satisfactory level in a
+substantial portion of the room using the proposed scheme.
+The performance of secrecy rate, BER, and system utility
+of the proposed intelligent friendly jamming beamforming
+schemes over a series of time slots in the interactive learning
+process is shown in Fig. 6, and the benchmark schemes
+of robust beamforming [42] and SBJ-VLC [43] are also
+reported for comparison. The results demonstrate that, the
+proposed intelligent friendly jamming beamforming schemes
+can achieve a higher secrecy rate, higher utility and a lower
+BER over the interaction with the environment after a certain
+time slots. Speciﬁcally, as reported in Fig. 6(a), the proposed
+RL-FJ beamforming scheme improves the secrecy rate from
+3.64 to 5.14 with an increase of 41.2%, while the DRL-FJ
+beamforming scheme can further improve it to 5.68 at the
+1400-th time slot with an increase of 56.1%. As reported in
+Fig. 6(b), the RL-FJ beamforming scheme reduces the BER
+from 2.2× 10−2 to 3.2× 10−3 with a decrease of 85.5%,
+while the DRL-FJ beamforming scheme can reduce the BER to
+2.0×10−4 at the 1200-th time slot with a decreased of 99.1%.
+Meanwhile, as reported in Fig. 6(c), the RL-FJ beamforming
+scheme improves the utility from 2.68 to 4.48 with an increase
+of 67.2%, while the DRL-FJ beamforming scheme converges
+faster and improves the utility to 5.24 with an increase of
+95.5% in the middle of the process.
+We also note that the proposed intelligent friendly jamming
+beamforming schemes outperform the robust beamforming and
+the SBJ-VLC schemes in Fig. 6. Speciﬁcally, in Fig. 6(a), close
+to the end of the process, the RL-FJ beamforming scheme is
+45.4% and 10.9% higher than the robust beamforming and
+SBJ-VLC schemes in terms of secrecy rate, respectively. In
+addition, it is worth noting that the DRL-FJ beamforming
+scheme is approaching the theoretical bound of the secrecy
+rate, which is further improved by 9.8% compared with the
+RL-FJ beamforming scheme. This veriﬁes that the deep CNN
+module conceived in the DRL-FJ beamforming scheme can
+effectively represent the high-dimensional continuous state and
+0 200 400 600 800 1000 1200 1400 1600 1800 2000
+Time slot
+3
+3.5
+4
+4.5
+5
+5.5
+6
+Secrecy rate (bps/Hz)
+Theoretical Bound
+Proposed DRL-FJ
+Proposed RL-FJ
+DRL-VB
+SBJ-VLC
+Robust beamforming
+(a) Secrecy rate of the VLC system
+0 200 400 600 800 1000 1200 1400 1600 1800 2000
+Time slot
+10-4
+10-3
+10-2
+10-1
+BER
+Theoretical Bound
+Proposed DRL-FJ
+Proposed RL-FJ
+DRL-VB
+SBJ-VLC
+Robust beamforming
+(b) BER of the legitimate user Bob
+0 200 400 600 800 1000 1200 1400 1600 1800 2000
+Time slot
+2
+2.5
+3
+3.5
+4
+4.5
+5
+5.5Utility
+Theoretical Bound
+Proposed DRL-FJ
+Proposed RL-FJ
+DRL-VB
+SBJ-VLC
+Robust beamforming
+(c) Utility of the VLC system
+Fig. 6. Performance of proposed intelligent friendly jamming beamforming
+schemes for secure VLC system against eavesdropping over a series of time
+slots in the interactive learning process.
+action spaces, and the introduction of the DND memory can
+make full use of the experiences in previous similar anti-
+eavesdropping scenarios.
+As for the receive quality of Bob, as shown in Fig. 6(b),
+the proposed RL-FJ beamforming scheme at the 1400-th time
+slot is reduced by 84.1% and 58.9% compared with the
+robust beamforming and SBJ-VLC schemes in terms of BER,
+respectively. The BER of the proposed DRL-FJ beamforming
+scheme is further reduced by 93.2% compared to the proposed
+RL-FJ beamforming scheme, which is approaching the theo-
+retical bound after 1800 time slots. Considering the overall
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 
+PAGE 11
+4 6 8 10 12 14 16 18 20
+SNR (dB)
+1
+1.5
+2
+2.5
+3
+3.5
+4
+4.5Secrecy rate (bps/Hz)
+Proposed DRL-FJ
+Proposed RL-FJ
+SBJ-VLC
+Robust beamforming
+(a) Secrecy rate of the VLC system
+4 6 8 10 12 14 16 18 20
+SNR (dB)
+10-4
+10-3
+10-2
+10-1
+BER 
+Proposed DRL-FJ
+Proposed RL-FJ
+SBJ-VLC
+Robust beamforming
+(b) BER of the legitimate receiver Bob
+4 6 8 10 12 14 16 18 20
+SNR (dB)
+-0.5
+0
+0.5
+1
+1.5
+2
+2.5
+3
+3.5
+4
+Utility
+Proposed DRL-FJ
+Proposed RL-FJ
+SBJ-VLC
+Robust beamforming
+(c) Utility of the VLC system
+Fig. 7. Performance of proposed intelligent friendly jamming beamforming
+schemes with respect to SNR.
+performance reﬂected by system utility, as shown in Fig. 6(c),
+the utility of the RL-FJ beamforming scheme at the 1700-
+th slot is improved by 64.9% and 1.2% compared with the
+robust beamforming and SBJ-VLC schemes, respectively. The
+DRL-FJ beamforming scheme further improves the utility by
+16.7% over RL-FJ beamforming, and gradually approaches
+the theoretical bound. The simulation results veriﬁes that the
+proposed intelligent friendly jamming beamforming schemes,
+especially the DRL-FJ beamforming scheme, can approach the
+optimal solution through rapid interactive learning.
+It can also be seen from Fig. 6 that at 1800-th time slot,
+the secrecy rate and the system utility of the DRL-FJ scheme
+are higher by 7.0% and 17.1% respectively than that of the
+DRL-based MISO VLC beamforming (DRL-VB) scheme in
+[20]. Moreover, the BER of the DRL-FJ scheme is lower by
+96.3% compared to the DRL-VB scheme. This veriﬁes that the
+introduction of intelligent friendly jammers brings additional
+degrees of freedom in the strategy of the RL algorithm, which
+can ﬁnd an optimal solution that maximizes the transmitting
+power of Alice to Bob and meanwhile minimizes the signal-to-
+noise ratio (SNR) of the eavesdropper Eve, leading to a better
+performance of the receive quality of the legitimate user Bob,
+and higher secrecy rate of the VLC system in the presence of
+Eve, and further improves the performance of the system.
+Furthermore, the proposed method is evaluated in different
+values of SNR, which is reported in Fig. 7. According to
+the visible light channel propagation characteristics [7], the
+SNR level varies signiﬁcantly with the spatial location. A
+typical SNR range is between 4 dB and 20 dB, which is
+considered in the simulations. The performance shown in Fig.
+7 is calculated from the average of the ﬁrst 2000 time slots. It
+is demonstrated from Fig. 7(a) and Fig. 7(c) that, the secrecy
+rate and system utility of the RL-FJ and DRL-FJ beamforming
+schemes increase with the SNR. As the SNR increases from
+4 dB to 20 dB, the secrecy rate and the system utility of
+the DRL-FJ beamforming scheme are increased by 151% and
+213%, respectively. It can also be concluded from Fig. 7(b)
+that the BER decreases with the SNR. It is observed that at the
+target BER of 1.0× 10−3, the DRL-FJ beamforming scheme
+can achieve an SNR gain of approximately 6 dB over the
+RL-FJ beamforming scheme, and enjoys an even larger SNR
+gain over the robust beamforming scheme and the SBJ-VLC
+scheme.
+Moreover, it can be concluded from Fig. 7 that, at the
+SNR of 12 dB, the RL-FJ beamforming scheme improves the
+secrecy rate by 20.0% and 4.6%, and improves the system
+utility by 62.1% and 7.8%, compared with the robust beam-
+forming and SBJ-VLC schemes, respectively. This validates
+the anti-eavesdropping capability of the proposed RL-based
+framework of friendly jamming for secure VLC. Besides, the
+utility and secrecy rate of the DRL-FJ beamforming scheme
+are 24.7% and 10.0% higher than the RL-FJ beamforming
+scheme, respectively, which veriﬁes the effectiveness of the
+conceived DRL-based architecture.
+VII. C ONCLUSION
+With the emergence and rapid adoption of VLC technology,
+the problem of secure privacy-preserving yet highly energy-
+efﬁcient and high-rate transmission in complex and open vis-
+ible light channels remains to be resolved in a more effective
+approach. In light of this great challenge, an RL-based intel-
+ligent anti-eavesdropping framework has been formulated in
+this paper, which dynamically optimize the friendly jamming
+policy to achieve the optimal system utility in realistic spa-
+tiotemporally nonstationary environments. Meanwhile, a DRL-
+FJ beamforming scheme is devised to resolve the difﬁcult
+problem of the dimensional curse and effectively represent the
+continuous state and action spaces. A DND memory module
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 
+PAGE 12
+is introduced to store the previous experiences in similar
+anti-eavesdropping scenarios to accelerate the convergence of
+learning. The simulation results have veriﬁed the superiority
+of the conceived method in secrecy rate, bit error rate, and
+system utility compared with some of the existing benchmark
+schemes. It is promising for the proposed scheme to be applied
+in various indoor scenarios where an intelligent and adaptive
+solution of secure, efﬁcient, and high-rate transmission link
+should be established.
+APPENDIX A
+PROOF OF COROLLARY 1
+According to equations (4), (7), (14) and (16), if (19) holds,
+the system utility can be rewritten as
+u =12 log(1 + 2h2ABα2I 2Dπeσ 2B )
+− min
+(
+log hAE⏐⏐hTJEw⏐⏐ +
+⏐⏐hTJEw⏐⏐
+hAE
+log√e, hAE⏐⏐hTJEw⏐⏐ log√e
+)
+− 34δ1 erfc
+(√
+2ηIeh2AB
+5σ2B
+)
+−δ2ϱs
+NJ∑
+i=1
+wi.
+(28)
+Without loss of generality, the jamming power hTJEw im-
+posed on the eavesdropper is assumed to be non-negative. In
+fact, if hTJEw< 0, one can replace w with−w without chang-
+ing the system secrecy rate result or violating the amplitude
+constraints. For simplicity of notations, let H denote hTJEw.
+Then, we have
+∂u
+∂H =
+
+
+
+1
+H− log√ehAE HhAE≤ 1,
+hAE log√e
+H 2
+H
+hAE > 1.
+(29)
+SinceH≥ 0, thus∂u/∂H≥ 0, which suggests that the sys-
+tem utility increases monotonically withH. Hence, the optimal
+system utility can be achieved when the maximum jamming
+power is applied to Eve, and thus the optimal jamming
+beamformer is derived by w∗ = arg max
+w
+u = arg max
+w
+hTJEw,
+which leads to the optimal system utility as given by (18).
+Moreover, if (20) holds, we have
+cs = 12 log(1 + 2h2ABα2I 2Dπeσ 2B )−(loghAEH + HhAE log√e), (30)
+u∗ =12 log(1 + 2h2ABα2I 2Dπeσ 2B )−(loghAEH + HhAE log√e)
+− 34δ1 erfc
+(√
+2ηIeh2AB
+5σ2B
+)
+−δ2ϱs
+NJ∑
+i=1
+wi,
+(31)
+∂u
+∂H = 1H− log√ehAE , (32)
+and
+∂2u
+∂H 2 =− 1H 2 < 0. (33)
+From (32), we have
+∂u
+∂H
+⏐⏐⏐⏐
+H=H∗
+= 0, (34)
+where
+H∗ = hAE
+log√e. (35)
+Since|w|≼ 1, H will not be inﬁnite. Let Pmax represent
+the maximum value of H, i.e., 0≤H≤P max. Then, if (33)
+holds, we have
+u(H∗)≥u(H). (36)
+According to the literature [21] and [44], the RL-based
+algorithms on episodic MDP can converge to the strategy
+H∗ after a sufﬁciently long time. Thus, Algorithm 1 and
+Algorithm 2 can achieveH∗ in (35). By integrating (35) into
+(30) and (31), we have (21) and (22).
+APPENDIX B
+PROOF OF COROLLARY 2
+It takes KZF operations to ﬁnally reach the optimal jam-
+ming beamformer as stated in Algorithm 1 . Let |Λ| rep-
+resent the size of the state space, and |W| represent the
+size of the action space. If KZF ≥ poly{[|Λ|,|W|,K ]},
+where poly{[|Λ|,|W|,K ]} function can ﬁnd the characteristic
+polynomial of equations or square matrices with the vector
+[|Λ|,|W|,K ] as the solution, then the computational complex-
+ity of the RL-FJ algorithm is given by O (Γ1) = O(KZF)
+[40]. That is, if (25) holds, we have (24).
+The computational complexity O (Γ2) of the DRL-FJ
+scheme in Algorithm 2 is mainly contributed by the two Conv
+layers of the CNN, because the computational complexity of
+the quadratic operation in the two Conv layers is much larger
+than that of the linear operation in the two FC layers. Then,
+if (27) holds and according to [45], we have
+O (Γ2) =O
+( 2∑
+l=1
+fl−1m2lflc2l
+)
+=O
+(
+f0m21f1
+(m0−m1
+s1
++ 1
+)2
++f1m22f2
+(m0−m1
+s1s2
+− m2− 1s2 + 1)2)
+=O
+(
+m21f1
+(m0−m1
+s1
++ 1
+)2
++f1m22f2
+(m0−m1
+s1s2
+− m2− 1s2 + 1)2).
+(37)
+According to the CNN architecture in [38], we have
+m21f1
+(m0−m1
+s1
++ 1
+)2
+≪f1m22f2
+(m0−m1
+s1s2
+− m2−1s2 +1)2.(38)
+Thus, from (37) and (38), we have (26).
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 
+PAGE 13
+REFERENCES
+[1] P. Zhang, L. Li, K. Niu, Y . Li, G. Lu, and Z. Wang, “An intelligent
+wireless transmission toward 6G,” Intelligent and Converged Networks ,
+vol. 2, no. 3, pp. 244–257, Sep. 2021.
+[2] M. A. Arfaoui, M. D. Soltani, I. Tavakkolnia, A. Ghrayeb, M. Safari,
+C. M. Assi, and H. Haas, “Physical layer security for visible light
+communication systems: A survey,” IEEE Commun. Surveys Tuts. ,
+vol. 22, no. 3, pp. 1887–1908, 3rd Quart., 2020.
+[3] H. Haas, L. Yin, Y . Wang, and C. Chen, “What is LiFi?,” J. Lightw.
+Technol., vol. 34, no. 6, pp. 1533–1544, Mar. 2016.
+[4] L. Yin and H. Haas, “Physical-layer security in multiuser visible light
+communication networks,” IEEE J. Sel. Areas Commun. , vol. 36, no. 1,
+pp. 162–174, Jan. 2018.
+[5] J. Chen and T. Shu, “Statistical modeling and analysis on the conﬁden-
+tiality of indoor VLC systems,” IEEE Trans. Wireless Commun., vol. 19,
+no. 7, pp. 4744–4757, Jul. 2020.
+[6] F. Xing, S. He, V . C. M. Leung, and H. Yin, “Energy efﬁciency
+optimization for rate-splitting multiple access-based indoor visible light
+communication networks,” IEEE J. Sel. Areas Commun. , vol. 40, no. 5,
+pp. 1706–1720, May 2022.
+[7] P. H. Pathak, X. Feng, P. Hu, and P. Mohapatra, “Visible light commu-
+nication, networking, and sensing: A survey, potential and challenges,”
+IEEE Commun. Surveys Tuts., vol. 17, no. 4, pp. 2047–2077, 4th Quart.,
+2015.
+[8] X. Ma, F. Yang, S. Liu, and J. Song, “Channel estimation for wide-
+band underwater visible light communication: A compressive sensing
+perspective,” Opt. Express, vol. 26, no. 1, pp. 311–321, Aug. 2018.
+[9] A. Mostafa and L. Lampe, “Securing visible light communications via
+friendly jamming,” in Proc. IEEE Globecom Workshops (GC Wkshps) ,
+pp. 524–529, Austin, TX, USA, Dec. 2014.
+[10] Y . Xu, J.-M. Frahm, and F. Monrose, “Watching the watchers: Auto-
+matically inferring TV content from outdoor light effusions,” in Proc.
+ACM SIGSAC Conf. Comput. Commun. Secur. (CCS), pp. 418–428, New
+York, NY , USA, 2014.
+[11] A. G. Fragkiadakis, E. Z. Tragos, and I. G. Askoxylakis, “A survey on
+security threats and detection techniques in cognitive radio networks,”
+IEEE Commun. Surveys Tuts. , vol. 15, no. 1, pp. 428–445, 1st Quart.,
+2013.
+[12] A. Mukherjee, S. A. A. Fakoorian, J. Huang, and A. L. Swindlehurst,
+“Principles of physical layer security in multiuser wireless networks: A
+survey,” IEEE Commun. Surveys Tuts. , vol. 16, no. 3, pp. 1550–1573,
+3rd Quart., 2014.
+[13] H. V . Poor, “Information and inference in the wireless physical layer,”
+IEEE Wireless Commun., vol. 19, no. 1, pp. 40–47, Feb. 2012.
+[14] A. Chorti, S. M. Perlaza, Z. Han, and H. V . Poor, “On the resilience of
+wireless multiuser networks to passive and active eavesdroppers,” IEEE
+J. Sel. Areas Commun. , vol. 31, no. 9, pp. 1850–1863, Sep. 2013.
+[15] H. Zaid, Z. Rezki, A. Chaaban, and M. S. Alouini, “Improved achievable
+secrecy rate of visible light communication with cooperative jamming,”
+in Proc. IEEE Global Conf. Signal Inf. Process. (GlobalSIP) , pp. 1165–
+1169, Orlando, FL, USA, Dec. 2015.
+[16] A. Sikri, A. Mathur, M. Bhatnagar, G. Kaddoum, P. Saxena, and
+J. Nebhen, “Artiﬁcial noise injection-based secrecy improvement for
+FSO systems,” IEEE Photon. J. , vol. 13, no. 2, pp. 1–12, Apr. 2021.
+[17] F. Wang, C. Liu, Q. Wang, J. Zhang, R. Zhang, L.-L. Yang, and
+L. Hanzo, “Optical jamming enhances the secrecy performance of
+the generalized space-shift-keying-aided visible-light downlink,” IEEE
+Trans. Commun., vol. 66, no. 9, pp. 4087–4102, Sep. 2018.
+[18] A. Mostafa and L. Lampe, “Physical-layer security for MISO visible
+light communication channels,” IEEE J. Sel. Areas Commun. , vol. 33,
+no. 9, pp. 1806–1818, Sep. 2015.
+[19] H. Shen, Y . Deng, W. Xu, and C. Zhao, “Secrecy-oriented transmitter
+optimization for visible light communication systems,” IEEE Photon. J.,
+vol. 8, no. 5, pp. 1–14, Oct. 2016.
+[20] L. Xiao, G. Sheng, S. Liu, H. Dai, M. Peng, and J. Song, “Deep rein-
+forcement learning-enabled secure visible light communication against
+eavesdropping,” IEEE Trans. Commun., vol. 67, no. 10, pp. 6994–7005,
+Oct. 2019.
+[21] R. Sutton and A. Barto, Reinforcement Learning: An Introduction .
+Cambridge, MA, USA: MIT Press, 1998.
+[22] A. Uprety and D. B. Rawat, “Reinforcement learning for IoT security:
+A comprehensive survey,” IEEE Internet Things J. , vol. 8, no. 11,
+pp. 8693–8706, Jun. 2021.
+[23] G. Faraci, C. Grasso, and G. Schembra, “Design of a 5G network slice
+extension with MEC UA Vs managed with reinforcement learning,”IEEE
+J. Sel. Areas Commun. , vol. 38, no. 10, pp. 2356–2371, Oct. 2020.
+[24] S. Liu, C. Zheng, Y . Huang, and T. Q. S. Quek, “Distributed reinforce-
+ment learning for privacy-preserving dynamic edge caching,” IEEE J.
+Sel. Areas Commun. , vol. 40, no. 3, pp. 749–760, Mar. 2022.
+[25] N. Jiang, Y . Deng, A. Nallanathan, and J. A. Chambers, “Reinforcement
+learning for real-time optimization in NB-IoT networks,” IEEE J. Sel.
+Areas Commun., vol. 37, no. 6, pp. 1424–1440, Jun. 2019.
+[26] D. A. Saifaldeen, B. S. Ciftler, M. M. Abdallah, and K. A. Qaraqe,
+“DRL-based IRS-assisted secure visible light communications,” IEEE
+Photon. J., vol. 14, no. 6, pp. 1–9, Dec. 2022.
+[27] H. Yang, A. Alphones, W.-D. Zhong, C. Chen, and X. Xie, “Learning-
+based energy-efﬁcient resource management by heterogeneous RF/VLC
+for ultra-reliable low-latency industrial IoT networks,” IEEE Trans. Ind.
+Informat., vol. 16, no. 8, pp. 5565–5576, Aug. 2020.
+[28] B. S. Ciftler, A. Alwarafy, and M. Abdallah, “Distributed DRL-based
+downlink power allocation for hybrid RF/VLC networks,” IEEE Photon.
+J., vol. 14, no. 3, pp. 1–10, Jun. 2022.
+[29] M. R. Maleki, M. R. Mili, M. R. Javan, N. Mokari, and E. A. Jorswieck,
+“Multi-agent reinforcement learning trajectory design and two-stage
+resource management in CoMP UA V VLC networks,” IEEE Trans.
+Commun., vol. 70, no. 11, pp. 7464–7476, Nov. 2022.
+[30] A. A. hammadi, L. Bariah, S. Muhaidat, M. Al-Qutayri, P. C. Sofotasios,
+and M. Debbah, “Deep Q-learning-based resource allocation in NOMA
+visible light communications,” IEEE Open J. Commun. Soc. , vol. 3,
+pp. 2284–2297, Nov. 2022.
+[31] F. H. Panahi, F. H. Panahi, and T. Ohtsuki, “Intelligent cellular ofﬂoading
+with VLC-enabled unmanned aerial vehicles,” IEEE Internet Things J. ,
+vol. 10, no. 20, pp. 17718–17733, May 2023.
+[32] S. Amuru, C. Tekin, M. V . der Schaar, and R. M. Buehrer, “Jamming
+bandits—A novel learning method for optimal jamming,” IEEE Trans.
+Wireless Commun., vol. 15, no. 4, pp. 2792–2808, Apr. 2016.
+[33] A. Pritzel, B. Uria, S. Srinivasan, A. Puigdom `enech, O. Vinyals, D. Has-
+sabis, D. Wierstra, and C. Blundell, “Neural episodic control,” in Proc.
+34th Int. Conf. Mach. Learn. , vol. 70, pp. 2827–2836, Sydney, NSW,
+Australia, Aug. 2017.
+[34] X. Liu and S. Liu, “Jamming for secrecy: Reinforcement learning based
+anti-eavesdropping visible light communication,” in Proc. IEEE Int.
+Conf. Commun. (ICC), pp. 2053–2058, Seoul, Korea, Republic of, May
+2022.
+[35] F. Yang, Y . Sun, and J. Gao, “Adaptive LACO-OFDM with variable
+layer for visible light communication,” IEEE Photon. J. , vol. 9, no. 6,
+pp. 1–8, Dec. 2017.
+[36] L. Zeng, D. C. O’Brien, H. L. Minh, G. E. Faulkner, K. Lee, D. Jung,
+Y . Oh, and E. T. Won, “High data rate multiple input multiple output
+(MIMO) optical wireless communications using white LED lighting,”
+IEEE J. Sel. Areas Commun. , vol. 27, no. 9, pp. 1654–1662, Dec. 2009.
+[37] T. Komine and M. Nakagawa, “Fundamental analysis for visible-light
+communication system using LED lights,” IEEE Trans. Consum. Elec-
+tron., vol. 50, no. 1, pp. 100–107, Feb. 2004.
+[38] V . Mnih, K. Kavukcuoglu, D. Silver, A. A. Rusu, J. Veness, M. G.
+Bellemare, A. Graves, M. Riedmiller, A. K. Fidjeland, G. Ostrovski,
+S. Petersen, C. Beattie, A. Sadik, I. Antonoglou, H. King, D. Kumaran,
+D. Wierstra, S. Legg, and D. Hassabis, “Human-level control through
+deep reinforcement learning,” Nature, vol. 518, no. 7540, pp. 529–533,
+2015.
+[39] L. Xiao, H. Zhang, Y . Xiao, X. Wan, S. Liu, L.-C. Wang, and H. V .
+Poor, “Reinforcement learning-based downlink interference control for
+ultra-dense small cells,” IEEE Trans. Wireless Commun., vol. 19, no. 1,
+pp. 423–434, Jan. 2020.
+[40] C. Jin, Z. Allen-Zhu, S. Bubeck, and M. I. Jordan, “Is Q-learning
+provably efﬁcient?,” in Proc. Adv. Neural Inf. Process. Syst. (NeurIPS) ,
+pp. 4868–4878, Montr ´eal, QC, Canada, Dec. 2018.
+[41] C. C. T. Mendes, V . Fr ´emont, and D. F. Wolf, “Exploiting fully
+convolutional neural networks for fast road detection,” in Proc. IEEE
+Int. Conf. Robot. Autom. (ICRA) , pp. 3174–3179, Stockholm, Sweden,
+May 2016.
+[42] H. Ma, A. Mostafa, L. Lampe, and S. Hranilovic, “Coordinated beam-
+forming for downlink visible light communication networks,” IEEE
+Trans. Commun., vol. 66, no. 8, pp. 3571–3582, Aug. 2018.
+[43] S. Cho, G. Chen, and J. P. Coon, “Enhancement of physical layer
+security with simultaneous beamforming and jamming for visible light
+communication systems,” IEEE Trans. Inf. Forensics Security , vol. 14,
+no. 10, pp. 2633–2648, Oct. 2019.
+[44] T. Jaakkola, M. I. Jordan, and S. P. Singh, “On the convergence of
+stochastic iterative dynamic programming algorithms,” Neural Comput.,
+vol. 6, no. 6, pp. 1185–1201, Nov. 1994.
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 
+PAGE 14
+[45] K. He and J. Sun, “Convolutional neural networks at constrained time
+cost,” in Proc. IEEE Conf. Comput. Vis. Pattern Reconit. (CVPR) ,
+pp. 5353–5360, Boston, MA, USA, Jun. 2015.
+Sicong Liu (Senior Member, IEEE) is an Associate
+Professor in the Department of Information and
+Communication Engineering, School of Informatic-
+s, Xiamen University, China. Dr. Liu received his
+B.S.E. and the PhD degree both in electronic engi-
+neering from Tsinghua University, Beijing, China in
+2012 and 2017 with the highest honor. He was with
+the Department of Electronics and Communications
+Engineering, City University of Hong Kong, as a
+visiting scholar from 2010 to 2011. His current re-
+search interests are compressed sensing, AI-assisted
+communications, integrated sensing and communications, and visible light
+communications. He is on the editorial board of several academic journals. He
+has served as the TPC chair of several IEEE/ACM international conferences.
+He is a Senior Member of IEEE and the China Institute of Communications.
+Xianbin Liu received the B.S. degree in electronic
+information engineering from Fujian Normal Uni-
+versity, Fuzhou, China in 2021. He is currently
+pursuing the M.S. degree with the Department of In-
+formation and Communication Engineering, Xiamen
+University, Xiamen, China. His research interests
+include visible light communications and reinforce-
+ment learning.
+Xiaojiang (James) Du (Fellow, IEEE) is the Anson
+Wood Burchard Endowed-Chair Professor in the De-
+partment of Electrical and Computer Engineering at
+Stevens Institute of Technology. He was a professor
+at Temple University between August 2009 and Au-
+gust 2021. Dr. Du received his B.S. from Tsinghua
+University, Beijing, China in 1996. He received his
+M.S. and Ph.D. degree in Electrical Engineering
+from the University of Maryland, College Park in
+2002 and 2003, respectively. His research interests
+are security, wireless networks, and systems. He has
+authored over 500 journal and conference papers in these areas, including
+the top security conferences IEEE S&P, USENIX Security, and NDSS. Dr.
+Du has been awarded more than 8 million US Dollars research grants from
+the US National Science Foundation (NSF), Army Research Ofﬁce, Air Force
+Research Lab, the State of Pennsylvania, and Amazon. He won the best paper
+award at IEEE ICC 2020, IEEE GLOBECOM 2014 and the best poster runner-
+up award at the ACM MobiHoc 2014. He serves on the editorial boards
+of three IEEE journals. Dr. Du is an IEEE Fellow, an ACM Distinguished
+Member, and an ACM Life Member.
+Mohsen Guizani (Fellow, IEEE) received the BS
+(with distinction), MS and PhD degrees in Electrical
+and Computer engineering from Syracuse Univer-
+sity, Syracuse, NY , USA in 1985, 1987 and 1990,
+respectively. He is currently a Professor of Machine
+Learning at the Mohamed Bin Zayed University of
+Artiﬁcial Intelligence (MBZUAI), Abu Dhabi, UAE.
+Previously, he worked in different institutions in the
+USA. His research interests include applied machine
+learning and artiﬁcial intelligence, smart city, Inter-
+net of Things (IoT), intelligent autonomous systems,
+and cybersecurity. He became an IEEE Fellow in 2009 and was listed as a
+Clarivate Analytics Highly Cited Researcher in Computer Science in 2019,
+2020, 2021 and 2022 . Dr. Guizani has won several research awards including
+the ”2015 IEEE Communications Society Best Survey Paper Award”, the Best
+ComSoc Journal Paper Award in 2021 as well 5 Best Paper Awards from ICC
+and Globecom Conferences. He is the author of 11 books, more than 1000
+publications and several US patents. He is also the recipient of the 2017 IEEE
+Communications Society Wireless Technical Committee (WTC) Recognition
+Award, the 2018 AdHoc Technical Committee Recognition Award, and the
+2019 IEEE Communications and Information Security Technical Recognition
+(CISTC) Award. He served as the Editor-in-Chief of IEEE Network and is
+currently serving on the Editorial Boards of many IEEE Transactions and
+Magazines. He was the Chair of the IEEE Communications Society Wireless
+Technical Committee and the Chair of the TAOS Technical Committee. He
+served as the IEEE Computer Society Distinguished Speaker and is currently
+the IEEE ComSoc Distinguished Lecturer.
+This article has been accepted for publication in IEEE Transactions on Wireless Communications. This is the author's version which has not been fully edited and 
+content may change prior to final publication. Citation information: DOI 10.1109/TWC.2024.3458046
+© 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Xiamen University. Downloaded on September 19,2024 at 09:07:06 UTC from IEEE Xplore.  Restrictions apply. 

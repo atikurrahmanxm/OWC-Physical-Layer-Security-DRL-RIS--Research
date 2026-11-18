@@ -1,0 +1,175 @@
+{
+  "date": "2026-11-18",
+  "source_script_sha256": "2d70f1fd1fa59678512738a12f57a809e2873bc6beae3fb9f6a04923f59549cd",
+  "geometries_fixed_before_results": {
+    "nominal": {
+      "bob": [
+        1.8,
+        1.6,
+        0.85
+      ],
+      "eve": [
+        3.2,
+        3.4,
+        0.85
+      ]
+    },
+    "changed_positions": {
+      "bob": [
+        2.0,
+        3.0,
+        0.85
+      ],
+      "eve": [
+        3.5,
+        1.5,
+        0.85
+      ]
+    },
+    "swapped_receivers": {
+      "bob": [
+        3.2,
+        3.4,
+        0.85
+      ],
+      "eve": [
+        1.8,
+        1.6,
+        0.85
+      ]
+    },
+    "near_eve": {
+      "bob": [
+        1.8,
+        1.6,
+        0.85
+      ],
+      "eve": [
+        1.9,
+        1.7,
+        0.85
+      ]
+    },
+    "colocated": {
+      "bob": [
+        1.8,
+        1.6,
+        0.85
+      ],
+      "eve": [
+        1.8,
+        1.6,
+        0.85
+      ]
+    }
+  },
+  "noise_offsets_db": [
+    -3,
+    0,
+    3
+  ],
+  "original_study": "90 nominal matched-v2 runs; supplemental analyses do not alter original records",
+  "replay_slots": 1000,
+  "transfer_slots": 200,
+  "effective_current_config": {
+    "model": "paper",
+    "receiver_resistance_ohm": 1.0,
+    "jammer_resistance_ohm": 1.0,
+    "slot_duration_s": 1.0,
+    "symbol_rate_per_hz": 1.0,
+    "eve_noise_ratio": 1.0,
+    "room_size": [
+      5.0,
+      5.0,
+      3.0
+    ],
+    "alice_pos": [
+      2.5,
+      2.5,
+      3.0
+    ],
+    "jammer_positions": [
+      [
+        1.5,
+        1.5,
+        3.0
+      ],
+      [
+        1.5,
+        3.5,
+        3.0
+      ],
+      [
+        3.5,
+        1.5,
+        3.0
+      ],
+      [
+        3.5,
+        3.5,
+        3.0
+      ]
+    ],
+    "bob_pos": [
+      1.8,
+      1.6,
+      0.85
+    ],
+    "eve_pos": [
+      3.2,
+      3.4,
+      0.85
+    ],
+    "num_leds_per_fixture": 4,
+    "led_avg_power": 1.0,
+    "modulation_index": 0.1,
+    "phi_half_deg": 60.0,
+    "fov_deg": 60.0,
+    "n0": 1.5,
+    "noise_power_dbm": -98.79,
+    "detector_area": 0.0001,
+    "pd_responsivity": 0.54,
+    "eta": 1.0,
+    "id_bias": 1.0,
+    "delta1": 3.5,
+    "delta2": 0.4,
+    "unit_jamming_cost": 1.0,
+    "energy_model": "l1",
+    "snr_definition": "eq4",
+    "seed": 42,
+    "cnn_learning_rate": 0.01,
+    "dnd_match_threshold": 0.0,
+    "learning_rate": 0.5,
+    "discount_factor": 0.5,
+    "sliding_window_m": 11,
+    "minibatch_size": 4,
+    "cnn_f1": 20,
+    "cnn_f2": 40,
+    "cnn_m1": 3,
+    "cnn_m2": 2,
+    "cnn_s1": 1,
+    "cnn_s2": 1,
+    "cnn_n1": 180,
+    "cnn_n2": 180,
+    "cnn_m0": 11,
+    "action_lx": 2,
+    "epsilon_start": 0.15,
+    "epsilon_min": 0.02,
+    "epsilon_decay": 0.998
+  },
+  "ris_config": {
+    "enabled": true,
+    "panel_center": [
+      2.5,
+      0.25,
+      2.6
+    ],
+    "panel_width_m": 1.0,
+    "panel_height_m": 0.5,
+    "rows": 2,
+    "cols": 3,
+    "reflectivity": 0.85,
+    "max_tilt_deg": 85.0
+  },
+  "provenance_limit": "These current settings reconstruct recorded checks; they do not recover the full historical uncommitted working tree."
+}
